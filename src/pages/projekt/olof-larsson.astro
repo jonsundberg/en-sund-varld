@@ -1,0 +1,566 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InterestForm from '../../components/InterestForm.astro';
+---
+
+<BaseLayout
+  title="Initiativ: Olof Larssons Gård"
+  description="En gammal gård med djupa rötter – och en man som förtjänar att se den blomstra igen. Läs om föreningens initiativ att förvärva och återställa Olof Larssons barndomsgård."
+>
+
+  <article class="projekt-page">
+
+    <!-- ── Hero med bild ────────────────────────────── -->
+    <header class="projekt-header">
+      <div class="projekt-hero-img">
+        <img
+          src="/images/olof-ladan.jpeg"
+          alt="Olof framför den gamla tegelladan på sin barndomsgård"
+        />
+        <div class="projekt-hero-overlay" aria-hidden="true"></div>
+      </div>
+      <div class="container projekt-hero-content">
+        <p class="breadcrumb">
+          <a href="/">Hem</a> /
+          <a href="/">Projekt</a> /
+          Olof Larssons Gård
+        </p>
+        <p class="projekt-label">Pågående initiativ</p>
+        <h1>Olof Larssons Gård</h1>
+        <p class="projekt-ingress">
+          En gammal gård med djupa rötter – och en man som förtjänar att se
+          den blomstra igen.
+        </p>
+      </div>
+    </header>
+
+    <!-- ── Bakgrund: Olof ───────────────────────────── -->
+    <section class="content-section" aria-labelledby="olof-heading">
+      <div class="container">
+        <div class="prose-grid">
+          <div class="prose-main">
+            <h2 id="olof-heading">Olof och hans gård</h2>
+            <p>
+              Olof har levt på sin barndomsgård i mer än tjugo år. Utan
+              rinnande vatten, utan centralvärme. Regnvatten från taket, ved i
+              spisen och ett utedass som vittnar om ett liv i nära kontakt med
+              det enkla och det nödvändiga.
+            </p>
+            <p>
+              Gården är inte bara en fastighet – den är hans historia, hans
+              rotfäste, det enda han har kvar av det som en gång var. I
+              byggnaderna finns spår av generationer: tegelväggar som stått i
+              hundra år, en gammal jordkällare halvt igenvuxen av skogen,
+              en röd stuga med ett tak som nu börjar svikta under tidens tyngd.
+            </p>
+            <p>
+              Olof är inte längre ung. Och gården börjar behöva mer omsorg
+              än vad en person kan bära ensam.
+            </p>
+          </div>
+          <aside class="prose-aside">
+            <div class="fact-box">
+              <h3>Om platsen</h3>
+              <ul>
+                <li><strong>20+ år</strong> off-grid boende</li>
+                <li><strong>Regnvatten</strong> och vedeldning</li>
+                <li><strong>Historiska byggnader</strong> – tegel, timmer, naturmaterial</li>
+                <li><strong>Skog och mark</strong> med potential för regenerativ förvaltning</li>
+              </ul>
+            </div>
+            <figure class="aside-img">
+              <img
+                src="/images/bord-horn-stenar.jpeg"
+                alt="Naturföremål från gården – horn, stenar och gamla ting på ett bord"
+                loading="lazy"
+              />
+            </figure>
+          </aside>
+        </div>
+
+        <!-- Bred bild av ladan -->
+        <figure class="full-bleed-img">
+          <img
+            src="/images/lada-sommar.jpeg"
+            alt="Tegelladan omgiven av frodig sommargröska – hjärtat i gården"
+            loading="lazy"
+          />
+          <figcaption>Tegelladan – en av gårdens viktigaste byggnader, i sommarljuset.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ── Vad vi vill göra ─────────────────────────── -->
+    <section class="content-section content-section--tinted" aria-labelledby="vision-heading">
+      <div class="container">
+        <div class="prose-grid">
+          <div class="prose-main">
+            <h2 id="vision-heading">Vad vi vill göra – och vad vi inte vill göra</h2>
+            <p>
+              En sund värld Ekonomisk Förening vill förvärva gården för att
+              trygga Olofs framtid och förvalta platsen med den vördnad den
+              förtjänar.
+            </p>
+            <p>
+              Det handlar <em>inte</em> om att exploatera marken, uppföra
+              lyxvillor eller maximera ekonomisk avkastning. Det handlar om
+              att bevara det som finns, återställa det som behöver lagas och
+              låta platsen fortsätta vara vad den alltid har varit: en levande
+              gård i harmoni med sin omgivning.
+            </p>
+            <h3>Konkret innebär det:</h3>
+            <ul class="vision-list">
+              <li>
+                <span aria-hidden="true">🏠</span>
+                <div>
+                  <strong>Tryggt boende för Olof</strong>
+                  <p>Olof bor kvar med fullständig nyttjanderätt för resten av sitt liv.</p>
+                </div>
+              </li>
+              <li>
+                <span aria-hidden="true">🔨</span>
+                <div>
+                  <strong>Varsam upprustning</strong>
+                  <p>Tak, vatten och grundläggande bekvämligheter återställs med respekt för byggnadernas karaktär och naturmaterial.</p>
+                </div>
+              </li>
+              <li>
+                <span aria-hidden="true">🌿</span>
+                <div>
+                  <strong>Ekologisk förvaltning</strong>
+                  <p>Marken sköts enligt permakulturella principer – biologisk mångfald och regenerativt jordbruk.</p>
+                </div>
+              </li>
+              <li>
+                <span aria-hidden="true">🏛️</span>
+                <div>
+                  <strong>Bevarande av kulturmiljö</strong>
+                  <p>Ladorna, jordkällaren och de gamla byggnaderna bevaras och restaureras som en del av platsens historia.</p>
+                </div>
+              </li>
+              <li>
+                <span aria-hidden="true">🤝</span>
+                <div>
+                  <strong>Öppet för gemensamt arbete</strong>
+                  <p>Medlemmar välkomnas att bidra med arbetsinsatser och kunskap – på platsens och Olofs villkor.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <aside class="prose-aside">
+            <figure class="aside-img aside-img--tall">
+              <img
+                src="/images/rodstuga-stege.jpeg"
+                alt="En av gårdens röda stugor med stege lutad mot väggen – väntar på renovering"
+                loading="lazy"
+              />
+              <figcaption>En av byggnaderna som behöver varsam upprustning.</figcaption>
+            </figure>
+            <div class="quote-box">
+              <figure class="quote-img">
+                <img
+                  src="/images/eldstad-groning.jpeg"
+                  alt="Stensatt eldstad omgiven av grönt gräs"
+                  loading="lazy"
+                />
+              </figure>
+              <blockquote>
+                "Det är inte vår gård att forma – det är en plats vi har
+                förtroendet att vårda."
+              </blockquote>
+              <p class="quote-attribution">– En sund värld Ekonomisk Förening</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Bildremsa ────────────────────────────────── -->
+    <div class="img-strip" aria-label="Bilder från gården" role="region">
+      <figure>
+        <img
+          src="/images/jordkallare-skog.jpeg"
+          alt="Gammal jordkällare halvt igenvuxen av skog och buskar"
+          loading="lazy"
+        />
+      </figure>
+      <figure>
+        <img
+          src="/images/solstrale-ved.jpeg"
+          alt="Solstråle som bryter igenom trädkronorna vid en timmervägg"
+          loading="lazy"
+        />
+      </figure>
+      <figure>
+        <img
+          src="/images/sko-vegg.jpeg"
+          alt="En gammal barnsko på en mossbevuxen tröskel vid röd trävägg"
+          loading="lazy"
+        />
+      </figure>
+    </div>
+
+    <!-- ── Hur du kan bidra ─────────────────────────── -->
+    <section class="content-section" aria-labelledby="bidra-heading">
+      <div class="container">
+        <h2 id="bidra-heading">Hur du kan engagera dig</h2>
+        <p class="section-lead">
+          Det finns många sätt att vara med – oavsett om du har tid,
+          pengar, kunskap eller händer att ta i.
+        </p>
+        <div class="bidra-grid">
+          <div class="bidra-item">
+            <span class="bidra-icon" aria-hidden="true">🪚</span>
+            <h3>Praktiskt arbete</h3>
+            <p>Hjälp med renovering, röjning, snickeri, murning eller trädgårdsarbete på gården.</p>
+          </div>
+          <div class="bidra-item">
+            <span class="bidra-icon" aria-hidden="true">🌱</span>
+            <h3>Kunskap & kompetens</h3>
+            <p>Delar du kunskap om naturbyggande, permakultur, el, VVS eller ekologisk odling? Det behövs.</p>
+          </div>
+          <div class="bidra-item">
+            <span class="bidra-icon" aria-hidden="true">💚</span>
+            <h3>Bli medlem</h3>
+            <p>Gå med i En sund värld som insatsbetalande medlem och bidra till föreningens gemensamma kapital.</p>
+          </div>
+          <div class="bidra-item">
+            <span class="bidra-icon" aria-hidden="true">📣</span>
+            <h3>Sprid ordet</h3>
+            <p>Känner du någon som delar dessa värderingar? Berätta om initiativet och bjud in dem.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Status ───────────────────────────────────── -->
+    <section class="content-section content-section--tinted" aria-labelledby="status-heading">
+      <div class="container status-layout">
+        <div>
+          <h2 id="status-heading">Nuläge</h2>
+          <div class="status-timeline">
+            <div class="status-item status-item--done">
+              <div class="status-dot" aria-hidden="true"></div>
+              <div>
+                <strong>Initiativ startat</strong>
+                <p>Föreningen har identifierat platsen och tagit kontakt med Olof.</p>
+              </div>
+            </div>
+            <div class="status-item status-item--active">
+              <div class="status-dot" aria-hidden="true"></div>
+              <div>
+                <strong>Söker medlemmar &amp; kapital</strong>
+                <p>Vi bygger nu upp föreningen och samlar ihop det kapital som krävs för förvärv och upprustning.</p>
+              </div>
+            </div>
+            <div class="status-item">
+              <div class="status-dot" aria-hidden="true"></div>
+              <div>
+                <strong>Förvärv av gården</strong>
+                <p>När kapitalet är på plats påbörjas formellt förvärv av fastigheten.</p>
+              </div>
+            </div>
+            <div class="status-item">
+              <div class="status-dot" aria-hidden="true"></div>
+              <div>
+                <strong>Upprustning &amp; förvaltning</strong>
+                <p>Varsam renovering startar – tillsammans med Olof och föreningens medlemmar.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figure class="status-img">
+          <img
+            src="/images/olof-eld-natt.jpeg"
+            alt="Olof sitter vid elden en mörk kväll – en stilla stund på gården"
+            loading="lazy"
+          />
+        </figure>
+      </div>
+    </section>
+
+  </article>
+
+  <InterestForm />
+
+</BaseLayout>
+
+<style>
+  /* ── Hero med bild ──────────────────────────────────── */
+  .projekt-header {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #fff;
+  }
+  .projekt-hero-img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .projekt-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+  .projekt-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(20, 30, 28, 0.25) 0%,
+      rgba(20, 30, 28, 0.65) 60%,
+      rgba(20, 30, 28, 0.88) 100%
+    );
+  }
+  .projekt-hero-content {
+    position: relative;
+    z-index: 1;
+    padding-block: var(--space-2xl);
+  }
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.6);
+    margin-bottom: var(--space-md);
+  }
+  .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: underline; }
+  .breadcrumb a:hover { color: #fff; }
+  .projekt-label {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-mid);
+    margin-bottom: var(--space-xs);
+  }
+  .projekt-header h1 {
+    font-size: clamp(2rem, 5vw, var(--text-5xl));
+    color: #fff;
+    margin-bottom: var(--space-sm);
+    letter-spacing: -0.02em;
+  }
+  .projekt-ingress {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-xl);
+    color: rgba(255,255,255,0.85);
+    max-width: 52ch;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ── Content sections ──────────────────────────────── */
+  .content-section { padding-block: var(--space-2xl); }
+  .content-section--tinted { background: var(--bg-secondary); }
+
+  /* ── Prose grid ────────────────────────────────────── */
+  .prose-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+  .prose-main h2 { font-size: var(--text-3xl); margin-bottom: var(--space-md); letter-spacing: -0.02em; }
+  .prose-main h3 { font-size: var(--text-xl); margin-top: var(--space-lg); margin-bottom: var(--space-sm); }
+  .prose-main p {
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-sm);
+    max-width: 65ch;
+  }
+  .prose-main em { color: var(--text); font-style: italic; }
+
+  /* ── Faktaruta ─────────────────────────────────────── */
+  .fact-box {
+    background: var(--accent-light);
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+  .fact-box h3 { font-size: var(--text-lg); color: var(--accent-hover); margin-bottom: var(--space-sm); }
+  .fact-box ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+  .fact-box li { font-size: var(--text-base); color: var(--text); padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+  .fact-box li:last-child { border-bottom: none; padding-bottom: 0; }
+
+  /* ── Aside bilder ──────────────────────────────────── */
+  .aside-img {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .aside-img img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+  .aside-img--tall img { height: 280px; }
+  .aside-img figcaption { display: none; }
+
+  /* ── Bred bild ─────────────────────────────────────── */
+  .full-bleed-img {
+    margin: var(--space-xl) 0 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .full-bleed-img img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    object-position: center 40%;
+  }
+  .full-bleed-img figcaption {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    font-style: italic;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+
+  /* ── Citat-box med bild ────────────────────────────── */
+  .quote-box {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    margin-top: var(--space-md);
+    border: 1px solid var(--border);
+  }
+  .quote-img {
+    margin: 0;
+    height: 160px;
+    overflow: hidden;
+  }
+  .quote-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .quote-box blockquote {
+    margin: 0;
+    padding: var(--space-md) var(--space-md) var(--space-xs);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-lg);
+    color: var(--text);
+    line-height: 1.5;
+    border-left: 3px solid var(--earth);
+  }
+  .quote-attribution { font-size: var(--text-sm); color: var(--text-muted); margin: 0; padding: 0 var(--space-md) var(--space-md); }
+
+  /* ── Vision list ───────────────────────────────────── */
+  .vision-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-md) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .vision-list li { display: flex; gap: var(--space-sm); align-items: flex-start; }
+  .vision-list li > span { font-size: 1.4rem; flex-shrink: 0; line-height: 1.4; }
+  .vision-list strong { display: block; font-size: var(--text-base); margin-bottom: 0.2rem; }
+  .vision-list p { font-size: var(--text-base) !important; margin: 0; }
+
+  /* ── Bildremsa ─────────────────────────────────────── */
+  .img-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 280px;
+  }
+  .img-strip figure {
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .img-strip figure::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(20,30,28,0.15);
+    transition: background var(--transition);
+  }
+  .img-strip figure:hover::after { background: rgba(20,30,28,0); }
+  .img-strip img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .img-strip figure:hover img { transform: scale(1.04); }
+
+  /* ── Bidra grid ────────────────────────────────────── */
+  .section-lead { font-size: var(--text-lg); color: var(--text-muted); max-width: 60ch; margin-bottom: var(--space-xl); }
+  .bidra-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); }
+  .bidra-item {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+  .bidra-icon { font-size: 2rem; display: block; margin-bottom: var(--space-sm); }
+  .bidra-item h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); letter-spacing: -0.01em; }
+  .bidra-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+
+  /* ── Status ────────────────────────────────────────── */
+  .status-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+  .status-layout h2 { font-size: var(--text-3xl); margin-bottom: var(--space-xl); letter-spacing: -0.02em; }
+  .status-timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .status-timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: var(--border);
+  }
+  .status-item { display: flex; gap: var(--space-md); align-items: flex-start; padding-bottom: var(--space-lg); position: relative; }
+  .status-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--bg-white); border: 2px solid var(--border); flex-shrink: 0; margin-top: 3px; position: relative; z-index: 1; }
+  .status-item--done .status-dot { background: var(--accent); border-color: var(--accent); }
+  .status-item--active .status-dot { background: var(--coral-light); border-color: var(--coral); box-shadow: 0 0 0 4px rgba(212, 96, 58, 0.15); }
+  .status-item strong { display: block; font-size: var(--text-lg); margin-bottom: 0.2rem; }
+  .status-item p { margin: 0; color: var(--text-muted); font-size: var(--text-base); }
+  .status-item--active strong { color: var(--coral); }
+
+  .status-img {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .status-img img { width: 100%; height: 380px; object-fit: cover; object-position: center; }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .prose-grid { grid-template-columns: 1fr; }
+    .prose-aside { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+    .bidra-grid { grid-template-columns: 1fr 1fr; }
+    .status-layout { grid-template-columns: 1fr; }
+    .status-img { order: -1; }
+    .status-img img { height: 240px; }
+    .img-strip { height: 220px; }
+  }
+  @media (max-width: 600px) {
+    .projekt-header { min-height: 70svh; }
+    .prose-aside { grid-template-columns: 1fr; }
+    .bidra-grid { grid-template-columns: 1fr; }
+    .img-strip { grid-template-columns: 1fr; height: auto; }
+    .img-strip figure { height: 200px; }
+    .full-bleed-img img { height: 260px; }
+  }
+</style>

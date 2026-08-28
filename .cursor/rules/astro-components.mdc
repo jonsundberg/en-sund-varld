@@ -1,0 +1,47 @@
+---
+description: Regler för Astro-sidor och komponenter
+globs: ["src/**/*.astro"]
+alwaysApply: false
+---
+
+# Astro – Regler och mönster
+
+## Sidor
+
+- Alla sidor importerar `BaseLayout.astro` och skickar `title` och `description` som props
+- Ny sida läggs alltid till i `navLinks`-arrayen i `BaseLayout.astro`
+- Ingen `output: 'server'` – alltid statisk SSG
+- Dynamiska rutter använder `getStaticPaths()`
+
+## Komponenter
+
+- Komponenter ligger i `src/components/`
+- Komponent-CSS skrivs i `<style>`-taggen i samma fil (scoped)
+- Globala tokens importeras automatiskt via `BaseLayout` – importera inte `tokens.css` i enskilda komponenter
+- Ingen onödig JavaScript – använd `<script>` bara när interaktivitet faktiskt behövs
+
+## Layout
+
+```astro
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Sidtitel" description="Kort beskrivning">
+  <!-- innehåll -->
+</BaseLayout>
+```
+
+## CSS-mönster
+
+- Använd alltid CSS custom properties från `tokens.css` – inga hårdkodade färger
+- Klasser namnges med BEM-inspirerad kebab-case: `.projekt-card`, `.projekt-card--featured`
+- Responsivitet via `@media (max-width: 900px)` och `600px` breakpoints
+- Flex och Grid – ingen float, ingen position absolute om det går att undvika
+
+## Tillgänglighet (obligatoriskt)
+
+- Alla `<img>` ska ha beskrivande `alt`-text
+- Interaktiva element ska ha synligt fokustillstånd
+- Heading-hierarki: en `<h1>` per sida, sedan `<h2>`, `<h3>` i ordning
+- Formulärfält kopplas alltid med `<label for="id">`
+- Sektioner med innehåll får `aria-labelledby` som pekar på sin rubrik

@@ -1,0 +1,426 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InterestForm from '../components/InterestForm.astro';
+---
+
+<BaseLayout
+  title="Hem"
+  description="En sund värld Ekonomisk Förening – en paraplyorganisation för hållbara initiativ, ekobyar, permakultur och gemensam markförvaltning."
+>
+
+  <!-- ── Hero ─────────────────────────────────────────── -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-inner container">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Ekonomisk Förening</p>
+        <h1 id="hero-heading">
+          En sund värld – vi vårdar jorden och bygger hållbara livsmiljöer.
+        </h1>
+        <p class="hero-lead">
+          En sund värld är en paraplyorganisation för människor som vill leva
+          och verka i nära samklang med naturen. Tillsammans driver vi initiativ
+          kring mark&shy;förvaltning, ekobyar, permakultur och
+          självförsörjning.
+        </p>
+        <div class="hero-actions">
+          <a href="#anmalan" class="btn btn-primary">Bli medlem / Anmäl intresse</a>
+          <a href="#om-foreningen" class="btn btn-outline">Läs mer om oss</a>
+        </div>
+      </div>
+      <div class="hero-aside" aria-hidden="true">
+        <div class="hero-emblem">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="96" stroke="#5a9154" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.5"/>
+            <circle cx="100" cy="100" r="72" stroke="#5a9154" stroke-width="1" opacity="0.3"/>
+            <line x1="100" y1="155" x2="100" y2="105" stroke="#5a9154" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M100 130 C80 110 55 115 60 90 C75 95 95 110 100 130Z" fill="#5a9154" opacity="0.7"/>
+            <path d="M100 120 C120 100 145 105 140 80 C125 85 105 100 100 120Z" fill="#3a6b35" opacity="0.8"/>
+            <path d="M100 105 C100 85 88 72 88 60 C96 65 104 78 100 105Z" fill="#5a9154" opacity="0.9"/>
+            <line x1="100" y1="155" x2="88" y2="168" stroke="#7a5c3a" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            <line x1="100" y1="155" x2="112" y2="170" stroke="#7a5c3a" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Om föreningen ─────────────────────────────────── -->
+  <section class="about-section" id="om-foreningen" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-text">
+          <p class="section-label">Om oss</p>
+          <h2 id="about-heading">En paraplyorganisation för hållbara initiativ</h2>
+          <p>
+            En sund värld Ekonomisk Förening samlar och stöttar initiativ där
+            mark, natur och människor förvaltas med omsorg. Vi startar, driver
+            och äger projekt gemensamt – från enskilda gårdar till hela ekobyar.
+          </p>
+          <p>
+            Grunden är <strong>permakultur</strong> och <strong>regenerativ
+            markanvändning</strong>: metoder som återställer och berikar
+            ekosystem snarare än tär på dem. Vi planerar, odlar och bygger
+            tillsammans.
+          </p>
+          <p>
+            Som ekonomisk förening äger vi mark och tillgångar kollektivt och
+            erbjuder medlemmar <strong>nyttjanderätt</strong> – ett tryggt
+            och hållbart alternativ till privat markägande.
+          </p>
+          <a href="/stadgar" class="text-link">
+            Läs våra stadgar
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <ul class="values-list" role="list">
+          <li class="value-item">
+            <span class="value-icon" aria-hidden="true">🌿</span>
+            <div>
+              <strong>Permakultur</strong>
+              <p>Designa system som arbetar med naturen, inte mot den.</p>
+            </div>
+          </li>
+          <li class="value-item">
+            <span class="value-icon" aria-hidden="true">🤝</span>
+            <div>
+              <strong>Grannsamverkan</strong>
+              <p>Bygga gemenskap och resiliens genom lokal samverkan.</p>
+            </div>
+          </li>
+          <li class="value-item">
+            <span class="value-icon" aria-hidden="true">🏡</span>
+            <div>
+              <strong>Självförsörjning</strong>
+              <p>Mat, energi och boende nära den egna marken.</p>
+            </div>
+          </li>
+          <li class="value-item">
+            <span class="value-icon" aria-hidden="true">🕊️</span>
+            <div>
+              <strong>Frihet</strong>
+              <p>Leva på egna villkor, med ansvar för helheten.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Projekt i fokus ───────────────────────────────── -->
+  <section class="projects-section" aria-labelledby="projects-heading">
+    <div class="container">
+      <header class="section-header">
+        <p class="section-label">Projekt & initiativ</p>
+        <h2 id="projects-heading">Vad vi arbetar med</h2>
+        <p class="section-intro">
+          Föreningen driver och stöttar konkreta initiativ. Varje projekt
+          är ett steg mot en mer hållbar och sammanhållen värld.
+        </p>
+      </header>
+
+      <div class="projects-grid">
+
+        <!-- Framhävt: Olof Larssons Gård -->
+        <article class="project-card project-card--featured">
+          <div class="project-card-header">
+            <span class="project-tag">Pågående initiativ</span>
+            <span class="project-icon" aria-hidden="true">🏚️</span>
+          </div>
+          <h3>Initiativ: Olof Larssons Gård</h3>
+          <p class="project-ingress">
+            En gammal gård med djupa rötter – och en man som förtjänar att
+            se den blomstra igen.
+          </p>
+          <p>
+            Olof har levt mer än 20 år på sin barndomsgård, off-grid, med
+            regnvatten och utedass. Nu vill vi som förening hjälpa honom:
+            förvärva gården, trygga hans ålderdom och återställa platsen
+            med vördnad – utan exploatering, utan lyxvillor. Kulturmiljön
+            bevaras, marken sköts ekologiskt.
+          </p>
+          <a href="/projekt/olof-larsson" class="btn btn-primary">
+            Läs mer om initiativet
+          </a>
+        </article>
+
+        <!-- Pågående: Ekoby -->
+        <article class="project-card project-card--featured">
+          <div class="project-card-header">
+            <span class="project-tag">Pågående initiativ</span>
+            <span class="project-icon" aria-hidden="true">🌾</span>
+          </div>
+          <h3>Initiativ: Ekoby &amp; Markförvärv</h3>
+          <p>
+            Vi söker aktivt mark för att anlägga en gemensam ekoby – ett
+            område med bostäder, odling och delade resurser. Medlemmar
+            erbjuds nyttjanderätt och ett aktivt liv nära naturen.
+          </p>
+          <p class="project-status">Söker intresserade och markägare.</p>
+          <a href="#anmalan" class="btn btn-primary">Anmäl intresse</a>
+        </article>
+
+        <!-- Kommande: Odling -->
+        <article class="project-card project-card--future">
+          <div class="project-card-header">
+            <span class="project-tag project-tag--planned">Framtida initiativ</span>
+            <span class="project-icon" aria-hidden="true">🌱</span>
+          </div>
+          <h3>Gemensamma odlingar &amp; Workshops</h3>
+          <p>
+            Kurser och praktiska träffar i ekologisk odling, frösparande,
+            naturbyggande och permakulturell design – öppet för medlemmar
+            och intresserade grannar.
+          </p>
+          <p class="project-status">Söker engagerade med kunskap att dela.</p>
+          <a href="#anmalan" class="btn btn-outline">Bidra med kunskap</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Varför gå med? ────────────────────────────────── -->
+  <section class="why-section" aria-labelledby="why-heading">
+    <div class="container">
+      <header class="section-header section-header--centered">
+        <p class="section-label">Varför gå med?</p>
+        <h2 id="why-heading">Vad du får som medlem</h2>
+      </header>
+      <div class="why-grid">
+        <div class="why-item">
+          <span class="why-icon" aria-hidden="true">📜</span>
+          <h3>Medäganderätt</h3>
+          <p>Som insatsbetalande medlem är du delägare i föreningens tillgångar och mark.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-icon" aria-hidden="true">🗳️</span>
+          <h3>Demokratiskt inflytande</h3>
+          <p>En röst per medlem på stämman. Du är med och fattar besluten.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-icon" aria-hidden="true">🌍</span>
+          <h3>Nyttjanderätt till mark</h3>
+          <p>Tillgång att bruka och bo på föreningens mark på gemensamma villkor.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-icon" aria-hidden="true">🤲</span>
+          <h3>Gemenskap</h3>
+          <p>Bli del av ett nätverk av likasinnade som delar kunskap, arbete och resurser.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Intresseanmälan ───────────────────────────────── -->
+  <InterestForm />
+
+</BaseLayout>
+
+<style>
+  /* ── Hero ───────────────────────────────────────────── */
+  .hero {
+    background: var(--bg-dark);
+    color: var(--text-on-dark);
+    padding-block: var(--space-2xl);
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  .hero-eyebrow {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-mid);
+    margin-bottom: var(--space-sm);
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, var(--text-5xl));
+    color: var(--text-on-dark);
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .hero-lead {
+    font-size: var(--text-lg);
+    color: rgba(240,244,243,0.75);
+    max-width: 46ch;
+    margin-bottom: var(--space-lg);
+    line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+  .hero .btn-outline {
+    color: var(--text-on-dark);
+    border-color: rgba(255,255,255,0.3);
+  }
+  .hero .btn-outline:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border-color: rgba(255,255,255,0.6);
+  }
+  .hero-emblem {
+    width: 180px;
+    height: 180px;
+    opacity: 0.7;
+    animation: slow-breathe 6s ease-in-out infinite;
+  }
+  @keyframes slow-breathe {
+    0%, 100% { transform: scale(1);    opacity: 0.7; }
+    50%       { transform: scale(1.04); opacity: 0.9; }
+  }
+
+  /* ── About ──────────────────────────────────────────── */
+  .about-section { padding-block: var(--space-2xl); background: var(--bg-white); }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+  .about-text h2 { font-size: var(--text-4xl); margin-bottom: var(--space-md); letter-spacing: -0.02em; }
+  .about-text p { margin-bottom: var(--space-sm); color: var(--text-muted); font-size: var(--text-lg); }
+  .about-text p strong { color: var(--text); }
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+    margin-top: var(--space-xs);
+    text-decoration: none;
+    color: var(--accent);
+    border-bottom: 2px solid transparent;
+    transition: border-color var(--transition);
+  }
+  .text-link:hover { border-bottom-color: var(--accent); color: var(--accent-hover); }
+
+  .values-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .value-item {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: flex-start;
+    padding: var(--space-md);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+  .value-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; }
+  .value-item strong { display: block; font-size: var(--text-base); font-weight: 700; margin-bottom: 0.15rem; }
+  .value-item p { margin: 0; color: var(--text-muted); font-size: var(--text-sm); }
+
+  /* ── Section labels & headers ───────────────────────── */
+  .section-label {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-xs);
+  }
+  .section-header { margin-bottom: var(--space-xl); }
+  .section-header h2 { font-size: var(--text-4xl); margin-bottom: var(--space-xs); letter-spacing: -0.02em; }
+  .section-intro { font-size: var(--text-lg); color: var(--text-muted); max-width: 54ch; }
+  .section-header--centered { text-align: center; }
+  .section-header--centered .section-intro { margin-inline: auto; }
+
+  /* ── Projects ───────────────────────────────────────── */
+  .projects-section {
+    background: var(--bg);
+    padding-block: var(--space-2xl);
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: var(--space-md);
+    align-items: start;
+  }
+  .project-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .project-card--featured {
+    border-color: var(--accent);
+    border-width: 2px;
+    box-shadow: var(--shadow-md);
+  }
+  .project-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .project-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.65rem;
+    border-radius: 99px;
+    background: var(--accent-light);
+    color: var(--accent-hover);
+    text-transform: uppercase;
+  }
+  .project-tag--planned { background: var(--coral-light); color: var(--coral-hover); }
+  .project-icon { font-size: 1.5rem; }
+  .project-card h3 { font-size: var(--text-xl); margin: 0; letter-spacing: -0.01em; }
+  .project-ingress {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-base) !important;
+    color: var(--text) !important;
+    line-height: 1.6;
+  }
+  .project-card p { color: var(--text-muted); font-size: var(--text-base); margin: 0; }
+  .project-status { font-size: var(--text-sm) !important; font-style: italic; color: var(--earth) !important; }
+
+  /* ── Why ────────────────────────────────────────────── */
+  .why-section { padding-block: var(--space-2xl); background: var(--bg-white); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+  .why-item {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+  .why-icon { font-size: 2rem; display: block; margin-bottom: var(--space-sm); }
+  .why-item h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); letter-spacing: -0.01em; }
+  .why-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 1000px) {
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .project-card--featured { grid-column: 1 / -1; }
+  }
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-aside { display: none; }
+    .about-inner { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card--featured { grid-column: auto; }
+    .why-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+  }
+</style>

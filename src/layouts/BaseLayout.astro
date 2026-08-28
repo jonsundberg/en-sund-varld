@@ -1,0 +1,279 @@
+---
+import '../styles/tokens.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'En sund värld',
+  description = 'En sund värld Ekonomisk Förening – vi vårdar jorden och bygger hållbara livsmiljöer.',
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const site = 'https://ensundvarld.se';
+const canonicalUrl = `${site}${Astro.url.pathname}`;
+
+const navLinks = [
+  { href: '/',                      label: 'Hem' },
+  { href: '/projekt/olof-larsson',  label: 'Olof Larssons Gård' },
+  { href: '/stadgar',               label: 'Stadgar' },
+  { href: '/#anmalan',              label: 'Anmäl intresse' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} – En sund värld</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="theme-color" content="#3a6b35" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content="sv_SE" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Hoppa till innehåll</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="site-logo" aria-label="En sund värld – startsida">
+          <span class="logo-leaf" aria-hidden="true">🌿</span>
+          <span class="logo-text">En sund värld</span>
+        </a>
+
+        <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Öppna meny">
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav id="main-nav" aria-label="Huvudmeny">
+          <ul>
+            {navLinks.map(({ href, label }) => (
+              <li>
+                <a
+                  href={href}
+                  aria-current={currentPath === href ? 'page' : undefined}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <p class="footer-name">En sund värld</p>
+          <p class="footer-tagline">Ekonomisk Förening</p>
+        </div>
+
+        <nav aria-label="Sidfotslänkar" class="footer-nav">
+          <ul>
+            <li><a href="/">Hem</a></li>
+            <li><a href="/projekt/olof-larsson">Olof Larssons Gård</a></li>
+            <li><a href="/stadgar">Stadgar</a></li>
+            <li><a href="/#anmalan">Anmäl intresse</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-contact">
+          <p>
+            Frågor eller funderingar? Kontakta oss via
+            <a href="/#anmalan">intresseanmälan</a>.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <p>&copy; {new Date().getFullYear()} En sund värld Ekonomisk Förening</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement | null;
+      const nav = document.getElementById('main-nav');
+      toggle?.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        nav?.classList.toggle('open');
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: -48px;
+    left: var(--space-sm);
+    background: var(--accent);
+    color: #fff;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 600;
+    z-index: 9999;
+    transition: top var(--transition);
+  }
+  .skip-link:focus { top: var(--space-sm); }
+
+  .site-header {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 0 var(--border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-block: 0.9rem;
+  }
+
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    flex-shrink: 0;
+    letter-spacing: -0.01em;
+  }
+  .site-logo:hover { color: var(--accent); }
+  .logo-leaf { font-size: 1.3rem; line-height: 1; }
+
+  #main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+  #main-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: color var(--transition), border-color var(--transition);
+  }
+  #main-nav a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  #main-nav a[aria-current="page"] {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform var(--transition), opacity var(--transition);
+  }
+
+  .site-footer {
+    background: var(--bg-dark);
+    color: var(--text-on-dark);
+    padding-top: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-lg);
+    padding-bottom: var(--space-xl);
+  }
+  .footer-name {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--text-on-dark);
+    letter-spacing: -0.01em;
+  }
+  .footer-tagline { font-size: var(--text-sm); color: rgba(240,244,243,0.5); margin: 0; }
+  .footer-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .footer-nav a { color: rgba(240,244,243,0.7); text-decoration: none; font-size: var(--text-sm); }
+  .footer-nav a:hover { color: var(--text-on-dark); }
+  .footer-contact { font-size: var(--text-sm); color: rgba(240,244,243,0.7); }
+  .footer-contact a { color: var(--accent-mid); }
+  .footer-contact a:hover { color: var(--text-on-dark); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-block: var(--space-sm);
+    font-size: var(--text-sm);
+    color: rgba(240,244,243,0.4);
+  }
+  .footer-bottom p { margin: 0; }
+
+  @media (max-width: 700px) {
+    .nav-toggle { display: flex; }
+    #main-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-sm) var(--space-md);
+      box-shadow: var(--shadow-md);
+    }
+    #main-nav.open { display: block; }
+    #main-nav ul { flex-direction: column; gap: var(--space-xs); }
+    #main-nav a { font-size: var(--text-base); padding: 0.4rem 0; }
+    .footer-inner { grid-template-columns: 1fr; gap: var(--space-md); }
+  }
+</style>

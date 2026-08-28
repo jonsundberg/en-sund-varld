@@ -1,0 +1,43 @@
+---
+description: Regler för innehåll, ton och texter på sajten
+globs: ["src/**/*.astro", "src/**/*.md"]
+alwaysApply: false
+---
+
+# Innehåll och ton
+
+## Röst och ton
+
+Skriv som en person som genuint bryr sig – inte som ett företag som säljer något.
+
+**Gör:**
+- Varm, direkt och jordnära svenska
+- Konkreta meningar om vad föreningen faktiskt gör
+- Respektfull och vördsam text om Olof och gården
+- "Vi" om föreningen, "du" till besökaren
+
+**Undvik:**
+- Buzzwords: "hållbarhetsresa", "ekosystem för förändring", "transformativ"
+- Superlativ och hyperbel: "världens bästa", "unikt"
+- Säljspråk och uppmaningar med utropstecken
+- Passiv konstruktion när aktiv fungerar
+
+## Om Olof – skrivregler
+
+Olof är en verklig person och en vän. Text om honom ska alltid:
+- Vara värdig och respektfull
+- Lyfta hans styrka och livsstil, inte bara hans svårigheter
+- Aldrig framställa honom som ett objekt för välgörenhet
+- Betona att han är en aktiv del av projektet, inte mottagare
+
+## Stadgar
+
+- Stadgar (`/stadgar`) är juridiska dokument – ändra inte formuleringar utan explicit instruktion
+- Platshållarna `[Ange Kommun]` och `[Ange belopp]` är avsiktliga – fyll i när föreningen är registrerad
+
+## Strukturprinciper
+
+- Hero-rubrik: kort och direkt (max 12 ord)
+- Ingress/lead: italic Lora, max 2 meningar, sätter känsla
+- `section-label` (liten versalfont): anger sektion, t.ex. "Om oss", "Projekt"
+- CTA-knappar: imperativ verb + objekt ("Anmäl intresse", "Läs mer om initiativet")

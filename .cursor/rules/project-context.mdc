@@ -1,0 +1,62 @@
+---
+description: Övergripande projektkontext för En sund värld – gäller alltid
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# En sund värld – Projektkontext
+
+## Föreningen
+
+**En sund värld Ekonomisk Förening** är en paraplyorganisation för hållbara initiativ. Syfte: vårda, vörda och sköta om jorden samt bilda livsmiljöer baserade på permakultur, självförsörjning och lokalresiliens.
+
+**Ton:** Varm, jordnära, genuin. Aldrig säljande eller klinisk. Svenska i all UI-text.
+
+## Aktiva initiativ
+
+**Olof Larssons Gård** (`/projekt/olof-larsson`)
+- Olof bott >20 år off-grid på sin barndomsgård (regnvatten, utedass)
+- Föreningen vill köpa marken, trygga Olofs ålderdom, återställa gården
+- Bevara kulturmiljö och gårdens själ – inga villor, inga pooler
+- Permakultur, hållbara material, Olof bor kvar livet ut
+
+**Ekoby & Markförvärv** (pågående) – söker mark för gemensam ekoby
+
+**Gemensamma odlingar & Workshops** (planerat)
+
+## Teknisk stack
+
+- **Astro 4** – statisk SSG, inga adapters
+- **Vanilla CSS** – tokens i `src/styles/tokens.css`, inga preprocessorer
+- **Formspree** ID `xbgjrqlz` via `@formspree/ajax` CDN
+- **Inga React, Vue eller andra klientramverk**
+- Deployment: statisk hosting (Netlify/Vercel/GitHub Pages)
+
+## Mappstruktur
+
+```
+src/
+  layouts/BaseLayout.astro
+  pages/index.astro
+  pages/stadgar.astro
+  pages/projekt/olof-larsson.astro
+  components/InterestForm.astro
+  styles/tokens.css
+public/images/          ← äkta gårdsfoton, använd med respekt
+```
+
+## Designsystem
+
+Primärfärg: teal `#1a7a72` (`--accent`)
+CTA-knappar: terrakotta `#d4603a` (`--coral`)
+Bakgrund: varm ljusgrå `#f5f4f0` (`--bg`)
+Hero/footer: `#1d3a37` (`--bg-dark`)
+Typsnitt: Inter + Lora (citat)
+
+## Regler
+
+- Ändra aldrig `tokens.css` utan att uppdatera alla ställen som använder tokenet
+- Ny sida → lägg alltid till i `BaseLayout.astro` navLinks-arrayen
+- Bilder från `public/images/` är personliga och privata – använd enbart på relevanta sidor
+- Håll semantisk HTML och WCAG AA-tillgänglighet i allt
+- Bygg så lite som möjligt – undvik abstraktioner utan direkt värde
