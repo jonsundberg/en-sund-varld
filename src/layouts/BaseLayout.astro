@@ -13,12 +13,9 @@ const {
 
 const currentPath = Astro.url.pathname;
 
-// Använd VERCEL_URL i produktion, fallback till relativ URL i dev
-const siteUrl = import.meta.env.VERCEL_URL
-  ? `https://${import.meta.env.VERCEL_URL}`
-  : import.meta.env.SITE ?? '';
-
-const canonicalUrl = siteUrl ? `${siteUrl}${currentPath}` : currentPath;
+// Uppdatera till din riktiga domän när den finns
+const siteUrl = 'https://en-sund-varld.vercel.app';
+const canonicalUrl = `${siteUrl}${currentPath}`;
 const ogImage = `${siteUrl}/og-image.jpeg`;
 
 const navLinks = [
