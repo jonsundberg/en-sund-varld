@@ -12,8 +12,14 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-const site = 'https://ensundvarld.se';
-const canonicalUrl = `${site}${Astro.url.pathname}`;
+
+// Använd VERCEL_URL i produktion, fallback till relativ URL i dev
+const siteUrl = import.meta.env.VERCEL_URL
+  ? `https://${import.meta.env.VERCEL_URL}`
+  : import.meta.env.SITE ?? '';
+
+const canonicalUrl = siteUrl ? `${siteUrl}${currentPath}` : currentPath;
+const ogImage = `${siteUrl}/og-image.svg`;
 
 const navLinks = [
   { href: '/',                      label: 'Hem' },
@@ -31,13 +37,24 @@ const navLinks = [
     <title>{title} – En sund värld</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    <meta name="theme-color" content="#3a6b35" />
+    <meta name="theme-color" content="#1d3a37" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={`${title} – En sund värld`} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="En sund värld Ekonomisk Förening" />
     <meta property="og:locale" content="sv_SE" />
+    <meta property="og:site_name" content="En sund värld" />
+
+    <!-- Twitter/X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} – En sund värld`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
