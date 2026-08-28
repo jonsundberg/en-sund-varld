@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'En sund värld',
-  description = 'En sund värld Ekonomisk Förening – vi vårdar jorden och bygger hållbara livsmiljöer.',
+  title = 'En sund värld – vi vårdar jorden och bygger hållbara livsmiljöer',
+  description = 'Ekonomisk förening för permakultur, ekobyar och gemensam markförvaltning. Gå med och bygg något långsiktigt.',
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
@@ -19,7 +19,7 @@ const siteUrl = import.meta.env.VERCEL_URL
   : import.meta.env.SITE ?? '';
 
 const canonicalUrl = siteUrl ? `${siteUrl}${currentPath}` : currentPath;
-const ogImage = `${siteUrl}/og-image.svg`;
+const ogImage = `${siteUrl}/og-image.jpeg`;
 
 const navLinks = [
   { href: '/',                      label: 'Hem' },
@@ -34,7 +34,7 @@ const navLinks = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} – En sund värld</title>
+    <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <meta name="theme-color" content="#1d3a37" />
