@@ -1,16 +1,46 @@
 ---
-const FORMSPREE_ID = 'xbgjrqlz';
+interface Props {
+  heading?: string;
+  intro?: string;
+  defaultInterests?: string[];
+}
+
+const {
+  heading = 'Anmäl ditt intresse',
+  intro = 'Oavsett om du vill bli medlem, bo i en ekoby, stötta Olofs gård eller tipsa om mark – fyll i formuläret så hör vi av oss.',
+  defaultInterests = [],
+} = Astro.props;
+
+const interestOptions = [
+  {
+    value: 'ekoby-boendegemenskap',
+    title: 'Ekoby & Boendegemenskap',
+    description: 'Jag vill bo eller investera i en ekoby',
+  },
+  {
+    value: 'olof-larsson-gard',
+    title: 'Olof Larssons Gård',
+    description: 'Stödja eller arbeta i kulturarvsprojektet',
+  },
+  {
+    value: 'allmant-medlemskap',
+    title: 'Allmänt medlemskap / Stödmedlem',
+    description: 'Medlemskap i En sund värld',
+  },
+  {
+    value: 'tips-om-mark',
+    title: 'Tips om mark',
+    description: 'Fastighet till salu eller arrende',
+  },
+];
 ---
 
 <section class="form-section" id="anmalan" aria-labelledby="form-heading">
   <div class="container">
     <div class="form-wrapper">
       <div class="form-intro">
-        <h2 id="form-heading">Anmäl ditt intresse</h2>
-        <p>
-          Oavsett om du vill bli fullvärdig medlem, bidra med praktiskt arbete
-          eller bara följa med på resan – fyll i formuläret så hör vi av oss.
-        </p>
+        <h2 id="form-heading">{heading}</h2>
+        <p>{intro}</p>
       </div>
 
       <div data-fs-success class="form-success" role="alert">
@@ -66,26 +96,26 @@ const FORMSPREE_ID = 'xbgjrqlz';
           />
         </div>
 
-        <fieldset class="field">
+        <fieldset class="field" id="interest-fieldset">
           <legend>Vad är du intresserad av? <span aria-hidden="true">*</span></legend>
-          <div class="checkbox-group">
-            <label class="checkbox-label">
-              <input type="checkbox" name="interest" value="bli-medlem" />
-              <span>Bli medlem i föreningen <em>En sund värld</em></span>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" name="interest" value="olof-larsson-gard" />
-              <span>Engagemang / stöd i projektet <em>Olof Larssons Gård</em></span>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" name="interest" value="ekoby" />
-              <span>Framtida ekobyar &amp; boendeprojekt</span>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" name="interest" value="kunskap-arbete" />
-              <span>Bidra med kunskap / praktiskt arbete / hantverk</span>
-            </label>
+          <p class="fieldset-hint" id="interest-hint">Välj ett eller flera alternativ.</p>
+          <div class="checkbox-group" role="group" aria-describedby="interest-hint interest-error">
+            {interestOptions.map((option) => (
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  name="interest"
+                  value={option.value}
+                  checked={defaultInterests.includes(option.value)}
+                />
+                <span>
+                  <span class="checkbox-title">{option.title}</span>
+                  <span class="checkbox-desc">{option.description}</span>
+                </span>
+              </label>
+            ))}
           </div>
+          <span class="field-error" id="interest-error" role="alert"></span>
         </fieldset>
 
         <div class="field">
@@ -126,6 +156,38 @@ const FORMSPREE_ID = 'xbgjrqlz';
     formElement: '#interest-form',
     formId: 'xbgjrqlz',
   });
+
+  const form = document.getElementById('interest-form') as HTMLFormElement | null;
+  const interestError = document.getElementById('interest-error');
+  const fieldset = document.getElementById('interest-fieldset');
+
+  function hasInterest(): boolean {
+    if (!form) return false;
+    return form.querySelectorAll('input[name="interest"]:checked').length > 0;
+  }
+
+  function showInterestError(show: boolean) {
+    if (!interestError || !fieldset) return;
+    interestError.textContent = show ? 'Välj minst ett område du är intresserad av.' : '';
+    fieldset.toggleAttribute('data-invalid', show);
+  }
+
+  form?.addEventListener('change', (event) => {
+    const target = event.target as HTMLElement;
+    if (target instanceof HTMLInputElement && target.name === 'interest') {
+      showInterestError(!hasInterest());
+    }
+  });
+
+  form?.addEventListener('submit', (event) => {
+    if (!hasInterest()) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      showInterestError(true);
+      const first = form.querySelector<HTMLInputElement>('input[name="interest"]');
+      first?.focus();
+    }
+  }, true);
 </script>
 <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
@@ -177,19 +239,40 @@ const FORMSPREE_ID = 'xbgjrqlz';
     padding: var(--space-sm) var(--space-md);
     margin: 0 0 var(--space-md);
   }
+  fieldset[data-invalid] {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+  }
   legend { font-weight: 600; font-size: var(--text-sm); padding-inline: 0.25rem; color: var(--text); }
+  .fieldset-hint {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0 0 var(--space-xs);
+    font-weight: 400;
+  }
 
-  .checkbox-group { display: flex; flex-direction: column; gap: 0.7rem; margin-top: var(--space-xs); }
+  .checkbox-group { display: flex; flex-direction: column; gap: 0.85rem; margin-top: var(--space-xs); }
   .checkbox-label {
     display: flex;
-    align-items: center;
-    gap: 0.6rem;
+    align-items: flex-start;
+    gap: 0.65rem;
     font-weight: 400;
     font-size: var(--text-base);
     cursor: pointer;
   }
-  .checkbox-label input { width: 1rem; height: 1rem; accent-color: var(--accent); flex-shrink: 0; }
-  .checkbox-label em { font-style: normal; font-weight: 600; color: var(--accent-hover); }
+  .checkbox-label input {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.2rem;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+  }
+  .checkbox-label input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .checkbox-title { display: block; font-weight: 600; color: var(--text); line-height: 1.35; }
+  .checkbox-desc { display: block; font-size: var(--text-sm); color: var(--text-muted); }
 
   input[type="text"],
   input[type="email"],
@@ -208,7 +291,7 @@ const FORMSPREE_ID = 'xbgjrqlz';
   input:focus, textarea:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(58, 107, 53, 0.15);
+    box-shadow: 0 0 0 3px rgba(26, 122, 114, 0.15);
   }
   input[aria-invalid="true"],
   textarea[aria-invalid="true"] {
