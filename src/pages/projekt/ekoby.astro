@@ -5,7 +5,7 @@ import InterestForm from '../../components/InterestForm.astro';
 
 <BaseLayout
   title="Ekoby & Boendegemenskap – En sund värld"
-  description="Ett gemensamt initiativ för ca 10 hushåll som vill skapa ett hållbart, fritt och nära liv tillsammans. Vi söker och utvärderar lämplig mark på landsbygden."
+  description="Ett gemensamt initiativ för 10+ hushåll som vill skapa ett hållbart, fritt och nära liv tillsammans. Genom resursdelning, workshops och egen mark sänker vi trösklarna för att bygga ett eget hem."
 >
 
   <article class="projekt-page">
@@ -20,8 +20,10 @@ import InterestForm from '../../components/InterestForm.astro';
         <p class="projekt-label">Pågående initiativ</p>
         <h1>Ekoby &amp; Boendegemenskap</h1>
         <p class="projekt-ingress">
-          Ett gemensamt initiativ för ca 10 hushåll som vill skapa ett
-          hållbart, fritt och nära liv tillsammans.
+          Ett gemensamt initiativ för 10+ hushåll som vill skapa ett
+          hållbart, fritt och nära liv tillsammans. Genom resursdelning,
+          workshops och egen mark sänker vi trösklarna för att bygga ett
+          eget hem.
         </p>
       </div>
     </header>
@@ -32,11 +34,15 @@ import InterestForm from '../../components/InterestForm.astro';
           <div class="prose-main">
             <h2 id="koncept-heading">Koncept och vision</h2>
             <p>
-              Vi söker och utvärderar lämplig mark på landsbygden – ungefär
-              5–15 hektar eller mer – med god odlingsjord, tillgång till vatten
-              och ett byggnadsfritt läge utanför detaljplan. Ingen specifik
-              plats är låst. Vi vill hitta den mark som bär gemenskapen
-              långsiktigt.
+              Vi söker och utvärderar lämplig mark på landsbygden – 20 hektar
+              eller mer – med god odlingsjord, tillgång till vatten och ett
+              byggnadsfritt läge utanför detaljplan. Ingen specifik plats är
+              låst. Vi vill hitta den mark som bär gemenskapen långsiktigt.
+            </p>
+            <p>
+              Visionen är 10 hushåll eller fler i en nära boendegemenskap.
+              Vi kan sätta igång när ungefär tio hushåll är med, och därefter
+              växa i den takt som passar platsen och gruppen.
             </p>
             <p>
               Tanken är en by i mänsklig skala: köksträdgårdar, permakultur
@@ -46,51 +52,45 @@ import InterestForm from '../../components/InterestForm.astro';
             </p>
             <h3>Stegvis, i egen takt</h3>
             <p>
-              Vi behöver inte vänta på färdiga hus. Det ska gå att börja
-              enkelt – med tillfälliga boenden eller startkojor – medan
-              infrastruktur och permanentbostäder växer fram i den takt
-              hushållen orkar och har råd.
+              Vi behöver inte vänta på färdiga hus. Infrastruktur och
+              permanentbostäder växer fram i den takt hushållen orkar och har
+              råd – och det ska gå att bo på platsen redan från början.
             </p>
             <ul class="vision-list">
               <li>
                 <span aria-hidden="true">🌾</span>
                 <div>
-                  <strong>Permakultur och odling</strong>
-                  <p>Marken sköts så att jord, vatten och biologisk mångfald stärks över tid.</p>
-                </div>
-              </li>
-              <li>
-                <span aria-hidden="true">💧</span>
-                <div>
-                  <strong>Kretslopp för vatten och avlopp</strong>
-                  <p>BDT-avlopp utformas för att sluta kretslopp, inte belasta platsen i onödan.</p>
-                </div>
-              </li>
-              <li>
-                <span aria-hidden="true">🪵</span>
-                <div>
-                  <strong>Byggande i naturmaterial</strong>
-                  <p>Trä, lera och andra material som hör hemma på landsbygden – inte villor och pooler.</p>
+                  <strong>Permakultur och kretslopp</strong>
+                  <p>
+                    Marken sköts för att stärka jord, vatten och biologisk
+                    mångfald. BDT-avlopp och kretsloppslösningar anpassas efter
+                    platsen.
+                  </p>
                 </div>
               </li>
               <li>
                 <span aria-hidden="true">🏕️</span>
                 <div>
-                  <strong>Starta enkelt</strong>
-                  <p>Tillfälliga boenden medan vägar, vatten och hem byggs upp tillsammans.</p>
+                  <strong>Startkojor och tillfälliga boenden</strong>
+                  <p>
+                    Ingen behöver vänta på färdiga hus. Det ska gå att starta
+                    enkelt i en ombonad startkoja, A-frame eller
+                    jordhus/kullbygge medan det permanenta boendet växer fram.
+                  </p>
                 </div>
               </li>
             </ul>
           </div>
-          <aside class="prose-aside">
+          <aside class="prose-aside" aria-labelledby="faktaruta-heading">
             <div class="fact-box">
-              <h3>Vad vi tittar efter</h3>
+              <h3 id="faktaruta-heading">Vad vi söker och skapar</h3>
               <ul>
-                <li><strong>Ca 10 hushåll</strong> i en nära boendegemenskap</li>
+                <li><strong>10+ hushåll</strong> – start när vi är ungefär 10</li>
                 <li><strong>20+ hektar mark</strong> på landsbygden</li>
-                <li><strong>God odlingsjord</strong> och tillgång till vatten</li>
-                <li><strong>Utanför detaljplan</strong> – byggnadsfritt läge</li>
-                <li><strong>Självförsörjning</strong> som riktning, inte som krav från dag ett</li>
+                <li><strong>Odlingsjord, skog och vatten</strong> på samma plats</li>
+                <li><strong>Gemensamt sågverk, verktyg och verkstad</strong></li>
+                <li><strong>Byggande i naturmaterial</strong> – lera, trä, halm</li>
+                <li><strong>Stegvis inflyttning</strong> och workshops tillsammans</li>
               </ul>
             </div>
           </aside>
@@ -98,7 +98,61 @@ import InterestForm from '../../components/InterestForm.astro';
       </div>
     </section>
 
-    <section class="content-section content-section--tinted" aria-labelledby="agande-heading">
+    <section class="content-section content-section--tinted" aria-labelledby="bygga-heading">
+      <div class="container">
+        <header class="section-intro-block">
+          <h2 id="bygga-heading">Hur vi bygger billigt och hållbart</h2>
+          <p>
+            Att bygga ett eget ekologiskt hem behöver varken kräva miljonlån
+            eller tidigare hantverkserfarenhet. Genom att samverka i föreningen
+            nyttjar vi platsens egna resurser, delar på utrustning och lär oss
+            av varandra.
+          </p>
+        </header>
+        <ul class="build-cards" role="list">
+          <li>
+            <article class="build-card">
+              <span class="build-card-icon" aria-hidden="true">🪵</span>
+              <h3>Byggmaterial direkt från marken</h3>
+              <p>
+                Vi nyttjar det som platsen ger. Lera ur åkermarken för väggar
+                och putser, rundvirke och timmer från egen skog till stommar,
+                samt sten till dränerade stengrunder. Det ger ett behagligt
+                inomhusklimat till en bråkdel av vanliga materialkostnader.
+              </p>
+            </article>
+          </li>
+          <li>
+            <article class="build-card">
+              <span class="build-card-icon" aria-hidden="true">🚜</span>
+              <h3>Gemensam maskinpark och verktyg</h3>
+              <p>
+                Istället för att varje hushåll köper egna dyra maskiner
+                investerar föreningen gemensamt i det som behövs under bygg-
+                och odlingsfasen – såsom ett mobilt sågverk för eget virke,
+                tvångsblandare för lerbygge, traktortjänster och kraftiga
+                verktyg.
+              </p>
+            </article>
+          </li>
+          <li>
+            <article class="build-card">
+              <span class="build-card-icon" aria-hidden="true">🛠️</span>
+              <h3>Workshops och expertledda byggtillfällen</h3>
+              <p>
+                Vi bjuder in kunniga instruktörer och arrangerar praktiska
+                workshops – till exempel i lerbygge, halmbalsteknik eller
+                timber frame. På så sätt får vi professionell handledning,
+                hjälps åt i gruppen och bygger tillsammans med inbjudna
+                deltagare.
+              </p>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="agande-heading">
       <div class="container">
         <div class="prose-grid">
           <div class="prose-main">
@@ -107,7 +161,8 @@ import InterestForm from '../../components/InterestForm.astro';
               Marken ägs gemensamt via den ekonomiska föreningen. Det skyddar
               gemenskapen från att en enskild person säljer ut platsen, och
               gör att förvaltningen kan tänkas i generationer snarare än i
-              kortsiktiga affärer.
+              kortsiktiga affärer. Gemensamt ägande är också ett skydd mot
+              spekulation.
             </p>
             <p>
               Vi arbetar med en tvåstegsmodell. Allmänt föreningsmedlemskap
@@ -118,8 +173,8 @@ import InterestForm from '../../components/InterestForm.astro';
             </p>
             <p>
               Trygghet vid utträde hör till grunderna. Om någon i framtiden
-              vill lämna ska det finnas tydliga regler – så att både den som
-              går och de som stannar vet vad som gäller.
+              vill lämna ska det finnas tydliga och kända regler – så att både
+              den som går och de som stannar vet vad som gäller.
             </p>
             <ul class="vision-list">
               <li>
@@ -200,7 +255,7 @@ import InterestForm from '../../components/InterestForm.astro';
     font-style: italic;
     font-size: var(--text-xl);
     color: rgba(255,255,255,0.85);
-    max-width: 52ch;
+    max-width: 58ch;
     margin: 0;
     line-height: 1.5;
   }
@@ -221,6 +276,21 @@ import InterestForm from '../../components/InterestForm.astro';
     font-size: var(--text-lg);
     margin-bottom: var(--space-sm);
     max-width: 65ch;
+  }
+
+  .section-intro-block {
+    max-width: 65ch;
+    margin-bottom: var(--space-lg);
+  }
+  .section-intro-block h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
+  }
+  .section-intro-block p {
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+    margin: 0;
   }
 
   .fact-box {
@@ -266,7 +336,40 @@ import InterestForm from '../../components/InterestForm.astro';
   .vision-list strong { display: block; font-size: var(--text-base); margin-bottom: 0.2rem; }
   .vision-list p { font-size: var(--text-base) !important; margin: 0; }
 
+  .build-cards {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .build-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-sm);
+    height: 100%;
+  }
+  .build-card-icon {
+    display: block;
+    font-size: 1.6rem;
+    line-height: 1;
+    margin-bottom: var(--space-sm);
+  }
+  .build-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-xs);
+  }
+  .build-card p {
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    margin: 0;
+  }
+
   @media (max-width: 900px) {
     .prose-grid { grid-template-columns: 1fr; }
+    .build-cards { grid-template-columns: 1fr; }
   }
 </style>
