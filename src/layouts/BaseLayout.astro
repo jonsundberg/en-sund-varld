@@ -1,5 +1,6 @@
 ---
 import '../styles/tokens.css';
+import LogoMark from '../components/LogoMark.astro';
 
 interface Props {
   title?: string;
@@ -60,7 +61,8 @@ const navLinks = [
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,600;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body>
     <a href="#main" class="skip-link">Hoppa till innehåll</a>
@@ -68,7 +70,7 @@ const navLinks = [
     <header class="site-header">
       <div class="container header-inner">
         <a href="/" class="site-logo" aria-label="En sund värld – startsida">
-          <span class="logo-leaf" aria-hidden="true">🌿</span>
+          <LogoMark />
           <span class="logo-text">En sund värld</span>
         </a>
 
@@ -100,8 +102,13 @@ const navLinks = [
     <footer class="site-footer">
       <div class="container footer-inner">
         <div class="footer-brand">
-          <p class="footer-name">En sund värld</p>
-          <p class="footer-tagline">Ekonomisk Förening</p>
+          <a href="/" class="footer-logo" aria-label="En sund värld – startsida">
+            <LogoMark />
+            <span>
+              <span class="footer-name">En sund värld</span>
+              <span class="footer-tagline">Ekonomisk Förening</span>
+            </span>
+          </a>
         </div>
 
         <nav aria-label="Sidfotslänkar" class="footer-nav">
@@ -175,17 +182,28 @@ const navLinks = [
   .site-logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
     text-decoration: none;
     color: var(--text);
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: var(--text-xl);
-    font-weight: 700;
+    font-weight: 600;
     flex-shrink: 0;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    border-radius: var(--radius-sm);
+  }
+  .site-logo :global(.logo-mark) {
+    display: block;
+    width: auto;
+    height: 2.85rem;
+    flex-shrink: 0;
   }
   .site-logo:hover { color: var(--accent); }
-  .logo-leaf { font-size: 1.3rem; line-height: 1; }
+  .site-logo:hover :global(.logo-mark) { opacity: 0.85; }
+  .site-logo:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
 
   #main-nav ul {
     list-style: none;
@@ -243,15 +261,44 @@ const navLinks = [
     gap: var(--space-lg);
     padding-bottom: var(--space-xl);
   }
-  .footer-name {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-    color: var(--text-on-dark);
-    letter-spacing: -0.01em;
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--radius-sm);
   }
-  .footer-tagline { font-size: var(--text-sm); color: rgba(240,244,243,0.5); margin: 0; }
+  .footer-logo :global(.logo-mark) {
+    display: block;
+    width: auto;
+    height: 3.4rem;
+    flex-shrink: 0;
+  }
+  .footer-logo > span {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .footer-logo:focus-visible {
+    outline: 2px solid var(--accent-mid);
+    outline-offset: 3px;
+  }
+  .footer-name {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--text-on-dark);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .footer-tagline {
+    display: block;
+    font-size: var(--text-sm);
+    color: rgba(240,244,243,0.5);
+    margin: 0;
+  }
   .footer-nav ul {
     list-style: none;
     margin: 0;
