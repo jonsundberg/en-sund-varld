@@ -1,0 +1,125 @@
+---
+import LineIcon from './LineIcon.astro';
+
+const benefits = [
+  {
+    title: 'Medäganderätt',
+    body: 'Som insatsbetalande medlem är du delägare i föreningens tillgångar och mark.',
+    icon: 'scroll',
+  },
+  {
+    title: 'Demokratiskt inflytande',
+    body: 'En röst per medlem på stämman. Du är med och fattar besluten.',
+    icon: 'ballot',
+  },
+  {
+    title: 'Nyttjanderätt till mark',
+    body: 'Tillgång att bruka och bo på föreningens mark på gemensamma villkor.',
+    icon: 'sprout',
+  },
+  {
+    title: 'Gemenskap',
+    body: 'Bli del av ett nätverk av likasinnade som delar kunskap, arbete och resurser.',
+    icon: 'people',
+  },
+] as const;
+---
+
+<section class="why-section" aria-labelledby="why-heading">
+  <div class="container">
+    <header class="section-header section-header--centered">
+      <p class="section-label">Varför gå med?</p>
+      <h2 id="why-heading">Vad du får som medlem</h2>
+    </header>
+    <ul class="why-grid" role="list">
+      {benefits.map((item) => (
+        <li class="why-item">
+          <LineIcon name={item.icon} size="lg" />
+          <h3>{item.title}</h3>
+          <p>{item.body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .section-label {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-xs);
+  }
+  .section-header { margin-bottom: var(--space-xl); }
+  .section-header h2 { font-size: var(--text-4xl); margin-bottom: var(--space-xs); letter-spacing: -0.02em; }
+  .section-header--centered { text-align: center; }
+
+  .why-section {
+    padding-block: var(--space-2xl);
+    background: var(--bg);
+  }
+
+  .why-grid {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-xl) 0 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .why-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 1.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-white);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .why-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .why-item :global(.line-icon) {
+    margin-bottom: var(--space-sm);
+  }
+
+  .why-item h3 {
+    font-size: var(--text-lg);
+    color: var(--text);
+    margin-bottom: var(--space-xs);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  .why-item p {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 900px) {
+    .why-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .why-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .why-item {
+      transition: none;
+    }
+    .why-item:hover {
+      transform: none;
+    }
+  }
+</style>

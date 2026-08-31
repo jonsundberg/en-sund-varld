@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import InterestForm from '../../components/InterestForm.astro';
+import LineIcon from '../../components/LineIcon.astro';
 ---
 
 <BaseLayout
@@ -111,35 +112,35 @@ import InterestForm from '../../components/InterestForm.astro';
             <h3>Konkret innebär det:</h3>
             <ul class="vision-list">
               <li>
-                <span aria-hidden="true">🏠</span>
+                <LineIcon name="house" />
                 <div>
                   <strong>Tryggt boende för Olof</strong>
                   <p>Olof bor kvar med fullständig nyttjanderätt för resten av sitt liv.</p>
                 </div>
               </li>
               <li>
-                <span aria-hidden="true">🔨</span>
+                <LineIcon name="hammer" />
                 <div>
                   <strong>Varsam upprustning</strong>
                   <p>Tak, vatten och grundläggande bekvämligheter återställs med respekt för byggnadernas karaktär och naturmaterial.</p>
                 </div>
               </li>
               <li>
-                <span aria-hidden="true">🌿</span>
+                <LineIcon name="leaf" />
                 <div>
                   <strong>Ekologisk förvaltning</strong>
                   <p>Marken sköts enligt permakulturella principer – biologisk mångfald och regenerativt jordbruk.</p>
                 </div>
               </li>
               <li>
-                <span aria-hidden="true">🏛️</span>
+                <LineIcon name="columns" />
                 <div>
                   <strong>Bevarande av kulturmiljö</strong>
                   <p>Ladorna, jordkällaren och de gamla byggnaderna bevaras och restaureras som en del av platsens historia.</p>
                 </div>
               </li>
               <li>
-                <span aria-hidden="true">🤝</span>
+                <LineIcon name="people" />
                 <div>
                   <strong>Öppet för gemensamt arbete</strong>
                   <p>Medlemmar välkomnas att bidra med arbetsinsatser och kunskap – på platsens och Olofs villkor.</p>
@@ -211,22 +212,22 @@ import InterestForm from '../../components/InterestForm.astro';
         </p>
         <div class="bidra-grid">
           <div class="bidra-item">
-            <span class="bidra-icon" aria-hidden="true">🪚</span>
+            <LineIcon name="saw" size="lg" />
             <h3>Praktiskt arbete</h3>
             <p>Hjälp med renovering, röjning, snickeri, murning eller trädgårdsarbete på gården.</p>
           </div>
           <div class="bidra-item">
-            <span class="bidra-icon" aria-hidden="true">🌱</span>
+            <LineIcon name="sprout" size="lg" />
             <h3>Kunskap & kompetens</h3>
             <p>Delar du kunskap om naturbyggande, permakultur, el, VVS eller ekologisk odling? Det behövs.</p>
           </div>
           <div class="bidra-item">
-            <span class="bidra-icon" aria-hidden="true">💚</span>
+            <LineIcon name="heart" size="lg" />
             <h3>Bli medlem</h3>
             <p>Gå med i En sund värld som insatsbetalande medlem och bidra till föreningens gemensamma kapital.</p>
           </div>
           <div class="bidra-item">
-            <span class="bidra-icon" aria-hidden="true">📣</span>
+            <LineIcon name="megaphone" size="lg" />
             <h3>Sprid ordet</h3>
             <p>Känner du någon som delar dessa värderingar? Berätta om initiativet och bjud in dem.</p>
           </div>
@@ -463,7 +464,7 @@ import InterestForm from '../../components/InterestForm.astro';
     gap: var(--space-md);
   }
   .vision-list li { display: flex; gap: var(--space-sm); align-items: flex-start; }
-  .vision-list li > span { font-size: 1.4rem; flex-shrink: 0; line-height: 1.4; }
+  .vision-list :global(.line-icon) { margin-top: 0.2rem; }
   .vision-list strong { display: block; font-size: var(--text-base); margin-bottom: 0.2rem; }
   .vision-list p { font-size: var(--text-base) !important; margin: 0; }
 
@@ -499,11 +500,11 @@ import InterestForm from '../../components/InterestForm.astro';
   .bidra-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); }
   .bidra-item {
     background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
   }
-  .bidra-icon { font-size: 2rem; display: block; margin-bottom: var(--space-sm); }
+  .bidra-item :global(.line-icon) { margin-bottom: var(--space-sm); }
   .bidra-item h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); letter-spacing: -0.01em; }
   .bidra-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
 

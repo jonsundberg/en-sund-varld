@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InterestForm from '../components/InterestForm.astro';
+import MemberBenefits from '../components/MemberBenefits.astro';
+import LineIcon from '../components/LineIcon.astro';
 ---
 
 <BaseLayout
@@ -75,28 +77,28 @@ import InterestForm from '../components/InterestForm.astro';
 
         <ul class="values-list" role="list">
           <li class="value-item">
-            <span class="value-icon" aria-hidden="true">🌿</span>
+            <LineIcon name="leaf" />
             <div>
               <strong>Permakultur</strong>
               <p>Designa system som arbetar med naturen, inte mot den.</p>
             </div>
           </li>
           <li class="value-item">
-            <span class="value-icon" aria-hidden="true">🤝</span>
+            <LineIcon name="people" />
             <div>
               <strong>Grannsamverkan</strong>
               <p>Bygga gemenskap och resiliens genom lokal samverkan.</p>
             </div>
           </li>
           <li class="value-item">
-            <span class="value-icon" aria-hidden="true">🏡</span>
+            <LineIcon name="house" />
             <div>
               <strong>Självförsörjning</strong>
               <p>Mat, energi och boende nära den egna marken.</p>
             </div>
           </li>
           <li class="value-item">
-            <span class="value-icon" aria-hidden="true">🕊️</span>
+            <LineIcon name="bird" />
             <div>
               <strong>Frihet</strong>
               <p>Leva på egna villkor, med ansvar för helheten.</p>
@@ -125,7 +127,7 @@ import InterestForm from '../components/InterestForm.astro';
         <article class="project-card project-card--featured">
           <div class="project-card-header">
             <span class="project-tag">Pågående initiativ</span>
-            <span class="project-icon" aria-hidden="true">🏚️</span>
+            <LineIcon name="barn" size="md" />
           </div>
           <h3>Initiativ: Olof Larssons Gård</h3>
           <p class="project-ingress">
@@ -148,7 +150,7 @@ import InterestForm from '../components/InterestForm.astro';
         <article class="project-card project-card--featured">
           <div class="project-card-header">
             <span class="project-tag">Pågående initiativ</span>
-            <span class="project-icon" aria-hidden="true">🌾</span>
+            <LineIcon name="wheat" size="md" />
           </div>
           <h3>Initiativ: Ekoby &amp; Boendegemenskap</h3>
           <p>
@@ -164,7 +166,7 @@ import InterestForm from '../components/InterestForm.astro';
         <article class="project-card project-card--future">
           <div class="project-card-header">
             <span class="project-tag project-tag--planned">Framtida initiativ</span>
-            <span class="project-icon" aria-hidden="true">🌱</span>
+            <LineIcon name="sprout" size="md" />
           </div>
           <h3>Gemensamma odlingar &amp; Workshops</h3>
           <p>
@@ -180,37 +182,7 @@ import InterestForm from '../components/InterestForm.astro';
     </div>
   </section>
 
-  <!-- ── Varför gå med? ────────────────────────────────── -->
-  <section class="why-section" aria-labelledby="why-heading">
-    <div class="container">
-      <header class="section-header section-header--centered">
-        <p class="section-label">Varför gå med?</p>
-        <h2 id="why-heading">Vad du får som medlem</h2>
-      </header>
-      <div class="why-grid">
-        <div class="why-item">
-          <span class="why-icon" aria-hidden="true">📜</span>
-          <h3>Medäganderätt</h3>
-          <p>Som insatsbetalande medlem är du delägare i föreningens tillgångar och mark.</p>
-        </div>
-        <div class="why-item">
-          <span class="why-icon" aria-hidden="true">🗳️</span>
-          <h3>Demokratiskt inflytande</h3>
-          <p>En röst per medlem på stämman. Du är med och fattar besluten.</p>
-        </div>
-        <div class="why-item">
-          <span class="why-icon" aria-hidden="true">🌍</span>
-          <h3>Nyttjanderätt till mark</h3>
-          <p>Tillgång att bruka och bo på föreningens mark på gemensamma villkor.</p>
-        </div>
-        <div class="why-item">
-          <span class="why-icon" aria-hidden="true">🤲</span>
-          <h3>Gemenskap</h3>
-          <p>Bli del av ett nätverk av likasinnade som delar kunskap, arbete och resurser.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <MemberBenefits />
 
   <!-- ── Intresseanmälan ───────────────────────────────── -->
   <InterestForm />
@@ -311,10 +283,9 @@ import InterestForm from '../components/InterestForm.astro';
     align-items: flex-start;
     padding: var(--space-md);
     background: var(--bg);
-    border: 1px solid var(--border);
     border-radius: var(--radius-md);
   }
-  .value-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; }
+  .value-item :global(.line-icon) { margin-top: 0.15rem; }
   .value-item strong { display: block; font-size: var(--text-base); font-weight: 700; margin-bottom: 0.15rem; }
   .value-item p { margin: 0; color: var(--text-muted); font-size: var(--text-sm); }
 
@@ -346,8 +317,7 @@ import InterestForm from '../components/InterestForm.astro';
   }
   .project-card {
     background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     padding: var(--space-lg);
     box-shadow: var(--shadow-sm);
     display: flex;
@@ -355,8 +325,6 @@ import InterestForm from '../components/InterestForm.astro';
     gap: var(--space-sm);
   }
   .project-card--featured {
-    border-color: var(--accent);
-    border-width: 2px;
     box-shadow: var(--shadow-md);
   }
   .project-card-header {
@@ -376,7 +344,6 @@ import InterestForm from '../components/InterestForm.astro';
     text-transform: uppercase;
   }
   .project-tag--planned { background: var(--coral-light); color: var(--coral-hover); }
-  .project-icon { font-size: 1.5rem; }
   .project-card h3 { font-size: var(--text-xl); margin: 0; letter-spacing: -0.01em; }
   .project-ingress {
     font-family: var(--font-serif);
@@ -388,24 +355,6 @@ import InterestForm from '../components/InterestForm.astro';
   .project-card p { color: var(--text-muted); font-size: var(--text-base); margin: 0; }
   .project-status { font-size: var(--text-sm) !important; font-style: italic; color: var(--earth) !important; }
 
-  /* ── Why ────────────────────────────────────────────── */
-  .why-section { padding-block: var(--space-2xl); background: var(--bg-white); }
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-md);
-    margin-top: var(--space-xl);
-  }
-  .why-item {
-    padding: var(--space-lg);
-    border-radius: var(--radius-lg);
-    background: var(--bg);
-    border: 1px solid var(--border);
-  }
-  .why-icon { font-size: 2rem; display: block; margin-bottom: var(--space-sm); }
-  .why-item h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); letter-spacing: -0.01em; }
-  .why-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
-
   /* ── Responsive ─────────────────────────────────────── */
   @media (max-width: 1000px) {
     .projects-grid { grid-template-columns: 1fr 1fr; }
@@ -415,12 +364,10 @@ import InterestForm from '../components/InterestForm.astro';
     .hero-inner { grid-template-columns: 1fr; }
     .hero-aside { display: none; }
     .about-inner { grid-template-columns: 1fr; }
-    .why-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
     .projects-grid { grid-template-columns: 1fr; }
     .project-card--featured { grid-column: auto; }
-    .why-grid { grid-template-columns: 1fr; }
     .hero-actions { flex-direction: column; align-items: flex-start; }
   }
 </style>

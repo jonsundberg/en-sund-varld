@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import InterestForm from '../../components/InterestForm.astro';
+import LineIcon from '../../components/LineIcon.astro';
 ---
 
 <BaseLayout
@@ -58,7 +59,7 @@ import InterestForm from '../../components/InterestForm.astro';
             </p>
             <ul class="vision-list">
               <li>
-                <span aria-hidden="true">🌾</span>
+                <LineIcon name="wheat" />
                 <div>
                   <strong>Permakultur och kretslopp</strong>
                   <p>
@@ -69,7 +70,7 @@ import InterestForm from '../../components/InterestForm.astro';
                 </div>
               </li>
               <li>
-                <span aria-hidden="true">🏕️</span>
+                <LineIcon name="tent" />
                 <div>
                   <strong>Startkojor och tillfälliga boenden</strong>
                   <p>
@@ -112,7 +113,7 @@ import InterestForm from '../../components/InterestForm.astro';
         <ul class="build-cards" role="list">
           <li>
             <article class="build-card">
-              <span class="build-card-icon" aria-hidden="true">🪵</span>
+              <LineIcon name="log" size="lg" />
               <h3>Byggmaterial direkt från marken</h3>
               <p>
                 Vi nyttjar det som platsen ger. Lera ur åkermarken för väggar
@@ -124,7 +125,7 @@ import InterestForm from '../../components/InterestForm.astro';
           </li>
           <li>
             <article class="build-card">
-              <span class="build-card-icon" aria-hidden="true">🚜</span>
+              <LineIcon name="tractor" size="lg" />
               <h3>Gemensam maskinpark och verktyg</h3>
               <p>
                 Istället för att varje hushåll köper egna dyra maskiner
@@ -137,7 +138,7 @@ import InterestForm from '../../components/InterestForm.astro';
           </li>
           <li>
             <article class="build-card">
-              <span class="build-card-icon" aria-hidden="true">🛠️</span>
+              <LineIcon name="tools" size="lg" />
               <h3>Workshops och expertledda byggtillfällen</h3>
               <p>
                 Vi bjuder in kunniga instruktörer och arrangerar praktiska
@@ -178,21 +179,21 @@ import InterestForm from '../../components/InterestForm.astro';
             </p>
             <ul class="vision-list">
               <li>
-                <span aria-hidden="true">🤝</span>
+                <LineIcon name="people" />
                 <div>
                   <strong>Gemensamt ägande</strong>
                   <p>Föreningen äger marken. Medlemmar får nyttjanderätt på gemensamma villkor.</p>
                 </div>
               </li>
               <li>
-                <span aria-hidden="true">🪜</span>
+                <LineIcon name="ladder" />
                 <div>
                   <strong>Låg tröskel, tydliga steg</strong>
                   <p>Först medlemskap. Sedan, för den som vill, insats i ett konkret markköp.</p>
                 </div>
               </li>
               <li>
-                <span aria-hidden="true">📜</span>
+                <LineIcon name="scroll" />
                 <div>
                   <strong>Regler för utträde</strong>
                   <p>Villkor för att träda ur ska vara kända i förväg – inte något som improviseras i kris.</p>
@@ -332,7 +333,7 @@ import InterestForm from '../../components/InterestForm.astro';
     gap: var(--space-md);
   }
   .vision-list li { display: flex; gap: var(--space-sm); align-items: flex-start; }
-  .vision-list li > span { font-size: 1.4rem; flex-shrink: 0; line-height: 1.4; }
+  .vision-list :global(.line-icon) { margin-top: 0.2rem; }
   .vision-list strong { display: block; font-size: var(--text-base); margin-bottom: 0.2rem; }
   .vision-list p { font-size: var(--text-base) !important; margin: 0; }
 
@@ -346,16 +347,12 @@ import InterestForm from '../../components/InterestForm.astro';
   }
   .build-card {
     background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     padding: var(--space-md);
     box-shadow: var(--shadow-sm);
     height: 100%;
   }
-  .build-card-icon {
-    display: block;
-    font-size: 1.6rem;
-    line-height: 1;
+  .build-card :global(.line-icon) {
     margin-bottom: var(--space-sm);
   }
   .build-card h3 {
