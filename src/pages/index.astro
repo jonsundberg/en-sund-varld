@@ -24,21 +24,19 @@ import LineIcon from '../components/LineIcon.astro';
       <div class="hero-scrim" aria-hidden="true"></div>
     </div>
     <div class="hero-inner container">
-      <div class="hero-text">
-        <p class="hero-eyebrow">Ekonomisk Förening</p>
-        <h1 id="hero-heading">
-          En sund värld – vi vårdar jorden och bygger hållbara livsmiljöer.
-        </h1>
-        <p class="hero-lead">
-          En sund värld är en paraplyorganisation för människor som vill leva
-          och verka i nära samklang med naturen. Tillsammans driver vi initiativ
-          kring mark&shy;förvaltning, ekobyar, permakultur och
-          självförsörjning.
-        </p>
-        <div class="hero-actions">
-          <a href="#anmalan" class="btn btn-primary">Bli medlem / Anmäl intresse</a>
-          <a href="#om-foreningen" class="btn btn-outline">Läs mer om oss</a>
-        </div>
+      <p class="hero-eyebrow">Ekonomisk Förening</p>
+      <h1 id="hero-heading">
+        En sund värld – vi vårdar jorden och bygger hållbara livsmiljöer.
+      </h1>
+      <p class="hero-lead">
+        En sund värld är en paraplyorganisation för människor som vill leva
+        och verka i nära samklang med naturen. Tillsammans driver vi initiativ
+        kring mark&shy;förvaltning, ekobyar, permakultur och
+        självförsörjning.
+      </p>
+      <div class="hero-actions">
+        <a href="#anmalan" class="btn btn-primary">Bli medlem / Anmäl intresse</a>
+        <a href="#om-foreningen" class="btn btn-outline btn-outline-light">Läs mer om oss</a>
       </div>
     </div>
   </section>
@@ -72,34 +70,26 @@ import LineIcon from '../components/LineIcon.astro';
           </a>
         </div>
 
-        <ul class="values-list" role="list">
-          <li class="value-item">
-            <LineIcon name="leaf" />
-            <div>
-              <strong>Permakultur</strong>
-              <p>Designa system som arbetar med naturen, inte mot den.</p>
-            </div>
+        <ul class="values-grid" role="list">
+          <li class="value-card">
+            <span class="value-icon"><LineIcon name="leaf" size="md" /></span>
+            <h3>Permakultur</h3>
+            <p>Designa system som arbetar med naturen, inte mot den.</p>
           </li>
-          <li class="value-item">
-            <LineIcon name="people" />
-            <div>
-              <strong>Grannsamverkan</strong>
-              <p>Bygga gemenskap och resiliens genom lokal samverkan.</p>
-            </div>
+          <li class="value-card">
+            <span class="value-icon"><LineIcon name="people" size="md" /></span>
+            <h3>Grannsamverkan</h3>
+            <p>Bygga gemenskap och resiliens genom lokal samverkan.</p>
           </li>
-          <li class="value-item">
-            <LineIcon name="house" />
-            <div>
-              <strong>Självförsörjning</strong>
-              <p>Mat, energi och boende nära den egna marken.</p>
-            </div>
+          <li class="value-card">
+            <span class="value-icon"><LineIcon name="house" size="md" /></span>
+            <h3>Självförsörjning</h3>
+            <p>Mat, energi och boende nära den egna marken.</p>
           </li>
-          <li class="value-item">
-            <LineIcon name="bird" />
-            <div>
-              <strong>Frihet</strong>
-              <p>Leva på egna villkor, med ansvar för helheten.</p>
-            </div>
+          <li class="value-card">
+            <span class="value-icon"><LineIcon name="bird" size="md" /></span>
+            <h3>Frihet</h3>
+            <p>Leva på egna villkor, med ansvar för helheten.</p>
           </li>
         </ul>
       </div>
@@ -120,8 +110,7 @@ import LineIcon from '../components/LineIcon.astro';
 
       <div class="projects-grid">
 
-        <!-- Framhävt: Olof Larssons Gård -->
-        <article class="project-card project-card--featured">
+        <article class="project-card glass-card">
           <div class="project-card-header">
             <span class="project-tag">Pågående initiativ</span>
             <LineIcon name="barn" size="md" />
@@ -131,48 +120,46 @@ import LineIcon from '../components/LineIcon.astro';
             En gammal gård med djupa rötter – och en man som förtjänar att
             se den blomstra igen.
           </p>
-          <p>
+          <p class="project-body">
             Olof har levt mer än 20 år på sin barndomsgård, off-grid, med
             regnvatten och utedass. Nu vill vi som förening hjälpa honom:
             förvärva gården, trygga hans ålderdom och återställa platsen
             med vördnad – utan exploatering, utan lyxvillor. Kulturmiljön
             bevaras, marken sköts ekologiskt.
           </p>
-          <a href="/projekt/olof-larsson" class="btn btn-primary">
+          <a href="/projekt/olof-larsson" class="btn btn-primary btn-block">
             Läs mer om initiativet
           </a>
         </article>
 
-        <!-- Pågående: Ekoby -->
-        <article class="project-card project-card--featured">
+        <article class="project-card glass-card" id="ekoby">
           <div class="project-card-header">
             <span class="project-tag">Pågående initiativ</span>
             <LineIcon name="wheat" size="md" />
           </div>
           <h3>Initiativ: Ekoby &amp; Boendegemenskap</h3>
-          <p>
+          <p class="project-body">
             Ett gemensamt initiativ för 10+ hushåll. Vi söker 20+ hektar
             mark på landsbygden – odling, naturmaterial och ett fritt,
             nära liv tillsammans.
           </p>
           <p class="project-status">Söker intresserade hushåll och tips om mark.</p>
-          <a href="/projekt/ekoby" class="btn btn-primary">Läs mer om ekobyn</a>
+          <a href="/projekt/ekoby" class="btn btn-primary btn-block">Läs mer om ekobyn</a>
         </article>
 
-        <!-- Kommande: Odling -->
-        <article class="project-card project-card--future">
+        <article class="project-card glass-card">
           <div class="project-card-header">
             <span class="project-tag project-tag--planned">Framtida initiativ</span>
             <LineIcon name="sprout" size="md" />
           </div>
           <h3>Gemensamma odlingar &amp; Workshops</h3>
-          <p>
+          <p class="project-body">
             Kurser och praktiska träffar i ekologisk odling, frösparande,
             naturbyggande och permakulturell design – öppet för medlemmar
             och intresserade grannar.
           </p>
           <p class="project-status">Söker engagerade med kunskap att dela.</p>
-          <a href="#anmalan" class="btn btn-outline">Bidra med kunskap</a>
+          <a href="#anmalan" class="btn btn-outline btn-block">Bidra med kunskap</a>
         </article>
 
       </div>
@@ -181,7 +168,6 @@ import LineIcon from '../components/LineIcon.astro';
 
   <MemberBenefits />
 
-  <!-- ── Intresseanmälan ───────────────────────────────── -->
   <InterestForm />
 
 </BaseLayout>
@@ -190,7 +176,10 @@ import LineIcon from '../components/LineIcon.astro';
   /* ── Hero ───────────────────────────────────────────── */
   .hero {
     position: relative;
-    background: var(--bg-dark);
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     color: var(--text-on-dark);
     isolation: isolate;
   }
@@ -203,148 +192,168 @@ import LineIcon from '../components/LineIcon.astro';
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 58% 40%;
+    object-position: center;
   }
   .hero-scrim {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(
-        105deg,
-        rgba(29, 58, 55, 0.92) 0%,
-        rgba(29, 58, 55, 0.78) 38%,
-        rgba(29, 58, 55, 0.38) 62%,
-        rgba(29, 58, 55, 0.22) 100%
-      );
+    background: rgba(29, 58, 55, 0.6);
   }
   .hero-inner {
     position: relative;
     z-index: 1;
-    padding-block: var(--space-2xl);
-    min-height: 28rem;
-    display: flex;
-    align-items: center;
-  }
-  .hero-text {
-    max-width: 38rem;
+    padding-block: var(--space-section-mobile);
+    max-width: 48rem;
   }
   .hero-eyebrow {
     font-size: var(--text-sm);
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--accent-mid);
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
   }
   .hero h1 {
-    font-size: clamp(2rem, 5vw, var(--text-5xl));
+    font-size: clamp(2.25rem, 5vw, var(--text-5xl));
     color: var(--text-on-dark);
     margin-bottom: var(--space-md);
     letter-spacing: -0.02em;
     line-height: 1.15;
-    text-shadow: 0 1px 18px rgba(29, 58, 55, 0.45);
   }
   .hero-lead {
     font-size: var(--text-lg);
-    color: rgba(240,244,243,0.88);
-    max-width: 46ch;
+    color: var(--surface-low);
+    max-width: 42rem;
     margin-bottom: var(--space-lg);
-    line-height: 1.7;
+    line-height: 1.6;
   }
-  .hero-actions { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
-  .hero .btn-outline {
+  .hero-actions {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+  .btn-outline-light {
     color: var(--text-on-dark);
-    border-color: rgba(255,255,255,0.55);
-    background: rgba(29, 58, 55, 0.28);
+    border-color: var(--accent-mid);
+    background: transparent;
   }
-  .hero .btn-outline:hover {
-    background: rgba(255,255,255,0.12);
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    border-color: rgba(255,255,255,0.8);
+    border-color: var(--accent-mid);
   }
 
   /* ── About ──────────────────────────────────────────── */
-  .about-section { padding-block: var(--space-2xl); background: var(--bg-white); }
+  .about-section {
+    padding-block: var(--space-section-mobile);
+    background: var(--bg);
+  }
   .about-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-2xl);
+    gap: var(--space-xl);
     align-items: start;
   }
-  .about-text h2 { font-size: var(--text-4xl); margin-bottom: var(--space-md); letter-spacing: -0.02em; }
-  .about-text p { margin-bottom: var(--space-sm); color: var(--text-muted); font-size: var(--text-lg); }
+  .about-text h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.01em;
+  }
+  .about-text p {
+    margin-bottom: var(--space-sm);
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    line-height: 1.6;
+  }
   .about-text p strong { color: var(--text); }
   .text-link {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
     font-weight: 600;
+    font-size: var(--text-sm);
     margin-top: var(--space-xs);
     text-decoration: none;
     color: var(--accent);
-    border-bottom: 2px solid transparent;
-    transition: border-color var(--transition);
+    transition: color var(--transition);
   }
-  .text-link:hover { border-bottom-color: var(--accent); color: var(--accent-hover); }
+  .text-link:hover { color: var(--deep-forest); }
 
-  .values-list {
+  .values-grid {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: var(--space-sm);
   }
-  .value-item {
-    display: flex;
-    gap: var(--space-sm);
-    align-items: flex-start;
+  .value-card {
+    background: var(--linen-cream);
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
     padding: var(--space-md);
-    background: var(--bg);
-    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition);
   }
-  .value-item :global(.line-icon) { margin-top: 0.15rem; }
-  .value-item strong { display: block; font-size: var(--text-base); font-weight: 700; margin-bottom: 0.15rem; }
-  .value-item p { margin: 0; color: var(--text-muted); font-size: var(--text-sm); }
-
-  /* ── Section labels & headers ───────────────────────── */
-  .section-label {
+  .value-card:hover { border-color: var(--accent); }
+  .value-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    background: var(--bg-secondary);
+    margin-bottom: var(--space-sm);
+  }
+  .value-card h3 {
+    font-family: var(--font-base);
     font-size: var(--text-sm);
     font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: var(--space-xs);
+    margin-bottom: 0.35rem;
   }
-  .section-header { margin-bottom: var(--space-xl); }
-  .section-header h2 { font-size: var(--text-4xl); margin-bottom: var(--space-xs); letter-spacing: -0.02em; }
-  .section-intro { font-size: var(--text-lg); color: var(--text-muted); max-width: 54ch; }
-  .section-header--centered { text-align: center; }
-  .section-header--centered .section-intro { margin-inline: auto; }
+  .value-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  /* ── Section headers ────────────────────────────────── */
+  .section-header { margin-bottom: var(--space-lg); }
+  .section-header h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-sm);
+    letter-spacing: -0.01em;
+  }
+  .section-intro {
+    font-size: var(--text-base);
+    color: var(--text-muted);
+    max-width: 42rem;
+    line-height: 1.6;
+  }
 
   /* ── Projects ───────────────────────────────────────── */
   .projects-section {
-    background: var(--bg);
-    padding-block: var(--space-2xl);
+    background: var(--linen-cream);
+    padding-block: var(--space-section-mobile);
   }
   .projects-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-md);
-    align-items: start;
+    align-items: stretch;
   }
   .project-card {
-    background: var(--bg-white);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
-    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
+    border: 1px solid transparent;
+    transition: border-color var(--transition);
   }
-  .project-card--featured {
-    box-shadow: var(--shadow-md);
-  }
+  .project-card:hover { border-color: var(--coral); }
   .project-card-header {
     display: flex;
     align-items: center;
@@ -352,55 +361,64 @@ import LineIcon from '../components/LineIcon.astro';
   }
   .project-tag {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.625rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
-    padding: 0.2rem 0.65rem;
-    border-radius: 99px;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
     background: var(--accent-light);
-    color: var(--accent-hover);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
     text-transform: uppercase;
   }
-  .project-tag--planned { background: var(--coral-light); color: var(--coral-hover); }
-  .project-card h3 { font-size: var(--text-xl); margin: 0; letter-spacing: -0.01em; }
+  .project-tag--planned {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    border-color: var(--border);
+  }
+  .project-card h3 {
+    font-size: var(--text-xl);
+    margin: 0;
+    line-height: 1.4;
+  }
   .project-ingress {
-    font-family: var(--font-serif);
     font-style: italic;
-    font-size: var(--text-base) !important;
-    color: var(--text) !important;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .project-body {
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    margin: 0;
+    flex-grow: 1;
     line-height: 1.6;
   }
-  .project-card p { color: var(--text-muted); font-size: var(--text-base); margin: 0; }
-  .project-status { font-size: var(--text-sm) !important; font-style: italic; color: var(--earth) !important; }
+  .project-status {
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--accent);
+    margin: 0;
+  }
+  .project-card .btn { margin-top: auto; }
 
-  /* ── Responsive ─────────────────────────────────────── */
-  @media (max-width: 1000px) {
-    .projects-grid { grid-template-columns: 1fr 1fr; }
-    .project-card--featured { grid-column: 1 / -1; }
+  @media (min-width: 768px) {
+    .hero-inner { padding-block: var(--space-section-desktop); }
+    .about-section,
+    .projects-section { padding-block: var(--space-section-desktop); }
   }
   @media (max-width: 900px) {
     .about-inner { grid-template-columns: 1fr; }
-    .hero-inner { min-height: 22rem; padding-block: var(--space-xl); }
-    .hero-scrim {
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(29, 58, 55, 0.55) 0%,
-          rgba(29, 58, 55, 0.82) 45%,
-          rgba(29, 58, 55, 0.9) 100%
-        );
-    }
-    .hero-photo img { object-position: 50% 35%; }
+    .projects-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 600px) {
-    .projects-grid { grid-template-columns: 1fr; }
-    .project-card--featured { grid-column: auto; }
-    .hero-actions { flex-direction: column; align-items: flex-start; }
+    .values-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
   }
 
   @media print {
     .hero-photo { display: none; }
-    .hero { background: #fff; color: #1a2624; }
-    .hero h1, .hero-lead, .hero-eyebrow { color: inherit; text-shadow: none; }
+    .hero { background: #fff; color: #1d1c15; min-height: auto; }
+    .hero h1, .hero-lead, .hero-eyebrow { color: inherit; }
   }
 </style>

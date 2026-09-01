@@ -14,18 +14,23 @@ const {
 
 const currentPath = Astro.url.pathname;
 
-// Uppdatera till din riktiga domän när den finns
-const siteUrl = 'https://en-sund-varld.vercel.app';
-const canonicalUrl = `${siteUrl}${currentPath}`;
-const ogImage = `${siteUrl}/og-image.jpeg`;
+const siteUrl = Astro.site?.origin ?? 'https://en-sund-varld.se';
+const canonicalUrl = new URL(currentPath, siteUrl).href;
+const ogImage = new URL('/og-image.jpeg', siteUrl).href;
 
 const navLinks = [
-  { href: '/',                      label: 'Hem' },
-  { href: '/projekt/olof-larsson',  label: 'Olof Larssons Gård' },
-  { href: '/projekt/ekoby',         label: 'Ekoby' },
-  { href: '/stadgar',               label: 'Stadgar' },
-  { href: '/#anmalan',              label: 'Anmäl intresse' },
+  { href: '/',                      label: 'Hem',                      icon: 'home' },
+  { href: '/projekt/olof-larsson',  label: 'Olof Larssons Gård',      icon: 'barn' },
+  { href: '/projekt/ekoby',         label: 'Ekoby & Boendegemenskap', icon: 'people' },
+  { href: '/stadgar',               label: 'Stadgar',                  icon: 'scroll' },
+  { href: '/#anmalan',              label: 'Anmäl intresse',           icon: 'heart' },
 ];
+
+function isNavActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  if (href.startsWith('/#')) return false;
+  return currentPath === href || currentPath.startsWith(`${href}/`);
+}
 ---
 
 <!DOCTYPE html>
@@ -49,7 +54,6 @@ const navLinks = [
     <meta property="og:locale" content="sv_SE" />
     <meta property="og:site_name" content="En sund värld" />
 
-    <!-- Twitter/X Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} – En sund värld`} />
     <meta name="twitter:description" content={description} />
@@ -58,7 +62,7 @@ const navLinks = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,600;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -68,80 +72,160 @@ const navLinks = [
     <a href="#main" class="skip-link">Hoppa till innehåll</a>
 
     <header class="site-header">
-      <div class="container header-inner">
+      <div class="header-inner">
         <a href="/" class="site-logo" aria-label="En sund värld – startsida">
           <LogoMark />
           <span class="logo-text">En sund värld</span>
         </a>
 
-        <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Öppna meny">
-          <span></span><span></span><span></span>
-        </button>
-
-        <nav id="main-nav" aria-label="Huvudmeny">
+        <nav id="main-nav" class="header-nav" aria-label="Huvudmeny">
           <ul>
-            {navLinks.map(({ href, label }) => (
-              <li>
-                <a
-                  href={href}
-                  aria-current={currentPath === href ? 'page' : undefined}
-                >
-                  {label}
-                </a>
-              </li>
-            ))}
+            {navLinks.map(({ href, label }) => {
+              const active = isNavActive(href);
+              return (
+                <li>
+                  <a
+                    href={href}
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    {label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="nav-drawer"
+          aria-label="Öppna meny"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
       </div>
     </header>
+
+    <div class="drawer-overlay" id="drawer-overlay" hidden aria-hidden="true"></div>
+
+    <nav
+      id="nav-drawer"
+      class="nav-drawer"
+      aria-label="Huvudmeny"
+      aria-hidden="true"
+    >
+      <div class="drawer-header">
+        <h2 class="drawer-title">Meny</h2>
+        <button type="button" class="drawer-close" aria-label="Stäng meny">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+
+      <ul class="drawer-links">
+        {navLinks.map(({ href, label, icon }) => {
+          const active = isNavActive(href);
+          return (
+            <li>
+              <a
+                href={href}
+                class:list={['drawer-link', { 'drawer-link--active': active }]}
+                aria-current={active ? 'page' : undefined}
+              >
+                <span class="drawer-link-icon" aria-hidden="true">
+                  {icon === 'home' && (
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.8V21h13V9.8"/><path d="M10 21v-6h4v6"/></svg>
+                  )}
+                  {icon === 'barn' && (
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 3.5 21 11"/><path d="M5 10.8V21h14V10.8"/><path d="M9.5 21v-7h5v7"/></svg>
+                  )}
+                  {icon === 'people' && (
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="7" r="2.2"/><circle cx="15.5" cy="7" r="2.2"/><path d="M3.6 18.5c.4-3.4 2.4-5.4 4.9-5.4 1.6 0 2.9.8 3.7 2"/><path d="M20.4 18.5c-.4-3.4-2.4-5.4-4.9-5.4-1.6 0-2.9.8-3.7 2"/></svg>
+                  )}
+                  {icon === 'scroll' && (
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5.2c0-1.2.9-2.2 2.1-2.2H20v13.2a2 2 0 0 1-2 2H8"/><path d="M6 5.2v11.8A2.2 2.2 0 0 1 3.8 19.2 2.2 2.2 0 0 1 1.6 17 2.2 2.2 0 0 1 3.8 14.8H18"/></svg>
+                  )}
+                  {icon === 'heart' && (
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-9.2C5 8 7 6 9.2 6c1.3 0 2.4.6 2.8 1.6C12.4 6.6 13.5 6 14.8 6 17 6 19 8 19 10.8 19 15.6 12 20 12 20Z"/></svg>
+                  )}
+                </span>
+                <span>{label}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
 
     <main id="main">
       <slot />
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-inner">
-        <div class="footer-brand">
-          <a href="/" class="footer-logo" aria-label="En sund värld – startsida">
-            <LogoMark />
-            <span>
-              <span class="footer-name">En sund värld</span>
-              <span class="footer-tagline">Ekonomisk Förening</span>
-            </span>
-          </a>
-        </div>
-
-        <nav aria-label="Sidfotslänkar" class="footer-nav">
-          <ul>
-            <li><a href="/">Hem</a></li>
-            <li><a href="/projekt/olof-larsson">Olof Larssons Gård</a></li>
-            <li><a href="/projekt/ekoby">Ekoby &amp; Boendegemenskap</a></li>
-            <li><a href="/stadgar">Stadgar</a></li>
-            <li><a href="/#anmalan">Anmäl intresse</a></li>
-          </ul>
-        </nav>
-
-        <div class="footer-contact">
-          <p>
-            Frågor eller funderingar? Kontakta oss via
-            <a href="/#anmalan">intresseanmälan</a>.
-          </p>
-        </div>
+      <div class="footer-brand">
+        <a href="/" class="footer-logo" aria-label="En sund värld – startsida">
+          <LogoMark />
+          <span>
+            <span class="footer-name">En sund värld</span>
+            <span class="footer-tagline">Ekonomisk Förening</span>
+          </span>
+        </a>
       </div>
-      <div class="footer-bottom">
-        <div class="container">
-          <p>&copy; {new Date().getFullYear()} En sund värld Ekonomisk Förening</p>
-        </div>
+
+      <nav aria-label="Sidfotslänkar" class="footer-nav">
+        <ul>
+          <li><a href="/" aria-current={currentPath === '/' ? 'page' : undefined}>Hem</a></li>
+          <li><a href="/projekt/olof-larsson">Olof Larssons Gård</a></li>
+          <li><a href="/projekt/ekoby">Ekoby &amp; Boendegemenskap</a></li>
+          <li><a href="/stadgar">Stadgar</a></li>
+          <li><a href="/#anmalan">Anmäl intresse</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-contact">
+        <p>
+          Frågor eller funderingar? Kontakta oss via
+          <a href="/#anmalan">intresseanmälan</a>.
+        </p>
+        <p class="footer-copy">&copy; {new Date().getFullYear()} En sund värld Ekonomisk Förening</p>
       </div>
     </footer>
 
     <script>
       const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement | null;
-      const nav = document.getElementById('main-nav');
+      const closeBtn = document.querySelector('.drawer-close') as HTMLButtonElement | null;
+      const drawer = document.getElementById('nav-drawer');
+      const overlay = document.getElementById('drawer-overlay');
+
+      function setDrawerOpen(open: boolean) {
+        toggle?.setAttribute('aria-expanded', String(open));
+        drawer?.setAttribute('aria-hidden', String(!open));
+        drawer?.classList.toggle('open', open);
+        overlay?.classList.toggle('open', open);
+        if (overlay) overlay.hidden = !open;
+        document.body.classList.toggle('drawer-open', open);
+      }
+
       toggle?.addEventListener('click', () => {
-        const expanded = toggle.getAttribute('aria-expanded') === 'true';
-        toggle.setAttribute('aria-expanded', String(!expanded));
-        nav?.classList.toggle('open');
+        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+        setDrawerOpen(!isOpen);
+      });
+      closeBtn?.addEventListener('click', () => setDrawerOpen(false));
+      overlay?.addEventListener('click', () => setDrawerOpen(false));
+      drawer?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setDrawerOpen(false));
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setDrawerOpen(false);
+      });
+
+      window.matchMedia('(min-width: 900px)').addEventListener('change', (e) => {
+        if (e.matches) setDrawerOpen(false);
       });
     </script>
   </body>
@@ -152,7 +236,7 @@ const navLinks = [
     position: absolute;
     top: -48px;
     left: var(--space-sm);
-    background: var(--accent);
+    background: var(--deep-forest);
     color: #fff;
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-sm);
@@ -164,53 +248,60 @@ const navLinks = [
   .skip-link:focus { top: var(--space-sm); }
 
   .site-header {
-    background: var(--bg-white);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
-    box-shadow: 0 1px 0 var(--border);
+    background: rgba(254, 249, 237, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(193, 200, 198, 0.3);
+    box-shadow: var(--shadow-sm);
   }
   .header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-md);
-    padding-block: 0.9rem;
+    padding: 0.75rem var(--space-md);
+    max-width: var(--max-width);
+    margin-inline: auto;
   }
 
   .site-logo {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.75rem;
     text-decoration: none;
-    color: var(--text);
-    font-family: var(--font-serif);
+    color: var(--deep-forest);
+    font-family: var(--font-display);
     font-size: var(--text-xl);
-    font-weight: 600;
+    font-weight: 700;
     flex-shrink: 0;
-    letter-spacing: -0.02em;
     border-radius: var(--radius-sm);
   }
   .site-logo :global(.logo-mark) {
-    width: 2.9rem;
-    height: 2.9rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
-  .site-logo:hover { color: var(--accent); }
+  .site-logo:hover { color: var(--deep-forest); }
   .site-logo:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--deep-forest);
     outline-offset: 3px;
   }
 
-  #main-nav ul {
+  .header-nav { display: none; }
+  .header-nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
   }
-  #main-nav a {
+  .header-nav a {
     text-decoration: none;
     color: var(--text-muted);
     font-weight: 600;
@@ -218,45 +309,153 @@ const navLinks = [
     padding: 0.25rem 0;
     border-bottom: 2px solid transparent;
     transition: color var(--transition), border-color var(--transition);
+    white-space: nowrap;
   }
-  #main-nav a:hover {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
+  .header-nav a:hover {
+    color: var(--deep-forest);
+    border-bottom-color: var(--coral);
   }
-  #main-nav a[aria-current="page"] {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
+  .header-nav a[aria-current="page"] {
+    color: var(--deep-forest);
+    border-bottom-color: var(--coral);
   }
 
   .nav-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 0.5rem;
+    border-radius: 999px;
+    color: var(--deep-forest);
+    transition: background var(--transition);
   }
-  .nav-toggle span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    transition: transform var(--transition), opacity var(--transition);
+  .nav-toggle:hover { background: var(--linen-cream); }
+  .nav-toggle:focus-visible {
+    outline: 2px solid var(--deep-forest);
+    outline-offset: 2px;
+  }
+
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 120;
+    width: min(20rem, 85vw);
+    height: 100%;
+    background: var(--bg);
+    box-shadow: var(--shadow-md);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-md);
+    gap: var(--space-sm);
+  }
+  .nav-drawer.open { transform: translateX(0); }
+
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+  }
+  .drawer-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--deep-forest);
+    margin: 0;
+  }
+  .drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 999px;
+    color: var(--deep-forest);
+    transition: background var(--transition);
+  }
+  .drawer-close:hover { background: var(--bg-secondary); }
+  .drawer-close:focus-visible {
+    outline: 2px solid var(--deep-forest);
+    outline-offset: 2px;
+  }
+
+  .drawer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .drawer-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 0.85rem var(--space-sm);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    transition: background var(--transition), color var(--transition);
+  }
+  .drawer-link:hover {
+    background: var(--bg-secondary);
+    color: var(--deep-forest);
+  }
+  .drawer-link--active {
+    background: var(--coral-hover);
+    color: #752d00;
+  }
+  .drawer-link-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  :global(body.drawer-open) { overflow: hidden; }
+
+  #main {
+    padding-top: var(--header-height);
+  }
+
+  /* Fullbredd-hero: dra upp så bilden möter headern utan glipa */
+  #main > :first-child.hero,
+  #main > :first-child.projekt-page:has(.projekt-hero-img) {
+    margin-top: calc(-1 * var(--header-height));
   }
 
   .site-footer {
     background: var(--bg-dark);
     color: var(--text-on-dark);
-    padding-top: var(--space-xl);
-    margin-top: var(--space-2xl);
-  }
-  .footer-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    padding: var(--space-xl) var(--space-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: var(--space-lg);
-    padding-bottom: var(--space-xl);
   }
   .footer-logo {
     display: flex;
@@ -267,14 +466,15 @@ const navLinks = [
     border-radius: var(--radius-sm);
   }
   .footer-logo :global(.logo-mark) {
-    width: 3.35rem;
-    height: 3.35rem;
+    width: 3rem;
+    height: 3rem;
     color: var(--accent-mid);
   }
   .footer-logo > span {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
+    text-align: left;
   }
   .footer-logo:focus-visible {
     outline: 2px solid var(--accent-mid);
@@ -282,17 +482,19 @@ const navLinks = [
   }
   .footer-name {
     display: block;
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-size: var(--text-xl);
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-on-dark);
-    letter-spacing: -0.02em;
     line-height: 1.15;
   }
   .footer-tagline {
     display: block;
     font-size: var(--text-sm);
-    color: rgba(240,244,243,0.5);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
     margin: 0;
   }
   .footer-nav ul {
@@ -300,56 +502,71 @@ const navLinks = [
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm) var(--space-md);
   }
-  .footer-nav a { color: rgba(240,244,243,0.7); text-decoration: none; font-size: var(--text-sm); }
-  .footer-nav a:hover { color: var(--text-on-dark); }
-  .footer-contact { font-size: var(--text-sm); color: rgba(240,244,243,0.7); }
-  .footer-contact a { color: var(--accent-mid); }
-  .footer-contact a:hover { color: var(--text-on-dark); }
-
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding-block: var(--space-sm);
+  .footer-nav a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
     font-size: var(--text-sm);
-    color: rgba(240,244,243,0.4);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: color var(--transition);
   }
-  .footer-bottom p { margin: 0; }
+  .footer-nav a[aria-current="page"] {
+    color: var(--coral);
+    text-decoration: underline;
+  }
+  .footer-nav a:hover { color: var(--text-on-dark); }
+  .footer-contact {
+    font-size: var(--text-base);
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 36rem;
+  }
+  .footer-contact p { margin: 0 0 0.5rem; }
+  .footer-contact a {
+    color: var(--coral);
+    text-decoration: underline;
+  }
+  .footer-contact a:hover { color: var(--text-on-dark); }
+  .footer-copy {
+    font-size: var(--text-sm);
+    opacity: 0.6;
+    margin-top: var(--space-sm) !important;
+  }
 
-  @media (max-width: 700px) {
-    .nav-toggle { display: flex; }
-    #main-nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: var(--bg-white);
-      border-bottom: 1px solid var(--border);
-      padding: var(--space-sm) var(--space-md);
-      box-shadow: var(--shadow-md);
+  @media (min-width: 900px) {
+    .header-inner {
+      gap: var(--space-lg);
     }
-    #main-nav.open { display: block; }
-    #main-nav ul { flex-direction: column; gap: var(--space-xs); }
-    #main-nav a { font-size: var(--text-base); padding: 0.4rem 0; }
-    .footer-inner { grid-template-columns: 1fr; gap: var(--space-md); }
+    .header-nav {
+      display: block;
+      flex: 1;
+    }
+    .nav-toggle,
+    .nav-drawer,
+    .drawer-overlay {
+      display: none !important;
+    }
   }
 
   @media print {
     .skip-link,
     .site-header,
     .site-footer,
+    .nav-drawer,
+    .drawer-overlay,
     .no-print {
       display: none !important;
     }
     body {
       background: #fff;
-      color: #1a2624;
+      color: #1d1c15;
       font-size: 11pt;
       line-height: 1.5;
     }
-    main { display: block; }
+    #main { padding-top: 0; display: block; }
     a { color: inherit; text-decoration: none; }
   }
 </style>

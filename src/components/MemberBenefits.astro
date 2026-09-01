@@ -34,7 +34,7 @@ const benefits = [
     <ul class="why-grid" role="list">
       {benefits.map((item) => (
         <li class="why-item">
-          <LineIcon name={item.icon} size="lg" />
+          <span class="why-icon"><LineIcon name={item.icon} size="lg" /></span>
           <h3>{item.title}</h3>
           <p>{item.body}</p>
         </li>
@@ -47,24 +47,31 @@ const benefits = [
   .section-label {
     font-size: var(--text-sm);
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: var(--space-xs);
   }
-  .section-header { margin-bottom: var(--space-xl); }
-  .section-header h2 { font-size: var(--text-4xl); margin-bottom: var(--space-xs); letter-spacing: -0.02em; }
+  .section-header { margin-bottom: var(--space-lg); }
+  .section-header h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-xs);
+    letter-spacing: -0.01em;
+  }
   .section-header--centered { text-align: center; }
 
   .why-section {
-    padding-block: var(--space-2xl);
+    padding-block: var(--space-section-mobile);
     background: var(--bg);
+  }
+  @media (min-width: 768px) {
+    .why-section { padding-block: var(--space-section-desktop); }
   }
 
   .why-grid {
     list-style: none;
     padding: 0;
-    margin: var(--space-xl) 0 0;
+    margin: 0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-md);
@@ -74,52 +81,45 @@ const benefits = [
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    text-align: left;
-    padding: 1.75rem 1.5rem;
-    border-radius: var(--radius-md);
-    background: var(--bg-white);
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    background: var(--linen-cream);
+    border: 1px solid transparent;
     box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color var(--transition);
   }
+  .why-item:hover { border-color: var(--accent); }
 
-  .why-item:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .why-item :global(.line-icon) {
+  .why-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    background: var(--bg-secondary);
     margin-bottom: var(--space-sm);
   }
 
   .why-item h3 {
-    font-size: var(--text-lg);
-    color: var(--text);
+    font-family: var(--font-base);
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--deep-forest);
     margin-bottom: var(--space-xs);
-    letter-spacing: -0.02em;
-    font-weight: 600;
   }
 
   .why-item p {
     font-size: var(--text-sm);
     color: var(--text-muted);
     margin: 0;
-    line-height: 1.65;
+    line-height: 1.6;
   }
 
   @media (max-width: 900px) {
     .why-grid { grid-template-columns: 1fr 1fr; }
   }
-
   @media (max-width: 600px) {
     .why-grid { grid-template-columns: 1fr; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .why-item {
-      transition: none;
-    }
-    .why-item:hover {
-      transform: none;
-    }
   }
 </style>

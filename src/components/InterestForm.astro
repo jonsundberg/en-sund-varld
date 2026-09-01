@@ -48,102 +48,104 @@ const interestOptions = [
       </div>
       <div data-fs-error class="form-error" role="alert"></div>
 
-      <form id="interest-form" class="interest-form" novalidate>
+      <div class="form-card glass-card">
+        <form id="interest-form" class="interest-form" novalidate>
 
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
-        <div class="form-row">
-          <div class="field">
-            <label for="name">Namn <span aria-hidden="true">*</span></label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              autocomplete="name"
-              placeholder="Ditt för- och efternamn"
-              data-fs-field
-            />
-            <span class="field-error" data-fs-error="name"></span>
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Namn <span aria-hidden="true">*</span></label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder="Ditt för- och efternamn"
+                data-fs-field
+              />
+              <span class="field-error" data-fs-error="name"></span>
+            </div>
+
+            <div class="field">
+              <label for="email">E-post <span aria-hidden="true">*</span></label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="din@epost.se"
+                data-fs-field
+              />
+              <span class="field-error" data-fs-error="email"></span>
+            </div>
           </div>
 
           <div class="field">
-            <label for="email">E-post <span aria-hidden="true">*</span></label>
+            <label for="phone">
+              Telefon
+              <span class="label-optional">(valfritt)</span>
+            </label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              autocomplete="email"
-              placeholder="din@epost.se"
-              data-fs-field
+              type="tel"
+              id="phone"
+              name="phone"
+              autocomplete="tel"
+              placeholder="07x-xxx xx xx"
             />
-            <span class="field-error" data-fs-error="email"></span>
           </div>
-        </div>
 
-        <div class="field">
-          <label for="phone">
-            Telefon
-            <span class="label-optional">(valfritt)</span>
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            autocomplete="tel"
-            placeholder="07x-xxx xx xx"
-          />
-        </div>
+          <fieldset class="field interest-fieldset" id="interest-fieldset">
+            <legend>
+              Vad är du intresserad av? <span aria-hidden="true">*</span>
+              <span class="fieldset-hint">Välj ett eller flera alternativ.</span>
+            </legend>
+            <div class="checkbox-group" role="group" aria-describedby="interest-error">
+              {interestOptions.map((option) => (
+                <label class="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="interest"
+                    value={option.value}
+                    checked={defaultInterests.includes(option.value)}
+                  />
+                  <span>
+                    <span class="checkbox-title">{option.title}</span>
+                    <span class="checkbox-desc">{option.description}</span>
+                  </span>
+                </label>
+              ))}
+            </div>
+            <span class="field-error" id="interest-error" role="alert"></span>
+          </fieldset>
 
-        <fieldset class="field" id="interest-fieldset">
-          <legend>Vad är du intresserad av? <span aria-hidden="true">*</span></legend>
-          <p class="fieldset-hint" id="interest-hint">Välj ett eller flera alternativ.</p>
-          <div class="checkbox-group" role="group" aria-describedby="interest-hint interest-error">
-            {interestOptions.map((option) => (
-              <label class="checkbox-label">
-                <input
-                  type="checkbox"
-                  name="interest"
-                  value={option.value}
-                  checked={defaultInterests.includes(option.value)}
-                />
-                <span>
-                  <span class="checkbox-title">{option.title}</span>
-                  <span class="checkbox-desc">{option.description}</span>
-                </span>
-              </label>
-            ))}
+          <div class="field">
+            <label for="message">
+              Berätta lite om dig själv
+              <span class="label-optional">(valfritt)</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              placeholder="Vad lockar dig? Har du mark, kompetens, erfarenhet eller hantverk att bidra med?"
+              data-fs-field
+            ></textarea>
+            <span class="field-error" data-fs-error="message"></span>
           </div>
-          <span class="field-error" id="interest-error" role="alert"></span>
-        </fieldset>
 
-        <div class="field">
-          <label for="message">
-            Berätta lite om dig själv
-            <span class="label-optional">(valfritt)</span>
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            placeholder="Vad lockar dig? Har du mark, kompetens, erfarenhet eller hantverk att bidra med?"
-            data-fs-field
-          ></textarea>
-          <span class="field-error" data-fs-error="message"></span>
-        </div>
-
-        <div class="form-footer">
           <p class="form-consent">
             Dina uppgifter används enbart för att kontakta dig om föreningens
             projekt och raderas på begäran.
           </p>
-          <button type="submit" class="btn btn-primary btn-large" data-fs-submit-btn>
+          <button type="submit" class="btn btn-primary btn-block btn-large" data-fs-submit-btn>
             Skicka intresseanmälan
           </button>
-        </div>
 
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -193,19 +195,28 @@ const interestOptions = [
 
 <style>
   .form-section {
-    background: var(--earth-light);
-    padding-block: var(--space-2xl);
+    background: var(--surface-low);
+    padding-block: var(--space-section-mobile);
   }
   .form-wrapper {
-    max-width: 760px;
+    max-width: 800px;
     margin-inline: auto;
   }
   .form-intro {
     text-align: center;
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-lg);
   }
-  .form-intro h2 { font-size: var(--text-4xl); margin-bottom: var(--space-sm); }
-  .form-intro p { color: var(--text-muted); font-size: var(--text-lg); max-width: 560px; margin-inline: auto; }
+  .form-intro h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-sm);
+  }
+  .form-intro p {
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    max-width: 36rem;
+    margin-inline: auto;
+    line-height: 1.6;
+  }
 
   .form-success,
   .form-error {
@@ -216,109 +227,124 @@ const interestOptions = [
   }
   .form-success:empty,
   .form-error:empty { display: none; }
-  .form-success { background: var(--accent-light); border: 1.5px solid var(--accent); color: var(--accent-hover); }
+  .form-success { background: var(--accent-light); border: 1.5px solid var(--accent-mid); color: var(--deep-forest); }
   .form-success p { margin: 0; }
   .form-error { background: #fdf0f0; border: 1.5px solid #c0392b; color: #8b2020; }
 
-  .interest-form {
-    background: #fff;
-    padding: var(--space-xl);
+  .form-card {
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    padding: var(--space-md);
   }
+  @media (min-width: 768px) {
+    .form-section { padding-block: var(--space-section-desktop); }
+    .form-card { padding: var(--space-xl); }
+  }
+
+  .interest-form { display: flex; flex-direction: column; gap: var(--space-md); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
 
-  .field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: var(--space-md); }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
 
-  label { font-weight: 600; font-size: var(--text-sm); color: var(--text); }
+  label, legend {
+    font-weight: 600;
+    font-size: var(--text-sm);
+    color: var(--deep-forest);
+  }
   .label-optional { font-weight: 400; color: var(--text-muted); }
 
-  fieldset {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm) var(--space-md);
-    margin: 0 0 var(--space-md);
+  .interest-fieldset {
+    border: none;
+    border-bottom: 1px solid rgba(193, 200, 198, 0.3);
+    padding: 0 0 var(--space-sm);
+    margin: 0;
   }
-  fieldset[data-invalid] {
-    border-color: #c0392b;
-    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+  .interest-fieldset[data-invalid] legend { color: #8b2020; }
+  legend {
+    display: block;
+    width: 100%;
+    padding-bottom: var(--space-xs);
+    margin-bottom: var(--space-sm);
   }
-  legend { font-weight: 600; font-size: var(--text-sm); padding-inline: 0.25rem; color: var(--text); }
   .fieldset-hint {
+    display: block;
     font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: 0 0 var(--space-xs);
     font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
   }
 
-  .checkbox-group { display: flex; flex-direction: column; gap: 0.85rem; margin-top: var(--space-xs); }
+  .checkbox-group { display: flex; flex-direction: column; gap: 0.85rem; }
   .checkbox-label {
     display: flex;
     align-items: flex-start;
-    gap: 0.65rem;
+    gap: 0.75rem;
     font-weight: 400;
-    font-size: var(--text-base);
     cursor: pointer;
   }
   .checkbox-label input {
-    width: 1.1rem;
-    height: 1.1rem;
-    margin-top: 0.2rem;
-    accent-color: var(--accent);
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.15rem;
+    accent-color: var(--coral);
     flex-shrink: 0;
+    border-radius: var(--radius-sm);
   }
   .checkbox-label input:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--coral);
     outline-offset: 2px;
   }
-  .checkbox-title { display: block; font-weight: 600; color: var(--text); line-height: 1.35; }
-  .checkbox-desc { display: block; font-size: var(--text-sm); color: var(--text-muted); }
+  .checkbox-title {
+    display: block;
+    font-weight: 600;
+    font-size: var(--text-sm);
+    color: var(--deep-forest);
+    line-height: 1.35;
+    transition: color var(--transition);
+  }
+  .checkbox-label:hover .checkbox-title { color: var(--coral); }
+  .checkbox-desc {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
 
   input[type="text"],
   input[type="email"],
   input[type="tel"],
   textarea {
     width: 100%;
-    padding: 0.65rem 0.9rem;
-    border: 1.5px solid var(--border);
+    padding: 0.75rem;
+    border: 1px solid var(--border);
     border-radius: var(--radius-md);
     font-family: var(--font-base);
     font-size: var(--text-base);
     color: var(--text);
-    background: var(--bg);
-    transition: border-color var(--transition), box-shadow var(--transition);
+    background: var(--linen-cream);
+    transition: border-color var(--transition);
   }
   input:focus, textarea:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(26, 122, 114, 0.15);
+    border-color: var(--deep-forest);
   }
   input[aria-invalid="true"],
   textarea[aria-invalid="true"] {
     border-color: #c0392b;
-    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
   }
   textarea { resize: vertical; }
 
   .field-error { font-size: var(--text-sm); color: #8b2020; min-height: 1.2em; }
 
-  .form-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-    margin-top: var(--space-sm);
+  .form-consent {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
+    text-align: center;
   }
-  .form-consent { font-size: var(--text-sm); color: var(--text-muted); margin: 0; flex: 1; }
 
-  .btn-large { padding: 0.85rem 2.25rem; font-size: var(--text-lg); white-space: nowrap; }
+  .btn-large { padding: 1rem 2rem; font-size: var(--text-sm); }
   .btn-large:disabled { opacity: 0.6; cursor: not-allowed; }
 
   @media (max-width: 600px) {
     .form-row { grid-template-columns: 1fr; }
-    .interest-form { padding: var(--space-md); }
-    .form-footer { flex-direction: column; align-items: stretch; }
-    .btn-large { text-align: center; }
   }
 </style>
