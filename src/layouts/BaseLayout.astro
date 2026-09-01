@@ -45,7 +45,7 @@ const navLinks = [
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="En sund värld Ekonomisk Förening" />
+    <meta property="og:image:alt" content="Solstrålar genom skog och ormbunkar – En sund värld Ekonomisk Förening" />
     <meta property="og:locale" content="sv_SE" />
     <meta property="og:site_name" content="En sund värld" />
 
@@ -61,7 +61,7 @@ const navLinks = [
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,600;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body>
@@ -193,13 +193,10 @@ const navLinks = [
     border-radius: var(--radius-sm);
   }
   .site-logo :global(.logo-mark) {
-    display: block;
-    width: auto;
-    height: 2.85rem;
-    flex-shrink: 0;
+    width: 2.9rem;
+    height: 2.9rem;
   }
   .site-logo:hover { color: var(--accent); }
-  .site-logo:hover :global(.logo-mark) { opacity: 0.85; }
   .site-logo:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
@@ -270,10 +267,9 @@ const navLinks = [
     border-radius: var(--radius-sm);
   }
   .footer-logo :global(.logo-mark) {
-    display: block;
-    width: auto;
-    height: 3.4rem;
-    flex-shrink: 0;
+    width: 3.35rem;
+    height: 3.35rem;
+    color: var(--accent-mid);
   }
   .footer-logo > span {
     display: flex;

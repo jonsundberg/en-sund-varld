@@ -6,10 +6,77 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<img
-  class:list={['logo-mark', className]}
-  src="/logo.png"
-  width="353"
-  height="400"
-  alt=""
-/>
+<span class:list={['logo-mark', className]} aria-hidden="true">
+  <img
+    src="/logo.jpeg"
+    width="320"
+    height="320"
+    alt=""
+    decoding="async"
+  />
+  <svg class="logo-ring" viewBox="0 0 48 48" fill="none">
+    <circle
+      cx="24"
+      cy="24"
+      r="22.6"
+      stroke="currentColor"
+      stroke-width="1.2"
+      stroke-dasharray="2.6 1.9"
+      stroke-linecap="round"
+    />
+    <circle
+      cx="24"
+      cy="24"
+      r="20.4"
+      stroke="currentColor"
+      stroke-width="0.55"
+      opacity="0.35"
+    />
+  </svg>
+</span>
+
+<style>
+  .logo-mark {
+    position: relative;
+    display: block;
+    width: 2.9rem;
+    height: 2.9rem;
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+  .logo-mark img {
+    position: absolute;
+    inset: 3px;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 52% 42%;
+    box-shadow: 0 1px 3px rgba(26, 38, 36, 0.18);
+  }
+  .logo-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transition: transform 0.45s ease;
+  }
+
+  :global(.site-logo:hover) .logo-ring,
+  :global(.footer-logo:hover) .logo-ring {
+    transform: rotate(18deg);
+  }
+  :global(.site-logo:hover) img,
+  :global(.footer-logo:hover) img {
+    filter: brightness(1.06);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-ring { transition: none; }
+    :global(.site-logo:hover) .logo-ring,
+    :global(.footer-logo:hover) .logo-ring {
+      transform: none;
+    }
+  }
+</style>
