@@ -7,7 +7,7 @@ interface Props {
 
 const {
   heading = 'Anmäl ditt intresse',
-  intro = 'Oavsett om du vill bli medlem, bo i en ekoby, stötta Olofs gård eller tipsa om mark – fyll i formuläret så hör vi av oss.',
+  intro = 'Vill du bli medlem, stötta ett initiativ eller bara följa med? Fyll i formuläret så hör vi av oss.',
   defaultInterests = [],
 } = Astro.props;
 
@@ -31,6 +31,11 @@ const interestOptions = [
     value: 'tips-om-mark',
     title: 'Tips om mark',
     description: 'Fastighet till salu eller arrende',
+  },
+  {
+    value: 'nyhetsbrev',
+    title: 'Nyhetsbrev',
+    description: 'Håll mig uppdaterad – jag är nyfiken men inte redo att engagera mig än',
   },
 ];
 ---
@@ -104,9 +109,10 @@ const interestOptions = [
             </legend>
             <div class="checkbox-group" role="group" aria-describedby="interest-error">
               {interestOptions.map((option) => (
-                <label class="checkbox-label">
+                <label class="checkbox-label" for={`interest-${option.value}`}>
                   <input
                     type="checkbox"
+                    id={`interest-${option.value}`}
                     name="interest"
                     value={option.value}
                     checked={defaultInterests.includes(option.value)}
@@ -130,15 +136,15 @@ const interestOptions = [
               id="message"
               name="message"
               rows="4"
-              placeholder="Vad lockar dig? Har du mark, kompetens, erfarenhet eller hantverk att bidra med?"
+              placeholder="Vad lockar dig? Du behöver inte ha en plan – det räcker att vara nyfiken."
               data-fs-field
             ></textarea>
             <span class="field-error" data-fs-error="message"></span>
           </div>
 
           <p class="form-consent">
-            Dina uppgifter används enbart för att kontakta dig om föreningens
-            projekt och raderas på begäran.
+            Dina uppgifter används för att kontakta dig om föreningens projekt
+            och nyhetsbrev, och raderas på begäran.
           </p>
           <button type="submit" class="btn btn-primary btn-block btn-large" data-fs-submit-btn>
             Skicka intresseanmälan

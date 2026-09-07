@@ -19,6 +19,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         class="btn btn-outline download-btn"
         download="stadgar-en-sund-varld.pdf"
         type="application/pdf"
+        aria-label="Ladda ner stadgarna som PDF"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -72,6 +73,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           Föreningen fungerar som en paraplyorganisation och kan starta,
           äga och förvalta separata projekt och initiativ under föreningens
           tak. Varje sådant initiativ beslutas av föreningsstämman.
+          Föreningen kan anställa medlemmar eller anlita dem som
+          uppdragstagare för att utföra arbete inom ramen för föreningens
+          verksamhet och projekt.
         </p>
         <p>
           Medlemmarna deltar i verksamheten genom att nyttja föreningens
@@ -140,17 +144,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           Styrelsen ska bestå av lägst 3 och högst 7 styrelseledamöter, samt
           0–3 styrelsesuppleanter. Styrelseledamöterna väljs på ordinarie
           föreningsstämma för tiden fram till slutet av nästa ordinarie
-          föreningsstämma.
+          föreningsstämma. Beslut om eventuella arvoden till
+          styrelseledamöterna fattas på ordinarie föreningsstämma.
         </p>
       </section>
 
       <section class="paragraf" aria-labelledby="p8">
         <h2 id="p8">§ 8 – Revisorer</h2>
         <p>
-          För granskning av föreningens årsredovisning och räkenskaperna samt
+          För granskning av föreningens årsredovisning och räkenskaper samt
           styrelsens förvaltning väljs 1–2 revisorer samt 0–2 revisorssuppleanter.
           Revisorerna väljs av ordinarie föreningsstämma för tiden fram till
-          slutet av nästa ordinarie föreningsstämma.
+          slutet av nästa ordinarie föreningsstämma. Beslut om eventuella
+          arvoden till revisorerna fattas på ordinarie föreningsstämma.
         </p>
       </section>
 
@@ -177,6 +183,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <li>Beslut om fastställande av resultat- och balansräkning.</li>
           <li>Beslut om disposition av föreningens vinst eller förlust.</li>
           <li>Beslut om ansvarsfrihet för styrelsens ledamöter.</li>
+          <li>Beslut om eventuella arvoden till styrelsen och revisorer.</li>
           <li>Fastställande av årsavgifter.</li>
           <li>Val av styrelseledamöter, evt. suppleanter samt revisor.</li>
           <li>Beslut om nya enskilda projekt/initiativ.</li>
@@ -204,12 +211,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </section>
 
       <section class="paragraf" aria-labelledby="p13">
-        <h2 id="p13">§ 13 – Vinstfördelning</h2>
+        <h2 id="p13">§ 13 – Vinstfördelning (Överskott)</h2>
         <p>
           Fritt eget kapital enligt fastställd balansräkning ska, efter
-          eventuell reservering till reservfond enligt lag, föras i ny räkning
-          eller användas för föreningens gemensamma ändamål enligt beslut på
-          föreningsstämman.
+          eventuell reservering till reservfond enligt lag, enligt
+          föreningsstämmans beslut föras i ny räkning, användas för
+          föreningens gemensamma ändamål eller delas ut till medlemmarna i
+          förhållande till inbetalda insatser (insatsutdelning) eller i
+          förhållande till medlemmarnas deltagande i verksamheten
+          (efterlikvid).
         </p>
       </section>
 
