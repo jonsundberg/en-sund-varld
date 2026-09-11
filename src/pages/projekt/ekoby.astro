@@ -21,11 +21,10 @@ import LineIcon from '../../components/LineIcon.astro';
         <p class="projekt-label">Pågående initiativ</p>
         <h1>Ekoby &amp; Boendegemenskap</h1>
         <p class="projekt-ingress">
-          Ett gemensamt initiativ för 10+ hushåll som vill skapa ett
-          hållbart, fritt och nära liv tillsammans. Genom resursdelning,
-          workshops och egen mark sänker vi trösklarna för att bygga ett
-          eget hem.
+          Tio hushåll eller fler. Mark att vårda tillsammans. Ett liv nära
+          jorden — i egen takt.
         </p>
+        <p class="projekt-status">Söker intresserade hushåll och tips om mark.</p>
       </div>
     </header>
 
@@ -215,6 +214,39 @@ import LineIcon from '../../components/LineIcon.astro';
       </div>
     </section>
 
+
+    <section class="content-section" aria-labelledby="bidra-heading">
+      <div class="container">
+        <h2 id="bidra-heading">Hur du kan engagera dig</h2>
+        <p class="section-lead">
+          Det finns flera sätt att vara med – oavsett om du vill bo, tipsa
+          om mark, bli medlem eller dela kunskap.
+        </p>
+        <div class="bidra-grid">
+          <div class="bidra-item">
+            <LineIcon name="people" size="lg" />
+            <h3>Intresserat hushåll</h3>
+            <p>Anmäl dig om ni vill vara med när gruppen växer och platsen tar form.</p>
+          </div>
+          <div class="bidra-item">
+            <LineIcon name="sprout" size="lg" />
+            <h3>Tips om mark</h3>
+            <p>Känner du till lämplig mark på landsbygden? Hör av dig med tips.</p>
+          </div>
+          <div class="bidra-item">
+            <LineIcon name="heart" size="lg" />
+            <h3>Bli medlem</h3>
+            <p>Gå med i föreningen och bidra till det gemensamma arbetet.</p>
+          </div>
+          <div class="bidra-item">
+            <LineIcon name="tools" size="lg" />
+            <h3>Kunskap och workshops</h3>
+            <p>Bygg, odling och naturmaterial – kunskap som gruppen behöver.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </article>
 
   <InterestForm
@@ -370,4 +402,29 @@ import LineIcon from '../../components/LineIcon.astro';
     .prose-grid { grid-template-columns: 1fr; }
     .build-cards { grid-template-columns: 1fr; }
   }
+
+  .projekt-status {
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--accent-mid);
+    margin: var(--space-sm) 0 0;
+  }
+  .section-lead { font-size: var(--text-lg); color: var(--text-muted); max-width: 60ch; margin-bottom: var(--space-xl); }
+  .bidra-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); }
+  .bidra-item {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  .bidra-item :global(.line-icon) { margin-bottom: var(--space-sm); }
+  .bidra-item h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); letter-spacing: -0.01em; }
+  .bidra-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  @media (max-width: 900px) {
+    .bidra-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .bidra-grid { grid-template-columns: 1fr; }
+  }
+
 </style>
