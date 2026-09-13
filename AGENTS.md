@@ -91,6 +91,14 @@ Kurser i ekologisk odling, frösparande och naturbyggande.
 7. **Tillgänglighet** – alt-texter, heading-hierarki, aria-attribut är obligatoriska
 8. **Verifiera alltid** med `npm run build` efter ändringar
 
+## Intern arbetsyta (`/arbetsyta/`)
+
+Sidan `/arbetsyta/` är en intern arbetsyta för styrelsen att dela idéer, markspaning, kalkyler och anteckningar. Den är **inte** länkad från huvudmenyn, footern eller startsidan – men är publikt tillgänglig för den som känner till URL:en (ingen autentisering).
+
+- **Syfte:** Låta styrelsemedlemmar bidra via GitHub-commits/PRs utan att behöva ett CMS
+- **Struktur:** Index + undersidor för mark, ekonomi och idéer
+- **Underhåll:** Behandla som internt arbetsmaterial – inte marknadsföring
+
 ## Vad projektet INTE är
 
 - Inte ett CMS – inga databaser, ingen backend

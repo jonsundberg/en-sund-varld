@@ -1,0 +1,277 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const metadata = {
+  titel: 'Idébank',
+  datum: '2026-09-05',
+  status: 'aktiv',
+};
+
+const ideer = [
+  {
+    titel: 'Odlingslotter för närboende',
+    kategori: 'Intäkt',
+    status: 'utkast',
+    beskrivning: 'Erbjud odlingslotter till grannar mot årsavgift. Skapar inkomst och gemenskap.',
+  },
+  {
+    titel: 'Kurser i naturbyggande',
+    kategori: 'Intäkt & utbildning',
+    status: 'utkast',
+    beskrivning: 'Helgkurser i lera, halm och timring. Kan dra deltagare från hela landet.',
+  },
+  {
+    titel: 'Gårdsbutik med lokala produkter',
+    kategori: 'Intäkt',
+    status: 'utkast',
+    beskrivning: 'Sälja honung, sylt, ägg och andra produkter från gården och grannar.',
+  },
+  {
+    titel: 'Retreat och kontemplation',
+    kategori: 'Intäkt & besökare',
+    status: 'utkast',
+    beskrivning: 'Enkel övernattning för den som vill ha tid i naturen. Låg investering.',
+  },
+];
+---
+
+<BaseLayout
+  title="Idébank – Styrelsens arbetsyta"
+  description="Idéer för platsbaserad verksamhet, intäktskällor och lokal resiliens."
+>
+  <article class="arbetsyta-doc container">
+    <header class="doc-header">
+      <p class="breadcrumb">
+        <a href="/arbetsyta/">Arbetsyta</a> / Idébank
+      </p>
+      <div class="doc-meta">
+        <span class="doc-status doc-status--aktiv">Aktiv</span>
+        <span class="doc-date">Uppdaterad {metadata.datum}</span>
+      </div>
+      <h1>{metadata.titel}</h1>
+      <p class="doc-lead">
+        Samling av idéer för verksamhet, intäktskällor och lokal resiliens
+        kopplat till föreningens initiativ. Alla idéer är öppna för diskussion
+        och vidareutveckling.
+      </p>
+    </header>
+
+    <section class="doc-section" aria-labelledby="principer">
+      <h2 id="principer">Vägledande principer</h2>
+      <ul>
+        <li><strong>Småskalighet först:</strong> Börja enkelt, väx organiskt.</li>
+        <li><strong>Platsbundenhet:</strong> Vad passar just denna mark, detta klimat?</li>
+        <li><strong>Gemenskap:</strong> Aktiviteter som bjuder in grannar och besökare.</li>
+        <li><strong>Resiliens:</strong> Flera ben att stå på minskar sårbarheten.</li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="ide-lista">
+      <h2 id="ide-lista">Idéer</h2>
+      <ul class="ide-list" role="list">
+        {ideer.map((ide) => (
+          <li class="ide-card">
+            <div class="ide-header">
+              <h3>{ide.titel}</h3>
+              <span class="ide-kategori">{ide.kategori}</span>
+            </div>
+            <p>{ide.beskrivning}</p>
+            <span class={`doc-status doc-status--${ide.status}`}>
+              {ide.status === 'utkast' ? 'Utkast' : ide.status}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="doc-section add-section" aria-labelledby="lagg-till">
+      <h2 id="lagg-till">Lägg till en idé</h2>
+      <p>
+        Skapa en pull request på GitHub med din idé. Lägg till den i listan
+        ovan eller skapa en egen sida under <code>src/pages/arbetsyta/ideer/</code>.
+      </p>
+      <p>
+        Inkludera en kort beskrivning, eventuell kategori och din bedömning
+        av genomförbarhet.
+      </p>
+    </section>
+
+    <nav class="doc-nav" aria-label="Navigering arbetsyta">
+      <a href="/arbetsyta/" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Tillbaka till arbetsytan
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .arbetsyta-doc {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .doc-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-status {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .doc-status--aktiv {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
+  }
+
+  .doc-status--utkast {
+    background: var(--coral-light);
+    color: #7a3d20;
+    border: 1px solid var(--coral);
+  }
+
+  .doc-date {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .doc-section h2 {
+    font-size: var(--text-2xl);
+    color: var(--accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-section p {
+    color: var(--text);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-section ul {
+    padding-left: 1.5rem;
+    color: var(--text);
+    margin-bottom: var(--space-md);
+  }
+
+  .doc-section li {
+    margin-bottom: 0.5rem;
+  }
+
+  .doc-section code {
+    background: var(--bg-secondary);
+    padding: 0.15rem 0.4rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9em;
+  }
+
+  .ide-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .ide-card {
+    background: var(--linen-cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .ide-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xs);
+  }
+
+  .ide-card h3 {
+    font-size: var(--text-lg);
+    margin: 0;
+  }
+
+  .ide-kategori {
+    font-size: var(--text-sm);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .ide-card > p {
+    margin: 0 0 var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .add-section {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .add-section h2 {
+    font-size: var(--text-xl);
+  }
+
+  .doc-nav {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .doc-nav .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
