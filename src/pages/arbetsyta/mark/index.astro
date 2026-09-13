@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 const prospekt = [
   {
-    namn: 'Exempelgård Småland',
+    namn: 'Exempelgård Mälardalen',
     status: 'utkast',
     beskrivning: 'Placeholder – lägg till egna prospekt via pull request.',
   },
@@ -11,14 +11,14 @@ const prospekt = [
 
 const metadata = {
   titel: 'Markspaning',
-  datum: '2026-09-10',
+  datum: '2026-09-13',
   status: 'aktiv',
 };
 ---
 
 <BaseLayout
   title="Markspaning – Styrelsens arbetsyta"
-  description="Prospekt och utvärderingar av markområden för ekoby och gemensamma projekt."
+  description="Prospekt och utvärderingar av markområden för föreningens gemensamma ekoby."
 >
   <article class="arbetsyta-doc container">
     <header class="doc-header">
@@ -31,24 +31,37 @@ const metadata = {
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
-        Här samlar vi prospekt på mark och gårdar som kan vara aktuella för
-        föreningens initiativ. Varje objekt utvärderas utifrån kriterier som
-        läge, pris, kvalitet och utvecklingspotential.
+        Här samlar vi prospekt på mark som kan passa för föreningens gemensamma 
+        ekoby. Vi söker plats för 8–12 hushåll med utrymme för odling, 
+        djurhållning och gemenskap.
       </p>
     </header>
 
     <section class="doc-section" aria-labelledby="kriterier">
-      <h2 id="kriterier">Urvalskriterier</h2>
+      <h2 id="kriterier">Urvalskriterier för ekobymark</h2>
       <p>
         Vid markspaning tittar vi på följande:
       </p>
       <ul>
-        <li><strong>Storlek:</strong> Minst 5 hektar, helst 20+ för ekoby.</li>
-        <li><strong>Läge:</strong> Rimligt avstånd till samhälle, fungerande infrastruktur.</li>
-        <li><strong>Mark- och vattenkvalitet:</strong> Odlingsbar jord, vattentillgång.</li>
-        <li><strong>Pris:</strong> Förenligt med våra finansieringskalkyler.</li>
-        <li><strong>Potential:</strong> Möjlighet till stegvis utveckling.</li>
+        <li><strong>Storlek:</strong> Minst 10 hektar för fullvärdig ekoby, gärna 20+ för bete och skog.</li>
+        <li><strong>Läge:</strong> Rimligt avstånd till samhälle (max 30 min till service), fungerande väg året runt.</li>
+        <li><strong>Mark- och vattenkvalitet:</strong> Odlingsbar jord, naturlig vattentillgång eller brunnsförutsättning.</li>
+        <li><strong>Pris:</strong> Under 4 Mkr för mark, så att kapitalkravet hålls rimligt per hushåll.</li>
+        <li><strong>Byggrätt:</strong> Möjlighet till nya bostäder eller omvandling av befintliga ekonomibyggnader.</li>
+        <li><strong>Potential:</strong> Varierad natur – åker, bete, skog – för resiliens och intjäning.</li>
       </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="geografi">
+      <h2 id="geografi">Prioriterade områden</h2>
+      <p>
+        <strong>Primärt fokus:</strong> Stockholm med omnejd – Mälardalen, Uppland 
+        och Sörmland. Rimligt pendlingsavstånd till Uppsala eller Stockholm.
+      </p>
+      <p>
+        <strong>Sekundärt:</strong> Övriga Mellansverige kan också vara intressant, 
+        t.ex. Dalarna, Värmland, Östergötland eller Småland – men är inte huvudfokus.
+      </p>
     </section>
 
     <section class="doc-section" aria-labelledby="prospekt">
@@ -79,10 +92,11 @@ const metadata = {
           lägg till objektet i listan ovan. Inkludera:
         </p>
         <ul>
-          <li>Namn och plats</li>
-          <li>Storlek och pris</li>
+          <li>Namn och plats (kommun)</li>
+          <li>Areal och pris</li>
           <li>Länk till annons/mäklare</li>
-          <li>Initial bedömning</li>
+          <li>Bedömning mot urvalskriterierna</li>
+          <li>Eventuella besiktningsanteckningar</li>
         </ul>
       </div>
     </section>

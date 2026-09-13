@@ -3,14 +3,45 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 const metadata = {
   titel: 'Ekonomi & kalkyler',
-  datum: '2026-09-08',
-  status: 'aktiv',
+  datum: '2026-09-13',
+  status: 'utkast',
 };
+
+const scenarios = [
+  { namn: 'Sparsamt', insats: '~198' },
+  { namn: 'Bas', insats: '~209' },
+  { namn: 'Högt', insats: '~272' },
+];
+
+const paverkansfaktorer = [
+  {
+    faktor: 'Underhåll & VA',
+    spann: '0,2–2,0 Mkr',
+    beskrivning: 'Beroende på markens infrastruktur och behov av dränering, vattenförsörjning eller avlopp.',
+  },
+  {
+    faktor: 'Antal hushåll',
+    spann: '8 ↔ 12 hh',
+    beskrivning: 'Fler hushåll sprider kostnaden. Vid 12 hushåll sjunker insatsen ca 15–20 %.',
+  },
+  {
+    faktor: 'Låneandel',
+    spann: '0–70 %',
+    beskrivning: 'Högre belåning sänker kontantbehov men ökar löpande räntekostnader.',
+  },
+];
+
+const intaktsmojligheter = [
+  { namn: 'Bete & arrende', ar: '1', risk: 'låg' },
+  { namn: 'Kurser i naturbyggande', ar: '1', risk: 'medel' },
+  { namn: 'CSA-andelar', ar: '1–2', risk: 'låg' },
+  { namn: 'Ved & skogsbruk', ar: '1', risk: 'låg' },
+];
 ---
 
 <BaseLayout
   title="Ekonomi & kalkyler – Styrelsens arbetsyta"
-  description="Finansieringsunderlag, budget och kalkyler för pågående initiativ."
+  description="Finansieringsunderlag och kapitalkalkyler för ekobyprojektet."
 >
   <article class="arbetsyta-doc container">
     <header class="doc-header">
@@ -18,64 +49,144 @@ const metadata = {
         <a href="/arbetsyta/">Arbetsyta</a> / Ekonomi
       </p>
       <div class="doc-meta">
-        <span class="doc-status doc-status--aktiv">Aktiv</span>
-        <span class="doc-date">Uppdaterad {metadata.datum}</span>
+        <span class="doc-status doc-status--utkast">Utkast</span>
+        <span class="doc-date">13 sep 2026</span>
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
-        Här samlar vi ekonomiska underlag, kalkyler och finansieringsplaner
-        för föreningens projekt. Allt material är arbetsunderlag som kan
-        ändras.
+        Kapitalkalkyler för föreningens ekobyprojekt. Siffrorna är preliminära 
+        och ska verifieras mot bank, revisor och mäklare innan beslut.
       </p>
     </header>
 
-    <section class="doc-section" aria-labelledby="struktur">
-      <h2 id="struktur">Hur vi finansierar projekt</h2>
-      <p>
-        Föreningen använder en kombination av:
-      </p>
-      <ul>
-        <li><strong>Medlemsinsatser:</strong> Grundinsats 1 000 kr, projektinsatser enligt stämmobeslut.</li>
-        <li><strong>Medlemslån:</strong> Frivilliga lån från medlemmar, avtalas separat.</li>
-        <li><strong>Extern finansiering:</strong> Banklån, stiftelser, offentliga bidrag.</li>
-        <li><strong>Nyttjanderättsavgifter:</strong> Löpande intäkter från dem som brukar mark/byggnader.</li>
-      </ul>
-    </section>
-
-    <section class="doc-section" aria-labelledby="kalkyler">
-      <h2 id="kalkyler">Kalkyler</h2>
-      <p>
-        Nedan följer platshållare för kalkyler. Lägg till underlag genom
-        pull request.
-      </p>
-
-      <div class="kalkyl-placeholder">
-        <h3>Olof Larssons Gård – investeringskalkyl</h3>
-        <p class="kalkyl-status">Status: Utkast</p>
-        <p>
-          Placeholder för köpeskilling, renoveringskostnader, finansieringsplan
-          och nyttjanderättssystem.
-        </p>
+    <!-- Planeringskort -->
+    <section class="planning-card" aria-labelledby="planering">
+      <h2 id="planering" class="visually-hidden">Planeringsöversikt</h2>
+      <div class="planning-header">
+        <span class="planning-label">Ekoby – kapitalscenario</span>
+        <div class="planning-pills">
+          <span class="pill pill--draft">Utkast 13 sep</span>
+        </div>
+      </div>
+      
+      <div class="planning-summary">
+        <div class="summary-item">
+          <span class="summary-value">3 Mkr</span>
+          <span class="summary-label">Köpeskilling</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-value">10 hh</span>
+          <span class="summary-label">Hushåll</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-value">60 %</span>
+          <span class="summary-label">Belåning</span>
+        </div>
+        <div class="summary-item summary-item--result">
+          <span class="summary-value">~209 tkr</span>
+          <span class="summary-label">Kontant/hushåll</span>
+        </div>
       </div>
 
-      <div class="kalkyl-placeholder">
-        <h3>Ekoby – förkalkyl</h3>
-        <p class="kalkyl-status">Status: Utkast</p>
-        <p>
-          Placeholder för markkostnad, infrastruktur, byggnation och
-          delningsmodell mellan hushåll.
-        </p>
+      <p class="planning-note">
+        Lagfart (4,25 %, ~128 tkr) och pantbrev inräknat i totalbeloppet.
+      </p>
+
+      <div class="scenario-chips">
+        {scenarios.map((s) => (
+          <span class={`chip ${s.namn === 'Bas' ? 'chip--active' : ''}`}>
+            {s.namn} {s.insats} tkr
+          </span>
+        ))}
+      </div>
+
+      <a href="/arbetsyta/ekonomi/kapital-2026-09/" class="btn btn-outline btn-sm">
+        Visa full kalkyl →
+      </a>
+    </section>
+
+    <!-- Påverkansfaktorer -->
+    <section class="doc-section" aria-labelledby="paverkan">
+      <h2 id="paverkan">Vad påverkar mest?</h2>
+      <p>
+        Tre faktorer har störst inverkan på hur mycket varje hushåll behöver 
+        bidra med i kontantinsats.
+      </p>
+      <div class="factor-cards">
+        {paverkansfaktorer.map((p) => (
+          <article class="factor-card">
+            <h3>{p.faktor}</h3>
+            <span class="factor-range">{p.spann}</span>
+            <p>{p.beskrivning}</p>
+          </article>
+        ))}
       </div>
     </section>
 
-    <section class="doc-section" aria-labelledby="bidra">
-      <h2 id="bidra">Bidra med underlag</h2>
+    <!-- Fördelningsmodell -->
+    <section class="doc-section" aria-labelledby="fordelning">
+      <h2 id="fordelning">Fördelningsmodell</h2>
       <p>
-        Skapa nya filer under <code>src/pages/arbetsyta/ekonomi/</code> eller
-        lägg till kalkyler ovan. Använd tydliga rubriker och datera allt
-        material.
+        Vi utreder två modeller för hur kontantinsatsen fördelas mellan hushållen:
+      </p>
+      <div class="model-cards">
+        <article class="model-card">
+          <h3>Lika insats</h3>
+          <p>
+            Alla hushåll betalar samma kontantbelopp. Enklast att administrera, 
+            men kräver att alla har tillgång till kapital.
+          </p>
+        </article>
+        <article class="model-card">
+          <h3>Låginsatsmodell (30–50 %)</h3>
+          <p>
+            Vissa hushåll går in med lägre kontant och kompenserar genom hyra-först 
+            eller arbetstid. Gap ca 0,5–0,9 Mkr fördelas på gruppen.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Lokal intjäning -->
+    <section class="doc-section" aria-labelledby="intjaning">
+      <h2 id="intjaning">Lokal intjäning</h2>
+      <p>
+        Marken ska bära sig själv på sikt. Redan år 1 kan enklare verksamheter 
+        skapa intäkter som minskar de löpande kostnaderna.
+      </p>
+      <table class="income-table">
+        <thead>
+          <tr>
+            <th>Verksamhet</th>
+            <th>År</th>
+            <th>Risk</th>
+          </tr>
+        </thead>
+        <tbody>
+          {intaktsmojligheter.map((i) => (
+            <tr>
+              <td>{i.namn}</td>
+              <td>{i.ar}</td>
+              <td><span class={`risk risk--${i.risk}`}>{i.risk}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="income-note">
+        År 2–3 uppskattas basen till ca 450–750 tkr/år. 
+        <a href="/arbetsyta/ideer/">Se alla idéer i idébanken →</a>
       </p>
     </section>
+
+    <!-- Disclaimer -->
+    <aside class="disclaimer" aria-labelledby="disclaimer-heading">
+      <h2 id="disclaimer-heading">Obs – internt planeringsunderlag</h2>
+      <p>
+        Detta är intern planering och inte juridisk eller ekonomisk rådgivning. 
+        Bekräfta lagfart, pantbrev och lånevillkor med bank och revisor innan 
+        föreningen lägger bud.
+      </p>
+    </aside>
 
     <nav class="doc-nav" aria-label="Navigering arbetsyta">
       <a href="/arbetsyta/" class="btn btn-outline">
@@ -155,6 +266,258 @@ const metadata = {
     line-height: 1.6;
   }
 
+  /* Planning Card */
+  .planning-card {
+    background: linear-gradient(135deg, var(--linen-cream) 0%, var(--surface-low) 100%);
+    border: 2px solid var(--accent-mid);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .planning-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .planning-label {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--deep-forest);
+  }
+
+  .planning-pills {
+    display: flex;
+    gap: var(--space-xs);
+  }
+
+  .pill {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .pill--draft {
+    background: var(--coral-light);
+    color: #7a3d20;
+    border: 1px solid var(--coral);
+  }
+
+  .planning-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .summary-item {
+    text-align: center;
+  }
+
+  .summary-item--result {
+    background: var(--deep-forest);
+    color: var(--text-on-dark);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+  }
+
+  .summary-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+  }
+
+  .summary-item--result .summary-value {
+    color: var(--text-on-dark);
+  }
+
+  .summary-label {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: var(--space-xs);
+  }
+
+  .summary-item--result .summary-label {
+    color: var(--accent-mid);
+  }
+
+  .planning-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+    font-style: italic;
+  }
+
+  .scenario-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .chip {
+    font-size: var(--text-sm);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .chip--active {
+    background: var(--accent-light);
+    border-color: var(--accent-mid);
+    color: var(--deep-forest);
+    font-weight: 600;
+  }
+
+  .btn-sm {
+    padding: 0.6rem 1.2rem;
+    font-size: var(--text-sm);
+  }
+
+  /* Factor cards */
+  .factor-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .factor-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .factor-card h3 {
+    font-size: var(--text-lg);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .factor-range {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--coral);
+    margin-bottom: var(--space-sm);
+  }
+
+  .factor-card p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  /* Model cards */
+  .model-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .model-card {
+    background: var(--linen-cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .model-card h3 {
+    font-size: var(--text-lg);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .model-card p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  /* Income table */
+  .income-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--space-sm);
+    font-size: var(--text-sm);
+  }
+
+  .income-table th,
+  .income-table td {
+    padding: var(--space-sm);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .income-table th {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .income-table tbody tr:hover {
+    background: var(--surface-low);
+  }
+
+  .risk {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    text-transform: capitalize;
+  }
+
+  .risk--låg {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+  }
+
+  .risk--medel {
+    background: var(--coral-light);
+    color: #7a3d20;
+  }
+
+  .income-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--coral);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+
+  .disclaimer h2 {
+    font-size: var(--text-lg);
+    color: var(--coral);
+    margin-bottom: var(--space-xs);
+  }
+
+  .disclaimer p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  /* Sections */
   .doc-section {
     margin-bottom: var(--space-xl);
   }
@@ -168,49 +531,6 @@ const metadata = {
   .doc-section p {
     color: var(--text);
     margin-bottom: var(--space-sm);
-  }
-
-  .doc-section ul {
-    padding-left: 1.5rem;
-    color: var(--text);
-    margin-bottom: var(--space-md);
-  }
-
-  .doc-section li {
-    margin-bottom: 0.5rem;
-  }
-
-  .doc-section code {
-    background: var(--bg-secondary);
-    padding: 0.15rem 0.4rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.9em;
-  }
-
-  .kalkyl-placeholder {
-    background: var(--linen-cream);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .kalkyl-placeholder h3 {
-    font-size: var(--text-lg);
-    margin: 0 0 var(--space-xs);
-  }
-
-  .kalkyl-status {
-    font-size: var(--text-sm);
-    font-style: italic;
-    color: var(--coral);
-    margin-bottom: var(--space-xs);
-  }
-
-  .kalkyl-placeholder p:last-child {
-    margin: 0;
-    font-size: var(--text-sm);
-    color: var(--text-muted);
   }
 
   .doc-nav {
@@ -228,6 +548,15 @@ const metadata = {
   @media (max-width: 600px) {
     h1 {
       font-size: var(--text-3xl);
+    }
+
+    .planning-summary {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .factor-cards,
+    .model-cards {
+      grid-template-columns: 1fr;
     }
   }
 </style>
