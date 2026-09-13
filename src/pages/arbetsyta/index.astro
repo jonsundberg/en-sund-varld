@@ -3,25 +3,25 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const dokumentation = [
   {
-    href: '/arbetsyta/mark/',
-    titel: 'Markspaning',
-    beskrivning: 'Prospekt och utvärderingar av markområden för ekoby och gemensamma projekt.',
-    status: 'aktiv',
-    uppdaterad: '2026-09-10',
+    href: '/arbetsyta/ekonomi/',
+    titel: 'Ekonomi & kapital',
+    beskrivning: 'Kapitalkalkyl och finansieringsunderlag för ekoby-initiativet.',
+    status: 'utkast',
+    uppdaterad: '2026-09-13',
   },
   {
-    href: '/arbetsyta/ekonomi/',
-    titel: 'Ekonomi & kalkyler',
-    beskrivning: 'Finansieringsunderlag, budget och kalkyler för pågående initiativ.',
+    href: '/arbetsyta/mark/',
+    titel: 'Markspaning',
+    beskrivning: 'Prospekt och utvärderingar av markområden för ekobyn.',
     status: 'aktiv',
-    uppdaterad: '2026-09-08',
+    uppdaterad: '2026-09-13',
   },
   {
     href: '/arbetsyta/ideer/',
     titel: 'Idébank',
     beskrivning: 'Idéer för platsbaserad verksamhet, intäktskällor och lokal resiliens.',
     status: 'aktiv',
-    uppdaterad: '2026-09-05',
+    uppdaterad: '2026-09-13',
   },
 ];
 
@@ -37,7 +37,7 @@ function statusLabel(status: string) {
 
 <BaseLayout
   title="Arbetsyta – En sund värld Styrelse"
-  description="Intern arbetsyta för styrelsen i En sund värld. Markspaning, kalkyler, idébank och anteckningar."
+  description="Intern arbetsyta för styrelsen i En sund värld. Planering för ekoby-initiativet."
 >
   <article class="arbetsyta-page container">
     <header class="page-header">
@@ -49,6 +49,34 @@ function statusLabel(status: string) {
         den som har URL:en.
       </p>
     </header>
+
+    <!-- ── Ekoby i fokus ──────────────────────────────────── -->
+    <section class="focus-card" aria-labelledby="fokus-heading">
+      <div class="focus-header">
+        <span class="focus-tag">Aktivt initiativ</span>
+        <h2 id="fokus-heading">Ekoby & Boendegemenskap</h2>
+      </div>
+      <p>
+        Just nu fokuserar arbetsytan på ekoby-initiativet – gemensamt
+        markförvärv för 10+ hushåll med odling, naturmaterial och ett fritt,
+        nära liv tillsammans. Dokumenten nedan stödjer planering och
+        beslutsunderlag.
+      </p>
+      <ul class="focus-links">
+        <li>
+          <a href="/arbetsyta/ekonomi/">Ekonomi & kapital</a> – kapitalkalkyl
+          och finansieringsmodeller
+        </li>
+        <li>
+          <a href="/arbetsyta/mark/">Markspaning</a> – shortlist och
+          utvärderingskriterier
+        </li>
+        <li>
+          <a href="/arbetsyta/ideer/">Idébank</a> – platsbaserade
+          verksamhetsidéer
+        </li>
+      </ul>
+    </section>
 
     <section class="how-to-contribute" aria-labelledby="bidra-heading">
       <h2 id="bidra-heading">Hur du bidrar</h2>
@@ -70,7 +98,7 @@ function statusLabel(status: string) {
     </section>
 
     <section class="dokumentation" aria-labelledby="dok-heading">
-      <h2 id="dok-heading">Dokumentation</h2>
+      <h2 id="dok-heading">Alla dokument</h2>
       <ul class="doc-list" role="list">
         {dokumentation.map((doc) => (
           <li class="doc-card">
@@ -114,6 +142,64 @@ function statusLabel(status: string) {
     line-height: 1.6;
   }
 
+  /* ── Focus Card ────────────────────────────────────────── */
+  .focus-card {
+    background: var(--accent-light);
+    border: 2px solid var(--accent-mid);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .focus-header {
+    margin-bottom: var(--space-sm);
+  }
+
+  .focus-tag {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    background: var(--deep-forest);
+    color: var(--text-on-dark);
+    margin-bottom: var(--space-xs);
+  }
+
+  .focus-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--deep-forest);
+    margin: 0;
+  }
+
+  .focus-card > p {
+    color: var(--text);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .focus-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .focus-links li {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .focus-links a {
+    font-weight: 600;
+    color: var(--deep-forest);
+  }
+
+  /* ── How to contribute ─────────────────────────────────── */
   .how-to-contribute {
     background: var(--linen-cream);
     border-radius: var(--radius-lg);
@@ -150,6 +236,7 @@ function statusLabel(status: string) {
     font-size: 0.9em;
   }
 
+  /* ── Documentation ─────────────────────────────────────── */
   .dokumentation h2 {
     font-size: var(--text-2xl);
     margin-bottom: var(--space-md);

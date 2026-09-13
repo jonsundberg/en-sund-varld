@@ -3,22 +3,22 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 const prospekt = [
   {
-    namn: 'Exempelgård Småland',
-    status: 'utkast',
-    beskrivning: 'Placeholder – lägg till egna prospekt via pull request.',
+    namn: '(Shortlist)',
+    status: 'aktiv',
+    beskrivning: 'Aktuella objekt dokumenteras här efterhand. Lägg till via pull request.',
   },
 ];
 
 const metadata = {
   titel: 'Markspaning',
-  datum: '2026-09-10',
+  datum: '2026-09-13',
   status: 'aktiv',
 };
 ---
 
 <BaseLayout
-  title="Markspaning – Styrelsens arbetsyta"
-  description="Prospekt och utvärderingar av markområden för ekoby och gemensamma projekt."
+  title="Markspaning – Ekoby planering"
+  description="Prospekt och utvärderingar av markområden för ekoby-initiativet."
 >
   <article class="arbetsyta-doc container">
     <header class="doc-header">
@@ -31,30 +31,32 @@ const metadata = {
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
-        Här samlar vi prospekt på mark och gårdar som kan vara aktuella för
-        föreningens initiativ. Varje objekt utvärderas utifrån kriterier som
+        Här samlar vi prospekt på mark som kan vara aktuell för
+        ekoby-initiativet. Varje objekt utvärderas utifrån kriterier som
         läge, pris, kvalitet och utvecklingspotential.
       </p>
     </header>
 
     <section class="doc-section" aria-labelledby="kriterier">
-      <h2 id="kriterier">Urvalskriterier</h2>
+      <h2 id="kriterier">Urvalskriterier för ekoby</h2>
       <p>
-        Vid markspaning tittar vi på följande:
+        Vi söker mark som passar för 10+ hushåll med gemensam odling,
+        naturbyggande och platsbaserad verksamhet:
       </p>
       <ul>
-        <li><strong>Storlek:</strong> Minst 5 hektar, helst 20+ för ekoby.</li>
+        <li><strong>Storlek:</strong> Minst 10 hektar, helst 20+ för full ekoby.</li>
         <li><strong>Läge:</strong> Rimligt avstånd till samhälle, fungerande infrastruktur.</li>
-        <li><strong>Mark- och vattenkvalitet:</strong> Odlingsbar jord, vattentillgång.</li>
-        <li><strong>Pris:</strong> Förenligt med våra finansieringskalkyler.</li>
-        <li><strong>Potential:</strong> Möjlighet till stegvis utveckling.</li>
+        <li><strong>Mark- och vattenkvalitet:</strong> Odlingsbar jord, egen vattentillgång.</li>
+        <li><strong>Pris:</strong> Inom planeringsspannet 2–4 Mkr (se <a href="/arbetsyta/ekonomi/">ekonomi</a>).</li>
+        <li><strong>Byggnader:</strong> Befintliga hus är plus men inte krav.</li>
+        <li><strong>Potential:</strong> Möjlighet till stegvis utveckling och tomtdelning.</li>
       </ul>
     </section>
 
     <section class="doc-section" aria-labelledby="prospekt">
       <h2 id="prospekt">Aktuella prospekt</h2>
       <p>
-        Listan nedan är för internt bruk. Lägg till nya objekt genom en pull
+        Shortlist för internt bruk. Lägg till nya objekt genom en pull
         request på GitHub.
       </p>
 
@@ -79,10 +81,10 @@ const metadata = {
           lägg till objektet i listan ovan. Inkludera:
         </p>
         <ul>
-          <li>Namn och plats</li>
-          <li>Storlek och pris</li>
+          <li>Namn och plats (kommun/län)</li>
+          <li>Storlek (ha) och ungefärligt pris</li>
           <li>Länk till annons/mäklare</li>
-          <li>Initial bedömning</li>
+          <li>Initial bedömning mot kriterierna</li>
         </ul>
       </div>
     </section>
@@ -177,7 +179,7 @@ const metadata = {
 
   .doc-section h2 {
     font-size: var(--text-2xl);
-    color: var(--accent);
+    color: var(--deep-forest);
     margin-bottom: var(--space-sm);
   }
 
@@ -194,6 +196,11 @@ const metadata = {
 
   .doc-section li {
     margin-bottom: 0.5rem;
+  }
+
+  .doc-section a {
+    color: var(--accent);
+    font-weight: 600;
   }
 
   .prospekt-list {

@@ -3,40 +3,64 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 const metadata = {
   titel: 'Idébank',
-  datum: '2026-09-05',
+  datum: '2026-09-13',
   status: 'aktiv',
 };
 
 const ideer = [
   {
-    titel: 'Odlingslotter för närboende',
-    kategori: 'Intäkt',
-    status: 'utkast',
-    beskrivning: 'Erbjud odlingslotter till grannar mot årsavgift. Skapar inkomst och gemenskap.',
+    titel: 'Betesmark & djurhållning',
+    kategori: 'År 1 – låg risk',
+    status: 'aktiv',
+    beskrivning: 'Arrendera ut betesmark eller håll egna djur. Låg startinvestering, snabb igång.',
   },
   {
-    titel: 'Kurser i naturbyggande',
-    kategori: 'Intäkt & utbildning',
-    status: 'utkast',
-    beskrivning: 'Helgkurser i lera, halm och timring. Kan dra deltagare från hela landet.',
+    titel: 'Kurser & workshops',
+    kategori: 'År 1 – låg risk',
+    status: 'aktiv',
+    beskrivning: 'Helgkurser i naturbygge, permakultur, frösparande. Drar deltagare från hela landet.',
   },
   {
-    titel: 'Gårdsbutik med lokala produkter',
-    kategori: 'Intäkt',
-    status: 'utkast',
-    beskrivning: 'Sälja honung, sylt, ägg och andra produkter från gården och grannar.',
+    titel: 'CSA-andelar & prenumerationer',
+    kategori: 'År 1 – låg risk',
+    status: 'aktiv',
+    beskrivning: 'Sälj grönsakslådor och ägg till närboende. Förskottsbetalning minskar risk.',
   },
   {
-    titel: 'Retreat och kontemplation',
-    kategori: 'Intäkt & besökare',
+    titel: 'Ved & skogsprodukter',
+    kategori: 'År 1 – låg risk',
+    status: 'aktiv',
+    beskrivning: 'Försäljning av ved, flis eller träprodukter om marken har skog.',
+  },
+  {
+    titel: 'Gårdsbutik & lokala produkter',
+    kategori: 'År 2–3',
+    status: 'utkast',
+    beskrivning: 'Sälja honung, sylt, förädlade produkter från gården och grannar.',
+  },
+  {
+    titel: 'Retreat & enkel övernattning',
+    kategori: 'År 2–3',
     status: 'utkast',
     beskrivning: 'Enkel övernattning för den som vill ha tid i naturen. Låg investering.',
   },
+  {
+    titel: 'Odlingslotter för närboende',
+    kategori: 'År 2–3',
+    status: 'utkast',
+    beskrivning: 'Erbjud odlingslotter till grannar mot årsavgift. Skapar inkomst och gemenskap.',
+  },
 ];
+
+const intjaning = {
+  sparsamt: '250–400 tkr/år',
+  bas: '450–750 tkr/år',
+  hogt: '800–1 200 tkr/år',
+};
 ---
 
 <BaseLayout
-  title="Idébank – Styrelsens arbetsyta"
+  title="Idébank – Ekoby planering"
   description="Idéer för platsbaserad verksamhet, intäktskällor och lokal resiliens."
 >
   <article class="arbetsyta-doc container">
@@ -50,11 +74,34 @@ const ideer = [
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
-        Samling av idéer för verksamhet, intäktskällor och lokal resiliens
-        kopplat till föreningens initiativ. Alla idéer är öppna för diskussion
-        och vidareutveckling.
+        Samling av idéer för platsbaserad verksamhet kopplat till
+        ekoby-initiativet. Lokal intjäning minskar beroende av extern
+        finansiering och bygger långsiktig resiliens.
       </p>
     </header>
+
+    <!-- ── Intjäningspotential ────────────────────────────── -->
+    <section class="doc-section" aria-labelledby="potential">
+      <h2 id="potential">Förväntad intjäning år 2–3</h2>
+      <div class="earning-cards">
+        <div class="earning-card">
+          <span class="earning-label">Sparsamt</span>
+          <span class="earning-value">{intjaning.sparsamt}</span>
+        </div>
+        <div class="earning-card earning-card--highlight">
+          <span class="earning-label">Bas</span>
+          <span class="earning-value">{intjaning.bas}</span>
+        </div>
+        <div class="earning-card">
+          <span class="earning-label">Högt</span>
+          <span class="earning-value">{intjaning.hogt}</span>
+        </div>
+      </div>
+      <p class="earning-note">
+        Baserat på kombinationer av idéerna nedan. År 1 fokuserar på
+        lågrisk-aktiviteter medan volym byggs upp.
+      </p>
+    </section>
 
     <section class="doc-section" aria-labelledby="principer">
       <h2 id="principer">Vägledande principer</h2>
@@ -67,7 +114,7 @@ const ideer = [
     </section>
 
     <section class="doc-section" aria-labelledby="ide-lista">
-      <h2 id="ide-lista">Idéer</h2>
+      <h2 id="ide-lista">Verksamhetsidéer</h2>
       <ul class="ide-list" role="list">
         {ideer.map((ide) => (
           <li class="ide-card">
@@ -77,7 +124,7 @@ const ideer = [
             </div>
             <p>{ide.beskrivning}</p>
             <span class={`doc-status doc-status--${ide.status}`}>
-              {ide.status === 'utkast' ? 'Utkast' : ide.status}
+              {ide.status === 'utkast' ? 'Utkast' : ide.status === 'aktiv' ? 'Aktiv' : ide.status}
             </span>
           </li>
         ))}
@@ -91,8 +138,8 @@ const ideer = [
         ovan eller skapa en egen sida under <code>src/pages/arbetsyta/ideer/</code>.
       </p>
       <p>
-        Inkludera en kort beskrivning, eventuell kategori och din bedömning
-        av genomförbarhet.
+        Inkludera en kort beskrivning, tidsfas (år 1 / år 2–3) och din
+        bedömning av genomförbarhet.
       </p>
     </section>
 
@@ -180,7 +227,7 @@ const ideer = [
 
   .doc-section h2 {
     font-size: var(--text-2xl);
-    color: var(--accent);
+    color: var(--deep-forest);
     margin-bottom: var(--space-sm);
   }
 
@@ -206,6 +253,50 @@ const ideer = [
     font-size: 0.9em;
   }
 
+  /* ── Earning Cards ─────────────────────────────────────── */
+  .earning-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-sm);
+    margin: var(--space-md) 0;
+  }
+
+  .earning-card {
+    background: var(--linen-cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-align: center;
+  }
+
+  .earning-card--highlight {
+    background: var(--accent-light);
+    border-color: var(--accent-mid);
+  }
+
+  .earning-label {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: var(--space-xs);
+  }
+
+  .earning-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--deep-forest);
+  }
+
+  .earning-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ── Idea Cards ────────────────────────────────────────── */
   .ide-list {
     list-style: none;
     padding: 0;
@@ -272,6 +363,10 @@ const ideer = [
   @media (max-width: 600px) {
     h1 {
       font-size: var(--text-3xl);
+    }
+
+    .earning-cards {
+      grid-template-columns: 1fr;
     }
   }
 </style>

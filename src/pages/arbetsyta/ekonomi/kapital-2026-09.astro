@@ -1,0 +1,365 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const metadata = {
+  titel: 'Kapitalkalkyl – september 2026',
+  datum: '2026-09-13',
+  status: 'utkast',
+};
+
+const kalkyler = {
+  '3Mkr': {
+    label: '3 Mkr',
+    hushall: [
+      { n: 8,  sparsamt: 236, bas: 261, hogt: 340 },
+      { n: 10, sparsamt: 188, bas: 209, hogt: 272 },
+      { n: 12, sparsamt: 157, bas: 174, hogt: 227 },
+    ],
+  },
+};
+---
+
+<BaseLayout
+  title="Kapitalkalkyl sep 2026 – Ekoby planering"
+  description="Detaljerad kapitalkalkyl för ekoby med scenarioanalys."
+>
+  <article class="arbetsyta-doc container">
+    <header class="doc-header">
+      <p class="breadcrumb">
+        <a href="/arbetsyta/">Arbetsyta</a> /
+        <a href="/arbetsyta/ekonomi/">Ekonomi</a> /
+        Kapitalkalkyl
+      </p>
+      <div class="doc-meta">
+        <span class="doc-status doc-status--utkast">Utkast</span>
+        <span class="doc-date">13 sep 2026</span>
+      </div>
+      <h1>{metadata.titel}</h1>
+      <p class="doc-lead">
+        Detaljerad tabell för planeringspunkten 3 Mkr med variationer för
+        8/10/12 hushåll och tre kostnadsnivåer. Används för att förstå
+        spannet och identifiera brytpunkter.
+      </p>
+    </header>
+
+    <!-- ── Förutsättningar ────────────────────────────────── -->
+    <section class="doc-section" aria-labelledby="forutsattningar">
+      <h2 id="forutsattningar">Förutsättningar</h2>
+      <ul class="assumptions">
+        <li><strong>Köpeskilling:</strong> 3 Mkr (planeringspunkt)</li>
+        <li><strong>Lagfart EF:</strong> 4,25 % ≈ 128 tkr</li>
+        <li><strong>Belåningsgrad:</strong> 60 % (Ekobanken max ~75 %)</li>
+        <li><strong>Kostnadsnivåer:</strong> Sparsamt / Bas / Högt för underhåll & VA</li>
+      </ul>
+    </section>
+
+    <!-- ── Huvudtabell ────────────────────────────────────── -->
+    <section class="doc-section" aria-labelledby="tabell-3mkr">
+      <h2 id="tabell-3mkr">Kapital per hushåll – 3 Mkr</h2>
+      <p>
+        Tabellen visar ungefärligt medlemskapital (tkr) som krävs per hushåll
+        vid 60 % belåning. Spann beror på underhålls- och VA-kostnader.
+      </p>
+
+      <div class="table-wrapper">
+        <table class="kalkyl-table">
+          <thead>
+            <tr>
+              <th scope="col">Hushåll</th>
+              <th scope="col">Sparsamt</th>
+              <th scope="col">Bas</th>
+              <th scope="col">Högt</th>
+            </tr>
+          </thead>
+          <tbody>
+            {kalkyler['3Mkr'].hushall.map((row) => (
+              <tr>
+                <td>{row.n} hh</td>
+                <td>{row.sparsamt} tkr</td>
+                <td class="highlight">{row.bas} tkr</td>
+                <td>{row.hogt} tkr</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="table-note">
+        10 hushåll / bas är referenspunkten (~209 tkr). 12 hushåll + bas
+        ger ~174 tkr/hushåll.
+      </p>
+    </section>
+
+    <!-- ── Känslighetsanalys ──────────────────────────────── -->
+    <section class="doc-section" aria-labelledby="kanslighet">
+      <h2 id="kanslighet">Känslighetsanalys</h2>
+      <p>
+        Om köpeskillingen landar annorlunda ändras kapitalkravet
+        proportionellt:
+      </p>
+      <ul>
+        <li><strong>2,2 Mkr:</strong> Sänker kapitalkrav ~25–30 %</li>
+        <li><strong>3,75 Mkr:</strong> Höjer kapitalkrav ~20–25 %</li>
+      </ul>
+      <p>
+        Lagfart (4,25 %) och transaktionskostnader skalas med köpeskilling.
+        Underhåll/VA är relativt konstant oavsett pris.
+      </p>
+    </section>
+
+    <!-- ── Kontant vs belåning ────────────────────────────── -->
+    <section class="doc-section" aria-labelledby="kontant">
+      <h2 id="kontant">Kontant utan lån</h2>
+      <p>
+        Om föreningen köper helt kontant (0 % belåning) blir kapitalkravet
+        högre, men inga räntekostnader:
+      </p>
+      <ul>
+        <li>10 hh / bas: ~386 tkr/hushåll</li>
+        <li>12 hh / bas: ~322 tkr/hushåll</li>
+      </ul>
+    </section>
+
+    <!-- ── Intjäning år 2–3 ───────────────────────────────── -->
+    <section class="doc-section" aria-labelledby="intjaning">
+      <h2 id="intjaning">Förväntad intjäning</h2>
+      <p>
+        Platsbaserad verksamhet kan bidra till löpande kostnader och
+        amortering:
+      </p>
+      <div class="table-wrapper">
+        <table class="kalkyl-table kalkyl-table--small">
+          <thead>
+            <tr>
+              <th scope="col">Nivå</th>
+              <th scope="col">År 2–3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sparsamt</td>
+              <td>250–400 tkr/år</td>
+            </tr>
+            <tr>
+              <td>Bas</td>
+              <td>450–750 tkr/år</td>
+            </tr>
+            <tr>
+              <td>Högt</td>
+              <td>800–1 200 tkr/år</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Disclaimer ─────────────────────────────────────── -->
+    <footer class="disclaimer">
+      <p>
+        <strong>Intern planering.</strong> Inte juridisk eller
+        redovisningsmässig rådgivning. Bekräfta lagfart, pantbrev och
+        bankvillkor innan bud läggs.
+      </p>
+    </footer>
+
+    <nav class="doc-nav" aria-label="Navigering arbetsyta">
+      <a href="/arbetsyta/ekonomi/" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Tillbaka till ekonomi
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .arbetsyta-doc {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .doc-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-status {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .doc-status--utkast {
+    background: var(--coral-light);
+    color: #7a3d20;
+    border: 1px solid var(--coral);
+  }
+
+  .doc-date {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .doc-section h2 {
+    font-size: var(--text-xl);
+    color: var(--deep-forest);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-section p {
+    color: var(--text);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-section ul {
+    padding-left: 1.5rem;
+    color: var(--text);
+    margin-bottom: var(--space-md);
+  }
+
+  .doc-section li {
+    margin-bottom: 0.4rem;
+  }
+
+  .assumptions {
+    background: var(--linen-cream);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-lg);
+    list-style: none;
+  }
+
+  .assumptions li {
+    padding: 0.25rem 0;
+  }
+
+  /* ── Tables ────────────────────────────────────────────── */
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-md) 0;
+  }
+
+  .kalkyl-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    min-width: 20rem;
+  }
+
+  .kalkyl-table th,
+  .kalkyl-table td {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .kalkyl-table th {
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--bg-secondary);
+  }
+
+  .kalkyl-table td {
+    color: var(--text);
+  }
+
+  .kalkyl-table td.highlight {
+    font-weight: 700;
+    color: var(--deep-forest);
+    background: var(--accent-light);
+  }
+
+  .kalkyl-table tbody tr:hover {
+    background: var(--linen-cream);
+  }
+
+  .kalkyl-table--small {
+    max-width: 20rem;
+  }
+
+  .table-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: var(--space-xs);
+  }
+
+  /* ── Disclaimer ────────────────────────────────────────── */
+  .disclaimer {
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+
+  .disclaimer p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  /* ── Navigation ────────────────────────────────────────── */
+  .doc-nav {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .doc-nav .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: var(--text-2xl);
+    }
+
+    .kalkyl-table th,
+    .kalkyl-table td {
+      padding: 0.5rem;
+    }
+  }
+</style>
