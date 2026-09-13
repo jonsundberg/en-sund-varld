@@ -1,0 +1,417 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+
+const metadata = {
+  titel: 'Kapitalkalkyl – september 2026',
+  datum: '2026-09-13',
+  status: 'utkast',
+};
+
+const kalkyler = [
+  { hh: 8, sparsamt: 248, bas: 261, hogt: 340 },
+  { hh: 10, sparsamt: 198, bas: 209, hogt: 272 },
+  { hh: 12, sparsamt: 165, bas: 174, hogt: 227 },
+];
+
+const antaganden = {
+  kopeskilling: '3 000 000 kr',
+  lagfart: '4,25 % av köpeskilling (~128 tkr)',
+  pantbrev: 'Antaget 2 % på nyinteckning',
+  belaningsgrad: '60 % av köpeskilling (1,8 Mkr)',
+  ranteantagande: '5 % rörlig ränta',
+  underhallsreserv: 'Bas: 500 tkr, Högt: 2 000 tkr',
+};
+
+const alternativKopes = [
+  { pris: '2,2 Mkr', hh10bas: '~153 tkr', kommentar: 'Enklare objekt / mindre areal' },
+  { pris: '3,0 Mkr', hh10bas: '~209 tkr', kommentar: 'Baskalkyl' },
+  { pris: '3,75 Mkr', hh10bas: '~261 tkr', kommentar: 'Större areal / bättre läge' },
+];
+---
+
+<BaseLayout
+  title="Kapitalkalkyl sep 2026 – Styrelsens arbetsyta"
+  description="Fullständig kapitalkalkyl för ekobyprojektet med scenariomatris."
+>
+  <article class="arbetsyta-doc container">
+    <header class="doc-header">
+      <p class="breadcrumb">
+        <a href="/arbetsyta/">Arbetsyta</a> / 
+        <a href="/arbetsyta/ekonomi/">Ekonomi</a> / Kapital sep 2026
+      </p>
+      <div class="doc-meta">
+        <span class="doc-status doc-status--utkast">Utkast</span>
+        <span class="doc-date">13 sep 2026</span>
+      </div>
+      <h1>{metadata.titel}</h1>
+      <p class="doc-lead">
+        Detaljerad scenariomatris för ekobyns kapitalstruktur. Alla belopp i tkr 
+        per hushåll om inget annat anges. Baserat på köpeskilling 3 Mkr.
+      </p>
+    </header>
+
+    <!-- Huvudtabell -->
+    <section class="doc-section" aria-labelledby="matris">
+      <h2 id="matris">Scenariomatris – 3 Mkr köpeskilling</h2>
+      <p>
+        Kontantinsats per hushåll vid 60 % belåning. Lagfart och pantbrev inräknade.
+      </p>
+      
+      <div class="table-wrapper">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th scope="col">Hushåll</th>
+              <th scope="col">Sparsamt</th>
+              <th scope="col">Bas</th>
+              <th scope="col">Högt</th>
+            </tr>
+          </thead>
+          <tbody>
+            {kalkyler.map((k) => (
+              <tr>
+                <th scope="row">{k.hh} hh</th>
+                <td>{k.sparsamt} tkr</td>
+                <td class="highlight">{k.bas} tkr</td>
+                <td>{k.hogt} tkr</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="scenario-legend">
+        <li><strong>Sparsamt:</strong> Minimal underhållsreserv (200 tkr), god befintlig infrastruktur.</li>
+        <li><strong>Bas:</strong> Måttlig underhållsreserv (500 tkr), viss upprustning av VA.</li>
+        <li><strong>Högt:</strong> Omfattande underhåll (2 Mkr), nytt avlopp och dränering.</li>
+      </ul>
+    </section>
+
+    <!-- Antaganden -->
+    <section class="doc-section" aria-labelledby="antaganden">
+      <h2 id="antaganden">Antaganden</h2>
+      <dl class="assumptions-list">
+        <div class="assumption-item">
+          <dt>Köpeskilling</dt>
+          <dd>{antaganden.kopeskilling}</dd>
+        </div>
+        <div class="assumption-item">
+          <dt>Lagfartsavgift</dt>
+          <dd>{antaganden.lagfart}</dd>
+        </div>
+        <div class="assumption-item">
+          <dt>Pantbrev</dt>
+          <dd>{antaganden.pantbrev}</dd>
+        </div>
+        <div class="assumption-item">
+          <dt>Belåningsgrad</dt>
+          <dd>{antaganden.belaningsgrad}</dd>
+        </div>
+        <div class="assumption-item">
+          <dt>Ränteantagande</dt>
+          <dd>{antaganden.ranteantagande}</dd>
+        </div>
+        <div class="assumption-item">
+          <dt>Underhållsreserv</dt>
+          <dd>{antaganden.underhallsreserv}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- Känslighet -->
+    <section class="doc-section" aria-labelledby="kanslighet">
+      <h2 id="kanslighet">Känslighetsanalys – alternativ köpeskilling</h2>
+      <p>
+        Hur kontantinsatsen (10 hh, basscenariot) förändras vid annan köpeskilling:
+      </p>
+      
+      <div class="table-wrapper">
+        <table class="sensitivity-table">
+          <thead>
+            <tr>
+              <th scope="col">Köpeskilling</th>
+              <th scope="col">Insats (10 hh, bas)</th>
+              <th scope="col">Kommentar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {alternativKopes.map((a) => (
+              <tr class={a.pris === '3,0 Mkr' ? 'highlight-row' : ''}>
+                <td>{a.pris}</td>
+                <td>{a.hh10bas}</td>
+                <td>{a.kommentar}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Formel -->
+    <section class="doc-section" aria-labelledby="formel">
+      <h2 id="formel">Beräkningsformel</h2>
+      <div class="formula-box">
+        <p><strong>Kontant per hushåll =</strong></p>
+        <p class="formula">
+          (Köpeskilling × (1 − belåning) + lagfart + pantbrev + underhåll) ÷ antal hushåll
+        </p>
+      </div>
+      <p>
+        Alla kostnader för förvärvstransaktionen inkluderas innan fördelning. 
+        Löpande ränta och amortering tillkommer utöver kontantinsatsen.
+      </p>
+    </section>
+
+    <!-- Disclaimer -->
+    <aside class="disclaimer" aria-labelledby="disclaimer-heading">
+      <h2 id="disclaimer-heading">Obs – internt planeringsunderlag</h2>
+      <p>
+        Detta är intern planering och inte juridisk eller ekonomisk rådgivning. 
+        Bekräfta lagfart, pantbrev och lånevillkor med bank och revisor innan 
+        föreningen lägger bud.
+      </p>
+    </aside>
+
+    <nav class="doc-nav" aria-label="Navigering arbetsyta">
+      <a href="/arbetsyta/ekonomi/" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Tillbaka till ekonomi
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .arbetsyta-doc {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .doc-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-status {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .doc-status--utkast {
+    background: var(--coral-light);
+    color: #7a3d20;
+    border: 1px solid var(--coral);
+  }
+
+  .doc-date {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .doc-section h2 {
+    font-size: var(--text-2xl);
+    color: var(--accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-section p {
+    color: var(--text);
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Tables */
+  .table-wrapper {
+    overflow-x: auto;
+    margin-bottom: var(--space-md);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+  }
+
+  .matrix-table,
+  .sensitivity-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .matrix-table th,
+  .matrix-table td,
+  .sensitivity-table th,
+  .sensitivity-table td {
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .matrix-table thead th,
+  .sensitivity-table thead th {
+    background: var(--bg-secondary);
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .matrix-table tbody th {
+    font-weight: 600;
+    background: var(--surface-low);
+  }
+
+  .matrix-table .highlight {
+    background: var(--accent-light);
+    font-weight: 600;
+    color: var(--deep-forest);
+  }
+
+  .sensitivity-table .highlight-row {
+    background: var(--accent-light);
+  }
+
+  .sensitivity-table .highlight-row td {
+    font-weight: 600;
+  }
+
+  .scenario-legend {
+    padding-left: 1.5rem;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .scenario-legend li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Assumptions */
+  .assumptions-list {
+    display: grid;
+    gap: var(--space-sm);
+    margin: 0;
+  }
+
+  .assumption-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    background: var(--linen-cream);
+    border-radius: var(--radius-md);
+  }
+
+  .assumption-item dt {
+    font-weight: 600;
+    color: var(--deep-forest);
+    min-width: 150px;
+  }
+
+  .assumption-item dd {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  /* Formula */
+  .formula-box {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .formula-box p {
+    margin: 0;
+  }
+
+  .formula {
+    font-family: monospace;
+    font-size: var(--text-sm);
+    color: var(--deep-forest);
+    padding: var(--space-sm);
+    background: var(--bg-white);
+    border-radius: var(--radius-sm);
+    margin-top: var(--space-xs);
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--coral);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+
+  .disclaimer h2 {
+    font-size: var(--text-lg);
+    color: var(--coral);
+    margin-bottom: var(--space-xs);
+  }
+
+  .disclaimer p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .doc-nav {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .doc-nav .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: var(--text-3xl);
+    }
+
+    .assumption-item {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+  }
+</style>

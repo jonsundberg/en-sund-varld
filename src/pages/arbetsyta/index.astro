@@ -5,23 +5,23 @@ const dokumentation = [
   {
     href: '/arbetsyta/mark/',
     titel: 'Markspaning',
-    beskrivning: 'Prospekt och utvärderingar av markområden för ekoby och gemensamma projekt.',
+    beskrivning: 'Prospekt och utvärderingar av markområden för ekobyprojektet.',
     status: 'aktiv',
     uppdaterad: '2026-09-10',
   },
   {
     href: '/arbetsyta/ekonomi/',
     titel: 'Ekonomi & kalkyler',
-    beskrivning: 'Finansieringsunderlag, budget och kalkyler för pågående initiativ.',
+    beskrivning: 'Kapitalkalkyler, finansieringsmodeller och budget för ekobyns förvärv.',
     status: 'aktiv',
-    uppdaterad: '2026-09-08',
+    uppdaterad: '2026-09-13',
   },
   {
     href: '/arbetsyta/ideer/',
     titel: 'Idébank',
-    beskrivning: 'Idéer för platsbaserad verksamhet, intäktskällor och lokal resiliens.',
+    beskrivning: 'Intäktsidéer, verksamhetsplaner och resiliensstrategi för ekobymarken.',
     status: 'aktiv',
-    uppdaterad: '2026-09-05',
+    uppdaterad: '2026-09-13',
   },
 ];
 
@@ -49,6 +49,33 @@ function statusLabel(status: string) {
         den som har URL:en.
       </p>
     </header>
+
+    <!-- Ekoby Focus Card -->
+    <section class="focus-card" aria-labelledby="focus-heading">
+      <div class="focus-badge">Aktivt fokus</div>
+      <h2 id="focus-heading">Ekobyprojektet</h2>
+      <p>
+        Just nu är all energi inriktad på föreningens gemensamma ekoby – 
+        att hitta mark, säkra finansiering och samla hushåll som vill vara med.
+      </p>
+      <ul class="focus-status">
+        <li>
+          <span class="status-dot status-dot--active"></span>
+          <strong>Markspaning:</strong> Utvärderar prospekt i Småland och Östergötland
+        </li>
+        <li>
+          <span class="status-dot status-dot--active"></span>
+          <strong>Kapitalstruktur:</strong> Kalkylerar för 8–12 hushåll, 60 % belåning
+        </li>
+        <li>
+          <span class="status-dot status-dot--pending"></span>
+          <strong>Intressenter:</strong> Samlar intresseanmälningar
+        </li>
+      </ul>
+      <a href="/arbetsyta/ekonomi/" class="btn btn-primary btn-sm">
+        Se kapitalkalkylen →
+      </a>
+    </section>
 
     <section class="how-to-contribute" aria-labelledby="bidra-heading">
       <h2 id="bidra-heading">Hur du bidrar</h2>
@@ -112,6 +139,83 @@ function statusLabel(status: string) {
     color: var(--text-muted);
     max-width: 48rem;
     line-height: 1.6;
+  }
+
+  /* Focus Card */
+  .focus-card {
+    background: linear-gradient(135deg, var(--deep-forest) 0%, #2a4a46 100%);
+    color: var(--text-on-dark);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    position: relative;
+  }
+
+  .focus-badge {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--coral);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .focus-card h2 {
+    color: var(--text-on-dark);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .focus-card > p {
+    color: var(--accent-mid);
+    font-size: var(--text-base);
+    max-width: 40rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .focus-status {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .focus-status li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--accent-mid);
+  }
+
+  .focus-status strong {
+    color: var(--text-on-dark);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .status-dot--active {
+    background: #4ade80;
+  }
+
+  .status-dot--pending {
+    background: var(--coral);
+  }
+
+  .focus-card .btn-sm {
+    padding: 0.6rem 1.2rem;
+    font-size: var(--text-sm);
   }
 
   .how-to-contribute {
@@ -245,6 +349,10 @@ function statusLabel(status: string) {
   @media (max-width: 600px) {
     h1 {
       font-size: var(--text-3xl);
+    }
+
+    .focus-card {
+      padding: var(--space-md);
     }
   }
 </style>

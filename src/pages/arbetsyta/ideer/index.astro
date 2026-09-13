@@ -3,41 +3,75 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 const metadata = {
   titel: 'Idébank',
-  datum: '2026-09-05',
+  datum: '2026-09-13',
   status: 'aktiv',
 };
 
 const ideer = [
   {
-    titel: 'Odlingslotter för närboende',
+    titel: 'Bete & arrende',
     kategori: 'Intäkt',
-    status: 'utkast',
-    beskrivning: 'Erbjud odlingslotter till grannar mot årsavgift. Skapar inkomst och gemenskap.',
+    ar: '1',
+    risk: 'låg',
+    beskrivning: 'Arrendera betesmark till lokala djurhållare. Stabil inkomst med minimal insats.',
   },
   {
     titel: 'Kurser i naturbyggande',
     kategori: 'Intäkt & utbildning',
-    status: 'utkast',
+    ar: '1',
+    risk: 'medel',
     beskrivning: 'Helgkurser i lera, halm och timring. Kan dra deltagare från hela landet.',
+  },
+  {
+    titel: 'CSA-andelar (andelsodling)',
+    kategori: 'Intäkt',
+    ar: '1–2',
+    risk: 'låg',
+    beskrivning: 'Sälj säsongsandelar till grannar – förskottsbetalning minskar risk och skapar gemenskap.',
+  },
+  {
+    titel: 'Ved & skogsbruk',
+    kategori: 'Intäkt',
+    ar: '1',
+    risk: 'låg',
+    beskrivning: 'Försäljning av ved, gallringsvirke och eventuell röjning på uppdrag.',
   },
   {
     titel: 'Gårdsbutik med lokala produkter',
     kategori: 'Intäkt',
-    status: 'utkast',
-    beskrivning: 'Sälja honung, sylt, ägg och andra produkter från gården och grannar.',
+    ar: '2',
+    risk: 'medel',
+    beskrivning: 'Honung, sylt, ägg och produkter från gården och grannar. Kräver tillstånd.',
   },
   {
-    titel: 'Retreat och kontemplation',
+    titel: 'Retreat & kontemplation',
     kategori: 'Intäkt & besökare',
-    status: 'utkast',
-    beskrivning: 'Enkel övernattning för den som vill ha tid i naturen. Låg investering.',
+    ar: '2–3',
+    risk: 'medel',
+    beskrivning: 'Enkel övernattning för den som vill ha tid i naturen. Låg investering i befintliga byggnader.',
+  },
+  {
+    titel: 'Odlingslotter för närboende',
+    kategori: 'Intäkt & gemenskap',
+    ar: '1',
+    risk: 'låg',
+    beskrivning: 'Erbjud odlingslotter till grannar mot årsavgift. Skapar inkomst och lokal förankring.',
   },
 ];
+
+function riskClass(risk: string) {
+  const classes: Record<string, string> = {
+    låg: 'risk--lag',
+    medel: 'risk--medel',
+    hög: 'risk--hog',
+  };
+  return classes[risk] || '';
+}
 ---
 
 <BaseLayout
   title="Idébank – Styrelsens arbetsyta"
-  description="Idéer för platsbaserad verksamhet, intäktskällor och lokal resiliens."
+  description="Intäktsidéer och verksamhetsplaner för föreningens gemensamma ekoby."
 >
   <article class="arbetsyta-doc container">
     <header class="doc-header">
@@ -50,8 +84,8 @@ const ideer = [
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
-        Samling av idéer för verksamhet, intäktskällor och lokal resiliens
-        kopplat till föreningens initiativ. Alla idéer är öppna för diskussion
+        Idéer för hur ekobymarken kan bära sig själv genom verksamhet, 
+        intäktskällor och lokal resiliens. Alla idéer är öppna för diskussion 
         och vidareutveckling.
       </p>
     </header>
@@ -67,21 +101,57 @@ const ideer = [
     </section>
 
     <section class="doc-section" aria-labelledby="ide-lista">
-      <h2 id="ide-lista">Idéer</h2>
-      <ul class="ide-list" role="list">
-        {ideer.map((ide) => (
-          <li class="ide-card">
-            <div class="ide-header">
-              <h3>{ide.titel}</h3>
-              <span class="ide-kategori">{ide.kategori}</span>
-            </div>
-            <p>{ide.beskrivning}</p>
-            <span class={`doc-status doc-status--${ide.status}`}>
-              {ide.status === 'utkast' ? 'Utkast' : ide.status}
-            </span>
-          </li>
-        ))}
-      </ul>
+      <h2 id="ide-lista">Intäktsidéer för ekobymarken</h2>
+      <p>
+        Översikt över möjliga intäktskällor, sorterat efter tidslinje. 
+        År 2–3 uppskattas bas till ca 450–750 tkr/år.
+      </p>
+      
+      <div class="ide-table-wrapper">
+        <table class="ide-table">
+          <thead>
+            <tr>
+              <th scope="col">Verksamhet</th>
+              <th scope="col">År</th>
+              <th scope="col">Risk</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ideer.map((ide) => (
+              <tr>
+                <td>
+                  <strong>{ide.titel}</strong>
+                  <span class="ide-desc">{ide.beskrivning}</span>
+                </td>
+                <td>{ide.ar}</td>
+                <td><span class={`risk ${riskClass(ide.risk)}`}>{ide.risk}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="doc-section" aria-labelledby="fasning">
+      <h2 id="fasning">Fasning</h2>
+      <div class="phase-cards">
+        <article class="phase-card">
+          <span class="phase-label">År 1</span>
+          <h3>Etablering</h3>
+          <p>
+            Fokus på lågriskaktiviteter: bete, ved, odlingslotter. 
+            Minimal investering, snabb igångstart.
+          </p>
+        </article>
+        <article class="phase-card">
+          <span class="phase-label">År 2–3</span>
+          <h3>Expansion</h3>
+          <p>
+            Kurser, gårdsbutik och eventuellt retreat när gruppen hittat 
+            sin form och marken är känd.
+          </p>
+        </article>
+      </div>
     </section>
 
     <section class="doc-section add-section" aria-labelledby="lagg-till">
@@ -91,8 +161,8 @@ const ideer = [
         ovan eller skapa en egen sida under <code>src/pages/arbetsyta/ideer/</code>.
       </p>
       <p>
-        Inkludera en kort beskrivning, eventuell kategori och din bedömning
-        av genomförbarhet.
+        Inkludera: kort beskrivning, uppskattad tidshorisont (år), 
+        risknivå och eventuella investeringsbehov.
       </p>
     </section>
 
@@ -189,13 +259,13 @@ const ideer = [
     margin-bottom: var(--space-sm);
   }
 
-  .doc-section ul {
+  .doc-section > ul {
     padding-left: 1.5rem;
     color: var(--text);
     margin-bottom: var(--space-md);
   }
 
-  .doc-section li {
+  .doc-section > ul li {
     margin-bottom: 0.5rem;
   }
 
@@ -206,43 +276,115 @@ const ideer = [
     font-size: 0.9em;
   }
 
-  .ide-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
+  /* Idé table */
+  .ide-table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    margin-bottom: var(--space-md);
+  }
+
+  .ide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .ide-table th,
+  .ide-table td {
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .ide-table thead th {
+    background: var(--bg-secondary);
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .ide-table tbody tr:hover {
+    background: var(--surface-low);
+  }
+
+  .ide-table td:first-child {
+    min-width: 200px;
+  }
+
+  .ide-table td strong {
+    display: block;
+    color: var(--deep-forest);
+    margin-bottom: 0.25rem;
+  }
+
+  .ide-desc {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .risk {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    text-transform: capitalize;
+    white-space: nowrap;
+  }
+
+  .risk--lag {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+  }
+
+  .risk--medel {
+    background: var(--coral-light);
+    color: #7a3d20;
+  }
+
+  .risk--hog {
+    background: #fecaca;
+    color: #7f1d1d;
+  }
+
+  /* Phase cards */
+  .phase-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: var(--space-md);
   }
 
-  .ide-card {
+  .phase-card {
     background: var(--linen-cream);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: var(--space-md);
   }
 
-  .ide-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
+  .phase-label {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
     margin-bottom: var(--space-xs);
   }
 
-  .ide-card h3 {
+  .phase-card h3 {
     font-size: var(--text-lg);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .phase-card p {
     margin: 0;
-  }
-
-  .ide-kategori {
-    font-size: var(--text-sm);
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  .ide-card > p {
-    margin: 0 0 var(--space-sm);
     font-size: var(--text-sm);
     color: var(--text-muted);
   }
@@ -272,6 +414,10 @@ const ideer = [
   @media (max-width: 600px) {
     h1 {
       font-size: var(--text-3xl);
+    }
+
+    .phase-cards {
+      grid-template-columns: 1fr;
     }
   }
 </style>
