@@ -7,17 +7,25 @@ const metadata = {
   status: 'utkast',
 };
 
+const kopfasAntaganden = {
+  antalHh: 10,
+  ltv: 0.60,
+  lagfart: 0.0425,
+  referenspris: { min: 3000, max: 3500 },
+  insatsPerHh: { min: 197, max: 209 },
+};
+
 const scenarios = [
-  { namn: 'Sparsamt', insats: '~198' },
-  { namn: 'Bas', insats: '~209' },
-  { namn: 'Högt', insats: '~272' },
+  { namn: 'Sparsamt', insats: '~197' },
+  { namn: 'Bas', insats: '~203' },
+  { namn: 'Högt', insats: '~209' },
 ];
 
 const paverkansfaktorer = [
   {
     faktor: 'VA-system',
-    spann: '0,8–2,5 Mkr',
-    beskrivning: 'Gemensam brunn + avlopp för ~10 hh. Se detaljerad VA-kalkyl nedan.',
+    spann: '168–993 tkr/hh',
+    beskrivning: 'Från enkel kretslopp till gemensam sjöanläggning. Se detaljerad VA-kalkyl nedan.',
   },
   {
     faktor: 'Antal hushåll',
@@ -26,7 +34,7 @@ const paverkansfaktorer = [
   },
   {
     faktor: 'Låneandel',
-    spann: '0–70 %',
+    spann: '60–75 %',
     beskrivning: 'Högre belåning sänker kontantbehov men ökar löpande räntekostnader.',
   },
 ];
@@ -38,40 +46,53 @@ const intaktsmojligheter = [
   { namn: 'Ved & skogsbruk', ar: '1', risk: 'låg' },
 ];
 
-const vaKostnader = {
-  dricksvatten: {
-    gemensam_brunn: { min: 80, max: 200, enhet: 'tkr', beskrivning: 'Borrning + pump + pumphus' },
-    ledningar_per_hh: { min: 10, max: 40, enhet: 'tkr/hh', beskrivning: 'Dragning till respektive hushåll' },
-  },
-  avlopp: {
-    infiltration: { 
-      min: 80, max: 150, enhet: 'tkr/hh', 
-      beskrivning: 'Kräver genomsläpplig mark – sällan möjligt i Mälardalens lera/hög grundvattennivå',
-      lamplig: false,
+const vaInfraKostnader = {
+  individuell: {
+    sparsamt: { 
+      namn: 'Sparsamt regenerativt', 
+      kostnad: 168, 
+      beskrivning: 'Komposttoalett + BDT-rening',
+      permitRisk: 'medel–hög',
     },
-    markbadd: { 
-      min: 100, max: 180, enhet: 'tkr/hh', 
-      beskrivning: 'Sandfilter med utlopp – fungerar i de flesta jordar',
-      lamplig: true,
+    bas: { 
+      namn: 'Bas markbädd', 
+      kostnad: 218, 
+      beskrivning: 'Markbädd/sandfilter',
+      permitRisk: 'låg',
     },
-    minireningsverk: { 
-      min: 120, max: 250, enhet: 'tkr/hh', 
-      beskrivning: 'Kompakt reningsverk, kräver service',
-      service_ar: { min: 5, max: 13 },
-      lamplig: true,
-    },
-    gemensam_anlaggning: {
-      min: 800, max: 2500, enhet: 'tkr',
-      beskrivning: 'Gemensamt för ~10 hh, plus GA-avgifter och dragning',
+    hog: { 
+      namn: 'Övre (sjönära MRV+P)', 
+      kostnad: 293, 
+      beskrivning: 'Minireningsverk + fosforfälla (strandskydd)',
+      permitRisk: 'låg',
+      note: 'Blackbo-lägen kräver övre pga strandskydd',
     },
   },
-  kretslopp: {
-    komposttoalett: { min: 15, max: 50, enhet: 'tkr/hh', beskrivning: 'Torrtoalett med kompostering' },
-    graywater: { min: 40, max: 120, enhet: 'tkr/hh', beskrivning: 'BDT-vatten till våtmark/växtbädd' },
-    permitRisk: 'hög',
+  medGemensamNod: {
+    sparsamt: { kostnad: 318, beskrivning: 'Enkel gemensam nod + kretslopp' },
+    bas: { kostnad: 618, beskrivning: 'Gemensam nod + markbädd' },
+    hog: { kostnad: 993, beskrivning: 'Gemensam nod + MRV+P (sjönära)' },
   },
-  dagvatten: {
-    swales: { min: 5, max: 40, enhet: 'tkr/hh', beskrivning: 'Svackdiken, regnbäddar, perkolation' },
+};
+
+const lanekostnader = {
+  bas: {
+    ranta: 3.2,
+    amortering: 2.0,
+    ltv: 60,
+    vid3Mkr: 780,
+    vid3_5Mkr: 910,
+  },
+  stress: {
+    ranta: 4.5,
+    ltv: 75,
+    vid3Mkr: 1220,
+    vid3_5Mkr: 1420,
+  },
+  cashGap: {
+    beloppTkr: 200,
+    finansieratAndel: 0.50,
+    manadskostnad: 430,
   },
 };
 
@@ -88,20 +109,15 @@ const sparsamtPath = {
   },
 };
 
-const lanekostnader = {
-  rantesats: 5.0,
-  amorteringstid: 30,
-  scenarion: [
-    { namn: 'Sparsamt', insatsBehov: 198, lanAndel: 100 },
-    { namn: 'Bas', insatsBehov: 209, lanAndel: 150 },
-    { namn: 'Högt', insatsBehov: 272, lanAndel: 200 },
-  ],
-};
-
 const timbank = {
-  schablonTimlonLag: 200,
-  schablonTimlonHog: 350,
-  exempelTimmar: 200,
+  schablonSats: 200,
+  referensInsats: 200,
+  nivaer: [
+    { timmar: 250, andel: 25, avdragTkr: 50 },
+    { timmar: 500, andel: 50, avdragTkr: 100 },
+    { timmar: 1000, andel: 100, avdragTkr: 200 },
+  ],
+  rekommenderatTak: { min: 30, max: 50 },
 };
 ---
 
@@ -129,7 +145,7 @@ const timbank = {
     <section class="planning-card" aria-labelledby="planering">
       <h2 id="planering" class="visually-hidden">Planeringsöversikt</h2>
       <div class="planning-header">
-        <span class="planning-label">Ekoby – kapitalscenario</span>
+        <span class="planning-label">Köpfas – kapitalscenario</span>
         <div class="planning-pills">
           <span class="pill pill--draft">Utkast 14 sep</span>
         </div>
@@ -137,25 +153,25 @@ const timbank = {
       
       <div class="planning-summary">
         <div class="summary-item">
-          <span class="summary-value">3 Mkr</span>
+          <span class="summary-value">3,0–3,5 Mkr</span>
           <span class="summary-label">Köpeskilling</span>
         </div>
         <div class="summary-item">
-          <span class="summary-value">10 hh</span>
+          <span class="summary-value">{kopfasAntaganden.antalHh} hh</span>
           <span class="summary-label">Hushåll</span>
         </div>
         <div class="summary-item">
-          <span class="summary-value">60 %</span>
-          <span class="summary-label">Belåning</span>
+          <span class="summary-value">{kopfasAntaganden.ltv * 100} %</span>
+          <span class="summary-label">Belåning (LTV)</span>
         </div>
         <div class="summary-item summary-item--result">
-          <span class="summary-value">~209 tkr</span>
+          <span class="summary-value">~{kopfasAntaganden.insatsPerHh.min}–{kopfasAntaganden.insatsPerHh.max} tkr</span>
           <span class="summary-label">Kontant/hushåll</span>
         </div>
       </div>
 
       <p class="planning-note">
-        Lagfart (4,25 %, ~128 tkr) och pantbrev inräknat i totalbeloppet.
+        Lagfart ({kopfasAntaganden.lagfart * 100} %) inräknat. Exkluderar VA/infra – se nedan.
       </p>
 
       <div class="scenario-chips">
@@ -175,8 +191,9 @@ const timbank = {
     <section class="doc-section slider-section" aria-labelledby="slider-heading">
       <h2 id="slider-heading">Utforska olika köpeskillingar</h2>
       <p>
-        Dra i reglaget för att se hur nyckeltal förändras vid olika köpeskillingar.
-        Beräkningen utgår från 10 hushåll, 60 % belåning och 4,25 % lagfart.
+        Dra i reglaget för att se hur köpfas och månadskostnad förändras vid olika 
+        köpeskillingar. Beräkningen utgår från {kopfasAntaganden.antalHh} hushåll, 
+        {kopfasAntaganden.ltv * 100} % belåning och {kopfasAntaganden.lagfart * 100} % lagfart.
       </p>
       
       <div class="slider-calculator" id="kapital-kalkylator">
@@ -187,129 +204,125 @@ const timbank = {
           <input 
             type="range" 
             id="kopes-slider" 
-            min="2000" 
-            max="5000" 
+            min="2500" 
+            max="4500" 
             step="100" 
             value="3000"
             aria-describedby="slider-help"
           />
           <div class="slider-range-labels">
-            <span>2 Mkr</span>
-            <span>5 Mkr</span>
+            <span>2,5 Mkr</span>
+            <span>4,5 Mkr</span>
           </div>
           <p id="slider-help" class="slider-help">
-            Intervall 2–5 Mkr, steg om 100 tkr
+            Intervall 2,5–4,5 Mkr, steg om 100 tkr
           </p>
         </div>
 
         <div class="slider-results" aria-live="polite" aria-atomic="true">
           <div class="result-card">
-            <span class="result-label">Total medlemskapital</span>
-            <span class="result-value" id="result-total">~2 090 tkr</span>
+            <span class="result-label">Köpfas per hh ({kopfasAntaganden.antalHh} hh)</span>
+            <span class="result-value" id="result-per-hh">~197 tkr</span>
           </div>
           <div class="result-card">
-            <span class="result-label">Per hushåll (10 hh)</span>
-            <span class="result-value" id="result-per-hh">~209 tkr</span>
+            <span class="result-label">Månadsbetalning (bas)</span>
+            <span class="result-value" id="result-monthly-bas">~780 kr</span>
           </div>
           <div class="result-card result-card--highlight">
-            <span class="result-label">Lånekostnad/mån (lånar hela)</span>
-            <span class="result-value" id="result-monthly">~1 120 kr</span>
+            <span class="result-label">Månadsbetalning (stress)</span>
+            <span class="result-value" id="result-monthly-stress">~1 220 kr</span>
+          </div>
+        </div>
+
+        <div class="slider-assumptions">
+          <h4>Synliga antaganden</h4>
+          <div class="assumption-grid">
+            <div class="assumption-col">
+              <strong>Bas:</strong> {lanekostnader.bas.ranta} % ränta + {lanekostnader.bas.amortering} % am, {lanekostnader.bas.ltv} % LTV
+            </div>
+            <div class="assumption-col">
+              <strong>Stress:</strong> {lanekostnader.stress.ranta} % ränta, {lanekostnader.stress.ltv} % LTV
+            </div>
           </div>
         </div>
         
         <p class="slider-disclaimer">
-          Antaganden: 60 % belåning, lagfart 4,25 %, 5 % ränta, 30 års amortering.
-          Lånekostnad avser ett hushåll som lånar hela sin insats privat.
+          Månadsbetalning avser ränta + amortering på föreningens gemensamma lån, fördelat per hushåll.
+          Exkluderar driftskostnader och VA-infra.
         </p>
       </div>
     </section>
 
     <!-- VA-kostnader -->
     <section class="doc-section va-section" aria-labelledby="va-heading">
-      <h2 id="va-heading">VA-kostnader – vatten och avlopp</h2>
+      <h2 id="va-heading">VA + infrastruktur per hushåll</h2>
       <p>
         VA är ofta den största osäkerhetsfaktorn vid markköp utanför kommunalt 
-        verksamhetsområde. Nedan visas realistiska kostnadsintervall för 
-        permakulturanpassade lösningar.
+        verksamhetsområde. Nedan visas kalkyler för tre scenarion – individuell 
+        lösning och med gemensam nod.
       </p>
 
-      <!-- Dricksvatten -->
+      <!-- Individuell lösning -->
       <div class="va-category">
-        <h3>💧 Dricksvatten</h3>
+        <h3>🏠 Individuell VA-lösning</h3>
         <div class="va-items">
-          <div class="va-item">
+          <div class="va-item va-item--ambitious">
             <div class="va-item-header">
-              <span class="va-item-name">Gemensam brunn</span>
-              <span class="va-item-cost">{vaKostnader.dricksvatten.gemensam_brunn.min}–{vaKostnader.dricksvatten.gemensam_brunn.max} tkr</span>
+              <span class="va-item-name">{vaInfraKostnader.individuell.sparsamt.namn}</span>
+              <span class="va-item-cost">~{vaInfraKostnader.individuell.sparsamt.kostnad} tkr/hh</span>
             </div>
-            <p class="va-item-desc">{vaKostnader.dricksvatten.gemensam_brunn.beskrivning}</p>
-          </div>
-          <div class="va-item">
-            <div class="va-item-header">
-              <span class="va-item-name">Ledningar per hushåll</span>
-              <span class="va-item-cost">+{vaKostnader.dricksvatten.ledningar_per_hh.min}–{vaKostnader.dricksvatten.ledningar_per_hh.max} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{vaKostnader.dricksvatten.ledningar_per_hh.beskrivning}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Avlopp -->
-      <div class="va-category">
-        <h3>🚿 Avlopp – individuella lösningar</h3>
-        <div class="va-items">
-          <div class="va-item va-item--warning">
-            <div class="va-item-header">
-              <span class="va-item-name">Infiltration</span>
-              <span class="va-item-cost">{vaKostnader.avlopp.infiltration.min}–{vaKostnader.avlopp.infiltration.max} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{vaKostnader.avlopp.infiltration.beskrivning}</p>
-            <span class="va-tag va-tag--warning">Sällan möjligt i Mälardalen</span>
+            <p class="va-item-desc">{vaInfraKostnader.individuell.sparsamt.beskrivning}</p>
+            <span class="va-tag va-tag--warning">Tillståndsrisk: {vaInfraKostnader.individuell.sparsamt.permitRisk}</span>
           </div>
           <div class="va-item va-item--recommended">
             <div class="va-item-header">
-              <span class="va-item-name">Markbädd / sandfilter</span>
-              <span class="va-item-cost">{vaKostnader.avlopp.markbadd.min}–{vaKostnader.avlopp.markbadd.max} tkr/hh</span>
+              <span class="va-item-name">{vaInfraKostnader.individuell.bas.namn}</span>
+              <span class="va-item-cost">~{vaInfraKostnader.individuell.bas.kostnad} tkr/hh</span>
             </div>
-            <p class="va-item-desc">{vaKostnader.avlopp.markbadd.beskrivning}</p>
+            <p class="va-item-desc">{vaInfraKostnader.individuell.bas.beskrivning}</p>
             <span class="va-tag va-tag--recommended">Basplanering</span>
+          </div>
+          <div class="va-item">
+            <div class="va-item-header">
+              <span class="va-item-name">{vaInfraKostnader.individuell.hog.namn}</span>
+              <span class="va-item-cost">~{vaInfraKostnader.individuell.hog.kostnad} tkr/hh</span>
+            </div>
+            <p class="va-item-desc">{vaInfraKostnader.individuell.hog.beskrivning}</p>
+            <p class="va-item-note">{vaInfraKostnader.individuell.hog.note}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Med gemensam nod -->
+      <div class="va-category">
+        <h3>🏘️ Med enkel gemensam nod (~{kopfasAntaganden.antalHh} hh)</h3>
+        <p class="va-category-desc">
+          Gemensam brunn, ledningsnät och centralare VA-hantering ökar investeringen 
+          men kan ge driftfördelar.
+        </p>
+        <div class="va-items">
+          <div class="va-item va-item--ambitious">
+            <div class="va-item-header">
+              <span class="va-item-name">Sparsamt + gemensam nod</span>
+              <span class="va-item-cost">~{vaInfraKostnader.medGemensamNod.sparsamt.kostnad} tkr/hh</span>
+            </div>
+            <p class="va-item-desc">{vaInfraKostnader.medGemensamNod.sparsamt.beskrivning}</p>
           </div>
           <div class="va-item va-item--recommended">
             <div class="va-item-header">
-              <span class="va-item-name">Minireningsverk</span>
-              <span class="va-item-cost">{vaKostnader.avlopp.minireningsverk.min}–{vaKostnader.avlopp.minireningsverk.max} tkr/hh</span>
+              <span class="va-item-name">Bas + gemensam nod</span>
+              <span class="va-item-cost">~{vaInfraKostnader.medGemensamNod.bas.kostnad} tkr/hh</span>
             </div>
-            <p class="va-item-desc">{vaKostnader.avlopp.minireningsverk.beskrivning}</p>
-            <p class="va-item-service">+ service {vaKostnader.avlopp.minireningsverk.service_ar.min}–{vaKostnader.avlopp.minireningsverk.service_ar.max} tkr/år</p>
-            <span class="va-tag va-tag--recommended">Basplanering</span>
+            <p class="va-item-desc">{vaInfraKostnader.medGemensamNod.bas.beskrivning}</p>
+            <span class="va-tag va-tag--recommended">Rekommenderad</span>
           </div>
-        </div>
-      </div>
-
-      <!-- Gemensam anläggning -->
-      <div class="va-category">
-        <h3>🏘️ Gemensam avloppsanläggning (~10 hh)</h3>
-        <div class="va-items">
           <div class="va-item">
             <div class="va-item-header">
-              <span class="va-item-name">Gemensamt reningsverk/markbädd</span>
-              <span class="va-item-cost">{(vaKostnader.avlopp.gemensam_anlaggning.min / 1000).toFixed(1)}–{(vaKostnader.avlopp.gemensam_anlaggning.max / 1000).toFixed(1)} Mkr</span>
+              <span class="va-item-name">Övre + gemensam nod (sjönära)</span>
+              <span class="va-item-cost">~{vaInfraKostnader.medGemensamNod.hog.kostnad} tkr/hh</span>
             </div>
-            <p class="va-item-desc">{vaKostnader.avlopp.gemensam_anlaggning.beskrivning}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dagvatten -->
-      <div class="va-category">
-        <h3>🌧️ Dagvatten</h3>
-        <div class="va-items">
-          <div class="va-item">
-            <div class="va-item-header">
-              <span class="va-item-name">Svackdiken / regnbäddar</span>
-              <span class="va-item-cost">{vaKostnader.dagvatten.swales.min}–{vaKostnader.dagvatten.swales.max} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{vaKostnader.dagvatten.swales.beskrivning}</p>
+            <p class="va-item-desc">{vaInfraKostnader.medGemensamNod.hog.beskrivning}</p>
+            <span class="va-tag va-tag--blackbo">Blackbo-scenariot</span>
           </div>
         </div>
       </div>
@@ -317,23 +330,18 @@ const timbank = {
 
     <!-- Sparsamt regenerativt -->
     <section class="doc-section" aria-labelledby="sparsamt">
-      <h2 id="sparsamt">Ambitiös kretsloppslösning</h2>
+      <h2 id="sparsamt">Sparsamt regenerativt – ambitiös kretsloppslösning</h2>
       <p>
         För de som siktar på helt slutna kretslopp finns en lågkostnadsväg med 
-        komposttoalett och lokal gråvattenhantering. Detta kräver mer arbete och 
-        tillstånd men kan minska investeringen kraftigt.
+        komposttoalett och lokal gråvattenhantering (~{vaInfraKostnader.individuell.sparsamt.kostnad} tkr/hh). 
+        Detta kräver tillstånd som kan vara svåra att få.
       </p>
       
       <div class="regen-cards">
         <article class="regen-card regen-card--ambitious">
-          <h3>🚽 Komposttoalett</h3>
-          <p>{vaKostnader.kretslopp.komposttoalett.beskrivning}</p>
-          <span class="regen-cost">{vaKostnader.kretslopp.komposttoalett.min}–{vaKostnader.kretslopp.komposttoalett.max} tkr/hh</span>
-        </article>
-        <article class="regen-card regen-card--ambitious">
-          <h3>🌿 Gråvattenrening</h3>
-          <p>{vaKostnader.kretslopp.graywater.beskrivning}</p>
-          <span class="regen-cost">{vaKostnader.kretslopp.graywater.min}–{vaKostnader.kretslopp.graywater.max} tkr/hh</span>
+          <h3>🚽 Komposttoalett + BDT</h3>
+          <p>{vaInfraKostnader.individuell.sparsamt.beskrivning}</p>
+          <span class="regen-cost">~{vaInfraKostnader.individuell.sparsamt.kostnad} tkr/hh</span>
         </article>
         <article class="regen-card">
           <h3>🏠 {sparsamtPath.byggande.namn}</h3>
@@ -348,27 +356,31 @@ const timbank = {
       </div>
 
       <aside class="regen-warning">
-        <h4>⚠️ Plan B krävs</h4>
+        <h4>⚠️ Plan B krävs – tillståndsrisk medel–hög</h4>
         <p>
-          Kretsloppstoalett och lokal gråvattenhantering kräver dispens från kommunen.
-          Tillståndsprocessen är osäker – räkna med att behöva falla tillbaka på 
-          markbädd eller minireningsverk om dispens inte beviljas. Budgetera för 
-          båda alternativen i tidigt skede.
+          Kretsloppstoalett kräver dispens från kommunen. Tillståndsprocessen är 
+          osäker – räkna med att behöva falla tillbaka på markbädd (~{vaInfraKostnader.individuell.bas.kostnad} tkr/hh) 
+          om dispens inte beviljas. Budgetera för båda alternativen i tidigt skede.
         </p>
       </aside>
 
       <div class="scenario-summary">
-        <h4>Kostnadsjämförelse per hushåll</h4>
+        <h4>VA-kostnadsjämförelse per hushåll</h4>
         <div class="scenario-compare">
-          <div class="scenario-box">
-            <span class="scenario-label">Ambitiös kretslopp</span>
-            <span class="scenario-value">{vaKostnader.kretslopp.komposttoalett.min + vaKostnader.kretslopp.graywater.min}–{vaKostnader.kretslopp.komposttoalett.max + vaKostnader.kretslopp.graywater.max} tkr</span>
+          <div class="scenario-box scenario-box--ambitious">
+            <span class="scenario-label">Sparsamt regenerativt</span>
+            <span class="scenario-value">~{vaInfraKostnader.individuell.sparsamt.kostnad} tkr</span>
             <span class="scenario-note">om tillstånd beviljas</span>
           </div>
           <div class="scenario-box scenario-box--base">
-            <span class="scenario-label">Basplanering (markbädd)</span>
-            <span class="scenario-value">{vaKostnader.avlopp.markbadd.min}–{vaKostnader.avlopp.markbadd.max} tkr</span>
+            <span class="scenario-label">Bas markbädd</span>
+            <span class="scenario-value">~{vaInfraKostnader.individuell.bas.kostnad} tkr</span>
             <span class="scenario-note">plan B / standardval</span>
+          </div>
+          <div class="scenario-box scenario-box--high">
+            <span class="scenario-label">Övre (sjönära)</span>
+            <span class="scenario-value">~{vaInfraKostnader.individuell.hog.kostnad} tkr</span>
+            <span class="scenario-note">Blackbo-scenariot</span>
           </div>
         </div>
       </div>
@@ -376,48 +388,66 @@ const timbank = {
 
     <!-- Månadskostnad vid lån -->
     <section class="doc-section" aria-labelledby="manadskostnad">
-      <h2 id="manadskostnad">Månadskostnad om du lånar</h2>
+      <h2 id="manadskostnad">Månadskostnad – ränta och amortering</h2>
       <p>
-        För hushåll med lite kontanter kan insatsen finansieras genom privatlån.
-        Nedan visas ungefärlig månadskostnad (ränta + amortering) vid olika
-        lånebelopp.
+        Föreningens gemensamma lån fördelas på hushållen. Nedan visas månadskostnad 
+        (ränta + amortering) vid olika köpeskillingar och räntescenarier.
       </p>
 
-      <div class="loan-assumptions">
-        <span><strong>Räntesats:</strong> {lanekostnader.rantesats} %</span>
-        <span><strong>Amorteringstid:</strong> {lanekostnader.amorteringstid} år</span>
+      <div class="loan-scenarios">
+        <div class="loan-scenario">
+          <h4>Basfall</h4>
+          <div class="loan-params">
+            <span>{lanekostnader.bas.ranta} % ränta</span>
+            <span>{lanekostnader.bas.amortering} % amortering</span>
+            <span>{lanekostnader.bas.ltv} % LTV</span>
+          </div>
+          <div class="loan-results">
+            <div class="loan-result">
+              <span class="loan-price">3,0 Mkr</span>
+              <span class="loan-monthly">~{lanekostnader.bas.vid3Mkr} kr/hh/mån</span>
+            </div>
+            <div class="loan-result">
+              <span class="loan-price">3,5 Mkr</span>
+              <span class="loan-monthly">~{lanekostnader.bas.vid3_5Mkr} kr/hh/mån</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="loan-scenario loan-scenario--stress">
+          <h4>Stresstest</h4>
+          <div class="loan-params">
+            <span>{lanekostnader.stress.ranta} % ränta</span>
+            <span>{lanekostnader.stress.ltv} % LTV</span>
+          </div>
+          <div class="loan-results">
+            <div class="loan-result">
+              <span class="loan-price">3,0 Mkr</span>
+              <span class="loan-monthly">~{lanekostnader.stress.vid3Mkr} kr/hh/mån</span>
+            </div>
+            <div class="loan-result">
+              <span class="loan-price">3,5 Mkr</span>
+              <span class="loan-monthly">~{lanekostnader.stress.vid3_5Mkr} kr/hh/mån</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="table-wrapper">
-        <table class="loan-table">
-          <thead>
-            <tr>
-              <th scope="col">Scenario</th>
-              <th scope="col">Lånebelopp</th>
-              <th scope="col">Månadskostnad</th>
-            </tr>
-          </thead>
-          <tbody>
-            {lanekostnader.scenarion.map((s) => {
-              const lan = s.lanAndel * 1000;
-              const r = lanekostnader.rantesats / 100 / 12;
-              const n = lanekostnader.amorteringstid * 12;
-              const manadsbelopp = Math.round((lan * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
-              return (
-                <tr class={s.namn === 'Bas' ? 'highlight-row' : ''}>
-                  <td>{s.namn}</td>
-                  <td>{s.lanAndel} tkr</td>
-                  <td>~{manadsbelopp.toLocaleString('sv-SE')} kr</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      <div class="cash-gap-box">
+        <h4>Finansiera kontantgap?</h4>
+        <p>
+          Om ett hushåll behöver låna 50 % av sin kontantinsats (~{lanekostnader.cashGap.beloppTkr / 2} tkr) 
+          privat för att klara köpfas:
+        </p>
+        <div class="cash-gap-result">
+          <span class="cash-gap-value">~{lanekostnader.cashGap.manadskostnad} kr/mån</span>
+          <span class="cash-gap-note">tillkommande personlig lånekostnad</span>
+        </div>
       </div>
 
       <p class="loan-note">
-        Annuitetslån med fast ränta. Verklig ränta kan variera 3–8 % beroende på
-        kreditvärdighet och säkerhet. Räkna med marginal.
+        Månadsbetalning avser endast ränta + amortering. Driftskostnader (el, värme, 
+        underhåll, GA-avgifter) tillkommer.
       </p>
     </section>
 
@@ -427,50 +457,54 @@ const timbank = {
       <p>
         Hushåll som vill bidra med arbete istället för kontanter kan delta i
         föreningens <strong>timbank</strong>. Dokumenterade arbetstimmar räknas 
-        av mot kontantinsatsen enligt en schablonsats.
+        av mot kontantinsatsen (~{timbank.referensInsats} tkr) enligt en schablonsats.
       </p>
 
-      <div class="timbank-example">
-        <h3>Räkneexempel</h3>
-        <div class="timbank-calc">
-          <div class="timbank-row">
-            <span class="timbank-label">Arbetstimmar</span>
-            <span class="timbank-value">{timbank.exempelTimmar} tim</span>
-          </div>
-          <div class="timbank-row">
-            <span class="timbank-label">Schablonsats (låg)</span>
-            <span class="timbank-value">{timbank.schablonTimlonLag} kr/tim</span>
-          </div>
-          <div class="timbank-row timbank-row--result">
-            <span class="timbank-label">Avdrag mot kontantinsats</span>
-            <span class="timbank-value">{(timbank.exempelTimmar * timbank.schablonTimlonLag / 1000).toFixed(0)} tkr</span>
-          </div>
+      <div class="timbank-table-wrapper">
+        <table class="timbank-table">
+          <thead>
+            <tr>
+              <th scope="col">Arbetstimmar</th>
+              <th scope="col">Avdrag</th>
+              <th scope="col">Andel av {timbank.referensInsats} tkr</th>
+            </tr>
+          </thead>
+          <tbody>
+            {timbank.nivaer.map((n) => (
+              <tr class={n.andel === 50 ? 'highlight-row' : ''}>
+                <td>{n.timmar} tim</td>
+                <td>{n.avdragTkr} tkr</td>
+                <td>{n.andel} %</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="timbank-calc-box">
+        <div class="timbank-formula">
+          <span class="timbank-formula-label">Schablonsats (styrelseplats):</span>
+          <span class="timbank-formula-value">{timbank.schablonSats} kr/tim</span>
         </div>
-        <p class="timbank-detail">
-          Vid hög schablonsats ({timbank.schablonTimlonHog} kr/tim): {(timbank.exempelTimmar * timbank.schablonTimlonHog / 1000).toFixed(0)} tkr avdrag.
+        <p class="timbank-formula-example">
+          Exempel: {timbank.nivaer[1].timmar} tim × {timbank.schablonSats} kr = {timbank.nivaer[1].avdragTkr} tkr avdrag
         </p>
       </div>
 
-      <div class="timbank-rates">
-        <h4>Schablonsatser (förslag, styrelsebeslut krävs)</h4>
-        <dl class="rate-list">
-          <div class="rate-item">
-            <dt>Enklare arbete</dt>
-            <dd>{timbank.schablonTimlonLag} kr/tim</dd>
-            <dd class="rate-desc">Röjning, städning, enklare snickeri</dd>
-          </div>
-          <div class="rate-item">
-            <dt>Kvalificerat arbete</dt>
-            <dd>{timbank.schablonTimlonHog} kr/tim</dd>
-            <dd class="rate-desc">El, VVS, projektledning, juridik</dd>
-          </div>
-        </dl>
-      </div>
+      <aside class="timbank-recommendation">
+        <h4>💡 Rekommenderat tak: {timbank.rekommenderatTak.min}–{timbank.rekommenderatTak.max} % arbetsinsats</h4>
+        <p>
+          För att balansera kontant och arbete rekommenderar vi att max 
+          {timbank.rekommenderatTak.min}–{timbank.rekommenderatTak.max} % av ett hushålls insats täcks av 
+          arbetstid. Detta motsvarar {Math.round(timbank.referensInsats * timbank.rekommenderatTak.min / 100)}–{Math.round(timbank.referensInsats * timbank.rekommenderatTak.max / 100)} tkr 
+          eller {Math.round(timbank.referensInsats * timbank.rekommenderatTak.min / 100 / timbank.schablonSats * 1000)}–{Math.round(timbank.referensInsats * timbank.rekommenderatTak.max / 100 / timbank.schablonSats * 1000)} timmars arbete.
+        </p>
+      </aside>
 
       <aside class="timbank-disclaimer">
-        <strong>Viktigt:</strong> Schablonsatserna är preliminära förslag.
-        Slutgiltiga nivåer och vilka arbetstyper som godkänns fastställs genom
-        styrelsebeslut innan systemet tas i bruk.
+        <strong>Styrelsebeslut krävs:</strong> Schablonsatsen ({timbank.schablonSats} kr/tim) och 
+        maxtak är preliminära förslag. Slutgiltiga nivåer och vilka arbetstyper 
+        som godkänns fastställs genom styrelsebeslut innan systemet tas i bruk.
       </aside>
     </section>
 
@@ -570,50 +604,59 @@ const timbank = {
   <script>
     const slider = document.getElementById('kopes-slider') as HTMLInputElement;
     const kopesOutput = document.getElementById('kopes-output');
-    const resultTotal = document.getElementById('result-total');
     const resultPerHh = document.getElementById('result-per-hh');
-    const resultMonthly = document.getElementById('result-monthly');
+    const resultMonthlyBas = document.getElementById('result-monthly-bas');
+    const resultMonthlyStress = document.getElementById('result-monthly-stress');
 
-    const BELANING = 0.60;
-    const LAGFART = 0.0425;
-    const RANTA = 0.05;
-    const AMORTERING_AR = 30;
     const ANTAL_HH = 10;
+    const LTV_BAS = 0.60;
+    const LAGFART = 0.0425;
+    
+    const BAS_RANTA = 0.032;
+    const BAS_AMORTERING = 0.02;
+    const STRESS_RANTA = 0.045;
+    const STRESS_LTV = 0.75;
 
     function formatTkr(value: number): string {
       return Math.round(value).toLocaleString('sv-SE') + ' tkr';
     }
 
     function formatKr(value: number): string {
-      return '~' + Math.round(value).toLocaleString('sv-SE') + ' kr';
+      return '~' + Math.round(value / 10) * 10 + ' kr';
     }
 
-    function berakna(kopeskillingTkr: number) {
+    function beraknaKopfas(kopeskillingTkr: number): number {
       const kopeskillingSek = kopeskillingTkr * 1000;
       const lagfartSek = kopeskillingSek * LAGFART;
-      const egetKapitalSek = kopeskillingSek * (1 - BELANING);
+      const egetKapitalSek = kopeskillingSek * (1 - LTV_BAS);
       const totalMedlemskapitalSek = egetKapitalSek + lagfartSek;
-      const perHhSek = totalMedlemskapitalSek / ANTAL_HH;
+      return totalMedlemskapitalSek / ANTAL_HH / 1000;
+    }
 
-      const r = RANTA / 12;
-      const n = AMORTERING_AR * 12;
-      const manadskostnadSek = (perHhSek * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    function beraknaManadskostnadBas(kopeskillingTkr: number): number {
+      const kopeskillingSek = kopeskillingTkr * 1000;
+      const lanSek = kopeskillingSek * LTV_BAS;
+      const arligKostnad = lanSek * (BAS_RANTA + BAS_AMORTERING);
+      return arligKostnad / 12 / ANTAL_HH;
+    }
 
-      return {
-        totalTkr: totalMedlemskapitalSek / 1000,
-        perHhTkr: perHhSek / 1000,
-        manadskostnadKr: manadskostnadSek,
-      };
+    function beraknaManadskostnadStress(kopeskillingTkr: number): number {
+      const kopeskillingSek = kopeskillingTkr * 1000;
+      const lanSek = kopeskillingSek * STRESS_LTV;
+      const arligKostnad = lanSek * (STRESS_RANTA + BAS_AMORTERING);
+      return arligKostnad / 12 / ANTAL_HH;
     }
 
     function uppdatera() {
       const kopeskillingTkr = parseInt(slider.value, 10);
-      const { totalTkr, perHhTkr, manadskostnadKr } = berakna(kopeskillingTkr);
+      const kopfasPerHh = beraknaKopfas(kopeskillingTkr);
+      const manadBas = beraknaManadskostnadBas(kopeskillingTkr);
+      const manadStress = beraknaManadskostnadStress(kopeskillingTkr);
 
       if (kopesOutput) kopesOutput.textContent = formatTkr(kopeskillingTkr);
-      if (resultTotal) resultTotal.textContent = '~' + formatTkr(totalTkr);
-      if (resultPerHh) resultPerHh.textContent = '~' + formatTkr(perHhTkr);
-      if (resultMonthly) resultMonthly.textContent = formatKr(manadskostnadKr);
+      if (resultPerHh) resultPerHh.textContent = '~' + formatTkr(kopfasPerHh);
+      if (resultMonthlyBas) resultMonthlyBas.textContent = formatKr(manadBas);
+      if (resultMonthlyStress) resultMonthlyStress.textContent = formatKr(manadStress);
     }
 
     if (slider) {
@@ -938,6 +981,28 @@ const timbank = {
     color: var(--text-on-dark);
   }
 
+  .slider-assumptions {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .slider-assumptions h4 {
+    font-size: var(--text-sm);
+    margin: 0 0 var(--space-xs);
+    color: var(--deep-forest);
+  }
+
+  .assumption-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
   .slider-disclaimer {
     font-size: var(--text-sm);
     color: var(--text-muted);
@@ -1044,6 +1109,29 @@ const timbank = {
     color: #fff;
   }
 
+  .va-tag--blackbo {
+    background: #5a4a3a;
+    color: #fff;
+  }
+
+  .va-item--ambitious {
+    border-color: var(--coral);
+    background: linear-gradient(135deg, var(--bg-white) 0%, var(--coral-light) 100%);
+  }
+
+  .va-item-note {
+    font-size: var(--text-sm);
+    color: #7a3d20;
+    font-style: italic;
+    margin: var(--space-xs) 0 0;
+  }
+
+  .va-category-desc {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
   /* Sparsamt regenerativt */
   .regen-cards {
     display: grid;
@@ -1125,15 +1213,25 @@ const timbank = {
   }
 
   .scenario-box {
-    background: var(--coral-light);
+    background: var(--surface-low);
     border-radius: var(--radius-md);
     padding: var(--space-sm);
     text-align: center;
   }
 
+  .scenario-box--ambitious {
+    background: var(--coral-light);
+    border: 1px solid var(--coral);
+  }
+
   .scenario-box--base {
     background: var(--accent-light);
     border: 2px solid var(--accent-mid);
+  }
+
+  .scenario-box--high {
+    background: #f5efe5;
+    border: 1px solid #c1a88a;
   }
 
   .scenario-label {
@@ -1210,6 +1308,122 @@ const timbank = {
 
   .loan-table .highlight-row td {
     font-weight: 600;
+  }
+
+  .loan-scenarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .loan-scenario {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .loan-scenario--stress {
+    background: var(--coral-light);
+    border-color: var(--coral);
+  }
+
+  .loan-scenario h4 {
+    font-size: var(--text-lg);
+    margin: 0 0 var(--space-xs);
+    color: var(--deep-forest);
+  }
+
+  .loan-scenario--stress h4 {
+    color: #7a3d20;
+  }
+
+  .loan-params {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .loan-params span {
+    background: var(--surface-low);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .loan-scenario--stress .loan-params span {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .loan-results {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .loan-result {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--surface-low);
+    border-radius: var(--radius-sm);
+  }
+
+  .loan-scenario--stress .loan-result {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .loan-price {
+    font-weight: 600;
+    color: var(--deep-forest);
+  }
+
+  .loan-monthly {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--coral);
+  }
+
+  .cash-gap-box {
+    background: var(--linen-cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .cash-gap-box h4 {
+    font-size: var(--text-base);
+    margin: 0 0 var(--space-xs);
+    color: var(--deep-forest);
+  }
+
+  .cash-gap-box p {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .cash-gap-result {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .cash-gap-value {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--coral);
+  }
+
+  .cash-gap-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
   }
 
   .loan-note {
@@ -1313,6 +1527,95 @@ const timbank = {
     grid-column: 1 / -1;
     font-size: var(--text-sm);
     color: var(--text-muted);
+  }
+
+  .timbank-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: var(--space-md);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+  }
+
+  .timbank-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .timbank-table th,
+  .timbank-table td {
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .timbank-table thead th {
+    background: var(--bg-secondary);
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .timbank-table .highlight-row {
+    background: var(--accent-light);
+  }
+
+  .timbank-table .highlight-row td {
+    font-weight: 600;
+  }
+
+  .timbank-calc-box {
+    background: var(--linen-cream);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .timbank-formula {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xs);
+  }
+
+  .timbank-formula-label {
+    font-weight: 600;
+    color: var(--deep-forest);
+  }
+
+  .timbank-formula-value {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--coral);
+  }
+
+  .timbank-formula-example {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .timbank-recommendation {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent-mid);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .timbank-recommendation h4 {
+    font-size: var(--text-base);
+    color: var(--deep-forest);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .timbank-recommendation p {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
   }
 
   .timbank-disclaimer {

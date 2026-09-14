@@ -8,42 +8,35 @@ const metadata = {
 };
 
 const kalkyler = [
-  { hh: 8, sparsamt: 248, bas: 261, hogt: 340 },
-  { hh: 10, sparsamt: 198, bas: 209, hogt: 272 },
-  { hh: 12, sparsamt: 165, bas: 174, hogt: 227 },
+  { hh: 8, sparsamt: 246, bas: 254, hogt: 261 },
+  { hh: 10, sparsamt: 197, bas: 203, hogt: 209 },
+  { hh: 12, sparsamt: 164, bas: 169, hogt: 174 },
 ];
 
 const antaganden = {
-  kopeskilling: '3 000 000 kr',
-  lagfart: '4,25 % av köpeskilling (~128 tkr)',
+  kopeskilling: '3,0–3,5 Mkr',
+  lagfart: '4,25 % av köpeskilling',
   pantbrev: 'Antaget 2 % på nyinteckning',
-  belaningsgrad: '60 % av köpeskilling (1,8 Mkr)',
-  ranteantagande: '5 % rörlig ränta',
-  underhallsreserv: 'Bas: 500 tkr, Högt: 2 000 tkr',
+  belaningsgrad: '60 % av köpeskilling (LTV)',
+  ranteantagande: '3,2 % ränta + 2 % amortering (bas)',
+  stresstest: '4,5 % ränta, 75 % LTV',
 };
 
 const alternativKopes = [
-  { pris: '2,2 Mkr', hh10bas: '~153 tkr', kommentar: 'Enklare objekt / mindre areal' },
-  { pris: '3,0 Mkr', hh10bas: '~209 tkr', kommentar: 'Baskalkyl' },
-  { pris: '3,75 Mkr', hh10bas: '~261 tkr', kommentar: 'Större areal / bättre läge' },
+  { pris: '3,0 Mkr', hh10bas: '~197 tkr', manadBas: '~780 kr', manadStress: '~1 220 kr' },
+  { pris: '3,5 Mkr', hh10bas: '~209 tkr', manadBas: '~910 kr', manadStress: '~1 420 kr' },
 ];
 
 const lanekostnader = {
-  rantesats: 5.0,
-  amorteringstid: 30,
+  basRanta: 3.2,
+  basAmortering: 2.0,
+  stressRanta: 4.5,
+  stressLtv: 75,
 };
 
-function beraknaManadskostnad(lanTkr: number): number {
-  const lan = lanTkr * 1000;
-  const r = lanekostnader.rantesats / 100 / 12;
-  const n = lanekostnader.amorteringstid * 12;
-  return Math.round((lan * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
-}
-
 const manadskostnaderPerHh = [
-  { scenario: 'Sparsamt (10 hh)', insats: 198, manad: beraknaManadskostnad(198) },
-  { scenario: 'Bas (10 hh)', insats: 209, manad: beraknaManadskostnad(209) },
-  { scenario: 'Högt (10 hh)', insats: 272, manad: beraknaManadskostnad(272) },
+  { kopeskilling: '3,0 Mkr', bas: 780, stress: 1220 },
+  { kopeskilling: '3,5 Mkr', bas: 910, stress: 1420 },
 ];
 ---
 
@@ -107,7 +100,7 @@ const manadskostnaderPerHh = [
 
     <!-- Antaganden -->
     <section class="doc-section" aria-labelledby="antaganden">
-      <h2 id="antaganden">Antaganden</h2>
+      <h2 id="antaganden">Synliga antaganden</h2>
       <dl class="assumptions-list">
         <div class="assumption-item">
           <dt>Köpeskilling</dt>
@@ -126,21 +119,21 @@ const manadskostnaderPerHh = [
           <dd>{antaganden.belaningsgrad}</dd>
         </div>
         <div class="assumption-item">
-          <dt>Ränteantagande</dt>
+          <dt>Ränteantagande (bas)</dt>
           <dd>{antaganden.ranteantagande}</dd>
         </div>
         <div class="assumption-item">
-          <dt>Underhållsreserv</dt>
-          <dd>{antaganden.underhallsreserv}</dd>
+          <dt>Stresstest</dt>
+          <dd>{antaganden.stresstest}</dd>
         </div>
       </dl>
     </section>
 
     <!-- Känslighet -->
     <section class="doc-section" aria-labelledby="kanslighet">
-      <h2 id="kanslighet">Känslighetsanalys – alternativ köpeskilling</h2>
+      <h2 id="kanslighet">Känslighetsanalys – köpeskilling och lånekostnad</h2>
       <p>
-        Hur kontantinsatsen (10 hh, basscenariot) förändras vid annan köpeskilling:
+        Hur köpfas och månadskostnad (10 hh) förändras vid olika köpeskillingar:
       </p>
       
       <div class="table-wrapper">
@@ -148,8 +141,9 @@ const manadskostnaderPerHh = [
           <thead>
             <tr>
               <th scope="col">Köpeskilling</th>
-              <th scope="col">Insats (10 hh, bas)</th>
-              <th scope="col">Kommentar</th>
+              <th scope="col">Köpfas/hh</th>
+              <th scope="col">Månadsbetalning (bas)</th>
+              <th scope="col">Månadsbetalning (stress)</th>
             </tr>
           </thead>
           <tbody>
@@ -157,7 +151,8 @@ const manadskostnaderPerHh = [
               <tr class={a.pris === '3,0 Mkr' ? 'highlight-row' : ''}>
                 <td>{a.pris}</td>
                 <td>{a.hh10bas}</td>
-                <td>{a.kommentar}</td>
+                <td>{a.manadBas}</td>
+                <td>{a.manadStress}</td>
               </tr>
             ))}
           </tbody>
@@ -182,32 +177,32 @@ const manadskostnaderPerHh = [
 
     <!-- Månadskostnad vid lån -->
     <section class="doc-section" aria-labelledby="manadskostnad">
-      <h2 id="manadskostnad">Månadskostnad vid privatlån</h2>
+      <h2 id="manadskostnad">Månadskostnad – ränta och amortering</h2>
       <p>
-        För hushåll som lånar hela sin kontantinsats privat visas ungefärlig 
-        månadskostnad (annuitetslån, ränta + amortering).
+        Föreningens gemensamma lån fördelas på hushållen. Nedan visas månadskostnad 
+        (ränta + amortering) per hushåll vid olika köpeskillingar.
       </p>
 
       <div class="loan-assumptions">
-        <span><strong>Räntesats:</strong> {lanekostnader.rantesats} %</span>
-        <span><strong>Amorteringstid:</strong> {lanekostnader.amorteringstid} år</span>
+        <span><strong>Bas:</strong> {lanekostnader.basRanta} % ränta + {lanekostnader.basAmortering} % am</span>
+        <span><strong>Stress:</strong> {lanekostnader.stressRanta} % ränta, {lanekostnader.stressLtv} % LTV</span>
       </div>
 
       <div class="table-wrapper">
         <table class="matrix-table">
           <thead>
             <tr>
-              <th scope="col">Scenario</th>
-              <th scope="col">Insats</th>
-              <th scope="col">Månadskostnad</th>
+              <th scope="col">Köpeskilling</th>
+              <th scope="col">Månadsbetalning (bas)</th>
+              <th scope="col">Månadsbetalning (stress)</th>
             </tr>
           </thead>
           <tbody>
             {manadskostnaderPerHh.map((m) => (
-              <tr class={m.scenario.includes('Bas') ? 'highlight-row' : ''}>
-                <td>{m.scenario}</td>
-                <td>{m.insats} tkr</td>
-                <td>~{m.manad.toLocaleString('sv-SE')} kr</td>
+              <tr>
+                <td>{m.kopeskilling}</td>
+                <td>~{m.bas.toLocaleString('sv-SE')} kr/hh</td>
+                <td>~{m.stress.toLocaleString('sv-SE')} kr/hh</td>
               </tr>
             ))}
           </tbody>
@@ -215,8 +210,8 @@ const manadskostnaderPerHh = [
       </div>
 
       <p class="loan-note">
-        Verklig ränta kan variera kraftigt (3–8 %) beroende på kreditvärdighet 
-        och säkerhet. Vid lågkonjunktur kan bankerna kräva högre marginal.
+        Månadsbetalning avser endast ränta + amortering på föreningens lån, fördelat 
+        på 10 hushåll. Driftskostnader (el, värme, underhåll, GA-avgifter) tillkommer.
       </p>
     </section>
 
