@@ -40,6 +40,21 @@ const sekundära = getSecondaryProspects();
       </p>
     </header>
 
+    <!-- Off-market link card -->
+    <section class="offmarket-card" aria-labelledby="offmarket-heading">
+      <div class="offmarket-badge offmarket-badge--internal">Internt</div>
+      <h2 id="offmarket-heading">Off-market markkontakt</h2>
+      <p>
+        Pågående dialog med långsiktiga markägare — gods, stiftelser och kyrkan. 
+        Detaljerat material hålls internt för styrelsen.
+      </p>
+      <div class="offmarket-links">
+        <a href="/arbetsyta/mark/offmarket/" class="btn btn-outline btn-sm">
+          Se status →
+        </a>
+      </div>
+    </section>
+
     <section class="doc-section" aria-labelledby="kriterier">
       <h2 id="kriterier">Urvalskriterier för ekobymark</h2>
       <p>
@@ -286,6 +301,59 @@ const sekundära = getSecondaryProspects();
 
   .doc-section {
     margin-bottom: var(--space-xl);
+  }
+
+  /* Off-market card */
+  .offmarket-card {
+    background: var(--linen-cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    position: relative;
+  }
+
+  .offmarket-badge {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--coral);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .offmarket-badge--internal {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
+  }
+
+  .offmarket-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--deep-forest);
+    margin-bottom: var(--space-sm);
+  }
+
+  .offmarket-card > p {
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    max-width: 40rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .offmarket-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .btn-sm {
+    padding: 0.6rem 1.2rem;
+    font-size: var(--text-sm);
   }
 
   .doc-section h2 {

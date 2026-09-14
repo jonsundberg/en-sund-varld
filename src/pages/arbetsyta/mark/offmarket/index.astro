@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+
+const metadata = {
+  titel: 'Off-market markkontakt',
+  datum: '2026-09-14',
+  status: 'pågår',
+};
+---
+
+<BaseLayout
+  title="Off-market markkontakt – Styrelsens arbetsyta"
+  description="Internt spår för dialog med långsiktiga markägare – status och nästa steg."
+>
+  <article class="arbetsyta-doc container">
+    <header class="doc-header">
+      <p class="breadcrumb">
+        <a href="/arbetsyta/">Arbetsyta</a> / <a href="/arbetsyta/mark/">Markspaning</a> / Off-market
+      </p>
+      <div class="doc-meta">
+        <span class="doc-status doc-status--pagaende">Pågår</span>
+        <span class="doc-date">Uppdaterad {metadata.datum}</span>
+      </div>
+      <h1>{metadata.titel}</h1>
+      <p class="doc-lead">
+        Internt arbetsspår för dialog med långsiktiga markägare.
+      </p>
+    </header>
+
+    <!-- Status notice -->
+    <section class="notice-card" aria-labelledby="status-heading">
+      <h2 id="status-heading">Status: Utkast — utskick väntar styrelsens OK</h2>
+      <p>
+        Föreningen utforskar dialog med markägare som förvaltar mark med 
+        generationsperspektiv — gods, stiftelser och kyrkan. Fokus ligger på 
+        <strong>vård, arrende och nyttjanderätt</strong>, inte spekulation 
+        eller snabba köp.
+      </p>
+      <p>
+        Detaljerad pitch och kontaktlista hålls internt för styrelsen och 
+        delas inte publikt. Inga utskick görs förrän styrelsen har granskat 
+        och godkänt materialet.
+      </p>
+      <p>
+        Vid frågor, kontakta styrelsen direkt.
+      </p>
+    </section>
+
+    <nav class="doc-nav" aria-label="Navigering arbetsyta">
+      <a href="/arbetsyta/mark/" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Tillbaka till markspaning
+      </a>
+      <a href="/arbetsyta/" class="btn btn-outline">
+        Arbetsyta
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .arbetsyta-doc {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .doc-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-status {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .doc-status--pagaende {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
+  }
+
+  .doc-date {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Notice card */
+  .notice-card {
+    background: var(--linen-cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .notice-card h2 {
+    font-size: var(--text-xl);
+    color: var(--deep-forest);
+    margin-bottom: var(--space-md);
+  }
+
+  .notice-card p {
+    color: var(--text);
+    margin-bottom: var(--space-sm);
+    line-height: 1.7;
+  }
+
+  .notice-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .doc-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .doc-nav .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
