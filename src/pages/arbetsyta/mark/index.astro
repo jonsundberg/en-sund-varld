@@ -1,124 +1,13 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-
-type Status = 'ny' | 'djupdyk' | 'andrahand' | 'parkerad';
-type Kategori = 'primär' | 'sekundär';
-
-interface Prospekt {
-  namn: string;
-  kommun: string;
-  ha: string;
-  pris: string;
-  byggnader: string;
-  status: Status;
-  kategori: Kategori;
-  url: string;
-  thumbnail?: string;
-}
-
-const shortlist: Prospekt[] = [
-  // PRIMARY
-  {
-    namn: 'Blackbo 1:6',
-    kommun: 'Uppsala',
-    ha: '84,5',
-    pris: '3,5 Mkr',
-    byggnader: 'Äldre ekonomibyggnader',
-    status: 'djupdyk',
-    kategori: 'primär',
-    url: 'https://ludvig.se/fastigheter/gsz-aoc-skogsfastighet-om-78-ha-med-fina-jakt-och-fiskemojligheter-invid-siggeforasjon/',
-  },
-  {
-    namn: 'Slada 335',
-    kommun: 'Tierp',
-    ha: '~45',
-    pris: '3,0 Mkr',
-    byggnader: 'Bostadshus + ladugård',
-    status: 'ny',
-    kategori: 'primär',
-    url: 'https://www.boneo.se/bostad/id-3642941-gard-skog-6rum-hallnas-slada-335',
-  },
-  {
-    namn: 'Lingnåre 101',
-    kommun: 'Tierp',
-    ha: '~32',
-    pris: '2,995 Mkr',
-    byggnader: 'Bostadshus + gäststuga',
-    status: 'ny',
-    kategori: 'primär',
-    url: 'https://www.fastighetsbyran.com/sv/sverige/till-salu/uppsala-lan/tierps-kommun/objekt/?objektID=3074230',
-  },
-  {
-    namn: 'Johanneslund',
-    kommun: 'Heby',
-    ha: '14,3',
-    pris: '2,9 Mkr',
-    byggnader: 'Bostadshus',
-    status: 'ny',
-    kategori: 'primär',
-    url: 'https://carlssonring.se/objekt/johanneslund-tarnsjo/',
-  },
-  {
-    namn: 'Hälleråd Lindgården',
-    kommun: 'Vingåker',
-    ha: '17',
-    pris: '4,495 Mkr',
-    byggnader: 'Bostadshus',
-    status: 'ny',
-    kategori: 'primär',
-    url: 'https://www.maklarhuset.se/bostad/sverige/sodermanland/vingaker/hallerad-lindgarden/618848',
-  },
-  {
-    namn: 'Isätra 3:4',
-    kommun: 'Sala',
-    ha: '~34–38',
-    pris: '4,45 Mkr',
-    byggnader: 'Nej',
-    status: 'ny',
-    kategori: 'primär',
-    url: 'https://www.skogsfastigheter.se/vastmanland/sala/sala-isatra-34-1032',
-  },
-  // SECONDARY
-  {
-    namn: 'Pellpärs',
-    kommun: 'Ockelbo',
-    ha: '22,6',
-    pris: '3,75 Mkr',
-    byggnader: 'Tre bostäder + ekonomi',
-    status: 'ny',
-    kategori: 'sekundär',
-    url: 'https://ludvig.se/fastigheter/gdy-ccw-lantligt-gardsboende-med-tre-bostader-ekonomibyggnader-och-stort-utvecklingsmojligheter/',
-  },
-  {
-    namn: 'Älven',
-    kommun: 'Eda (Värmland)',
-    ha: '~31',
-    pris: '2,7 Mkr',
-    byggnader: 'Ja',
-    status: 'ny',
-    kategori: 'sekundär',
-    url: 'https://areal.se/fastighet/trivsam-gard-med-bra-lage-varmland-eda/',
-  },
-  {
-    namn: 'Ol-Pers',
-    kommun: 'Bollnäs',
-    ha: '23',
-    pris: '2,2 Mkr',
-    byggnader: 'Ja',
-    status: 'ny',
-    kategori: 'sekundär',
-    url: 'https://areal.se/fastighet/gard-ol-pers-i-iste-gavleborg-bollnas/',
-  },
-];
+import {
+  getPrimaryProspects,
+  getSecondaryProspects,
+  statusLabels,
+  type Prospekt,
+} from '../../../data/prospects';
 
 const parkeradInfo = 'Parkerade objekt: Uppveda, Skärsjö';
-
-const statusLabels: Record<Status, string> = {
-  ny: 'Ny',
-  djupdyk: 'Djupdyk',
-  andrahand: 'Andra hand',
-  parkerad: 'Parkerad',
-};
 
 const metadata = {
   titel: 'Markspaning',
@@ -126,8 +15,8 @@ const metadata = {
   status: 'aktiv',
 };
 
-const primära = shortlist.filter((p) => p.kategori === 'primär');
-const sekundära = shortlist.filter((p) => p.kategori === 'sekundär');
+const primära = getPrimaryProspects();
+const sekundära = getSecondaryProspects();
 ---
 
 <BaseLayout
@@ -198,40 +87,47 @@ const sekundära = shortlist.filter((p) => p.kategori === 'sekundär');
       <div class="shortlist-grid">
         {primära.map((p) => (
           <article class="mark-card">
-            <div class="mark-card-body">
-              <div class="mark-card-header">
-                <h4>{p.namn}</h4>
-                <span class={`status-badge status-badge--${p.status}`}>
-                  {statusLabels[p.status]}
-                </span>
+            <a href={`/arbetsyta/mark/${p.slug}/`} class="mark-card-link">
+              <div class="mark-card-body">
+                <div class="mark-card-header">
+                  <h4>{p.namn}</h4>
+                  <span class={`status-badge status-badge--${p.status}`}>
+                    {statusLabels[p.status]}
+                  </span>
+                </div>
+                <dl class="mark-details">
+                  <div class="mark-detail">
+                    <dt>Kommun</dt>
+                    <dd>{p.kommun}</dd>
+                  </div>
+                  <div class="mark-detail">
+                    <dt>Areal</dt>
+                    <dd>{p.ha} ha</dd>
+                  </div>
+                  <div class="mark-detail">
+                    <dt>Pris</dt>
+                    <dd>{p.pris}</dd>
+                  </div>
+                  <div class="mark-detail">
+                    <dt>Byggnader</dt>
+                    <dd>{p.byggnader}</dd>
+                  </div>
+                </dl>
+                <div class="mark-card-actions">
+                  <span class="detail-link">
+                    Visa detaljer →
+                  </span>
+                  <a href={p.url} target="_blank" rel="noopener noreferrer" class="mark-link" onclick="event.stopPropagation();">
+                    Öppna annons
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                      <polyline points="15 3 21 3 21 9"/>
+                      <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                  </a>
+                </div>
               </div>
-              <dl class="mark-details">
-                <div class="mark-detail">
-                  <dt>Kommun</dt>
-                  <dd>{p.kommun}</dd>
-                </div>
-                <div class="mark-detail">
-                  <dt>Areal</dt>
-                  <dd>{p.ha} ha</dd>
-                </div>
-                <div class="mark-detail">
-                  <dt>Pris</dt>
-                  <dd>{p.pris}</dd>
-                </div>
-                <div class="mark-detail">
-                  <dt>Byggnader</dt>
-                  <dd>{p.byggnader}</dd>
-                </div>
-              </dl>
-              <a href={p.url} target="_blank" rel="noopener noreferrer" class="mark-link">
-                Öppna annons
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-              </a>
-            </div>
+            </a>
           </article>
         ))}
       </div>
@@ -241,40 +137,47 @@ const sekundära = shortlist.filter((p) => p.kategori === 'sekundär');
       <div class="shortlist-grid">
         {sekundära.map((p) => (
           <article class="mark-card mark-card--secondary">
-            <div class="mark-card-body">
-              <div class="mark-card-header">
-                <h4>{p.namn}</h4>
-                <span class={`status-badge status-badge--${p.status}`}>
-                  {statusLabels[p.status]}
-                </span>
+            <a href={`/arbetsyta/mark/${p.slug}/`} class="mark-card-link">
+              <div class="mark-card-body">
+                <div class="mark-card-header">
+                  <h4>{p.namn}</h4>
+                  <span class={`status-badge status-badge--${p.status}`}>
+                    {statusLabels[p.status]}
+                  </span>
+                </div>
+                <dl class="mark-details">
+                  <div class="mark-detail">
+                    <dt>Kommun</dt>
+                    <dd>{p.kommun}</dd>
+                  </div>
+                  <div class="mark-detail">
+                    <dt>Areal</dt>
+                    <dd>{p.ha} ha</dd>
+                  </div>
+                  <div class="mark-detail">
+                    <dt>Pris</dt>
+                    <dd>{p.pris}</dd>
+                  </div>
+                  <div class="mark-detail">
+                    <dt>Byggnader</dt>
+                    <dd>{p.byggnader}</dd>
+                  </div>
+                </dl>
+                <div class="mark-card-actions">
+                  <span class="detail-link">
+                    Visa detaljer →
+                  </span>
+                  <a href={p.url} target="_blank" rel="noopener noreferrer" class="mark-link" onclick="event.stopPropagation();">
+                    Öppna annons
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                      <polyline points="15 3 21 3 21 9"/>
+                      <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                  </a>
+                </div>
               </div>
-              <dl class="mark-details">
-                <div class="mark-detail">
-                  <dt>Kommun</dt>
-                  <dd>{p.kommun}</dd>
-                </div>
-                <div class="mark-detail">
-                  <dt>Areal</dt>
-                  <dd>{p.ha} ha</dd>
-                </div>
-                <div class="mark-detail">
-                  <dt>Pris</dt>
-                  <dd>{p.pris}</dd>
-                </div>
-                <div class="mark-detail">
-                  <dt>Byggnader</dt>
-                  <dd>{p.byggnader}</dd>
-                </div>
-              </dl>
-              <a href={p.url} target="_blank" rel="noopener noreferrer" class="mark-link">
-                Öppna annons
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-              </a>
-            </div>
+            </a>
           </article>
         ))}
       </div>
@@ -286,9 +189,13 @@ const sekundära = shortlist.filter((p) => p.kategori === 'sekundär');
       <div class="add-prospekt">
         <h3>Uppdatera shortlist</h3>
         <p>
-          Redigera arrayen i <code>src/pages/arbetsyta/mark/index.astro</code> 
+          Redigera arrayen i <code>src/data/prospects.ts</code> 
           och skicka en pull request. Statusvärden: <code>ny</code>, 
           <code>djupdyk</code>, <code>andrahand</code>, <code>parkerad</code>.
+        </p>
+        <p>
+          Varje objekt får automatiskt en detaljsida under <code>/arbetsyta/mark/[slug]/</code>
+          med fakta, flaggor, objektspecifik kalkyl och nästa steg.
         </p>
       </div>
     </section>
@@ -433,12 +340,13 @@ const sekundära = shortlist.filter((p) => p.kategori === 'sekundär');
     border: 2px solid var(--accent-mid);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: border-color var(--transition), box-shadow var(--transition);
+    transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
   }
 
   .mark-card:hover {
     border-color: var(--accent);
     box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
   }
 
   .mark-card--secondary {
@@ -449,8 +357,36 @@ const sekundära = shortlist.filter((p) => p.kategori === 'sekundär');
     border-color: var(--accent-mid);
   }
 
+  .mark-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
   .mark-card-body {
     padding: var(--space-md);
+  }
+
+  .mark-card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+  }
+
+  .detail-link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--deep-forest);
+    transition: color var(--transition);
+  }
+
+  .mark-card:hover .detail-link {
+    color: var(--coral);
   }
 
   .mark-card-header {
