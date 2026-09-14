@@ -247,6 +247,24 @@ import LineIcon from '../../components/LineIcon.astro';
       </div>
     </section>
 
+    <section class="content-section content-section--tinted" aria-labelledby="arbetsyta-heading">
+      <div class="container">
+        <div class="arbetsyta-card">
+          <div class="arbetsyta-card-content">
+            <h2 id="arbetsyta-heading">Styrelsen arbetar öppet</h2>
+            <p>
+              Vi tror på transparens. I vår arbetsyta kan du följa styrelsens 
+              pågående arbete med markspaning, ekonomiska kalkyler och idéer 
+              för ekobyn. Allt är under utveckling och uppdateras löpande.
+            </p>
+            <a href="/arbetsyta/" class="btn btn-outline">
+              Utforska arbetsytan →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </article>
 
   <InterestForm
@@ -425,6 +443,34 @@ import LineIcon from '../../components/LineIcon.astro';
   }
   @media (max-width: 600px) {
     .bidra-grid { grid-template-columns: 1fr; }
+  }
+
+  .arbetsyta-card {
+    background: linear-gradient(135deg, var(--deep-forest) 0%, #2a4a46 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+  }
+  .arbetsyta-card-content {
+    max-width: 40rem;
+  }
+  .arbetsyta-card h2 {
+    color: var(--text-on-dark);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-sm);
+  }
+  .arbetsyta-card p {
+    color: var(--accent-mid);
+    font-size: var(--text-base);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+  .arbetsyta-card .btn-outline {
+    border-color: var(--accent-mid);
+    color: var(--text-on-dark);
+  }
+  .arbetsyta-card .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-on-dark);
   }
 
 </style>

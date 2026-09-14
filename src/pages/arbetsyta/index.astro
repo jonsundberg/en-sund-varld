@@ -11,8 +11,8 @@ const dokumentation = [
   },
   {
     href: '/arbetsyta/mark/offmarket/',
-    titel: 'Off-market markkontakt',
-    beskrivning: 'Pågående dialog med långsiktiga markägare. Detaljer hålls internt.',
+    titel: 'Långsiktiga markägare',
+    beskrivning: 'Dialog med gods, stiftelser och kyrka om vård och nyttjanderätt.',
     status: 'aktiv',
     uppdaterad: '2026-09-14',
   },
@@ -43,17 +43,17 @@ function statusLabel(status: string) {
 ---
 
 <BaseLayout
-  title="Arbetsyta – En sund värld Styrelse"
-  description="Intern arbetsyta för styrelsen i En sund värld. Markspaning, kalkyler, idébank och anteckningar."
+  title="Arbetsyta – En sund värld"
+  description="Styrelsens öppna arbetsyta. Följ pågående markspaning, kalkyler och idéer för ekobyprojektet."
 >
   <article class="arbetsyta-page container">
     <header class="page-header">
-      <p class="section-label">Intern arbetsyta</p>
-      <h1>Styrelsens arbetsyta</h1>
+      <p class="section-label">Styrelsens arbetsyta</p>
+      <h1>Öppet arbete</h1>
       <p class="page-lead">
-        Här samlar vi underlag, idéer och anteckningar för styrelsens arbete.
-        Sidan är inte länkad från huvudmenyn men är publikt tillgänglig för
-        den som har URL:en.
+        Här delar styrelsen underlag, idéer och kalkyler för föreningens 
+        pågående projekt. Allt är under utveckling – vi arbetar transparant 
+        och uppdaterar materialet löpande efter styrelsemöten.
       </p>
     </header>
 
@@ -84,22 +84,13 @@ function statusLabel(status: string) {
       </a>
     </section>
 
-    <section class="how-to-contribute" aria-labelledby="bidra-heading">
-      <h2 id="bidra-heading">Hur du bidrar</h2>
+    <section class="update-notice" aria-labelledby="uppdatering-heading">
+      <h2 id="uppdatering-heading">Om materialet</h2>
       <p>
-        Allt innehåll hanteras via Git. Du kan bidra genom att skapa en
-        <strong>pull request</strong> på GitHub med dina ändringar.
-      </p>
-      <ol>
-        <li>Klona repot eller använd GitHubs webbgränssnitt.</li>
-        <li>
-          Redigera eller skapa nya <code>.astro</code>-filer under
-          <code>src/pages/arbetsyta/</code>.
-        </li>
-        <li>Skicka en pull request så granskar vi den tillsammans.</li>
-      </ol>
-      <p>
-        Kontakta styrelsen om du behöver hjälp att komma igång med GitHub.
+        Arbetsytan uppdateras efter styrelsemöten. Alla dokument är under 
+        arbete och siffrorna ska ses som planeringsunderlag – inte färdiga beslut. 
+        Har du frågor eller vill engagera dig? 
+        <a href="/#anmalan">Skicka en intresseanmälan</a>.
       </p>
     </section>
 
@@ -225,7 +216,7 @@ function statusLabel(status: string) {
     font-size: var(--text-sm);
   }
 
-  .how-to-contribute {
+  .update-notice {
     background: var(--linen-cream);
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
@@ -233,32 +224,20 @@ function statusLabel(status: string) {
     max-width: var(--max-width-prose);
   }
 
-  .how-to-contribute h2 {
+  .update-notice h2 {
     font-size: var(--text-xl);
     margin-bottom: var(--space-sm);
     color: var(--deep-forest);
   }
 
-  .how-to-contribute p {
+  .update-notice p {
     color: var(--text-muted);
-    margin-bottom: var(--space-sm);
+    margin-bottom: 0;
+    line-height: 1.6;
   }
 
-  .how-to-contribute ol {
-    padding-left: 1.5rem;
-    color: var(--text-muted);
-    margin-bottom: var(--space-sm);
-  }
-
-  .how-to-contribute li {
-    margin-bottom: 0.5rem;
-  }
-
-  .how-to-contribute code {
-    background: var(--bg-secondary);
-    padding: 0.15rem 0.4rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.9em;
+  .update-notice a {
+    color: var(--accent);
   }
 
   .dokumentation h2 {
