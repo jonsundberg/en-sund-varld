@@ -55,7 +55,7 @@ const intaktsmojligheter = [
 
 const offgridScenario = {
   namn: 'Off-grid / material från marken (D)',
-  beskrivning: 'Timmer och lera från egen mark, arbete via timbank/eget arbete. Endast köpta komponenter räknas som kontant.',
+  beskrivning: 'Vi gör arbetet själva. Timmer och lera från marken. Kontant = bara köpta komponenter.',
   poster: [
     { 
       namn: 'Torrtoalett', 
@@ -99,8 +99,8 @@ const offgridScenario = {
 };
 
 const koptMaterialScenarios = {
-  namn: 'Köpt material / entreprenad (A–C)',
-  beskrivning: 'Traditionell kalyl med köpt material och hantverkare. Jämförelse för budgetplanering.',
+  namn: 'Köpt material + entreprenad (A–C)',
+  beskrivning: 'Köpt material och köpt arbetskraft/hantverkare. Plan B om eget arbete inte räcker.',
   individuell: {
     sparsamt: { 
       namn: 'Sparsamt regenerativt (A)', 
@@ -251,25 +251,26 @@ const timbank = {
       <div class="offgrid-badge">Huvudspår</div>
       <h2 id="offgrid-heading">Off-grid / material från marken</h2>
       <p class="offgrid-intro">
-        Föreningens planeringsgrund utgår från att <strong>timmer, lera och arbete kommer från platsen och gemenskapen</strong>, 
-        inte från bygghandel och hantverksfakturor. Kontantbehovet för VA och bostad blir därmed blygsamt jämfört med 
-        konventionellt byggande.
+        <strong>Basfallet är att vi gör allt arbete själva.</strong> Timmer och lera kommer från marken, 
+        arbete från gemenskapen. Inga entreprenörer, inga hantverkarfakturor. 
+        Det är grunden för de låga kontantsiffrorna nedan.
       </p>
 
       <div class="offgrid-principle">
-        <h3>Grundprincip</h3>
+        <h3>Kärnprincip: eget arbete</h3>
         <ul>
+          <li><strong>Vi bygger själva</strong> – gemensamt arbete via timbanken, ingen köpt arbetskraft</li>
           <li><strong>Timmer från egen skog</strong> – kostar tid, inte pengar</li>
           <li><strong>Lera från marken</strong> – jordhus-tekniker (cob, lerklining, jordslagning)</li>
-          <li><strong>Arbete via timbank</strong> – gemensamt byggande, dokumenterade timmar</li>
-          <li><strong>Kontantutlägg = köpta komponenter</strong> – fönster, fästen, duk, kalk, verktyg</li>
+          <li><strong>Kontant = bara köpta komponenter</strong> – fönster, fästen, duk, kalk, verktyg</li>
         </ul>
       </div>
 
       <div class="offgrid-table-wrapper">
-        <h3>Planeringssiffror – scenario D (off-grid)</h3>
+        <h3>Planeringssiffror – scenario D</h3>
         <p class="offgrid-table-note">
-          Osäkra uppskattningar för budgetplanering. 10 hushåll. Arbetsinsats räknas via timbanken, inte som kontant.
+          Osäkra uppskattningar för 10 hushåll. <strong>Förutsätter eget arbete</strong> – ingen entreprenörskostnad. 
+          Kontant = bara köpta komponenter.
         </p>
         <table class="offgrid-table">
           <thead>
@@ -321,9 +322,10 @@ const timbank = {
       </div>
 
       <div class="labor-info">
-        <h3>💪 Arbetsinsats via timbank</h3>
+        <h3>Vi gör arbetet själva</h3>
         <p>
-          Tabellen ovan visar endast <strong>kontantutlägg</strong>. Arbete räknas separat via timbanken:
+          <strong>Scenario D förutsätter eget/gemensamt arbete</strong> – det är så vi håller kontantkostnaden nere. 
+          Tabellen ovan visar bara köpta komponenter. Arbetsinsatsen dokumenteras i timbanken:
         </p>
         <div class="labor-stats">
           <div class="labor-stat">
@@ -336,7 +338,7 @@ const timbank = {
           </div>
         </div>
         <p class="labor-note">
-          <em>Timmer, lera och grävning från egen mark = 0 kr kontant. {offgridScenario.arbete.note}.</em>
+          <em>Timmer, lera, grävning = 0 kr kontant om det kommer från marken. {offgridScenario.arbete.note}.</em>
         </p>
       </div>
 
@@ -421,18 +423,17 @@ const timbank = {
 
     <!-- JÄMFÖRELSE: Köpt material / entreprenad -->
     <section class="doc-section va-section comparison-section" aria-labelledby="va-heading">
-      <h2 id="va-heading">Jämförelse: köpt material / entreprenad (A–C)</h2>
+      <h2 id="va-heading">Jämförelse: köpt material + entreprenad (A–C)</h2>
       <p>
-        Om off-grid-vägen inte är möjlig (tillståndsproblem, tidsbrist, kompetensglapp) behövs budget 
-        för köpt material och hantverkare. Scenarierna nedan visar <strong>kontantutlägg vid konventionellt VA</strong> – 
-        att jämföra med off-grid D ovan.
+        Scenario A–C inkluderar <strong>köpt arbetskraft och hantverkare</strong>. Det är plan B om off-grid-vägen 
+        blockeras av tillståndsproblem eller om gruppen inte klarar arbetsinsatsen själv.
       </p>
 
       <div class="comparison-header">
-        <span class="comparison-label">Observera:</span>
+        <span class="comparison-label">Skillnaden D vs A–C:</span>
         <p>
-          Dessa siffror avser köpt material + arbetskostnad. Vid off-grid (scenario D) är kontantbehovet 
-          betydligt lägre eftersom material och arbete kommer från platsen.
+          <strong>D:</strong> Vi gör arbetet själva – kontant = bara köpta komponenter.<br/>
+          <strong>A–C:</strong> Köpt material + köpt arbetskraft/entreprenör ingår i siffrorna.
         </p>
       </div>
 
@@ -575,12 +576,12 @@ const timbank = {
       </div>
 
       <aside class="regen-info">
-        <h4>💡 Varför off-grid som huvudspår?</h4>
+        <h4>Varför eget arbete som basfall?</h4>
         <p>
-          Föreningens grundvärdering är att bygga med platsens resurser – timmer från egen skog, lera 
-          från marken, arbete från gemenskapen. Detta ger lägre kontantbehov, stärker lokalresiliensen 
-          och bevarar kunskap om naturbyggande. De högre siffrorna (A–C) finns kvar som jämförelse 
-          och plan B om off-grid-vägen blockeras av tillståndsproblem.
+          Föreningens grundvärdering är att <strong>vi gör arbetet själva</strong> – timmer från egen skog, 
+          lera från marken, bygge i gemenskap. Det håller kontantkostnaden nere, stärker lokalresiliensen 
+          och bevarar kunskap om naturbyggande. Scenario A–C finns som plan B om tillståndsprocessen 
+          kräver konventionell VA eller om gruppen inte kan klara arbetsinsatsen.
         </p>
       </aside>
     </section>
