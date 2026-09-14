@@ -16,16 +16,16 @@ const kopfasAntaganden = {
 };
 
 const scenarios = [
-  { namn: 'Sparsamt', insats: '~197' },
-  { namn: 'Bas', insats: '~203' },
-  { namn: 'Högt', insats: '~209' },
+  { namn: 'Off-grid D', insats: '~140', highlight: true },
+  { namn: 'Sparsamt A', insats: '~318' },
+  { namn: 'Bas B', insats: '~618' },
 ];
 
 const paverkansfaktorer = [
   {
     faktor: 'VA-system',
-    spann: '168–993 tkr/hh',
-    beskrivning: 'Från enkel kretslopp till gemensam sjöanläggning. Se detaljerad VA-kalkyl nedan.',
+    spann: '60–993 tkr/hh',
+    beskrivning: 'Från DIY-kretslopp med material från platsen till köpt gemensam sjöanläggning. Se detaljerad kalkyl nedan.',
   },
   {
     faktor: 'Antal hushåll',
@@ -46,22 +46,52 @@ const intaktsmojligheter = [
   { namn: 'Ved & skogsbruk', ar: '1', risk: 'låg' },
 ];
 
-const vaInfraKostnader = {
+const offgridScenario = {
+  namn: 'Off-grid / material från marken (D)',
+  beskrivning: 'Timmer och lera från egen mark, arbete via timbank/eget arbete. Endast köpta komponenter räknas.',
+  poster: [
+    { 
+      namn: 'Torrtoalett + jordhus/gråvatten', 
+      beskrivning: 'Material + enkla komponenter, mestadels DIY',
+      lag: 10, mid: 35, hog: 60 
+    },
+    { 
+      namn: 'Andel gemensam brunn/pump/ledning', 
+      beskrivning: 'Delad brunn – vatten krävs oavsett off-grid',
+      lag: 8, mid: 20, hog: 35 
+    },
+    { 
+      namn: 'Swales & dagvattenhantering', 
+      beskrivning: 'Enkel landskapsformning, DIY-grävning',
+      lag: 2, mid: 8, hog: 15 
+    },
+    { 
+      namn: 'Köpta byggdelar till stomme/skal', 
+      beskrivning: 'Fönster, fästen, duk, kalk, verktygsslitage – timmer+lera ej inräknat',
+      lag: 30, mid: 80, hog: 150 
+    },
+  ],
+  total: { lag: 50, mid: 140, hog: 260 },
+};
+
+const koptMaterialScenarios = {
+  namn: 'Köpt material / entreprenad (A–C)',
+  beskrivning: 'Traditionell kalyl med köpt material och hantverkare. Jämförelse för budgetplanering.',
   individuell: {
     sparsamt: { 
-      namn: 'Sparsamt regenerativt', 
+      namn: 'Sparsamt regenerativt (A)', 
       kostnad: 168, 
-      beskrivning: 'Komposttoalett + BDT-rening',
+      beskrivning: 'Komposttoalett + BDT-rening (köpt)',
       permitRisk: 'medel–hög',
     },
     bas: { 
-      namn: 'Bas markbädd', 
+      namn: 'Bas markbädd (B)', 
       kostnad: 218, 
-      beskrivning: 'Markbädd/sandfilter',
+      beskrivning: 'Markbädd/sandfilter (köpt+installerat)',
       permitRisk: 'låg',
     },
     hog: { 
-      namn: 'Övre (sjönära MRV+P)', 
+      namn: 'Övre sjönära MRV+P (C)', 
       kostnad: 293, 
       beskrivning: 'Minireningsverk + fosforfälla (strandskydd)',
       permitRisk: 'låg',
@@ -96,16 +126,21 @@ const lanekostnader = {
   },
 };
 
-const sparsamtPath = {
+const offgridPath = {
   byggande: {
-    namn: 'Stegvis naturbygge',
-    beskrivning: 'Lokala material (timmer, lera, halm), gemensam arbetsinsats, etappindelat.',
-    kostnad: 'Varierar kraftigt',
+    namn: 'Jordhus / timmer från marken',
+    beskrivning: 'Lokala material (timmer, lera, halm), gemensam arbetsinsats via timbank, etappindelat.',
+    kostnad: 'Arbete = tid, ej kontant',
   },
   energi: {
     namn: 'Enkel off-grid',
     beskrivning: 'Vedeldning, passiv sol, solceller i senare etapp.',
     kostnad: '20–80 tkr',
+  },
+  vatten: {
+    namn: 'Gemensam brunn',
+    beskrivning: 'Delad grävd/borrad brunn med handpump och enkel el-backup.',
+    kostnad: '~20 tkr/hh',
   },
 };
 
@@ -154,7 +189,7 @@ const timbank = {
       <div class="planning-summary">
         <div class="summary-item">
           <span class="summary-value">3,0–3,5 Mkr</span>
-          <span class="summary-label">Köpeskilling</span>
+          <span class="summary-label">Köpeskilling mark</span>
         </div>
         <div class="summary-item">
           <span class="summary-value">{kopfasAntaganden.antalHh} hh</span>
@@ -166,17 +201,17 @@ const timbank = {
         </div>
         <div class="summary-item summary-item--result">
           <span class="summary-value">~{kopfasAntaganden.insatsPerHh.min}–{kopfasAntaganden.insatsPerHh.max} tkr</span>
-          <span class="summary-label">Kontant/hushåll</span>
+          <span class="summary-label">Kontant/hh (mark)</span>
         </div>
       </div>
 
       <p class="planning-note">
-        Lagfart ({kopfasAntaganden.lagfart * 100} %) inräknat. Exkluderar VA/infra – se nedan.
+        Lagfart ({kopfasAntaganden.lagfart * 100} %) inräknat. <strong>Markköpet är den stora investeringen</strong> – bygg/VA blir blygsamt när material och arbete kommer från platsen.
       </p>
 
       <div class="scenario-chips">
         {scenarios.map((s) => (
-          <span class={`chip ${s.namn === 'Bas' ? 'chip--active' : ''}`}>
+          <span class={`chip ${s.highlight ? 'chip--active' : ''}`}>
             {s.namn} {s.insats} tkr
           </span>
         ))}
@@ -185,6 +220,85 @@ const timbank = {
       <a href="/arbetsyta/ekonomi/kapital-2026-09/" class="btn btn-outline btn-sm">
         Visa full kalkyl →
       </a>
+    </section>
+
+    <!-- OFF-GRID HUVUDSPÅR -->
+    <section class="offgrid-hero" aria-labelledby="offgrid-heading">
+      <div class="offgrid-badge">Huvudspår</div>
+      <h2 id="offgrid-heading">Off-grid / material från marken</h2>
+      <p class="offgrid-intro">
+        Föreningens planeringsgrund utgår från att <strong>timmer, lera och arbete kommer från platsen och gemenskapen</strong>, 
+        inte från bygghandel och hantverksfakturor. Kontantbehovet för VA och bostad blir därmed blygsamt jämfört med 
+        konventionellt byggande.
+      </p>
+
+      <div class="offgrid-principle">
+        <h3>Grundprincip</h3>
+        <ul>
+          <li><strong>Timmer från egen skog</strong> – kostar tid, inte pengar</li>
+          <li><strong>Lera från marken</strong> – jordhus-tekniker (cob, lerklining, jordslagning)</li>
+          <li><strong>Arbete via timbank</strong> – gemensamt byggande, dokumenterade timmar</li>
+          <li><strong>Kontantutlägg = köpta komponenter</strong> – fönster, fästen, duk, kalk, verktyg</li>
+        </ul>
+      </div>
+
+      <div class="offgrid-table-wrapper">
+        <h3>Planeringssiffror – scenario D (off-grid)</h3>
+        <p class="offgrid-table-note">
+          Osäkra uppskattningar för budgetplanering. 10 hushåll. Arbetsinsats räknas via timbanken, inte som kontant.
+        </p>
+        <table class="offgrid-table">
+          <thead>
+            <tr>
+              <th scope="col">Post</th>
+              <th scope="col">Lågt</th>
+              <th scope="col">Mitt</th>
+              <th scope="col">Högt</th>
+            </tr>
+          </thead>
+          <tbody>
+            {offgridScenario.poster.map((p) => (
+              <tr>
+                <td>
+                  <strong>{p.namn}</strong>
+                  <span class="post-desc">{p.beskrivning}</span>
+                </td>
+                <td>~{p.lag} tkr</td>
+                <td class="highlight">~{p.mid} tkr</td>
+                <td>~{p.hog} tkr</td>
+              </tr>
+            ))}
+            <tr class="total-row">
+              <td><strong>Totalt kontant VA+skal</strong></td>
+              <td>~{offgridScenario.total.lag} tkr</td>
+              <td class="highlight">~{offgridScenario.total.mid} tkr</td>
+              <td>~{offgridScenario.total.hog} tkr</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="offgrid-summary">
+        <div class="summary-card summary-card--primary">
+          <span class="summary-card-label">Off-grid D – kontant per hh</span>
+          <span class="summary-card-value">~140 tkr</span>
+          <span class="summary-card-note">mittscenario VA+minimal skal</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-card-label">Spann</span>
+          <span class="summary-card-value">~50–260 tkr</span>
+          <span class="summary-card-note">beroende på ambitionsnivå</span>
+        </div>
+      </div>
+
+      <aside class="permit-warning">
+        <h4>⚠️ Tillståndsrisk – låg kontant ≠ enkla tillstånd</h4>
+        <p>
+          Off-grid-lösningar (torrtoalett, gråvatten-jordhus, alternativ VA) kräver ofta dispens från kommunen 
+          och kan stöta på motstånd vid strandskydd eller inom detaljplanerat område. 
+          <strong>Budgetera tid och tålamod</strong> för tillståndsprocess – och ha en plan B för konventionell VA om dispens nekas.
+        </p>
+      </aside>
     </section>
 
     <!-- Interaktiv slider -->
@@ -253,137 +367,151 @@ const timbank = {
       </div>
     </section>
 
-    <!-- VA-kostnader -->
-    <section class="doc-section va-section" aria-labelledby="va-heading">
-      <h2 id="va-heading">VA + infrastruktur per hushåll</h2>
+    <!-- JÄMFÖRELSE: Köpt material / entreprenad -->
+    <section class="doc-section va-section comparison-section" aria-labelledby="va-heading">
+      <h2 id="va-heading">Jämförelse: köpt material / entreprenad (A–C)</h2>
       <p>
-        VA är ofta den största osäkerhetsfaktorn vid markköp utanför kommunalt 
-        verksamhetsområde. Nedan visas kalkyler för tre scenarion – individuell 
-        lösning och med gemensam nod.
+        Om off-grid-vägen inte är möjlig (tillståndsproblem, tidsbrist, kompetensglapp) behövs budget 
+        för köpt material och hantverkare. Scenarierna nedan visar <strong>kontantutlägg vid konventionellt VA</strong> – 
+        att jämföra med off-grid D ovan.
       </p>
+
+      <div class="comparison-header">
+        <span class="comparison-label">Observera:</span>
+        <p>
+          Dessa siffror avser köpt material + arbetskostnad. Vid off-grid (scenario D) är kontantbehovet 
+          betydligt lägre eftersom material och arbete kommer från platsen.
+        </p>
+      </div>
 
       <!-- Individuell lösning -->
       <div class="va-category">
-        <h3>🏠 Individuell VA-lösning</h3>
+        <h3>🏠 Individuell VA-lösning (köpt)</h3>
         <div class="va-items">
-          <div class="va-item va-item--ambitious">
+          <div class="va-item">
             <div class="va-item-header">
-              <span class="va-item-name">{vaInfraKostnader.individuell.sparsamt.namn}</span>
-              <span class="va-item-cost">~{vaInfraKostnader.individuell.sparsamt.kostnad} tkr/hh</span>
+              <span class="va-item-name">{koptMaterialScenarios.individuell.sparsamt.namn}</span>
+              <span class="va-item-cost">~{koptMaterialScenarios.individuell.sparsamt.kostnad} tkr/hh</span>
             </div>
-            <p class="va-item-desc">{vaInfraKostnader.individuell.sparsamt.beskrivning}</p>
-            <span class="va-tag va-tag--warning">Tillståndsrisk: {vaInfraKostnader.individuell.sparsamt.permitRisk}</span>
-          </div>
-          <div class="va-item va-item--recommended">
-            <div class="va-item-header">
-              <span class="va-item-name">{vaInfraKostnader.individuell.bas.namn}</span>
-              <span class="va-item-cost">~{vaInfraKostnader.individuell.bas.kostnad} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{vaInfraKostnader.individuell.bas.beskrivning}</p>
-            <span class="va-tag va-tag--recommended">Basplanering</span>
+            <p class="va-item-desc">{koptMaterialScenarios.individuell.sparsamt.beskrivning}</p>
+            <span class="va-tag va-tag--warning">Tillståndsrisk: {koptMaterialScenarios.individuell.sparsamt.permitRisk}</span>
           </div>
           <div class="va-item">
             <div class="va-item-header">
-              <span class="va-item-name">{vaInfraKostnader.individuell.hog.namn}</span>
-              <span class="va-item-cost">~{vaInfraKostnader.individuell.hog.kostnad} tkr/hh</span>
+              <span class="va-item-name">{koptMaterialScenarios.individuell.bas.namn}</span>
+              <span class="va-item-cost">~{koptMaterialScenarios.individuell.bas.kostnad} tkr/hh</span>
             </div>
-            <p class="va-item-desc">{vaInfraKostnader.individuell.hog.beskrivning}</p>
-            <p class="va-item-note">{vaInfraKostnader.individuell.hog.note}</p>
+            <p class="va-item-desc">{koptMaterialScenarios.individuell.bas.beskrivning}</p>
+            <span class="va-tag va-tag--fallback">Plan B om dispens nekas</span>
+          </div>
+          <div class="va-item">
+            <div class="va-item-header">
+              <span class="va-item-name">{koptMaterialScenarios.individuell.hog.namn}</span>
+              <span class="va-item-cost">~{koptMaterialScenarios.individuell.hog.kostnad} tkr/hh</span>
+            </div>
+            <p class="va-item-desc">{koptMaterialScenarios.individuell.hog.beskrivning}</p>
+            <p class="va-item-note">{koptMaterialScenarios.individuell.hog.note}</p>
           </div>
         </div>
       </div>
 
       <!-- Med gemensam nod -->
       <div class="va-category">
-        <h3>🏘️ Med enkel gemensam nod (~{kopfasAntaganden.antalHh} hh)</h3>
+        <h3>🏘️ Med gemensam nod (~{kopfasAntaganden.antalHh} hh, köpt)</h3>
         <p class="va-category-desc">
-          Gemensam brunn, ledningsnät och centralare VA-hantering ökar investeringen 
-          men kan ge driftfördelar.
+          Gemensam brunn, ledningsnät och centralare VA-hantering. Högre investering men kan ge driftfördelar. 
+          Dessa siffror gäller om ni köper material och anlitar hantverkare.
         </p>
         <div class="va-items">
-          <div class="va-item va-item--ambitious">
+          <div class="va-item">
             <div class="va-item-header">
-              <span class="va-item-name">Sparsamt + gemensam nod</span>
-              <span class="va-item-cost">~{vaInfraKostnader.medGemensamNod.sparsamt.kostnad} tkr/hh</span>
+              <span class="va-item-name">Sparsamt A + gemensam nod</span>
+              <span class="va-item-cost">~{koptMaterialScenarios.medGemensamNod.sparsamt.kostnad} tkr/hh</span>
             </div>
-            <p class="va-item-desc">{vaInfraKostnader.medGemensamNod.sparsamt.beskrivning}</p>
-          </div>
-          <div class="va-item va-item--recommended">
-            <div class="va-item-header">
-              <span class="va-item-name">Bas + gemensam nod</span>
-              <span class="va-item-cost">~{vaInfraKostnader.medGemensamNod.bas.kostnad} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{vaInfraKostnader.medGemensamNod.bas.beskrivning}</p>
-            <span class="va-tag va-tag--recommended">Rekommenderad</span>
+            <p class="va-item-desc">{koptMaterialScenarios.medGemensamNod.sparsamt.beskrivning}</p>
           </div>
           <div class="va-item">
             <div class="va-item-header">
-              <span class="va-item-name">Övre + gemensam nod (sjönära)</span>
-              <span class="va-item-cost">~{vaInfraKostnader.medGemensamNod.hog.kostnad} tkr/hh</span>
+              <span class="va-item-name">Bas B + gemensam nod</span>
+              <span class="va-item-cost">~{koptMaterialScenarios.medGemensamNod.bas.kostnad} tkr/hh</span>
             </div>
-            <p class="va-item-desc">{vaInfraKostnader.medGemensamNod.hog.beskrivning}</p>
+            <p class="va-item-desc">{koptMaterialScenarios.medGemensamNod.bas.beskrivning}</p>
+            <span class="va-tag va-tag--fallback">Plan B konventionell</span>
+          </div>
+          <div class="va-item">
+            <div class="va-item-header">
+              <span class="va-item-name">Övre C + gemensam nod (sjönära)</span>
+              <span class="va-item-cost">~{koptMaterialScenarios.medGemensamNod.hog.kostnad} tkr/hh</span>
+            </div>
+            <p class="va-item-desc">{koptMaterialScenarios.medGemensamNod.hog.beskrivning}</p>
             <span class="va-tag va-tag--blackbo">Blackbo-scenariot</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Sparsamt regenerativt -->
-    <section class="doc-section" aria-labelledby="sparsamt">
-      <h2 id="sparsamt">Sparsamt regenerativt – ambitiös kretsloppslösning</h2>
+    <!-- Scenariojämförelse -->
+    <section class="doc-section" aria-labelledby="scenario-compare">
+      <h2 id="scenario-compare">Scenariojämförelse – D vs A/B/C</h2>
       <p>
-        För de som siktar på helt slutna kretslopp finns en lågkostnadsväg med 
-        komposttoalett och lokal gråvattenhantering (~{vaInfraKostnader.individuell.sparsamt.kostnad} tkr/hh). 
-        Detta kräver tillstånd som kan vara svåra att få.
+        Nedan jämförs off-grid-huvudspåret (D) med de konventionella scenarierna (A–C). 
+        <strong>Markköpet är den stora investeringen</strong> – bygg och VA varierar kraftigt beroende 
+        på om ni använder platsens resurser eller köper material utifrån.
       </p>
       
       <div class="regen-cards">
-        <article class="regen-card regen-card--ambitious">
-          <h3>🚽 Komposttoalett + BDT</h3>
-          <p>{vaInfraKostnader.individuell.sparsamt.beskrivning}</p>
-          <span class="regen-cost">~{vaInfraKostnader.individuell.sparsamt.kostnad} tkr/hh</span>
+        <article class="regen-card regen-card--offgrid">
+          <h3>🌲 {offgridPath.byggande.namn}</h3>
+          <p>{offgridPath.byggande.beskrivning}</p>
+          <span class="regen-cost">{offgridPath.byggande.kostnad}</span>
+        </article>
+        <article class="regen-card regen-card--offgrid">
+          <h3>💧 {offgridPath.vatten.namn}</h3>
+          <p>{offgridPath.vatten.beskrivning}</p>
+          <span class="regen-cost">{offgridPath.vatten.kostnad}</span>
         </article>
         <article class="regen-card">
-          <h3>🏠 {sparsamtPath.byggande.namn}</h3>
-          <p>{sparsamtPath.byggande.beskrivning}</p>
-          <span class="regen-cost">{sparsamtPath.byggande.kostnad}</span>
-        </article>
-        <article class="regen-card">
-          <h3>⚡ {sparsamtPath.energi.namn}</h3>
-          <p>{sparsamtPath.energi.beskrivning}</p>
-          <span class="regen-cost">{sparsamtPath.energi.kostnad}</span>
+          <h3>⚡ {offgridPath.energi.namn}</h3>
+          <p>{offgridPath.energi.beskrivning}</p>
+          <span class="regen-cost">{offgridPath.energi.kostnad}</span>
         </article>
       </div>
 
-      <aside class="regen-warning">
-        <h4>⚠️ Plan B krävs – tillståndsrisk medel–hög</h4>
-        <p>
-          Kretsloppstoalett kräver dispens från kommunen. Tillståndsprocessen är 
-          osäker – räkna med att behöva falla tillbaka på markbädd (~{vaInfraKostnader.individuell.bas.kostnad} tkr/hh) 
-          om dispens inte beviljas. Budgetera för båda alternativen i tidigt skede.
-        </p>
-      </aside>
-
       <div class="scenario-summary">
-        <h4>VA-kostnadsjämförelse per hushåll</h4>
+        <h4>Totalkostnad VA+bygg per hushåll – jämförelse</h4>
         <div class="scenario-compare">
-          <div class="scenario-box scenario-box--ambitious">
-            <span class="scenario-label">Sparsamt regenerativt</span>
-            <span class="scenario-value">~{vaInfraKostnader.individuell.sparsamt.kostnad} tkr</span>
-            <span class="scenario-note">om tillstånd beviljas</span>
+          <div class="scenario-box scenario-box--offgrid">
+            <span class="scenario-label">Off-grid D</span>
+            <span class="scenario-value">~{offgridScenario.total.mid} tkr</span>
+            <span class="scenario-note">material från platsen + timbank</span>
           </div>
-          <div class="scenario-box scenario-box--base">
-            <span class="scenario-label">Bas markbädd</span>
-            <span class="scenario-value">~{vaInfraKostnader.individuell.bas.kostnad} tkr</span>
-            <span class="scenario-note">plan B / standardval</span>
+          <div class="scenario-box">
+            <span class="scenario-label">Sparsamt A</span>
+            <span class="scenario-value">~{koptMaterialScenarios.medGemensamNod.sparsamt.kostnad} tkr</span>
+            <span class="scenario-note">köpt kretslopp + nod</span>
+          </div>
+          <div class="scenario-box">
+            <span class="scenario-label">Bas B</span>
+            <span class="scenario-value">~{koptMaterialScenarios.medGemensamNod.bas.kostnad} tkr</span>
+            <span class="scenario-note">köpt markbädd + nod</span>
           </div>
           <div class="scenario-box scenario-box--high">
-            <span class="scenario-label">Övre (sjönära)</span>
-            <span class="scenario-value">~{vaInfraKostnader.individuell.hog.kostnad} tkr</span>
-            <span class="scenario-note">Blackbo-scenariot</span>
+            <span class="scenario-label">Övre C</span>
+            <span class="scenario-value">~{koptMaterialScenarios.medGemensamNod.hog.kostnad} tkr</span>
+            <span class="scenario-note">köpt MRV+P (sjönära)</span>
           </div>
         </div>
       </div>
+
+      <aside class="regen-info">
+        <h4>💡 Varför off-grid som huvudspår?</h4>
+        <p>
+          Föreningens grundvärdering är att bygga med platsens resurser – timmer från egen skog, lera 
+          från marken, arbete från gemenskapen. Detta ger lägre kontantbehov, stärker lokalresiliensen 
+          och bevarar kunskap om naturbyggande. De högre siffrorna (A–C) finns kvar som jämförelse 
+          och plan B om off-grid-vägen blockeras av tillståndsproblem.
+        </p>
+      </aside>
     </section>
 
     <!-- Månadskostnad vid lån -->
@@ -851,6 +979,298 @@ const timbank = {
   .btn-sm {
     padding: 0.6rem 1.2rem;
     font-size: var(--text-sm);
+  }
+
+  /* Off-grid Hero Section */
+  .offgrid-hero {
+    background: linear-gradient(135deg, var(--deep-forest) 0%, #2a4a46 100%);
+    color: var(--text-on-dark);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    position: relative;
+  }
+
+  .offgrid-badge {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--coral);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .offgrid-hero h2 {
+    color: var(--text-on-dark);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .offgrid-intro {
+    color: var(--accent-mid);
+    font-size: var(--text-base);
+    max-width: 50rem;
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .offgrid-principle {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .offgrid-principle h3 {
+    color: var(--text-on-dark);
+    font-size: var(--text-lg);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .offgrid-principle ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .offgrid-principle li {
+    color: var(--accent-mid);
+    font-size: var(--text-sm);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .offgrid-principle li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--coral);
+  }
+
+  .offgrid-principle li strong {
+    color: var(--text-on-dark);
+  }
+
+  .offgrid-table-wrapper {
+    margin-bottom: var(--space-lg);
+  }
+
+  .offgrid-table-wrapper h3 {
+    color: var(--text-on-dark);
+    font-size: var(--text-lg);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .offgrid-table-note {
+    font-size: var(--text-sm);
+    color: var(--accent-mid);
+    margin-bottom: var(--space-sm);
+    font-style: italic;
+  }
+
+  .offgrid-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .offgrid-table th,
+  .offgrid-table td {
+    padding: var(--space-sm);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .offgrid-table thead th {
+    background: var(--bg-secondary);
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .offgrid-table td.highlight {
+    background: var(--accent-light);
+    font-weight: 600;
+    color: var(--deep-forest);
+  }
+
+  .offgrid-table .total-row {
+    background: var(--deep-forest);
+  }
+
+  .offgrid-table .total-row td {
+    color: var(--text-on-dark);
+    font-weight: 600;
+    border-bottom: none;
+  }
+
+  .offgrid-table .total-row td.highlight {
+    background: var(--coral);
+    color: #fff;
+  }
+
+  .post-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: normal;
+    margin-top: 0.25rem;
+  }
+
+  .offgrid-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .summary-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-align: center;
+  }
+
+  .summary-card--primary {
+    background: var(--coral);
+    border: 2px solid var(--coral-light);
+  }
+
+  .summary-card-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-mid);
+    margin-bottom: var(--space-xs);
+  }
+
+  .summary-card--primary .summary-card-label {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .summary-card-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--text-on-dark);
+  }
+
+  .summary-card-note {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--accent-mid);
+    margin-top: var(--space-xs);
+  }
+
+  .summary-card--primary .summary-card-note {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .permit-warning {
+    background: rgba(212, 96, 58, 0.2);
+    border-left: 4px solid var(--coral);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+  }
+
+  .permit-warning h4 {
+    font-size: var(--text-base);
+    color: var(--coral-light);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .permit-warning p {
+    font-size: var(--text-sm);
+    color: var(--accent-mid);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Comparison Section */
+  .comparison-section {
+    background: var(--linen-cream);
+    border: 2px dashed var(--border);
+  }
+
+  .comparison-header {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .comparison-label {
+    font-weight: 700;
+    color: var(--coral);
+    font-size: var(--text-sm);
+  }
+
+  .comparison-header p {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: var(--space-xs) 0 0;
+  }
+
+  .va-tag--fallback {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* Scenario comparison styling */
+  .scenario-box--offgrid {
+    background: linear-gradient(135deg, var(--deep-forest) 0%, #2a4a46 100%);
+    border: 2px solid var(--accent-mid);
+  }
+
+  .scenario-box--offgrid .scenario-label,
+  .scenario-box--offgrid .scenario-note {
+    color: var(--accent-mid);
+  }
+
+  .scenario-box--offgrid .scenario-value {
+    color: var(--text-on-dark);
+  }
+
+  .regen-card--offgrid {
+    border-color: var(--deep-forest);
+    border-width: 2px;
+    background: linear-gradient(135deg, var(--bg-white) 0%, var(--accent-light) 100%);
+  }
+
+  .regen-info {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent-mid);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-top: var(--space-md);
+  }
+
+  .regen-info h4 {
+    font-size: var(--text-base);
+    color: var(--deep-forest);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .regen-info p {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
   }
 
   /* Slider Calculator */
@@ -1815,6 +2235,27 @@ const timbank = {
 
     .rate-item dd:first-of-type {
       text-align: left;
+    }
+
+    .offgrid-hero {
+      padding: var(--space-md);
+    }
+
+    .offgrid-summary {
+      grid-template-columns: 1fr;
+    }
+
+    .offgrid-table {
+      font-size: 0.75rem;
+    }
+
+    .offgrid-table th,
+    .offgrid-table td {
+      padding: var(--space-xs);
+    }
+
+    .scenario-compare {
+      grid-template-columns: 1fr 1fr;
     }
   }
 </style>
