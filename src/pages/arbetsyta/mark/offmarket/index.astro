@@ -2,47 +2,125 @@
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 
 const metadata = {
-  titel: 'Off-market markkontakt',
+  titel: 'Till långsiktiga markägare',
   datum: '2026-09-14',
-  status: 'pågår',
+  status: 'pågående',
 };
 ---
 
 <BaseLayout
-  title="Off-market markkontakt – Styrelsens arbetsyta"
-  description="Internt spår för dialog med långsiktiga markägare – status och nästa steg."
+  title="Till långsiktiga markägare – En sund värld"
+  description="Föreningen söker dialog med markägare som förvaltar med generationsperspektiv. Gods, stiftelser, kyrka – vi vill vårda, inte spekulera."
 >
   <article class="arbetsyta-doc container">
     <header class="doc-header">
       <p class="breadcrumb">
-        <a href="/arbetsyta/">Arbetsyta</a> / <a href="/arbetsyta/mark/">Markspaning</a> / Off-market
+        <a href="/arbetsyta/">Arbetsyta</a> / <a href="/arbetsyta/mark/">Markspaning</a> / Långsiktiga markägare
       </p>
       <div class="doc-meta">
-        <span class="doc-status doc-status--pagaende">Pågår</span>
+        <span class="doc-status doc-status--pagaende">Pågående</span>
         <span class="doc-date">Uppdaterad {metadata.datum}</span>
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
-        Internt arbetsspår för dialog med långsiktiga markägare.
+        Föreningen En sund värld söker dialog med markägare som förvaltar 
+        mark med generationsperspektiv — gods, stiftelser, kyrka och familjer 
+        med långsiktigt ägande. Vi vill vårda, inte spekulera.
       </p>
     </header>
 
-    <!-- Status notice -->
-    <section class="notice-card" aria-labelledby="status-heading">
-      <h2 id="status-heading">Status: Utkast — utskick väntar styrelsens OK</h2>
+    <!-- Invitation card -->
+    <section class="invitation-card" aria-labelledby="invitation-heading">
+      <h2 id="invitation-heading">Vad vi söker</h2>
       <p>
-        Föreningen utforskar dialog med markägare som förvaltar mark med 
-        generationsperspektiv — gods, stiftelser och kyrkan. Fokus ligger på 
-        <strong>vård, arrende och nyttjanderätt</strong>, inte spekulation 
-        eller snabba köp.
+        Vi är en ekonomisk förening som vill skapa en ekoby med 10+ hushåll 
+        på landsbygden. Vi söker mark att förvalta med omsorg — inte att 
+        köpa och sälja vidare. Vårt intresse är långsiktigt boende, 
+        permakultur och gemensam markvård.
+      </p>
+      <ul class="invitation-list">
+        <li>
+          <strong>Arrende eller nyttjanderätt</strong> — vi är öppna för 
+          olika upplåtelseformer, inte bara köp
+        </li>
+        <li>
+          <strong>Vård av mark och byggnader</strong> — vi vill ta hand om 
+          platsen, inte exploatera den
+        </li>
+        <li>
+          <strong>Dialog utan press</strong> — vi börjar gärna med ett samtal 
+          för att lära känna varandra
+        </li>
+      </ul>
+    </section>
+
+    <!-- Who we are -->
+    <section class="doc-section" aria-labelledby="vilka-heading">
+      <h2 id="vilka-heading">Vilka vi är</h2>
+      <p>
+        <strong>En sund värld Ekonomisk Förening</strong> är en paraplyorganisation 
+        för hållbara initiativ. Vi vårdar, vördar och sköter om jorden samt 
+        bygger livsmiljöer baserade på permakultur, självförsörjning och 
+        lokalresiliens.
       </p>
       <p>
-        Detaljerad pitch och kontaktlista hålls internt för styrelsen och 
-        delas inte publikt. Inga utskick görs förrän styrelsen har granskat 
-        och godkänt materialet.
+        Läs mer om våra <a href="/projekt/ekoby">planer för ekoby</a> eller 
+        <a href="/stadgar">föreningens stadgar</a>.
       </p>
+    </section>
+
+    <!-- What we offer -->
+    <section class="doc-section" aria-labelledby="erbjuder-heading">
+      <h2 id="erbjuder-heading">Vad vi kan erbjuda</h2>
+      <div class="offer-grid">
+        <div class="offer-item">
+          <h3>Aktiv markvård</h3>
+          <p>
+            Hushållen bor på platsen och vårdar mark, byggnader och natur 
+            med egna händer — inte genom distansägande.
+          </p>
+        </div>
+        <div class="offer-item">
+          <h3>Långsiktigt engagemang</h3>
+          <p>
+            Vi söker ett hem för generationer, inte ett kortsiktigt projekt. 
+            Föreningsformen skyddar mot spekulation.
+          </p>
+        </div>
+        <div class="offer-item">
+          <h3>Respekt för platsens historia</h3>
+          <p>
+            Vi vill bevara kulturmiljö och byggnadstradition — inte ersätta 
+            med moderna villor och pooler.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status -->
+    <section class="status-card" aria-labelledby="status-heading">
+      <h2 id="status-heading">Nuvarande status</h2>
       <p>
-        Vid frågor, kontakta styrelsen direkt.
+        Vi befinner oss i ett tidigt skede och utforskar möjligheter till 
+        dialog med markägare som delar vår syn på långsiktigt förvaltande. 
+        Inga avtal är slutna och vi har inga pågående förhandlingar att 
+        rapportera — men vi är öppna för samtal.
+      </p>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta" aria-labelledby="kontakt-heading">
+      <h2 id="kontakt-heading">Kontakta oss</h2>
+      <p>
+        Förvaltar du eller din organisation mark som ni vill se vårdad av 
+        engagerade människor? Vi börjar gärna med ett samtal — utan 
+        förpliktelser.
+      </p>
+      <a href="/#anmalan" class="btn btn-primary">
+        Skicka meddelande via intresseanmälan →
+      </a>
+      <p class="contact-note">
+        Välj "Tips om mark" i formuläret och berätta kort om er situation.
       </p>
     </section>
 
@@ -121,29 +199,152 @@ const metadata = {
     line-height: 1.6;
   }
 
-  /* Notice card */
-  .notice-card {
-    background: var(--linen-cream);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+  /* Invitation card */
+  .invitation-card {
+    background: linear-gradient(135deg, var(--deep-forest) 0%, #2a4a46 100%);
+    color: var(--text-on-dark);
+    border-radius: var(--radius-xl);
     padding: var(--space-lg);
     margin-bottom: var(--space-xl);
   }
 
-  .notice-card h2 {
-    font-size: var(--text-xl);
-    color: var(--deep-forest);
-    margin-bottom: var(--space-md);
+  .invitation-card h2 {
+    color: var(--text-on-dark);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-sm);
   }
 
-  .notice-card p {
+  .invitation-card > p {
+    color: var(--accent-mid);
+    font-size: var(--text-base);
+    max-width: 50rem;
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .invitation-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .invitation-list li {
+    color: var(--accent-mid);
+    font-size: var(--text-base);
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .invitation-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--coral);
+  }
+
+  .invitation-list li strong {
+    color: var(--text-on-dark);
+  }
+
+  /* Doc section */
+  .doc-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .doc-section h2 {
+    font-size: var(--text-2xl);
+    color: var(--accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-section p {
     color: var(--text);
     margin-bottom: var(--space-sm);
     line-height: 1.7;
   }
 
-  .notice-card p:last-child {
-    margin-bottom: 0;
+  /* Offer grid */
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+  }
+
+  .offer-item {
+    background: var(--linen-cream);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .offer-item h3 {
+    font-size: var(--text-lg);
+    color: var(--deep-forest);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .offer-item p {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Status card */
+  .status-card {
+    background: var(--surface-low);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .status-card h2 {
+    font-size: var(--text-xl);
+    color: var(--deep-forest);
+    margin-bottom: var(--space-sm);
+  }
+
+  .status-card p {
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* Contact CTA */
+  .contact-cta {
+    background: var(--accent-light);
+    border: 2px solid var(--accent-mid);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    text-align: center;
+  }
+
+  .contact-cta h2 {
+    font-size: var(--text-2xl);
+    color: var(--deep-forest);
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact-cta > p {
+    color: var(--text);
+    margin-bottom: var(--space-md);
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+
+  .contact-cta .btn {
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
   }
 
   .doc-nav {
@@ -164,6 +365,10 @@ const metadata = {
   @media (max-width: 600px) {
     h1 {
       font-size: var(--text-3xl);
+    }
+
+    .offer-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>

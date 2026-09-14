@@ -23,6 +23,7 @@ const navLinks = [
   { href: '/projekt/olof-larsson',  label: 'Olof Larssons Gård',      icon: 'barn' },
   { href: '/projekt/ekoby',         label: 'Ekoby & Boendegemenskap', icon: 'people' },
   { href: '/stadgar',               label: 'Stadgar',                  icon: 'scroll' },
+  { href: '/arbetsyta/',            label: 'Arbetsyta',                icon: 'folder' },
   { href: '/#anmalan',              label: 'Anmäl intresse',           icon: 'heart' },
 ];
 
@@ -153,6 +154,9 @@ function isNavActive(href: string): boolean {
                   {icon === 'heart' && (
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-9.2C5 8 7 6 9.2 6c1.3 0 2.4.6 2.8 1.6C12.4 6.6 13.5 6 14.8 6 17 6 19 8 19 10.8 19 15.6 12 20 12 20Z"/></svg>
                   )}
+                  {icon === 'folder' && (
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                  )}
                 </span>
                 <span>{label}</span>
               </a>
@@ -183,6 +187,7 @@ function isNavActive(href: string): boolean {
           <li><a href="/projekt/olof-larsson">Olof Larssons Gård</a></li>
           <li><a href="/projekt/ekoby">Ekoby &amp; Boendegemenskap</a></li>
           <li><a href="/stadgar">Stadgar</a></li>
+          <li><a href="/arbetsyta/">Arbetsyta</a></li>
           <li><a href="/#anmalan">Anmäl intresse</a></li>
         </ul>
       </nav>

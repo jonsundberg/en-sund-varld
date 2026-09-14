@@ -229,11 +229,10 @@ function formatTkr(value: number): string {
         <div class="djupdyk-content" set:html={prospekt.djupdyk.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>')} />
       ) : (
         <div class="djupdyk-empty">
-          <p>Ej djupdykt ännu.</p>
+          <p>Ingen djupdykning har genomförts ännu för detta objekt.</p>
           <p class="muted-text">
-            Lägg till djupdyksinformation genom att redigera 
-            <code>src/data/prospects.ts</code> och uppdatera fältet <code>djupdyk</code> 
-            för detta objekt.
+            Information läggs till efter att styrelsen har utvärderat 
+            objektet närmare.
           </p>
         </div>
       )}
@@ -257,17 +256,17 @@ function formatTkr(value: number): string {
         <p class="muted-text">Inga nästa steg definierade ännu.</p>
       )}
       <p class="steg-note">
-        Uppdatera status genom att redigera <code>src/data/prospects.ts</code>.
+        Statusen uppdateras efter styrelsemöten.
       </p>
     </section>
 
     <!-- Disclaimer -->
     <aside class="disclaimer" aria-labelledby="disclaimer-heading">
-      <h2 id="disclaimer-heading">Obs – internt planeringsunderlag</h2>
+      <h2 id="disclaimer-heading">Obs – planeringsunderlag</h2>
       <p>
-        Detta är intern planering och inte juridisk eller ekonomisk rådgivning. 
-        Siffrorna är uppskattningar för planering – bekräfta lagfart, pantbrev 
-        och lånevillkor med bank och revisor innan föreningen lägger bud.
+        Siffrorna på denna sida är uppskattningar för planering och inte 
+        juridisk eller ekonomisk rådgivning. Föreningen bekräftar alla 
+        uppgifter med bank och revisor innan beslut.
       </p>
     </aside>
 

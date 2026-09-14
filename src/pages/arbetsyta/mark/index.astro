@@ -42,15 +42,16 @@ const sekundära = getSecondaryProspects();
 
     <!-- Off-market link card -->
     <section class="offmarket-card" aria-labelledby="offmarket-heading">
-      <div class="offmarket-badge offmarket-badge--internal">Internt</div>
-      <h2 id="offmarket-heading">Off-market markkontakt</h2>
+      <div class="offmarket-badge">Pågående</div>
+      <h2 id="offmarket-heading">Långsiktiga markägare</h2>
       <p>
-        Pågående dialog med långsiktiga markägare — gods, stiftelser och kyrkan. 
-        Detaljerat material hålls internt för styrelsen.
+        Föreningen utforskar dialog med markägare som förvaltar med 
+        generationsperspektiv — gods, stiftelser och kyrka. Är du en sådan 
+        markägare? Vi vill gärna höra från dig.
       </p>
       <div class="offmarket-links">
         <a href="/arbetsyta/mark/offmarket/" class="btn btn-outline btn-sm">
-          Se status →
+          Läs mer och kontakta oss →
         </a>
       </div>
     </section>
@@ -93,8 +94,8 @@ const sekundära = getSecondaryProspects();
         <strong>Uppdaterad:</strong> {metadata.datum}
       </p>
       <p>
-        Listan nedan är för internt bruk. Bilderna länkas från mäklarsajter 
-        och visas som best-effort – de kan försvinna när annonsen tas bort.
+        Dessa är de objekt styrelsen för närvarande utvärderar. Bilderna 
+        länkas från mäklarsajter och kan försvinna när annonsen tas bort.
       </p>
 
       <h3 class="kategori-heading">Primära objekt</h3>
@@ -202,15 +203,16 @@ const sekundära = getSecondaryProspects();
       </p>
 
       <div class="add-prospekt">
-        <h3>Uppdatera shortlist</h3>
+        <h3>Om shortlistan</h3>
         <p>
-          Redigera arrayen i <code>src/data/prospects.ts</code> 
-          och skicka en pull request. Statusvärden: <code>ny</code>, 
-          <code>djupdyk</code>, <code>andrahand</code>, <code>parkerad</code>.
+          Listan uppdateras efter styrelsemöten. Status visar var i processen 
+          varje objekt befinner sig: <strong>Ny</strong> = nyligen tillagd, 
+          <strong>Djupdyk</strong> = under utredning, <strong>Andrahand</strong> = 
+          intressant men inte prioriterat, <strong>Parkerad</strong> = pausad.
         </p>
         <p>
-          Varje objekt får automatiskt en detaljsida under <code>/arbetsyta/mark/[slug]/</code>
-          med fakta, flaggor, objektspecifik kalkyl och nästa steg.
+          Har du tips om mark som passar föreningen? 
+          <a href="/#anmalan">Skicka en intresseanmälan</a> med ditt tips.
         </p>
       </div>
     </section>
