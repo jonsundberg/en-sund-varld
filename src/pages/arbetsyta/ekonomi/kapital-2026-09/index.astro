@@ -59,13 +59,20 @@ const manadskostnaderPerHh = [
         Detaljerad scenariomatris för ekobyns kapitalstruktur. Alla belopp i tkr 
         per hushåll om inget annat anges. Baserat på köpeskilling 3 Mkr.
       </p>
+      <aside class="note-box">
+        <strong>Obs:</strong> Denna sida avser <em>markköp</em> – den stora investeringen. 
+        VA och byggkostnad tillkommer, men är blygsam vid off-grid-huvudspåret 
+        (~140 tkr/hh för material, arbete via timbank). 
+        <a href="/arbetsyta/ekonomi/">Se full ekonomiöversikt med off-grid-kalkyler →</a>
+      </aside>
     </header>
 
     <!-- Huvudtabell -->
     <section class="doc-section" aria-labelledby="matris">
-      <h2 id="matris">Scenariomatris – 3 Mkr köpeskilling</h2>
+      <h2 id="matris">Scenariomatris – 3 Mkr köpeskilling (mark)</h2>
       <p>
-        Kontantinsats per hushåll vid 60 % belåning. Lagfart och pantbrev inräknade.
+        Kontantinsats per hushåll vid 60 % belåning. Lagfart och pantbrev inräknade. 
+        <strong>Avser endast markförvärv</strong> – VA/bygg läggs till separat.
       </p>
       
       <div class="table-wrapper">
@@ -92,10 +99,15 @@ const manadskostnaderPerHh = [
       </div>
 
       <ul class="scenario-legend">
-        <li><strong>Sparsamt:</strong> Minimal underhållsreserv (200 tkr), god befintlig infrastruktur.</li>
-        <li><strong>Bas:</strong> Måttlig underhållsreserv (500 tkr), viss upprustning av VA.</li>
-        <li><strong>Högt:</strong> Omfattande underhåll (2 Mkr), nytt avlopp och dränering.</li>
+        <li><strong>Sparsamt:</strong> Minimal underhållsreserv (200 tkr), god befintlig infrastruktur på marken.</li>
+        <li><strong>Bas:</strong> Måttlig underhållsreserv (500 tkr), viss upprustning behövs.</li>
+        <li><strong>Högt:</strong> Omfattande underhåll (2 Mkr), gammal byggnad eller skadad infrastruktur.</li>
       </ul>
+      <p class="scenario-note">
+        <em>Scenarierna ovan avser markköp och underhåll av befintlig infrastruktur. 
+        För VA/bygg-kostnad, se <a href="/arbetsyta/ekonomi/">ekonomiöversikten</a> – 
+        off-grid-huvudspåret (D) ger ~140 tkr/hh i materialkostnad.</em>
+      </p>
     </section>
 
     <!-- Antaganden -->
@@ -297,6 +309,24 @@ const manadskostnaderPerHh = [
     line-height: 1.6;
   }
 
+  .note-box {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent-mid);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    margin-top: var(--space-md);
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+
+  .note-box strong {
+    color: var(--deep-forest);
+  }
+
+  .note-box a {
+    color: var(--accent);
+  }
+
   .doc-section {
     margin-bottom: var(--space-xl);
   }
@@ -392,6 +422,15 @@ const manadskostnaderPerHh = [
 
   .scenario-legend li {
     margin-bottom: 0.5rem;
+  }
+
+  .scenario-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    background: var(--surface-low);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-sm);
   }
 
   /* Assumptions */
