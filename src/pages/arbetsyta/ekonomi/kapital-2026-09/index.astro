@@ -3,7 +3,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 
 const metadata = {
   titel: 'Kapitalkalkyl – september 2026',
-  datum: '2026-09-13',
+  datum: '2026-09-14',
   status: 'utkast',
 };
 
@@ -27,6 +27,24 @@ const alternativKopes = [
   { pris: '3,0 Mkr', hh10bas: '~209 tkr', kommentar: 'Baskalkyl' },
   { pris: '3,75 Mkr', hh10bas: '~261 tkr', kommentar: 'Större areal / bättre läge' },
 ];
+
+const lanekostnader = {
+  rantesats: 5.0,
+  amorteringstid: 30,
+};
+
+function beraknaManadskostnad(lanTkr: number): number {
+  const lan = lanTkr * 1000;
+  const r = lanekostnader.rantesats / 100 / 12;
+  const n = lanekostnader.amorteringstid * 12;
+  return Math.round((lan * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
+}
+
+const manadskostnaderPerHh = [
+  { scenario: 'Sparsamt (10 hh)', insats: 198, manad: beraknaManadskostnad(198) },
+  { scenario: 'Bas (10 hh)', insats: 209, manad: beraknaManadskostnad(209) },
+  { scenario: 'Högt (10 hh)', insats: 272, manad: beraknaManadskostnad(272) },
+];
 ---
 
 <BaseLayout
@@ -41,7 +59,7 @@ const alternativKopes = [
       </p>
       <div class="doc-meta">
         <span class="doc-status doc-status--utkast">Utkast</span>
-        <span class="doc-date">13 sep 2026</span>
+        <span class="doc-date">14 sep 2026</span>
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
@@ -159,6 +177,46 @@ const alternativKopes = [
       <p>
         Alla kostnader för förvärvstransaktionen inkluderas innan fördelning. 
         Löpande ränta och amortering tillkommer utöver kontantinsatsen.
+      </p>
+    </section>
+
+    <!-- Månadskostnad vid lån -->
+    <section class="doc-section" aria-labelledby="manadskostnad">
+      <h2 id="manadskostnad">Månadskostnad vid privatlån</h2>
+      <p>
+        För hushåll som lånar hela sin kontantinsats privat visas ungefärlig 
+        månadskostnad (annuitetslån, ränta + amortering).
+      </p>
+
+      <div class="loan-assumptions">
+        <span><strong>Räntesats:</strong> {lanekostnader.rantesats} %</span>
+        <span><strong>Amorteringstid:</strong> {lanekostnader.amorteringstid} år</span>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th scope="col">Scenario</th>
+              <th scope="col">Insats</th>
+              <th scope="col">Månadskostnad</th>
+            </tr>
+          </thead>
+          <tbody>
+            {manadskostnaderPerHh.map((m) => (
+              <tr class={m.scenario.includes('Bas') ? 'highlight-row' : ''}>
+                <td>{m.scenario}</td>
+                <td>{m.insats} tkr</td>
+                <td>~{m.manad.toLocaleString('sv-SE')} kr</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="loan-note">
+        Verklig ränta kan variera kraftigt (3–8 %) beroende på kreditvärdighet 
+        och säkerhet. Vid lågkonjunktur kan bankerna kräva högre marginal.
       </p>
     </section>
 
@@ -304,12 +362,31 @@ const alternativKopes = [
     color: var(--deep-forest);
   }
 
-  .sensitivity-table .highlight-row {
+  .sensitivity-table .highlight-row,
+  .matrix-table .highlight-row {
     background: var(--accent-light);
   }
 
-  .sensitivity-table .highlight-row td {
+  .sensitivity-table .highlight-row td,
+  .matrix-table .highlight-row td {
     font-weight: 600;
+  }
+
+  .loan-assumptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    padding: var(--space-sm);
+    background: var(--surface-low);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+  }
+
+  .loan-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    font-style: italic;
   }
 
   .scenario-legend {
