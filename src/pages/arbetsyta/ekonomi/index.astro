@@ -16,10 +16,17 @@ const kopfasAntaganden = {
 };
 
 const scenarios = [
-  { namn: 'Off-grid D', insats: '~140', highlight: true },
+  { namn: 'Off-grid D', insats: '~142', highlight: true },
   { namn: 'Sparsamt A', insats: '~318' },
   { namn: 'Bas B', insats: '~618' },
 ];
+
+const scenarioComparison = {
+  d: { va: 62, total: 142 },
+  a: { va: 168, total: 318 },
+  b: { va: 218, total: 618 },
+  c: { va: 293, total: 993 },
+};
 
 const paverkansfaktorer = [
   {
@@ -48,30 +55,47 @@ const intaktsmojligheter = [
 
 const offgridScenario = {
   namn: 'Off-grid / material från marken (D)',
-  beskrivning: 'Timmer och lera från egen mark, arbete via timbank/eget arbete. Endast köpta komponenter räknas.',
+  beskrivning: 'Timmer och lera från egen mark, arbete via timbank/eget arbete. Endast köpta komponenter räknas som kontant.',
   poster: [
     { 
-      namn: 'Torrtoalett + jordhus/gråvatten', 
-      beskrivning: 'Material + enkla komponenter, mestadels DIY',
-      lag: 10, mid: 35, hog: 60 
+      namn: 'Torrtoalett', 
+      beskrivning: 'Komposttoalett, enkelt system',
+      lag: 5, mid: 12, hog: 25 
     },
     { 
-      namn: 'Andel gemensam brunn/pump/ledning', 
-      beskrivning: 'Delad brunn – vatten krävs oavsett off-grid',
-      lag: 8, mid: 20, hog: 35 
+      namn: 'Gråvatten jordhus', 
+      beskrivning: 'BDT-rening via jordhus/växtbädd',
+      lag: 10, mid: 25, hog: 50 
     },
     { 
-      namn: 'Swales & dagvattenhantering', 
-      beskrivning: 'Enkel landskapsformning, DIY-grävning',
-      lag: 2, mid: 8, hog: 15 
+      namn: 'Vattenandel (brunn m.m.)', 
+      beskrivning: 'Andel gemensam brunn, pump, ledning',
+      lag: 10, mid: 20, hog: 40 
     },
     { 
-      namn: 'Köpta byggdelar till stomme/skal', 
-      beskrivning: 'Fönster, fästen, duk, kalk, verktygsslitage – timmer+lera ej inräknat',
-      lag: 30, mid: 80, hog: 150 
+      namn: 'Swales & dagvatten', 
+      beskrivning: 'Landskapsformning för vattenhantering',
+      lag: 2, mid: 5, hog: 15 
+    },
+    { 
+      namn: 'Stomme köpt', 
+      beskrivning: 'Fönster, fästen, duk, kalk etc. (timmer+lera från marken = 0 kr)',
+      lag: 15, mid: 70, hog: 175 
+    },
+    { 
+      namn: 'Verktyg', 
+      beskrivning: 'Slitage, hyra, inköp av specialverktyg',
+      lag: 3, mid: 10, hog: 20 
     },
   ],
-  total: { lag: 50, mid: 140, hog: 260 },
+  total: { lag: 45, mid: 142, hog: 325 },
+  vaOnly: { lag: 27, mid: 62, hog: 130 },
+  arbete: {
+    timmarPerHh: 800,
+    vardeMitt: '120–200 tkr',
+    timpris: '150–250 kr/h',
+    note: 'Styrelsen fastställer schablonsats',
+  },
 };
 
 const koptMaterialScenarios = {
@@ -281,22 +305,50 @@ const timbank = {
       <div class="offgrid-summary">
         <div class="summary-card summary-card--primary">
           <span class="summary-card-label">Off-grid D – kontant per hh</span>
-          <span class="summary-card-value">~140 tkr</span>
-          <span class="summary-card-note">mittscenario VA+minimal skal</span>
+          <span class="summary-card-value">~{offgridScenario.total.mid} tkr</span>
+          <span class="summary-card-note">mittscenario VA+stomme</span>
         </div>
         <div class="summary-card">
           <span class="summary-card-label">Spann</span>
-          <span class="summary-card-value">~50–260 tkr</span>
+          <span class="summary-card-value">~{offgridScenario.total.lag}–{offgridScenario.total.hog} tkr</span>
           <span class="summary-card-note">beroende på ambitionsnivå</span>
         </div>
+        <div class="summary-card">
+          <span class="summary-card-label">Varav VA/vatten</span>
+          <span class="summary-card-value">~{offgridScenario.vaOnly.mid} tkr</span>
+          <span class="summary-card-note">jfr A-scenariot ~{scenarioComparison.a.va} tkr</span>
+        </div>
+      </div>
+
+      <div class="labor-info">
+        <h3>💪 Arbetsinsats via timbank</h3>
+        <p>
+          Tabellen ovan visar endast <strong>kontantutlägg</strong>. Arbete räknas separat via timbanken:
+        </p>
+        <div class="labor-stats">
+          <div class="labor-stat">
+            <span class="labor-stat-value">~{offgridScenario.arbete.timmarPerHh} h/hh</span>
+            <span class="labor-stat-label">Uppskattad arbetsinsats</span>
+          </div>
+          <div class="labor-stat">
+            <span class="labor-stat-value">{offgridScenario.arbete.vardeMitt}</span>
+            <span class="labor-stat-label">Värde @ {offgridScenario.arbete.timpris}</span>
+          </div>
+        </div>
+        <p class="labor-note">
+          <em>Timmer, lera och grävning från egen mark = 0 kr kontant. {offgridScenario.arbete.note}.</em>
+        </p>
       </div>
 
       <aside class="permit-warning">
         <h4>⚠️ Tillståndsrisk – låg kontant ≠ enkla tillstånd</h4>
         <p>
-          Off-grid-lösningar (torrtoalett, gråvatten-jordhus, alternativ VA) kräver ofta dispens från kommunen 
-          och kan stöta på motstånd vid strandskydd eller inom detaljplanerat område. 
-          <strong>Budgetera tid och tålamod</strong> för tillståndsprocess – och ha en plan B för konventionell VA om dispens nekas.
+          <strong>Komposttoalett + gråvatten-jordhus:</strong> medel–hög tillståndsrisk. 
+          <strong>Strandskydd:</strong> hög risk. Kommun kan kräva WC + markbädd eller minireningsverk.
+        </p>
+        <p>
+          <strong>Plan B:</strong> Om tillstånd nekas, räkna med att falla tillbaka på scenario B eller C 
+          (~{scenarioComparison.b.total}–{scenarioComparison.c.total} tkr/hh). Budgetera tid för tillståndsprocess.
         </p>
       </aside>
     </section>
@@ -478,29 +530,48 @@ const timbank = {
       </div>
 
       <div class="scenario-summary">
-        <h4>Totalkostnad VA+bygg per hushåll – jämförelse</h4>
-        <div class="scenario-compare">
-          <div class="scenario-box scenario-box--offgrid">
-            <span class="scenario-label">Off-grid D</span>
-            <span class="scenario-value">~{offgridScenario.total.mid} tkr</span>
-            <span class="scenario-note">material från platsen + timbank</span>
-          </div>
-          <div class="scenario-box">
-            <span class="scenario-label">Sparsamt A</span>
-            <span class="scenario-value">~{koptMaterialScenarios.medGemensamNod.sparsamt.kostnad} tkr</span>
-            <span class="scenario-note">köpt kretslopp + nod</span>
-          </div>
-          <div class="scenario-box">
-            <span class="scenario-label">Bas B</span>
-            <span class="scenario-value">~{koptMaterialScenarios.medGemensamNod.bas.kostnad} tkr</span>
-            <span class="scenario-note">köpt markbädd + nod</span>
-          </div>
-          <div class="scenario-box scenario-box--high">
-            <span class="scenario-label">Övre C</span>
-            <span class="scenario-value">~{koptMaterialScenarios.medGemensamNod.hog.kostnad} tkr</span>
-            <span class="scenario-note">köpt MRV+P (sjönära)</span>
-          </div>
+        <h4>Jämförelse mittscenario per hushåll</h4>
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th scope="col">Scenario</th>
+                <th scope="col">VA/vatten</th>
+                <th scope="col">VA+stomme</th>
+                <th scope="col">Kommentar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight-row">
+                <td><strong>D Off-grid</strong></td>
+                <td>~{scenarioComparison.d.va} tkr</td>
+                <td><strong>~{scenarioComparison.d.total} tkr</strong></td>
+                <td>Huvudspår – material från platsen</td>
+              </tr>
+              <tr>
+                <td>A Sparsamt</td>
+                <td>~{scenarioComparison.a.va} tkr</td>
+                <td>~{scenarioComparison.a.total} tkr</td>
+                <td>Köpt kretslopp + nod</td>
+              </tr>
+              <tr>
+                <td>B Bas</td>
+                <td>~{scenarioComparison.b.va} tkr</td>
+                <td>~{scenarioComparison.b.total} tkr</td>
+                <td>Köpt markbädd + nod (plan B)</td>
+              </tr>
+              <tr>
+                <td>C Övre</td>
+                <td>~{scenarioComparison.c.va} tkr</td>
+                <td>~{scenarioComparison.c.total} tkr</td>
+                <td>Köpt MRV+P (sjönära/strandskydd)</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        <p class="comparison-note">
+          D ger ca <strong>−55 %</strong> kontantbehov jämfört med A. Skillnaden = material från platsen + arbete via timbank.
+        </p>
       </div>
 
       <aside class="regen-info">
@@ -1196,8 +1267,113 @@ const timbank = {
   .permit-warning p {
     font-size: var(--text-sm);
     color: var(--accent-mid);
-    margin: 0;
+    margin: 0 0 var(--space-xs);
     line-height: 1.6;
+  }
+
+  .permit-warning p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Labor Info */
+  .labor-info {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .labor-info h3 {
+    color: var(--text-on-dark);
+    font-size: var(--text-lg);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .labor-info > p {
+    color: var(--accent-mid);
+    font-size: var(--text-sm);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .labor-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .labor-stat {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+    text-align: center;
+  }
+
+  .labor-stat-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--text-on-dark);
+  }
+
+  .labor-stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--accent-mid);
+    margin-top: var(--space-xs);
+  }
+
+  .labor-note {
+    font-size: var(--text-sm);
+    color: var(--accent-mid);
+    margin: 0;
+  }
+
+  /* Comparison Table */
+  .comparison-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: var(--space-sm);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    background: var(--bg-white);
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: var(--space-sm);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .comparison-table thead th {
+    background: var(--bg-secondary);
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .comparison-table .highlight-row {
+    background: linear-gradient(135deg, var(--accent-light) 0%, var(--linen-cream) 100%);
+  }
+
+  .comparison-table .highlight-row td {
+    color: var(--deep-forest);
+  }
+
+  .comparison-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: var(--space-sm) 0 0;
   }
 
   /* Comparison Section */
