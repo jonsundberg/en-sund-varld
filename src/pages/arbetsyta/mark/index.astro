@@ -42,19 +42,15 @@ const sekundära = getSecondaryProspects();
 
     <!-- Off-market link card -->
     <section class="offmarket-card" aria-labelledby="offmarket-heading">
-      <div class="offmarket-badge">Ny</div>
-      <h2 id="offmarket-heading">Off-market – Gods & stiftelser</h2>
+      <div class="offmarket-badge offmarket-badge--internal">Internt</div>
+      <h2 id="offmarket-heading">Off-market markkontakt</h2>
       <p>
-        Strategi för att nå markägare som inte annonserar på öppna marknaden – 
-        gods, kyrkan, stiftelser och andra långsiktiga förvaltare. Pitchutkast 
-        och kontaktlista för 18 potentiella markägare.
+        Pågående dialog med långsiktiga markägare — gods, stiftelser och kyrkan. 
+        Detaljerat material hålls internt för styrelsen.
       </p>
       <div class="offmarket-links">
-        <a href="/arbetsyta/mark/offmarket/" class="btn btn-primary btn-sm">
-          Se pitch och kontaktlista →
-        </a>
-        <a href="/arbetsyta/mark/offmarket/utskick/" class="btn btn-outline btn-sm">
-          Förberedda utskick
+        <a href="/arbetsyta/mark/offmarket/" class="btn btn-outline btn-sm">
+          Se status →
         </a>
       </div>
     </section>
@@ -309,9 +305,9 @@ const sekundära = getSecondaryProspects();
 
   /* Off-market card */
   .offmarket-card {
-    background: linear-gradient(135deg, var(--linen-cream) 0%, var(--surface-low) 100%);
-    border: 2px solid var(--coral);
-    border-radius: var(--radius-xl);
+    background: var(--linen-cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
     padding: var(--space-lg);
     margin-bottom: var(--space-xl);
     position: relative;
@@ -328,6 +324,12 @@ const sekundära = getSecondaryProspects();
     padding: 0.3rem 0.8rem;
     border-radius: 999px;
     margin-bottom: var(--space-sm);
+  }
+
+  .offmarket-badge--internal {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
   }
 
   .offmarket-card h2 {

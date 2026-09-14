@@ -2,221 +2,15 @@
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 
 const metadata = {
-  titel: 'Off-market – Gods & stiftelser',
+  titel: 'Off-market markkontakt',
   datum: '2026-09-14',
-  status: 'utkast',
+  status: 'pågår',
 };
-
-interface Kontakt {
-  namn: string;
-  typ: string;
-  geografi: string;
-  varfor: string;
-  kontakt: string;
-  url?: string;
-  prio: 1 | 2 | 3;
-  notering: string;
-}
-
-const kontakter: Kontakt[] = [
-  {
-    namn: 'Ericsbergs Gods',
-    typ: 'Gods',
-    geografi: 'Södermanland',
-    varfor: 'Traditionellt jordbruk, stort skogsinnehav, tidigare arrenden',
-    kontakt: 'Via webbplats',
-    url: 'https://ericsberg.se',
-    prio: 1,
-    notering: 'Aktiv förvaltning, historiskt intresse för långsiktig markbruk',
-  },
-  {
-    namn: 'Fullerö Säteri',
-    typ: 'Gods',
-    geografi: 'Uppsala',
-    varfor: 'Hållbarhetsfokus, ekologisk drift, öppet för samarbeten',
-    kontakt: 'info@fullerosateri.se',
-    url: 'https://fullerosateri.se',
-    prio: 1,
-    notering: 'Redan ekologisk profil, nära Uppsala',
-  },
-  {
-    namn: 'Hargs Bruk',
-    typ: 'Gods',
-    geografi: 'Uppsala/Östhammar',
-    varfor: 'Stort markinnehav, historiska arrenden, skogs- och jordbruk',
-    kontakt: 'info@hargsbruk.se',
-    url: 'https://hargsbruk.se',
-    prio: 1,
-    notering: 'Etablerat bruk med tradition av markupplåtelse',
-  },
-  {
-    namn: 'Uppsala stift',
-    typ: 'Stift',
-    geografi: 'Uppsala/Uppland',
-    varfor: 'Stor markägare, generationstänk, etisk förvaltning',
-    kontakt: 'uppsalastift.egendom@svenskakyrkan.se',
-    url: 'https://svenskakyrkan.se/uppsalastift',
-    prio: 1,
-    notering: 'Aktiv egendomsförvaltning, öppen för dialog',
-  },
-  {
-    namn: 'Strängnäs stift',
-    typ: 'Stift',
-    geografi: 'Södermanland/Mälardalen',
-    varfor: 'Betydande markägare, nära Stockholm, hållbarhetsmål',
-    kontakt: 'strangnas.ekonomiplt@svenskakyrkan.se',
-    url: 'https://svenskakyrkan.se/strangnasstift',
-    prio: 1,
-    notering: 'Aktivt söker hållbar markanvändning',
-  },
-  {
-    namn: 'Västerås stift',
-    typ: 'Stift',
-    geografi: 'Västmanland/Dalarna',
-    varfor: 'Stor markägare, etablerad arrendeverksamhet',
-    kontakt: 'Via stiftets webbplats',
-    url: 'https://svenskakyrkan.se/vasterasstift',
-    prio: 1,
-    notering: 'Generationsperspektiv på markförvaltning',
-  },
-  {
-    namn: 'Skogssällskapet',
-    typ: 'Stiftelse',
-    geografi: 'Hela Sverige',
-    varfor: 'Hållbart skogsbruk, öppen för innovativa upplåtelser',
-    kontakt: '0771-22 00 44',
-    url: 'https://skogssallskapet.se',
-    prio: 1,
-    notering: 'Nationell aktör, professionell kontakt',
-  },
-  {
-    namn: 'Sveaskog',
-    typ: 'Statligt',
-    geografi: 'Hela Sverige',
-    varfor: 'Sveriges största markägare, arrendeverksamhet',
-    kontakt: 'arrende@sveaskog.se',
-    url: 'https://sveaskog.se',
-    prio: 1,
-    notering: 'Stor organisation, formell process för arrenden',
-  },
-  {
-    namn: 'Boo Gods',
-    typ: 'Gods',
-    geografi: 'Uppland',
-    varfor: 'Familjeägt, jordbruk och skog, historiskt arrende',
-    kontakt: 'Via webbplats',
-    url: 'https://boogods.se',
-    prio: 2,
-    notering: 'Sekundärt – kräver rätt timing',
-  },
-  {
-    namn: 'Nynäs Gods',
-    typ: 'Gods',
-    geografi: 'Södermanland',
-    varfor: 'Stort gods, variation i markslag',
-    kontakt: 'Via webbplats',
-    url: 'https://nynasgods.se',
-    prio: 2,
-    notering: 'Kräver introduktion via nätverk',
-  },
-  {
-    namn: 'Tidö Gods',
-    typ: 'Gods',
-    geografi: 'Västmanland',
-    varfor: 'Historiskt gods, aktivt jordbruk',
-    kontakt: 'Via webbplats',
-    url: 'https://tidoslott.se',
-    prio: 2,
-    notering: 'Fokus på besöksnäring, sekundärt för arrende',
-  },
-  {
-    namn: 'Linköpings stift',
-    typ: 'Stift',
-    geografi: 'Östergötland',
-    varfor: 'Stor markägare, möjligt vid geografisk expansion',
-    kontakt: 'Via stiftets webbplats',
-    url: 'https://svenskakyrkan.se/linkopingsstift',
-    prio: 2,
-    notering: 'Längre från Stockholmsregionen',
-  },
-  {
-    namn: 'Karlstads stift',
-    typ: 'Stift',
-    geografi: 'Värmland',
-    varfor: 'Intressant vid Värmlandsfokus',
-    kontakt: 'Via stiftets webbplats',
-    url: 'https://svenskakyrkan.se/karlstadsstift',
-    prio: 2,
-    notering: 'Relevant om Värmland prioriteras',
-  },
-  {
-    namn: 'Naturskyddsföreningen',
-    typ: 'Ideell',
-    geografi: 'Hela Sverige',
-    varfor: 'Äger naturreservat, kan ha lämplig mark',
-    kontakt: 'Via lokala kretsar',
-    url: 'https://naturskyddsforeningen.se',
-    prio: 2,
-    notering: 'Fokus på naturvård, ej primärt bostäder',
-  },
-  {
-    namn: 'Länsstyrelsen Uppsala',
-    typ: 'Myndighet',
-    geografi: 'Uppsala län',
-    varfor: 'Förvaltar statlig mark, kan känna till möjligheter',
-    kontakt: 'Via registraturen',
-    url: 'https://lansstyrelsen.se/uppsala',
-    prio: 3,
-    notering: 'Informationskälla snarare än direkt markägare',
-  },
-  {
-    namn: 'Länsstyrelsen Sörmland',
-    typ: 'Myndighet',
-    geografi: 'Södermanlands län',
-    varfor: 'Lokalkännedom, kan peka på möjligheter',
-    kontakt: 'Via registraturen',
-    url: 'https://lansstyrelsen.se/sodermanland',
-    prio: 3,
-    notering: 'Informationskälla, ej direktägare',
-  },
-  {
-    namn: 'Wanås Gods',
-    typ: 'Gods',
-    geografi: 'Skåne',
-    varfor: 'Konst och hållbarhet, innovativ förvaltning',
-    kontakt: 'Via webbplats',
-    url: 'https://wanas.se',
-    prio: 3,
-    notering: 'Referens endast – Skåne ligger utanför fokusområde',
-  },
-  {
-    namn: 'Huseby Bruk',
-    typ: 'Gods',
-    geografi: 'Småland',
-    varfor: 'Historiskt bruk, hållbarhetsinriktning',
-    kontakt: 'Via webbplats',
-    url: 'https://husebybruk.se',
-    prio: 3,
-    notering: 'Referens – vid eventuell Smålandsexpansion',
-  },
-];
-
-const prioEtt = kontakter.filter((k) => k.prio === 1);
-const prioTva = kontakter.filter((k) => k.prio === 2);
-const prioTre = kontakter.filter((k) => k.prio === 3);
-
-const nastaSteg = [
-  'Granskning av pitch – styrelsen läser igenom och ger synpunkter',
-  'Prioritera mottagare – bekräfta första vågens lista (prio 1)',
-  'Personalisera utskick – anpassa pitch för varje mottagartyp (gods/stift/stiftelse)',
-  'Skicka första vågen – efter styrelsens godkännande',
-  'Uppföljning – boka in uppföljningssamtal 2 veckor efter utskick',
-];
 ---
 
 <BaseLayout
-  title="Off-market outreach – Styrelsens arbetsyta"
-  description="Pitchutkast och kontaktlista för off-market markägarkontakt – gods, stift och stiftelser."
+  title="Off-market markkontakt – Styrelsens arbetsyta"
+  description="Internt spår för dialog med långsiktiga markägare – status och nästa steg."
 >
   <article class="arbetsyta-doc container">
     <header class="doc-header">
@@ -224,348 +18,33 @@ const nastaSteg = [
         <a href="/arbetsyta/">Arbetsyta</a> / <a href="/arbetsyta/mark/">Markspaning</a> / Off-market
       </p>
       <div class="doc-meta">
-        <span class="doc-status doc-status--utkast">Utkast</span>
+        <span class="doc-status doc-status--pagaende">Pågår</span>
         <span class="doc-date">Uppdaterad {metadata.datum}</span>
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
-        Strategi för att nå markägare som inte annonserar på öppna marknaden – 
-        gods, kyrkan, stiftelser och andra långsiktiga förvaltare.
+        Internt arbetsspår för dialog med långsiktiga markägare.
       </p>
     </header>
 
-    <!-- Status banner -->
-    <aside class="status-banner" aria-label="Status">
-      <div class="status-icon" aria-hidden="true">⏸️</div>
-      <div class="status-content">
-        <strong>Status: Utkast – utskick väntar styrelsens OK</strong>
-        <p>
-          Pitchen och kontaktlistan är förberedda men inga utskick har gjorts. 
-          Styrelsen behöver granska och godkänna innan första kontakten tas.
-        </p>
-      </div>
-    </aside>
-
-    <!-- Intro section -->
-    <section class="doc-section" aria-labelledby="intro">
-      <h2 id="intro">Vår approach</h2>
+    <!-- Status notice -->
+    <section class="notice-card" aria-labelledby="status-heading">
+      <h2 id="status-heading">Status: Utkast — utskick väntar styrelsens OK</h2>
       <p>
-        Vi söker <strong>dialog med markägare som redan tänker i generationer</strong> – 
-        gods, kyrkan, stiftelser och andra som förvaltar mark med långsiktigt perspektiv.
+        Föreningen utforskar dialog med markägare som förvaltar mark med 
+        generationsperspektiv — gods, stiftelser och kyrkan. Fokus ligger på 
+        <strong>vård, arrende och nyttjanderätt</strong>, inte spekulation 
+        eller snabba köp.
       </p>
-      <ul class="approach-list">
-        <li>
-          <strong>Vård och arrende först</strong> – vi är intresserade av nyttjanderätt 
-          och arrende, inte snabba köp eller bulvanlösningar
-        </li>
-        <li>
-          <strong>Ingen spekulation</strong> – föreningen är en ekonomisk förening 
-          med syfte att vårda mark, inte sälja vidare
-        </li>
-        <li>
-          <strong>Human-in-the-loop</strong> – vi vill lära känna markägaren och 
-          förstå platsens historia innan vi pratar avtal
-        </li>
-        <li>
-          <strong>10+ hushåll</strong> – vi söker mark för en gemensam ekoby med 
-          utrymme för odling, djurhållning och gemenskap
-        </li>
-      </ul>
+      <p>
+        Detaljerad pitch och kontaktlista hålls internt för styrelsen och 
+        delas inte publikt. Inga utskick görs förrän styrelsen har granskat 
+        och godkänt materialet.
+      </p>
+      <p>
+        Vid frågor, kontakta styrelsen direkt.
+      </p>
     </section>
-
-    <!-- Pitch section -->
-    <section class="doc-section pitch-section" aria-labelledby="pitch">
-      <h2 id="pitch">Pitchutkast – redo att kopiera</h2>
-      <p>
-        Nedan finns det fullständiga pitchutkastet. Kopiera och anpassa efter 
-        mottagartyp – se anpassningsfraser längre ned.
-      </p>
-      
-      <div class="pitch-card">
-        <div class="pitch-header">
-          <span class="pitch-label">Huvudpitch</span>
-          <button type="button" class="copy-btn" id="copy-pitch" aria-label="Kopiera pitch till urklipp">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-            </svg>
-            Kopiera
-          </button>
-        </div>
-        <div class="pitch-content" id="pitch-text">
-          <p><strong>Ämne:</strong> Förfrågan om mark för gemensam ekoby – arrende/nyttjanderätt</p>
-          <hr />
-          <p>Hej,</p>
-          <p>
-            Vi skriver från <strong>En sund värld Ekonomisk Förening</strong>, en 
-            paraplyorganisation för människor som vill bo och bruka mark tillsammans 
-            med långsiktig vård i fokus — permakultur, ekoby-tänk och gemensam 
-            förvaltning, utan spekulation.
-          </p>
-          <p>
-            Vi söker dialog med markägare som redan tänker i generationer. Vår 
-            ambition är att hitta en plats där 10+ hushåll kan etablera sig, odla, 
-            hålla djur och bygga ett resilient samhälle i miniatyr.
-          </p>
-          <p>
-            Vi är primärt intresserade av <strong>nyttjanderätt eller arrende</strong> – 
-            inte bulvanlösningar eller snabba köp. Vi vill lära känna platsen och 
-            markägaren innan vi pratar avtal.
-          </p>
-          <p>
-            Finns det intresse av ett inledande samtal? Vi berättar gärna mer om 
-            föreningen, våra värderingar och vad vi söker i en plats.
-          </p>
-          <p>
-            Med vänliga hälsningar,<br />
-            [Namn]<br />
-            En sund värld Ekonomisk Förening<br />
-            [telefon]<br />
-            [e-post]
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Adaptation phrases -->
-    <section class="doc-section" aria-labelledby="anpassning">
-      <h2 id="anpassning">Anpassningsfraser per mottagartyp</h2>
-      <p>
-        Lägg till eller ersätt stycken i huvudpitchen beroende på vem du skriver till.
-      </p>
-
-      <div class="adaptation-cards">
-        <article class="adaptation-card">
-          <h3>🏰 Gods</h3>
-          <p class="adaptation-context">För privata gods med jordbrukstradition</p>
-          <blockquote>
-            Vi har noterat ert gods långa historia av markförvaltning och 
-            jordbruk. Vi söker samarbete med markägare som delar vårt 
-            generationsperspektiv – att vårda marken snarare än att exploatera den.
-          </blockquote>
-        </article>
-
-        <article class="adaptation-card">
-          <h3>⛪ Stift / Kyrkan</h3>
-          <p class="adaptation-context">För Svenska kyrkans stift och pastorat</p>
-          <blockquote>
-            Vi uppskattar kyrkans tradition av långsiktig markförvaltning och 
-            etisk grund. Vår förening delar värderingarna om vård av skapelsen 
-            och gemenskapsbyggande – vi tror att det finns en naturlig 
-            värdegemenskap i hur vi ser på mark och ansvar.
-          </blockquote>
-        </article>
-
-        <article class="adaptation-card">
-          <h3>🌲 Stiftelse / Organisation</h3>
-          <p class="adaptation-context">För Skogssällskapet, naturvårdsorganisationer m.fl.</p>
-          <blockquote>
-            Vi ser er som en organisation med liknande värderingar kring 
-            hållbar mark- och skogsförvaltning. Vår förening fokuserar på 
-            permakultur och regenerativt jordbruk – vi tror att ett samarbete 
-            kan bidra till era mål om biologisk mångfald och levande landsbygd.
-          </blockquote>
-        </article>
-      </div>
-    </section>
-
-    <!-- Contact table -->
-    <section class="doc-section" aria-labelledby="kontakter">
-      <h2 id="kontakter">Kontaktlista</h2>
-      <p>
-        Nedan finns en komplett lista över potentiella markägare att kontakta. 
-        Prioritet 1 utgör första vågen – de vi kontaktar först.
-      </p>
-
-      <h3 class="prio-heading prio-heading--1">
-        <span class="prio-badge prio-badge--1">Prio 1</span>
-        Första vågen – {prioEtt.length} kontakter
-      </h3>
-      <div class="table-wrapper">
-        <table class="contact-table">
-          <thead>
-            <tr>
-              <th scope="col">Namn</th>
-              <th scope="col">Typ</th>
-              <th scope="col">Geografi</th>
-              <th scope="col">Varför</th>
-              <th scope="col">Kontakt</th>
-              <th scope="col">Notering</th>
-            </tr>
-          </thead>
-          <tbody>
-            {prioEtt.map((k) => (
-              <tr>
-                <td>
-                  {k.url ? (
-                    <a href={k.url} target="_blank" rel="noopener noreferrer">
-                      {k.namn}
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon" aria-hidden="true">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                        <polyline points="15 3 21 3 21 9"/>
-                        <line x1="10" y1="14" x2="21" y2="3"/>
-                      </svg>
-                    </a>
-                  ) : (
-                    k.namn
-                  )}
-                </td>
-                <td><span class={`typ-badge typ-badge--${k.typ.toLowerCase()}`}>{k.typ}</span></td>
-                <td>{k.geografi}</td>
-                <td>{k.varfor}</td>
-                <td class="kontakt-cell">{k.kontakt}</td>
-                <td class="notering-cell">{k.notering}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <h3 class="prio-heading prio-heading--2">
-        <span class="prio-badge prio-badge--2">Prio 2</span>
-        Andra vågen – {prioTva.length} kontakter
-      </h3>
-      <div class="table-wrapper">
-        <table class="contact-table contact-table--secondary">
-          <thead>
-            <tr>
-              <th scope="col">Namn</th>
-              <th scope="col">Typ</th>
-              <th scope="col">Geografi</th>
-              <th scope="col">Varför</th>
-              <th scope="col">Kontakt</th>
-              <th scope="col">Notering</th>
-            </tr>
-          </thead>
-          <tbody>
-            {prioTva.map((k) => (
-              <tr>
-                <td>
-                  {k.url ? (
-                    <a href={k.url} target="_blank" rel="noopener noreferrer">
-                      {k.namn}
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon" aria-hidden="true">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                        <polyline points="15 3 21 3 21 9"/>
-                        <line x1="10" y1="14" x2="21" y2="3"/>
-                      </svg>
-                    </a>
-                  ) : (
-                    k.namn
-                  )}
-                </td>
-                <td><span class={`typ-badge typ-badge--${k.typ.toLowerCase()}`}>{k.typ}</span></td>
-                <td>{k.geografi}</td>
-                <td>{k.varfor}</td>
-                <td class="kontakt-cell">{k.kontakt}</td>
-                <td class="notering-cell">{k.notering}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <h3 class="prio-heading prio-heading--3">
-        <span class="prio-badge prio-badge--3">Prio 3</span>
-        Referens / framtid – {prioTre.length} kontakter
-      </h3>
-      <div class="table-wrapper">
-        <table class="contact-table contact-table--tertiary">
-          <thead>
-            <tr>
-              <th scope="col">Namn</th>
-              <th scope="col">Typ</th>
-              <th scope="col">Geografi</th>
-              <th scope="col">Varför</th>
-              <th scope="col">Kontakt</th>
-              <th scope="col">Notering</th>
-            </tr>
-          </thead>
-          <tbody>
-            {prioTre.map((k) => (
-              <tr>
-                <td>
-                  {k.url ? (
-                    <a href={k.url} target="_blank" rel="noopener noreferrer">
-                      {k.namn}
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon" aria-hidden="true">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                        <polyline points="15 3 21 3 21 9"/>
-                        <line x1="10" y1="14" x2="21" y2="3"/>
-                      </svg>
-                    </a>
-                  ) : (
-                    k.namn
-                  )}
-                </td>
-                <td><span class={`typ-badge typ-badge--${k.typ.toLowerCase()}`}>{k.typ}</span></td>
-                <td>{k.geografi}</td>
-                <td>{k.varfor}</td>
-                <td class="kontakt-cell">{k.kontakt}</td>
-                <td class="notering-cell">{k.notering}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- First wave summary -->
-    <section class="doc-section" aria-labelledby="forsta-vagen">
-      <h2 id="forsta-vagen">Första vågens mottagare</h2>
-      <p>
-        Dessa {prioEtt.length} kontakter kontaktas först. Listan är baserad på 
-        geografisk relevans (Mälardalen/Stockholmsregionen) och sannolikhet för 
-        positiv respons.
-      </p>
-      <ul class="first-wave-list">
-        {prioEtt.map((k) => (
-          <li>
-            <strong>{k.namn}</strong> ({k.typ}) – {k.geografi}
-            {k.url && (
-              <a href={k.url} target="_blank" rel="noopener noreferrer" class="first-wave-link">
-                Webbplats
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-              </a>
-            )}
-          </li>
-        ))}
-      </ul>
-      <a href="/arbetsyta/mark/offmarket/utskick/" class="btn btn-outline btn-sm">
-        Se förberedda utskick →
-      </a>
-    </section>
-
-    <!-- Next steps -->
-    <section class="doc-section" aria-labelledby="nasta-steg">
-      <h2 id="nasta-steg">Nästa steg för styrelsen</h2>
-      <ol class="next-steps-list">
-        {nastaSteg.map((steg, i) => (
-          <li>
-            <span class="step-number">{i + 1}</span>
-            <span class="step-text">{steg}</span>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <!-- Disclaimer -->
-    <aside class="disclaimer" aria-labelledby="disclaimer-heading">
-      <h2 id="disclaimer-heading">Obs – intern planering</h2>
-      <p>
-        Detta är internt planeringsmaterial för styrelsens arbete med 
-        off-market markspaning. Kontaktlistan och pitchen är arbetsutkast 
-        och ska granskas innan något utskick görs.
-      </p>
-      <p>
-        <strong>Inga utskick har gjorts.</strong> Allt material är förberett 
-        men väntar på styrelsens godkännande.
-      </p>
-    </aside>
 
     <nav class="doc-nav" aria-label="Navigering arbetsyta">
       <a href="/arbetsyta/mark/" class="btn btn-outline">
@@ -574,44 +53,17 @@ const nastaSteg = [
         </svg>
         Tillbaka till markspaning
       </a>
+      <a href="/arbetsyta/" class="btn btn-outline">
+        Arbetsyta
+      </a>
     </nav>
   </article>
-
-  <script>
-    const copyBtn = document.getElementById('copy-pitch');
-    const pitchText = document.getElementById('pitch-text');
-
-    copyBtn?.addEventListener('click', async () => {
-      if (!pitchText) return;
-      
-      const text = pitchText.innerText;
-      
-      try {
-        await navigator.clipboard.writeText(text);
-        const originalHTML = copyBtn.innerHTML;
-        copyBtn.innerHTML = `
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          Kopierad!
-        `;
-        copyBtn.classList.add('copy-btn--success');
-        
-        setTimeout(() => {
-          copyBtn.innerHTML = originalHTML;
-          copyBtn.classList.remove('copy-btn--success');
-        }, 2000);
-      } catch (err) {
-        console.error('Failed to copy:', err);
-      }
-    });
-  </script>
 </BaseLayout>
 
 <style>
   .arbetsyta-doc {
     padding-block: var(--space-xl) var(--space-2xl);
-    max-width: 900px;
+    max-width: var(--max-width-prose);
   }
 
   .doc-header {
@@ -647,10 +99,10 @@ const nastaSteg = [
     text-transform: uppercase;
   }
 
-  .doc-status--utkast {
-    background: var(--coral-light);
-    color: #7a3d20;
-    border: 1px solid var(--coral);
+  .doc-status--pagaende {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
   }
 
   .doc-date {
@@ -669,417 +121,35 @@ const nastaSteg = [
     line-height: 1.6;
   }
 
-  /* Status banner */
-  .status-banner {
-    display: flex;
-    gap: var(--space-md);
-    align-items: flex-start;
-    background: var(--coral-light);
-    border: 2px solid var(--coral);
+  /* Notice card */
+  .notice-card {
+    background: var(--linen-cream);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: var(--space-md);
+    padding: var(--space-lg);
     margin-bottom: var(--space-xl);
   }
 
-  .status-icon {
-    font-size: var(--text-2xl);
-    flex-shrink: 0;
+  .notice-card h2 {
+    font-size: var(--text-xl);
+    color: var(--deep-forest);
+    margin-bottom: var(--space-md);
   }
 
-  .status-content strong {
-    display: block;
-    color: #7a3d20;
-    margin-bottom: var(--space-xs);
-  }
-
-  .status-content p {
-    margin: 0;
-    font-size: var(--text-sm);
-    color: #7a3d20;
-  }
-
-  /* Approach list */
-  .approach-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .approach-list li {
-    position: relative;
-    padding-left: var(--space-lg);
+  .notice-card p {
+    color: var(--text);
     margin-bottom: var(--space-sm);
-  }
-
-  .approach-list li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--coral);
-    font-weight: 700;
-  }
-
-  /* Pitch section */
-  .pitch-section {
-    background: var(--linen-cream);
-    border-radius: var(--radius-xl);
-    padding: var(--space-lg);
-  }
-
-  .pitch-card {
-    background: var(--bg-white);
-    border: 2px solid var(--accent-mid);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-  }
-
-  .pitch-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-sm) var(--space-md);
-    background: var(--surface-low);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .pitch-label {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--deep-forest);
-  }
-
-  .copy-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.4rem 0.8rem;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--deep-forest);
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: background var(--transition), border-color var(--transition);
-  }
-
-  .copy-btn:hover {
-    background: var(--accent-light);
-    border-color: var(--accent-mid);
-  }
-
-  .copy-btn--success {
-    background: var(--accent-light);
-    border-color: var(--accent-mid);
-    color: var(--deep-forest);
-  }
-
-  .pitch-content {
-    padding: var(--space-md);
-    font-size: var(--text-sm);
     line-height: 1.7;
   }
 
-  .pitch-content p {
-    margin-bottom: var(--space-sm);
-  }
-
-  .pitch-content p:last-child {
+  .notice-card p:last-child {
     margin-bottom: 0;
-  }
-
-  .pitch-content hr {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: var(--space-md) 0;
-  }
-
-  /* Adaptation cards */
-  .adaptation-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-md);
-    margin-top: var(--space-md);
-  }
-
-  .adaptation-card {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-  }
-
-  .adaptation-card h3 {
-    font-size: var(--text-lg);
-    margin: 0 0 var(--space-xs);
-    color: var(--deep-forest);
-  }
-
-  .adaptation-context {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin-bottom: var(--space-sm);
-  }
-
-  .adaptation-card blockquote {
-    margin: 0;
-    padding: var(--space-sm);
-    background: var(--surface-low);
-    border-left: 3px solid var(--coral);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-sm);
-    font-style: italic;
-    color: var(--text);
-  }
-
-  /* Contact table */
-  .prio-heading {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    font-size: var(--text-xl);
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-sm);
-  }
-
-  .prio-badge {
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    padding: 0.25rem 0.6rem;
-    border-radius: 999px;
-    text-transform: uppercase;
-  }
-
-  .prio-badge--1 {
-    background: var(--coral);
-    color: #fff;
-  }
-
-  .prio-badge--2 {
-    background: var(--accent-mid);
-    color: var(--deep-forest);
-  }
-
-  .prio-badge--3 {
-    background: var(--bg-secondary);
-    color: var(--text-muted);
-  }
-
-  .table-wrapper {
-    overflow-x: auto;
-    margin-bottom: var(--space-lg);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-  }
-
-  .contact-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-    min-width: 700px;
-  }
-
-  .contact-table th,
-  .contact-table td {
-    padding: var(--space-sm);
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-
-  .contact-table thead th {
-    background: var(--bg-secondary);
-    font-weight: 600;
-    color: var(--text-muted);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-  }
-
-  .contact-table tbody tr:hover {
-    background: var(--surface-low);
-  }
-
-  .contact-table a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-weight: 600;
-  }
-
-  .external-icon {
-    flex-shrink: 0;
-    opacity: 0.6;
-  }
-
-  .typ-badge {
-    display: inline-block;
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    padding: 0.15rem 0.5rem;
-    border-radius: 999px;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .typ-badge--gods {
-    background: #e8dcc8;
-    color: #5a4a3a;
-  }
-
-  .typ-badge--stift {
-    background: #d4e4f7;
-    color: #2a4a6a;
-  }
-
-  .typ-badge--stiftelse {
-    background: var(--accent-light);
-    color: var(--deep-forest);
-  }
-
-  .typ-badge--statligt {
-    background: #f0e6f6;
-    color: #5a3a6a;
-  }
-
-  .typ-badge--ideell {
-    background: #e6f4ea;
-    color: #2a5a3a;
-  }
-
-  .typ-badge--myndighet {
-    background: var(--bg-secondary);
-    color: var(--text-muted);
-  }
-
-  .kontakt-cell {
-    font-family: monospace;
-    font-size: 0.8rem;
-    word-break: break-all;
-  }
-
-  .notering-cell {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    font-style: italic;
-  }
-
-  .contact-table--secondary {
-    opacity: 0.9;
-  }
-
-  .contact-table--tertiary {
-    opacity: 0.8;
-  }
-
-  /* First wave list */
-  .first-wave-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-md);
-  }
-
-  .first-wave-list li {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
-    padding: var(--space-sm);
-    background: var(--surface-low);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--space-xs);
-  }
-
-  .first-wave-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: var(--text-sm);
-    margin-left: auto;
-  }
-
-  /* Next steps */
-  .next-steps-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    counter-reset: step;
-  }
-
-  .next-steps-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-md);
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--space-sm);
-  }
-
-  .step-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    background: var(--coral);
-    color: #fff;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .step-text {
-    padding-top: 0.2rem;
-  }
-
-  /* Disclaimer */
-  .disclaimer {
-    background: var(--bg-secondary);
-    border-left: 4px solid var(--coral);
-    border-radius: var(--radius-md);
-    padding: var(--space-md);
-    margin-bottom: var(--space-xl);
-  }
-
-  .disclaimer h2 {
-    font-size: var(--text-lg);
-    color: var(--coral);
-    margin-bottom: var(--space-xs);
-  }
-
-  .disclaimer p {
-    margin: 0 0 var(--space-sm);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-  }
-
-  .disclaimer p:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Sections */
-  .doc-section {
-    margin-bottom: var(--space-xl);
-  }
-
-  .doc-section h2 {
-    font-size: var(--text-2xl);
-    color: var(--accent);
-    margin-bottom: var(--space-sm);
-  }
-
-  .doc-section p {
-    color: var(--text);
-    margin-bottom: var(--space-sm);
   }
 
   .doc-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
     margin-top: var(--space-xl);
     padding-top: var(--space-lg);
     border-top: 1px solid var(--border);
@@ -1091,31 +161,9 @@ const nastaSteg = [
     gap: 0.5rem;
   }
 
-  .btn-sm {
-    padding: 0.6rem 1.2rem;
-    font-size: var(--text-sm);
-  }
-
   @media (max-width: 600px) {
     h1 {
       font-size: var(--text-3xl);
-    }
-
-    .status-banner {
-      flex-direction: column;
-    }
-
-    .adaptation-cards {
-      grid-template-columns: 1fr;
-    }
-
-    .first-wave-list li {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .first-wave-link {
-      margin-left: 0;
     }
   }
 </style>
