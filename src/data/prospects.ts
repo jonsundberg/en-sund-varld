@@ -172,10 +172,11 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '2,995 Mkr',
     prisNum: 2995000,
     byggnader: 'Bostadshus + gäststuga',
-    status: 'ny',
+    status: 'parkerad',
     kategori: 'primär',
     url: 'https://www.fastighetsbyran.com/sv/sverige/till-salu/uppsala-lan/tierps-kommun/objekt/?objektID=3074230',
     flaggor: [
+      { text: 'Borttagen från marknaden / troligen såld (sep 2026)', typ: 'varning' },
       { text: 'Befintligt bostadshus', typ: 'positiv' },
       { text: 'Gäststuga', typ: 'positiv' },
       { text: 'Mindre areal än önskat', typ: 'info' },
@@ -510,11 +511,15 @@ export function getAllProspects(): Prospekt[] {
 }
 
 export function getPrimaryProspects(): Prospekt[] {
-  return prospects.filter((p) => p.kategori === 'primär');
+  return prospects.filter((p) => p.kategori === 'primär' && p.status !== 'parkerad');
 }
 
 export function getSecondaryProspects(): Prospekt[] {
-  return prospects.filter((p) => p.kategori === 'sekundär');
+  return prospects.filter((p) => p.kategori === 'sekundär' && p.status !== 'parkerad');
+}
+
+export function getParkedProspects(): Prospekt[] {
+  return prospects.filter((p) => p.status === 'parkerad');
 }
 
 export default prospects;
