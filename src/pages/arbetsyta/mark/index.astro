@@ -3,11 +3,15 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import {
   getPrimaryProspects,
   getSecondaryProspects,
+  getParkedProspects,
   statusLabels,
   type Prospekt,
 } from '../../../data/prospects';
 
-const parkeradInfo = 'Parkerade objekt: Uppveda, Skärsjö';
+const parkerade = getParkedProspects();
+const parkeradInfo = parkerade.length > 0
+  ? `Parkerade objekt: ${parkerade.map(p => p.namn).join(', ')}`
+  : '';
 
 const metadata = {
   titel: 'Markspaning',
@@ -198,9 +202,11 @@ const sekundära = getSecondaryProspects();
         ))}
       </div>
 
-      <p class="parkerad-note">
-        <em>{parkeradInfo}</em>
-      </p>
+      {parkeradInfo && (
+        <p class="parkerad-note">
+          <em>{parkeradInfo}</em>
+        </p>
+      )}
 
       <div class="add-prospekt">
         <h3>Om shortlistan</h3>
