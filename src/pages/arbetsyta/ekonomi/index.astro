@@ -2,131 +2,16 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 const metadata = {
-  titel: 'Ekonomi & kalkyler',
-  datum: '2026-09-14',
+  titel: 'Ekonomi – vår modell',
+  datum: '2026-09-15',
   status: 'utkast',
 };
 
-const kopfasAntaganden = {
-  antalHh: 10,
-  ltv: 0.60,
-  lagfart: 0.0425,
-  referenspris: { min: 3000, max: 3500 },
-  insatsPerHh: { min: 197, max: 209 },
-};
-
-const scenarios = [
-  { namn: 'Off-grid D', insats: '~142', highlight: true },
-  { namn: 'Sparsamt A', insats: '~318' },
-  { namn: 'Bas B', insats: '~618' },
-];
-
-const scenarioComparison = {
-  d: { va: 62, total: 142 },
-  a: { va: 168, total: 318 },
-  b: { va: 218, total: 618 },
-  c: { va: 293, total: 993 },
-};
-
-const paverkansfaktorer = [
-  {
-    faktor: 'VA-system',
-    spann: '60–993 tkr/hh',
-    beskrivning: 'Från DIY-kretslopp med material från platsen till köpt gemensam sjöanläggning. Se detaljerad kalkyl nedan.',
-  },
-  {
-    faktor: 'Antal hushåll',
-    spann: '8 ↔ 12 hh',
-    beskrivning: 'Fler hushåll sprider kostnaden. Vid 12 hushåll sjunker insatsen ca 15–20 %.',
-  },
-  {
-    faktor: 'Låneandel',
-    spann: '60–75 %',
-    beskrivning: 'Högre belåning sänker kontantbehov men ökar löpande räntekostnader.',
-  },
-];
-
-const intaktsmojligheter = [
-  { namn: 'Bete & arrende', ar: '1', risk: 'låg' },
-  { namn: 'Kurser i naturbyggande', ar: '1', risk: 'medel' },
-  { namn: 'CSA-andelar', ar: '1–2', risk: 'låg' },
-  { namn: 'Ved & skogsbruk', ar: '1', risk: 'låg' },
-];
-
-const offgridScenario = {
-  namn: 'Off-grid / material från marken (D)',
-  beskrivning: 'Timmer och lera från egen mark, arbete via timbank/eget arbete. Endast köpta komponenter räknas som kontant.',
-  poster: [
-    { 
-      namn: 'Torrtoalett', 
-      beskrivning: 'Komposttoalett, enkelt system',
-      lag: 5, mid: 12, hog: 25 
-    },
-    { 
-      namn: 'Gråvatten jordhus', 
-      beskrivning: 'BDT-rening via jordhus/växtbädd',
-      lag: 10, mid: 25, hog: 50 
-    },
-    { 
-      namn: 'Vattenandel (brunn m.m.)', 
-      beskrivning: 'Andel gemensam brunn, pump, ledning',
-      lag: 10, mid: 20, hog: 40 
-    },
-    { 
-      namn: 'Swales & dagvatten', 
-      beskrivning: 'Landskapsformning för vattenhantering',
-      lag: 2, mid: 5, hog: 15 
-    },
-    { 
-      namn: 'Stomme köpt', 
-      beskrivning: 'Fönster, fästen, duk, kalk etc. (timmer+lera från marken = 0 kr)',
-      lag: 15, mid: 70, hog: 175 
-    },
-    { 
-      namn: 'Verktyg', 
-      beskrivning: 'Slitage, hyra, inköp av specialverktyg',
-      lag: 3, mid: 10, hog: 20 
-    },
-  ],
-  total: { lag: 45, mid: 142, hog: 325 },
-  vaOnly: { lag: 27, mid: 62, hog: 130 },
-  arbete: {
-    timmarPerHh: 800,
-    vardeMitt: '120–200 tkr',
-    timpris: '150–250 kr/h',
-    note: 'Styrelsen fastställer schablonsats',
-  },
-};
-
-const koptMaterialScenarios = {
-  namn: 'Köpt material / entreprenad (A–C)',
-  beskrivning: 'Traditionell kalyl med köpt material och hantverkare. Jämförelse för budgetplanering.',
-  individuell: {
-    sparsamt: { 
-      namn: 'Sparsamt regenerativt (A)', 
-      kostnad: 168, 
-      beskrivning: 'Komposttoalett + BDT-rening (köpt)',
-      permitRisk: 'medel–hög',
-    },
-    bas: { 
-      namn: 'Bas markbädd (B)', 
-      kostnad: 218, 
-      beskrivning: 'Markbädd/sandfilter (köpt+installerat)',
-      permitRisk: 'låg',
-    },
-    hog: { 
-      namn: 'Övre sjönära MRV+P (C)', 
-      kostnad: 293, 
-      beskrivning: 'Minireningsverk + fosforfälla (strandskydd)',
-      permitRisk: 'låg',
-      note: 'Blackbo-lägen kräver övre pga strandskydd',
-    },
-  },
-  medGemensamNod: {
-    sparsamt: { kostnad: 318, beskrivning: 'Enkel gemensam nod + kretslopp' },
-    bas: { kostnad: 618, beskrivning: 'Gemensam nod + markbädd' },
-    hog: { kostnad: 993, beskrivning: 'Gemensam nod + MRV+P (sjönära)' },
-  },
+const grundinsats = {
+  mark: { min: 197, max: 209 },
+  byggVa: { min: 45, mid: 142, max: 325 },
+  total: { min: 242, mid: 350, max: 534 },
+  illustrativ: 400,
 };
 
 const lanekostnader = {
@@ -140,49 +25,56 @@ const lanekostnader = {
   stress: {
     ranta: 4.5,
     ltv: 75,
-    vid3Mkr: 1220,
-    vid3_5Mkr: 1420,
-  },
-  cashGap: {
-    beloppTkr: 200,
-    finansieratAndel: 0.50,
-    manadskostnad: 430,
+    vid3Mkr: 1140,
+    vid3_5Mkr: 1330,
   },
 };
 
-const offgridPath = {
-  byggande: {
-    namn: 'Jordhus / timmer från marken',
-    beskrivning: 'Lokala material (timmer, lera, halm), gemensam arbetsinsats via timbank, etappindelat.',
-    kostnad: 'Arbete = tid, ej kontant',
-  },
-  energi: {
-    namn: 'Enkel off-grid',
-    beskrivning: 'Vedeldning, passiv sol, solceller i senare etapp.',
-    kostnad: '20–80 tkr',
-  },
-  vatten: {
-    namn: 'Gemensam brunn',
-    beskrivning: 'Delad grävd/borrad brunn med handpump och enkel el-backup.',
-    kostnad: '~20 tkr/hh',
-  },
+const offgridD = {
+  vaOnly: { lag: 27, mid: 62, hog: 130 },
+  total: { lag: 45, mid: 142, hog: 325 },
+  arbeteTimmar: 800,
 };
 
-const timbank = {
-  schablonSats: 200,
-  referensInsats: 200,
-  nivaer: [
-    { timmar: 250, andel: 25, avdragTkr: 50 },
-    { timmar: 500, andel: 50, avdragTkr: 100 },
-    { timmar: 1000, andel: 100, avdragTkr: 200 },
-  ],
-  rekommenderatTak: { min: 30, max: 50 },
-};
+const tidslinje = [
+  { 
+    fas: 'År 0', 
+    rubrik: 'Markköp', 
+    beskrivning: 'Föreningen köper marken. Grundinsats betalas eller finansieras.' 
+  },
+  { 
+    fas: 'År 0–1', 
+    rubrik: 'Enkel etablering', 
+    beskrivning: 'Brunn, startkojor, första odlingar. Låga materialkostnader.' 
+  },
+  { 
+    fas: 'År 1–3', 
+    rubrik: 'Byggfas', 
+    beskrivning: 'Permanentbostäder växer fram via timbank och workshops. Material från platsen.' 
+  },
+  { 
+    fas: 'År 2–5', 
+    rubrik: 'Intjäning startar', 
+    beskrivning: 'Bete, kurser, odling. Intäkter täcker drift och möjliggör extra amortering.' 
+  },
+  { 
+    fas: 'År 5+', 
+    rubrik: 'Stabilitet', 
+    beskrivning: 'Lånet minskar, marken bär sig. Kostnaden sjunker om bidrag/intäkter tillkommer.' 
+  },
+];
+
+const intaktsmojligheter = [
+  { namn: 'Bete & arrende', ar: '1', risk: 'låg' },
+  { namn: 'Kurser i naturbyggande', ar: '1', risk: 'medel' },
+  { namn: 'CSA-andelar', ar: '1–2', risk: 'låg' },
+  { namn: 'Ved & skogsbruk', ar: '1', risk: 'låg' },
+];
 ---
 
 <BaseLayout
-  title="Ekonomi & kalkyler – Styrelsens arbetsyta"
-  description="Finansieringsunderlag och kapitalkalkyler för ekobyprojektet."
+  title="Ekonomi – Styrelsens arbetsyta"
+  description="Vår finansieringsmodell för ekobyprojektet. Off-grid, material från marken, gemensamt lån."
 >
   <article class="arbetsyta-doc container">
     <header class="doc-header">
@@ -191,602 +83,218 @@ const timbank = {
       </p>
       <div class="doc-meta">
         <span class="doc-status doc-status--utkast">Utkast</span>
-        <span class="doc-date">14 sep 2026</span>
+        <span class="doc-date">15 sep 2026</span>
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
-        Kapitalkalkyler för föreningens ekobyprojekt. Siffrorna är preliminära 
-        och ska verifieras mot bank, revisor och mäklare innan beslut.
+        Föreningens planeringsmodell för gemensamt markköp och off-grid-byggande. 
+        Siffrorna är illustrativa och ska verifieras med bank och revisor innan beslut.
       </p>
     </header>
 
-    <!-- Planeringskort -->
-    <section class="planning-card" aria-labelledby="planering">
-      <h2 id="planering" class="visually-hidden">Planeringsöversikt</h2>
-      <div class="planning-header">
-        <span class="planning-label">Köpfas – kapitalscenario</span>
-        <div class="planning-pills">
-          <span class="pill pill--draft">Utkast 14 sep</span>
-        </div>
-      </div>
-      
-      <div class="planning-summary">
-        <div class="summary-item">
-          <span class="summary-value">3,0–3,5 Mkr</span>
-          <span class="summary-label">Köpeskilling mark</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-value">{kopfasAntaganden.antalHh} hh</span>
-          <span class="summary-label">Hushåll</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-value">{kopfasAntaganden.ltv * 100} %</span>
-          <span class="summary-label">Belåning (LTV)</span>
-        </div>
-        <div class="summary-item summary-item--result">
-          <span class="summary-value">~{kopfasAntaganden.insatsPerHh.min}–{kopfasAntaganden.insatsPerHh.max} tkr</span>
-          <span class="summary-label">Kontant/hh (mark)</span>
-        </div>
-      </div>
-
-      <p class="planning-note">
-        Lagfart ({kopfasAntaganden.lagfart * 100} %) inräknat. <strong>Markköpet är den stora investeringen</strong> – bygg/VA blir blygsamt när material och arbete kommer från platsen.
+    <!-- 1. MARKKÖP + GEMENSAMT LÅN -->
+    <section class="model-section" aria-labelledby="markkop">
+      <span class="section-number">1</span>
+      <h2 id="markkop">Markköp via gemensamt föreningslån</h2>
+      <p>
+        Föreningen tar ett gemensamt lån för markköpet. Varje hushåll betalar sin 
+        andel av ränta och amortering varje månad.
       </p>
-
-      <div class="scenario-chips">
-        {scenarios.map((s) => (
-          <span class={`chip ${s.highlight ? 'chip--active' : ''}`}>
-            {s.namn} {s.insats} tkr
-          </span>
-        ))}
+      
+      <div class="highlight-box">
+        <div class="highlight-grid">
+          <div class="highlight-item">
+            <span class="highlight-label">Köpeskilling</span>
+            <span class="highlight-value">3,0–3,5 Mkr</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-label">Hushåll</span>
+            <span class="highlight-value">10 st</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-label">Belåning (LTV)</span>
+            <span class="highlight-value">60–75 %</span>
+          </div>
+        </div>
+        
+        <div class="monthly-cost">
+          <span class="monthly-label">Illustrativ månadskostnad per hushåll</span>
+          <span class="monthly-value">~780–1 140 kr/mån</span>
+          <span class="monthly-note">Ränta ({lanekostnader.bas.ranta} %) + amortering ({lanekostnader.bas.amortering} %). Exkluderar drift.</span>
+        </div>
       </div>
 
-      <a href="/arbetsyta/ekonomi/kapital-2026-09/" class="btn btn-outline btn-sm">
-        Visa full kalkyl →
-      </a>
+      <div class="slider-section">
+        <h3>Utforska olika köpeskillingar</h3>
+        <div class="slider-calculator" id="kapital-kalkylator">
+          <div class="slider-input-group">
+            <label for="kopes-slider" class="slider-label">
+              Köpeskilling: <output id="kopes-output" class="slider-output">3 000 tkr</output>
+            </label>
+            <input 
+              type="range" 
+              id="kopes-slider" 
+              min="2500" 
+              max="4500" 
+              step="100" 
+              value="3000"
+              aria-describedby="slider-help"
+            />
+            <div class="slider-range-labels">
+              <span>2,5 Mkr</span>
+              <span>4,5 Mkr</span>
+            </div>
+          </div>
+
+          <div class="slider-results" aria-live="polite" aria-atomic="true">
+            <div class="result-card">
+              <span class="result-label">Månadsbetalning/hh</span>
+              <span class="result-value" id="result-monthly">~780 kr</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- OFF-GRID HUVUDSPÅR -->
-    <section class="offgrid-hero" aria-labelledby="offgrid-heading">
-      <div class="offgrid-badge">Huvudspår</div>
-      <h2 id="offgrid-heading">Off-grid / material från marken</h2>
-      <p class="offgrid-intro">
-        Föreningens planeringsgrund utgår från att <strong>timmer, lera och arbete kommer från platsen och gemenskapen</strong>, 
-        inte från bygghandel och hantverksfakturor. Kontantbehovet för VA och bostad blir därmed blygsamt jämfört med 
-        konventionellt byggande.
+    <!-- 2. GRUNDINSATS -->
+    <section class="model-section" aria-labelledby="grundinsats">
+      <span class="section-number">2</span>
+      <h2 id="grundinsats">Grundinsats ~{grundinsats.illustrativ} tkr per hushåll</h2>
+      <p>
+        Varje hushåll bidrar med en grundinsats som täcker markköpets eget kapital 
+        plus bygg/VA-material. Kan betalas kontant eller finansieras privat.
       </p>
 
-      <div class="offgrid-principle">
-        <h3>Grundprincip</h3>
-        <ul>
-          <li><strong>Timmer från egen skog</strong> – kostar tid, inte pengar</li>
-          <li><strong>Lera från marken</strong> – jordhus-tekniker (cob, lerklining, jordslagning)</li>
-          <li><strong>Arbete via timbank</strong> – gemensamt byggande, dokumenterade timmar</li>
-          <li><strong>Kontantutlägg = köpta komponenter</strong> – fönster, fästen, duk, kalk, verktyg</li>
-        </ul>
+      <div class="insats-breakdown">
+        <div class="insats-row">
+          <span class="insats-label">Markinsats (eget kapital)</span>
+          <span class="insats-value">~{grundinsats.mark.min}–{grundinsats.mark.max} tkr</span>
+        </div>
+        <div class="insats-row">
+          <span class="insats-label">Bygg/VA (scenario D)</span>
+          <span class="insats-value">~{grundinsats.byggVa.mid} tkr</span>
+        </div>
+        <div class="insats-row insats-row--total">
+          <span class="insats-label">Illustrativ total</span>
+          <span class="insats-value">~{grundinsats.illustrativ} tkr</span>
+        </div>
       </div>
 
-      <div class="offgrid-table-wrapper">
-        <h3>Planeringssiffror – scenario D (off-grid)</h3>
-        <p class="offgrid-table-note">
-          Osäkra uppskattningar för budgetplanering. 10 hushåll. Arbetsinsats räknas via timbanken, inte som kontant.
-        </p>
-        <table class="offgrid-table">
-          <thead>
-            <tr>
-              <th scope="col">Post</th>
-              <th scope="col">Lågt</th>
-              <th scope="col">Mitt</th>
-              <th scope="col">Högt</th>
-            </tr>
-          </thead>
-          <tbody>
-            {offgridScenario.poster.map((p) => (
-              <tr>
-                <td>
-                  <strong>{p.namn}</strong>
-                  <span class="post-desc">{p.beskrivning}</span>
-                </td>
-                <td>~{p.lag} tkr</td>
-                <td class="highlight">~{p.mid} tkr</td>
-                <td>~{p.hog} tkr</td>
-              </tr>
-            ))}
-            <tr class="total-row">
-              <td><strong>Totalt kontant VA+skal</strong></td>
-              <td>~{offgridScenario.total.lag} tkr</td>
-              <td class="highlight">~{offgridScenario.total.mid} tkr</td>
-              <td>~{offgridScenario.total.hog} tkr</td>
-            </tr>
-          </tbody>
-        </table>
+      <aside class="financing-note">
+        <strong>Finansiera kontantgapet?</strong> 
+        Om ett hushåll behöver låna ~200 tkr privat för att klara insatsen 
+        blir tillkommande månadskostnad cirka <strong>~1 700 kr/mån</strong> (illustrativt).
+      </aside>
+    </section>
+
+    <!-- 3. VÅR BYGGMODELL: OFF-GRID D -->
+    <section class="model-section model-section--highlight" aria-labelledby="offgrid">
+      <span class="section-number">3</span>
+      <div class="offgrid-badge">Huvudspår</div>
+      <h2 id="offgrid">Off-grid – material från marken</h2>
+      <p>
+        Föreningens planeringsgrund utgår från att <strong>timmer, lera och arbete kommer 
+        från platsen och gemenskapen</strong> – inte från bygghandel och hantverksfakturor.
+      </p>
+
+      <div class="offgrid-principles">
+        <ul>
+          <li><strong>Timmer från egen skog</strong> – kostar tid, inte pengar</li>
+          <li><strong>Lera från marken</strong> – jordhus-tekniker (cob, lerklining)</li>
+          <li><strong>Arbete via timbank</strong> – gemensamt byggande, dokumenterade timmar</li>
+          <li><strong>Kontantutlägg = köpta komponenter</strong> – fönster, fästen, verktyg</li>
+        </ul>
       </div>
 
       <div class="offgrid-summary">
         <div class="summary-card summary-card--primary">
-          <span class="summary-card-label">Off-grid D – kontant per hh</span>
-          <span class="summary-card-value">~{offgridScenario.total.mid} tkr</span>
-          <span class="summary-card-note">mittscenario VA+stomme</span>
+          <span class="summary-card-label">Kontant per hushåll</span>
+          <span class="summary-card-value">~{offgridD.total.mid} tkr</span>
+          <span class="summary-card-note">mittscenario, VA + stomme</span>
         </div>
         <div class="summary-card">
           <span class="summary-card-label">Spann</span>
-          <span class="summary-card-value">~{offgridScenario.total.lag}–{offgridScenario.total.hog} tkr</span>
+          <span class="summary-card-value">{offgridD.total.lag}–{offgridD.total.hog} tkr</span>
           <span class="summary-card-note">beroende på ambitionsnivå</span>
         </div>
         <div class="summary-card">
           <span class="summary-card-label">Varav VA/vatten</span>
-          <span class="summary-card-value">~{offgridScenario.vaOnly.mid} tkr</span>
-          <span class="summary-card-note">jfr A-scenariot ~{scenarioComparison.a.va} tkr</span>
+          <span class="summary-card-value">~{offgridD.vaOnly.mid} tkr</span>
+          <span class="summary-card-note">torrtoalett, gråvatten, brunn</span>
         </div>
       </div>
 
-      <div class="labor-info">
-        <h3>💪 Arbetsinsats via timbank</h3>
-        <p>
-          Tabellen ovan visar endast <strong>kontantutlägg</strong>. Arbete räknas separat via timbanken:
-        </p>
-        <div class="labor-stats">
-          <div class="labor-stat">
-            <span class="labor-stat-value">~{offgridScenario.arbete.timmarPerHh} h/hh</span>
-            <span class="labor-stat-label">Uppskattad arbetsinsats</span>
-          </div>
-          <div class="labor-stat">
-            <span class="labor-stat-value">{offgridScenario.arbete.vardeMitt}</span>
-            <span class="labor-stat-label">Värde @ {offgridScenario.arbete.timpris}</span>
-          </div>
-        </div>
-        <p class="labor-note">
-          <em>Timmer, lera och grävning från egen mark = 0 kr kontant. {offgridScenario.arbete.note}.</em>
-        </p>
-      </div>
-
-      <aside class="permit-warning">
-        <h4>⚠️ Tillståndsrisk – låg kontant ≠ enkla tillstånd</h4>
-        <p>
-          <strong>Komposttoalett + gråvatten-jordhus:</strong> medel–hög tillståndsrisk. 
-          <strong>Strandskydd:</strong> hög risk. Kommun kan kräva WC + markbädd eller minireningsverk.
-        </p>
-        <p>
-          <strong>Plan B:</strong> Om tillstånd nekas, räkna med att falla tillbaka på scenario B eller C 
-          (~{scenarioComparison.b.total}–{scenarioComparison.c.total} tkr/hh). Budgetera tid för tillståndsprocess.
-        </p>
-      </aside>
-    </section>
-
-    <!-- Interaktiv slider -->
-    <section class="doc-section slider-section" aria-labelledby="slider-heading">
-      <h2 id="slider-heading">Utforska olika köpeskillingar</h2>
-      <p>
-        Dra i reglaget för att se hur köpfas och månadskostnad förändras vid olika 
-        köpeskillingar. Beräkningen utgår från {kopfasAntaganden.antalHh} hushåll, 
-        {kopfasAntaganden.ltv * 100} % belåning och {kopfasAntaganden.lagfart * 100} % lagfart.
-      </p>
-      
-      <div class="slider-calculator" id="kapital-kalkylator">
-        <div class="slider-input-group">
-          <label for="kopes-slider" class="slider-label">
-            Köpeskilling: <output id="kopes-output" class="slider-output">3 000 tkr</output>
-          </label>
-          <input 
-            type="range" 
-            id="kopes-slider" 
-            min="2500" 
-            max="4500" 
-            step="100" 
-            value="3000"
-            aria-describedby="slider-help"
-          />
-          <div class="slider-range-labels">
-            <span>2,5 Mkr</span>
-            <span>4,5 Mkr</span>
-          </div>
-          <p id="slider-help" class="slider-help">
-            Intervall 2,5–4,5 Mkr, steg om 100 tkr
-          </p>
-        </div>
-
-        <div class="slider-results" aria-live="polite" aria-atomic="true">
-          <div class="result-card">
-            <span class="result-label">Köpfas per hh ({kopfasAntaganden.antalHh} hh)</span>
-            <span class="result-value" id="result-per-hh">~197 tkr</span>
-          </div>
-          <div class="result-card">
-            <span class="result-label">Månadsbetalning (bas)</span>
-            <span class="result-value" id="result-monthly-bas">~780 kr</span>
-          </div>
-          <div class="result-card result-card--highlight">
-            <span class="result-label">Månadsbetalning (stress)</span>
-            <span class="result-value" id="result-monthly-stress">~1 220 kr</span>
-          </div>
-        </div>
-
-        <div class="slider-assumptions">
-          <h4>Synliga antaganden</h4>
-          <div class="assumption-grid">
-            <div class="assumption-col">
-              <strong>Bas:</strong> {lanekostnader.bas.ranta} % ränta + {lanekostnader.bas.amortering} % am, {lanekostnader.bas.ltv} % LTV
-            </div>
-            <div class="assumption-col">
-              <strong>Stress:</strong> {lanekostnader.stress.ranta} % ränta, {lanekostnader.stress.ltv} % LTV
-            </div>
-          </div>
-        </div>
-        
-        <p class="slider-disclaimer">
-          Månadsbetalning avser ränta + amortering på föreningens gemensamma lån, fördelat per hushåll.
-          Exkluderar driftskostnader och VA-infra.
-        </p>
+      <div class="labor-note">
+        <strong>Arbetsinsats:</strong> ~{offgridD.arbeteTimmar} timmar per hushåll via timbanken. 
+        Arbete värderas vid ~200 kr/tim, men räknas inte som kontant.
       </div>
     </section>
 
-    <!-- JÄMFÖRELSE: Köpt material / entreprenad -->
-    <section class="doc-section va-section comparison-section" aria-labelledby="va-heading">
-      <h2 id="va-heading">Jämförelse: köpt material / entreprenad (A–C)</h2>
+    <!-- 4. INTJÄNING -->
+    <section class="model-section" aria-labelledby="intjaning">
+      <span class="section-number">4</span>
+      <h2 id="intjaning">Intjäning – marken bär sig själv</h2>
       <p>
-        Om off-grid-vägen inte är möjlig (tillståndsproblem, tidsbrist, kompetensglapp) behövs budget 
-        för köpt material och hantverkare. Scenarierna nedan visar <strong>kontantutlägg vid konventionellt VA</strong> – 
-        att jämföra med off-grid D ovan.
+        Redan från år 1 kan enklare verksamheter skapa intäkter som täcker drift 
+        och möjliggör extra amortering. År 2–3 uppskattas bas till ca 450–750 tkr/år 
+        för hela gemenskapen.
       </p>
 
-      <div class="comparison-header">
-        <span class="comparison-label">Observera:</span>
-        <p>
-          Dessa siffror avser köpt material + arbetskostnad. Vid off-grid (scenario D) är kontantbehovet 
-          betydligt lägre eftersom material och arbete kommer från platsen.
-        </p>
-      </div>
-
-      <!-- Individuell lösning -->
-      <div class="va-category">
-        <h3>🏠 Individuell VA-lösning (köpt)</h3>
-        <div class="va-items">
-          <div class="va-item">
-            <div class="va-item-header">
-              <span class="va-item-name">{koptMaterialScenarios.individuell.sparsamt.namn}</span>
-              <span class="va-item-cost">~{koptMaterialScenarios.individuell.sparsamt.kostnad} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{koptMaterialScenarios.individuell.sparsamt.beskrivning}</p>
-            <span class="va-tag va-tag--warning">Tillståndsrisk: {koptMaterialScenarios.individuell.sparsamt.permitRisk}</span>
+      <div class="income-grid">
+        {intaktsmojligheter.map((i) => (
+          <div class="income-item">
+            <span class="income-name">{i.namn}</span>
+            <span class="income-year">År {i.ar}</span>
           </div>
-          <div class="va-item">
-            <div class="va-item-header">
-              <span class="va-item-name">{koptMaterialScenarios.individuell.bas.namn}</span>
-              <span class="va-item-cost">~{koptMaterialScenarios.individuell.bas.kostnad} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{koptMaterialScenarios.individuell.bas.beskrivning}</p>
-            <span class="va-tag va-tag--fallback">Plan B om dispens nekas</span>
-          </div>
-          <div class="va-item">
-            <div class="va-item-header">
-              <span class="va-item-name">{koptMaterialScenarios.individuell.hog.namn}</span>
-              <span class="va-item-cost">~{koptMaterialScenarios.individuell.hog.kostnad} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{koptMaterialScenarios.individuell.hog.beskrivning}</p>
-            <p class="va-item-note">{koptMaterialScenarios.individuell.hog.note}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Med gemensam nod -->
-      <div class="va-category">
-        <h3>🏘️ Med gemensam nod (~{kopfasAntaganden.antalHh} hh, köpt)</h3>
-        <p class="va-category-desc">
-          Gemensam brunn, ledningsnät och centralare VA-hantering. Högre investering men kan ge driftfördelar. 
-          Dessa siffror gäller om ni köper material och anlitar hantverkare.
-        </p>
-        <div class="va-items">
-          <div class="va-item">
-            <div class="va-item-header">
-              <span class="va-item-name">Sparsamt A + gemensam nod</span>
-              <span class="va-item-cost">~{koptMaterialScenarios.medGemensamNod.sparsamt.kostnad} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{koptMaterialScenarios.medGemensamNod.sparsamt.beskrivning}</p>
-          </div>
-          <div class="va-item">
-            <div class="va-item-header">
-              <span class="va-item-name">Bas B + gemensam nod</span>
-              <span class="va-item-cost">~{koptMaterialScenarios.medGemensamNod.bas.kostnad} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{koptMaterialScenarios.medGemensamNod.bas.beskrivning}</p>
-            <span class="va-tag va-tag--fallback">Plan B konventionell</span>
-          </div>
-          <div class="va-item">
-            <div class="va-item-header">
-              <span class="va-item-name">Övre C + gemensam nod (sjönära)</span>
-              <span class="va-item-cost">~{koptMaterialScenarios.medGemensamNod.hog.kostnad} tkr/hh</span>
-            </div>
-            <p class="va-item-desc">{koptMaterialScenarios.medGemensamNod.hog.beskrivning}</p>
-            <span class="va-tag va-tag--blackbo">Blackbo-scenariot</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Scenariojämförelse -->
-    <section class="doc-section" aria-labelledby="scenario-compare">
-      <h2 id="scenario-compare">Scenariojämförelse – D vs A/B/C</h2>
-      <p>
-        Nedan jämförs off-grid-huvudspåret (D) med de konventionella scenarierna (A–C). 
-        <strong>Markköpet är den stora investeringen</strong> – bygg och VA varierar kraftigt beroende 
-        på om ni använder platsens resurser eller köper material utifrån.
-      </p>
-      
-      <div class="regen-cards">
-        <article class="regen-card regen-card--offgrid">
-          <h3>🌲 {offgridPath.byggande.namn}</h3>
-          <p>{offgridPath.byggande.beskrivning}</p>
-          <span class="regen-cost">{offgridPath.byggande.kostnad}</span>
-        </article>
-        <article class="regen-card regen-card--offgrid">
-          <h3>💧 {offgridPath.vatten.namn}</h3>
-          <p>{offgridPath.vatten.beskrivning}</p>
-          <span class="regen-cost">{offgridPath.vatten.kostnad}</span>
-        </article>
-        <article class="regen-card">
-          <h3>⚡ {offgridPath.energi.namn}</h3>
-          <p>{offgridPath.energi.beskrivning}</p>
-          <span class="regen-cost">{offgridPath.energi.kostnad}</span>
-        </article>
-      </div>
-
-      <div class="scenario-summary">
-        <h4>Jämförelse mittscenario per hushåll</h4>
-        <div class="comparison-table-wrapper">
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th scope="col">Scenario</th>
-                <th scope="col">VA/vatten</th>
-                <th scope="col">VA+stomme</th>
-                <th scope="col">Kommentar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="highlight-row">
-                <td><strong>D Off-grid</strong></td>
-                <td>~{scenarioComparison.d.va} tkr</td>
-                <td><strong>~{scenarioComparison.d.total} tkr</strong></td>
-                <td>Huvudspår – material från platsen</td>
-              </tr>
-              <tr>
-                <td>A Sparsamt</td>
-                <td>~{scenarioComparison.a.va} tkr</td>
-                <td>~{scenarioComparison.a.total} tkr</td>
-                <td>Köpt kretslopp + nod</td>
-              </tr>
-              <tr>
-                <td>B Bas</td>
-                <td>~{scenarioComparison.b.va} tkr</td>
-                <td>~{scenarioComparison.b.total} tkr</td>
-                <td>Köpt markbädd + nod (plan B)</td>
-              </tr>
-              <tr>
-                <td>C Övre</td>
-                <td>~{scenarioComparison.c.va} tkr</td>
-                <td>~{scenarioComparison.c.total} tkr</td>
-                <td>Köpt MRV+P (sjönära/strandskydd)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="comparison-note">
-          D ger ca <strong>−55 %</strong> kontantbehov jämfört med A. Skillnaden = material från platsen + arbete via timbank.
-        </p>
-      </div>
-
-      <aside class="regen-info">
-        <h4>💡 Varför off-grid som huvudspår?</h4>
-        <p>
-          Föreningens grundvärdering är att bygga med platsens resurser – timmer från egen skog, lera 
-          från marken, arbete från gemenskapen. Detta ger lägre kontantbehov, stärker lokalresiliensen 
-          och bevarar kunskap om naturbyggande. De högre siffrorna (A–C) finns kvar som jämförelse 
-          och plan B om off-grid-vägen blockeras av tillståndsproblem.
-        </p>
-      </aside>
-    </section>
-
-    <!-- Månadskostnad vid lån -->
-    <section class="doc-section" aria-labelledby="manadskostnad">
-      <h2 id="manadskostnad">Månadskostnad – ränta och amortering</h2>
-      <p>
-        Föreningens gemensamma lån fördelas på hushållen. Nedan visas månadskostnad 
-        (ränta + amortering) vid olika köpeskillingar och räntescenarier.
-      </p>
-
-      <div class="loan-scenarios">
-        <div class="loan-scenario">
-          <h4>Basfall</h4>
-          <div class="loan-params">
-            <span>{lanekostnader.bas.ranta} % ränta</span>
-            <span>{lanekostnader.bas.amortering} % amortering</span>
-            <span>{lanekostnader.bas.ltv} % LTV</span>
-          </div>
-          <div class="loan-results">
-            <div class="loan-result">
-              <span class="loan-price">3,0 Mkr</span>
-              <span class="loan-monthly">~{lanekostnader.bas.vid3Mkr} kr/hh/mån</span>
-            </div>
-            <div class="loan-result">
-              <span class="loan-price">3,5 Mkr</span>
-              <span class="loan-monthly">~{lanekostnader.bas.vid3_5Mkr} kr/hh/mån</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="loan-scenario loan-scenario--stress">
-          <h4>Stresstest</h4>
-          <div class="loan-params">
-            <span>{lanekostnader.stress.ranta} % ränta</span>
-            <span>{lanekostnader.stress.ltv} % LTV</span>
-          </div>
-          <div class="loan-results">
-            <div class="loan-result">
-              <span class="loan-price">3,0 Mkr</span>
-              <span class="loan-monthly">~{lanekostnader.stress.vid3Mkr} kr/hh/mån</span>
-            </div>
-            <div class="loan-result">
-              <span class="loan-price">3,5 Mkr</span>
-              <span class="loan-monthly">~{lanekostnader.stress.vid3_5Mkr} kr/hh/mån</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="cash-gap-box">
-        <h4>Finansiera kontantgap?</h4>
-        <p>
-          Om ett hushåll behöver låna 50 % av sin kontantinsats (~{lanekostnader.cashGap.beloppTkr / 2} tkr) 
-          privat för att klara köpfas:
-        </p>
-        <div class="cash-gap-result">
-          <span class="cash-gap-value">~{lanekostnader.cashGap.manadskostnad} kr/mån</span>
-          <span class="cash-gap-note">tillkommande personlig lånekostnad</span>
-        </div>
-      </div>
-
-      <p class="loan-note">
-        Månadsbetalning avser endast ränta + amortering. Driftskostnader (el, värme, 
-        underhåll, GA-avgifter) tillkommer.
-      </p>
-    </section>
-
-    <!-- Arbetstid som insats -->
-    <section class="doc-section" aria-labelledby="timbank">
-      <h2 id="timbank">Arbetstid som insats – timbanken</h2>
-      <p>
-        Hushåll som vill bidra med arbete istället för kontanter kan delta i
-        föreningens <strong>timbank</strong>. Dokumenterade arbetstimmar räknas 
-        av mot kontantinsatsen (~{timbank.referensInsats} tkr) enligt en schablonsats.
-      </p>
-
-      <div class="timbank-table-wrapper">
-        <table class="timbank-table">
-          <thead>
-            <tr>
-              <th scope="col">Arbetstimmar</th>
-              <th scope="col">Avdrag</th>
-              <th scope="col">Andel av {timbank.referensInsats} tkr</th>
-            </tr>
-          </thead>
-          <tbody>
-            {timbank.nivaer.map((n) => (
-              <tr class={n.andel === 50 ? 'highlight-row' : ''}>
-                <td>{n.timmar} tim</td>
-                <td>{n.avdragTkr} tkr</td>
-                <td>{n.andel} %</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="timbank-calc-box">
-        <div class="timbank-formula">
-          <span class="timbank-formula-label">Schablonsats (styrelseplats):</span>
-          <span class="timbank-formula-value">{timbank.schablonSats} kr/tim</span>
-        </div>
-        <p class="timbank-formula-example">
-          Exempel: {timbank.nivaer[1].timmar} tim × {timbank.schablonSats} kr = {timbank.nivaer[1].avdragTkr} tkr avdrag
-        </p>
-      </div>
-
-      <aside class="timbank-recommendation">
-        <h4>💡 Rekommenderat tak: {timbank.rekommenderatTak.min}–{timbank.rekommenderatTak.max} % arbetsinsats</h4>
-        <p>
-          För att balansera kontant och arbete rekommenderar vi att max 
-          {timbank.rekommenderatTak.min}–{timbank.rekommenderatTak.max} % av ett hushålls insats täcks av 
-          arbetstid. Detta motsvarar {Math.round(timbank.referensInsats * timbank.rekommenderatTak.min / 100)}–{Math.round(timbank.referensInsats * timbank.rekommenderatTak.max / 100)} tkr 
-          eller {Math.round(timbank.referensInsats * timbank.rekommenderatTak.min / 100 / timbank.schablonSats * 1000)}–{Math.round(timbank.referensInsats * timbank.rekommenderatTak.max / 100 / timbank.schablonSats * 1000)} timmars arbete.
-        </p>
-      </aside>
-
-      <aside class="timbank-disclaimer">
-        <strong>Styrelsebeslut krävs:</strong> Schablonsatsen ({timbank.schablonSats} kr/tim) och 
-        maxtak är preliminära förslag. Slutgiltiga nivåer och vilka arbetstyper 
-        som godkänns fastställs genom styrelsebeslut innan systemet tas i bruk.
-      </aside>
-    </section>
-
-    <!-- Påverkansfaktorer -->
-    <section class="doc-section" aria-labelledby="paverkan">
-      <h2 id="paverkan">Vad påverkar mest?</h2>
-      <p>
-        Tre faktorer har störst inverkan på hur mycket varje hushåll behöver 
-        bidra med i kontantinsats.
-      </p>
-      <div class="factor-cards">
-        {paverkansfaktorer.map((p) => (
-          <article class="factor-card">
-            <h3>{p.faktor}</h3>
-            <span class="factor-range">{p.spann}</span>
-            <p>{p.beskrivning}</p>
-          </article>
         ))}
       </div>
-    </section>
 
-    <!-- Fördelningsmodell -->
-    <section class="doc-section" aria-labelledby="fordelning">
-      <h2 id="fordelning">Fördelningsmodell</h2>
-      <p>
-        Vi utreder två modeller för hur kontantinsatsen fördelas mellan hushållen:
-      </p>
-      <div class="model-cards">
-        <article class="model-card">
-          <h3>Lika insats</h3>
-          <p>
-            Alla hushåll betalar samma kontantbelopp. Enklast att administrera, 
-            men kräver att alla har tillgång till kapital.
-          </p>
-        </article>
-        <article class="model-card">
-          <h3>Låginsatsmodell (30–50 %)</h3>
-          <p>
-            Vissa hushåll går in med lägre kontant och kompenserar genom hyra-först 
-            eller arbetstid. Gap ca 0,5–0,9 Mkr fördelas på gruppen.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <!-- Lokal intjäning -->
-    <section class="doc-section" aria-labelledby="intjaning">
-      <h2 id="intjaning">Lokal intjäning</h2>
-      <p>
-        Marken ska bära sig själv på sikt. Redan år 1 kan enklare verksamheter 
-        skapa intäkter som minskar de löpande kostnaderna.
-      </p>
-      <table class="income-table">
-        <thead>
-          <tr>
-            <th>Verksamhet</th>
-            <th>År</th>
-            <th>Risk</th>
-          </tr>
-        </thead>
-        <tbody>
-          {intaktsmojligheter.map((i) => (
-            <tr>
-              <td>{i.namn}</td>
-              <td>{i.ar}</td>
-              <td><span class={`risk risk--${i.risk}`}>{i.risk}</span></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <p class="income-note">
-        År 2–3 uppskattas basen till ca 450–750 tkr/år. 
+      <p class="income-link">
         <a href="/arbetsyta/ideer/">Se alla idéer i idébanken →</a>
       </p>
     </section>
 
-    <!-- Disclaimer -->
-    <aside class="disclaimer" aria-labelledby="disclaimer-heading">
-      <h2 id="disclaimer-heading">Obs – planeringsunderlag</h2>
+    <!-- 5. TIDSLINJE -->
+    <section class="model-section" aria-labelledby="tidslinje">
+      <span class="section-number">5</span>
+      <h2 id="tidslinje">Tidslinje – steg för steg</h2>
       <p>
-        Siffrorna på denna sida är uppskattningar för planering och inte 
-        juridisk eller ekonomisk rådgivning. Föreningen bekräftar alla 
-        uppgifter med bank och revisor innan beslut.
+        Kostnaden kan sjunka över tid om bidrag, intäkter eller fler hushåll tillkommer.
+      </p>
+
+      <div class="timeline">
+        {tidslinje.map((t, index) => (
+          <div class="timeline-item">
+            <span class="timeline-marker" aria-hidden="true">{index + 1}</span>
+            <div class="timeline-content">
+              <span class="timeline-fas">{t.fas}</span>
+              <strong class="timeline-rubrik">{t.rubrik}</strong>
+              <p class="timeline-desc">{t.beskrivning}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 6. PLAN B -->
+    <section class="model-section model-section--planb" aria-labelledby="planb">
+      <span class="section-number">6</span>
+      <h2 id="planb">Om konventionellt VA krävs</h2>
+      <p>
+        Om kommunen kräver WC med markbädd eller minireningsverk istället för 
+        torrtoalett och gråvattenlösning blir bygg/VA-kostnaden högre – 
+        uppskattningsvis 300–600 tkr per hushåll istället för ~140 tkr. 
+        Det är en risk vi hanterar i tillståndsprocessen.
+      </p>
+    </section>
+
+    <!-- DISCLAIMER -->
+    <aside class="disclaimer" aria-labelledby="disclaimer-heading">
+      <h2 id="disclaimer-heading">Illustrativt planeringsunderlag</h2>
+      <p>
+        Siffrorna är uppskattningar för planering och inte juridisk eller ekonomisk 
+        rådgivning. Föreningen bekräftar alla uppgifter med bank och revisor innan beslut.
+        Bidrag för markköp är sällsynt; bidrag för metod/infra kan förekomma.
       </p>
     </aside>
 
@@ -803,18 +311,12 @@ const timbank = {
   <script>
     const slider = document.getElementById('kopes-slider') as HTMLInputElement;
     const kopesOutput = document.getElementById('kopes-output');
-    const resultPerHh = document.getElementById('result-per-hh');
-    const resultMonthlyBas = document.getElementById('result-monthly-bas');
-    const resultMonthlyStress = document.getElementById('result-monthly-stress');
+    const resultMonthly = document.getElementById('result-monthly');
 
     const ANTAL_HH = 10;
-    const LTV_BAS = 0.60;
-    const LAGFART = 0.0425;
-    
-    const BAS_RANTA = 0.032;
-    const BAS_AMORTERING = 0.02;
-    const STRESS_RANTA = 0.045;
-    const STRESS_LTV = 0.75;
+    const LTV = 0.60;
+    const RANTA = 0.032;
+    const AMORTERING = 0.02;
 
     function formatTkr(value: number): string {
       return Math.round(value).toLocaleString('sv-SE') + ' tkr';
@@ -824,38 +326,19 @@ const timbank = {
       return '~' + Math.round(value / 10) * 10 + ' kr';
     }
 
-    function beraknaKopfas(kopeskillingTkr: number): number {
+    function beraknaManadskostnad(kopeskillingTkr: number): number {
       const kopeskillingSek = kopeskillingTkr * 1000;
-      const lagfartSek = kopeskillingSek * LAGFART;
-      const egetKapitalSek = kopeskillingSek * (1 - LTV_BAS);
-      const totalMedlemskapitalSek = egetKapitalSek + lagfartSek;
-      return totalMedlemskapitalSek / ANTAL_HH / 1000;
-    }
-
-    function beraknaManadskostnadBas(kopeskillingTkr: number): number {
-      const kopeskillingSek = kopeskillingTkr * 1000;
-      const lanSek = kopeskillingSek * LTV_BAS;
-      const arligKostnad = lanSek * (BAS_RANTA + BAS_AMORTERING);
-      return arligKostnad / 12 / ANTAL_HH;
-    }
-
-    function beraknaManadskostnadStress(kopeskillingTkr: number): number {
-      const kopeskillingSek = kopeskillingTkr * 1000;
-      const lanSek = kopeskillingSek * STRESS_LTV;
-      const arligKostnad = lanSek * (STRESS_RANTA + BAS_AMORTERING);
+      const lanSek = kopeskillingSek * LTV;
+      const arligKostnad = lanSek * (RANTA + AMORTERING);
       return arligKostnad / 12 / ANTAL_HH;
     }
 
     function uppdatera() {
       const kopeskillingTkr = parseInt(slider.value, 10);
-      const kopfasPerHh = beraknaKopfas(kopeskillingTkr);
-      const manadBas = beraknaManadskostnadBas(kopeskillingTkr);
-      const manadStress = beraknaManadskostnadStress(kopeskillingTkr);
+      const manad = beraknaManadskostnad(kopeskillingTkr);
 
       if (kopesOutput) kopesOutput.textContent = formatTkr(kopeskillingTkr);
-      if (resultPerHh) resultPerHh.textContent = '~' + formatTkr(kopfasPerHh);
-      if (resultMonthlyBas) resultMonthlyBas.textContent = formatKr(manadBas);
-      if (resultMonthlyStress) resultMonthlyStress.textContent = formatKr(manadStress);
+      if (resultMonthly) resultMonthly.textContent = formatKr(manad);
     }
 
     if (slider) {
@@ -904,12 +387,6 @@ const timbank = {
     text-transform: uppercase;
   }
 
-  .doc-status--aktiv {
-    background: var(--accent-light);
-    color: var(--deep-forest);
-    border: 1px solid var(--accent-mid);
-  }
-
   .doc-status--utkast {
     background: var(--coral-light);
     color: #7a3d20;
@@ -932,134 +409,63 @@ const timbank = {
     line-height: 1.6;
   }
 
-  /* Planning Card */
-  .planning-card {
-    background: linear-gradient(135deg, var(--linen-cream) 0%, var(--surface-low) 100%);
-    border: 2px solid var(--accent-mid);
-    border-radius: var(--radius-xl);
-    padding: var(--space-lg);
+  /* Model sections */
+  .model-section {
+    position: relative;
     margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
   }
 
-  .planning-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-md);
-  }
-
-  .planning-label {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    font-weight: 700;
+  .model-section h2 {
+    font-size: var(--text-2xl);
     color: var(--deep-forest);
+    margin-bottom: var(--space-sm);
+    padding-left: 2.5rem;
   }
 
-  .planning-pills {
-    display: flex;
-    gap: var(--space-xs);
-  }
-
-  .pill {
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    text-transform: uppercase;
-  }
-
-  .pill--draft {
-    background: var(--coral-light);
-    color: #7a3d20;
-    border: 1px solid var(--coral);
-  }
-
-  .planning-summary {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: var(--space-md);
+  .model-section > p {
+    color: var(--text-muted);
     margin-bottom: var(--space-md);
+    line-height: 1.6;
   }
 
-  .summary-item {
-    text-align: center;
-  }
-
-  .summary-item--result {
+  .section-number {
+    position: absolute;
+    top: var(--space-lg);
+    left: var(--space-lg);
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: var(--deep-forest);
     color: var(--text-on-dark);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm);
-  }
-
-  .summary-value {
-    display: block;
     font-family: var(--font-display);
-    font-size: var(--text-2xl);
     font-weight: 700;
+    font-size: var(--text-sm);
+    border-radius: 50%;
   }
 
-  .summary-item--result .summary-value {
+  /* Highlighted section (off-grid) */
+  .model-section--highlight {
+    background: linear-gradient(135deg, var(--deep-forest) 0%, #2a4a46 100%);
+    color: var(--text-on-dark);
+    border: none;
+  }
+
+  .model-section--highlight h2 {
     color: var(--text-on-dark);
   }
 
-  .summary-label {
-    display: block;
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin-top: var(--space-xs);
-  }
-
-  .summary-item--result .summary-label {
+  .model-section--highlight > p {
     color: var(--accent-mid);
   }
 
-  .planning-note {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin-bottom: var(--space-md);
-    font-style: italic;
-  }
-
-  .scenario-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-    margin-bottom: var(--space-md);
-  }
-
-  .chip {
-    font-size: var(--text-sm);
-    padding: 0.4rem 0.8rem;
-    border-radius: var(--radius-md);
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-  }
-
-  .chip--active {
-    background: var(--accent-light);
-    border-color: var(--accent-mid);
-    color: var(--deep-forest);
-    font-weight: 600;
-  }
-
-  .btn-sm {
-    padding: 0.6rem 1.2rem;
-    font-size: var(--text-sm);
-  }
-
-  /* Off-grid Hero Section */
-  .offgrid-hero {
-    background: linear-gradient(135deg, var(--deep-forest) 0%, #2a4a46 100%);
-    color: var(--text-on-dark);
-    border-radius: var(--radius-xl);
-    padding: var(--space-lg);
-    margin-bottom: var(--space-xl);
-    position: relative;
+  .model-section--highlight .section-number {
+    background: var(--coral);
   }
 
   .offgrid-badge {
@@ -1073,36 +479,17 @@ const timbank = {
     padding: 0.3rem 0.8rem;
     border-radius: 999px;
     margin-bottom: var(--space-sm);
+    margin-left: 2.5rem;
   }
 
-  .offgrid-hero h2 {
-    color: var(--text-on-dark);
-    font-size: var(--text-2xl);
-    margin-bottom: var(--space-sm);
-  }
-
-  .offgrid-intro {
-    color: var(--accent-mid);
-    font-size: var(--text-base);
-    max-width: 50rem;
-    margin-bottom: var(--space-md);
-    line-height: 1.6;
-  }
-
-  .offgrid-principle {
+  .offgrid-principles {
     background: rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-lg);
     padding: var(--space-md);
     margin-bottom: var(--space-lg);
   }
 
-  .offgrid-principle h3 {
-    color: var(--text-on-dark);
-    font-size: var(--text-lg);
-    margin: 0 0 var(--space-sm);
-  }
-
-  .offgrid-principle ul {
+  .offgrid-principles ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -1110,101 +497,29 @@ const timbank = {
     gap: var(--space-xs);
   }
 
-  .offgrid-principle li {
+  .offgrid-principles li {
     color: var(--accent-mid);
     font-size: var(--text-sm);
     padding-left: 1.5rem;
     position: relative;
   }
 
-  .offgrid-principle li::before {
+  .offgrid-principles li::before {
     content: "→";
     position: absolute;
     left: 0;
     color: var(--coral);
   }
 
-  .offgrid-principle li strong {
+  .offgrid-principles li strong {
     color: var(--text-on-dark);
-  }
-
-  .offgrid-table-wrapper {
-    margin-bottom: var(--space-lg);
-  }
-
-  .offgrid-table-wrapper h3 {
-    color: var(--text-on-dark);
-    font-size: var(--text-lg);
-    margin: 0 0 var(--space-xs);
-  }
-
-  .offgrid-table-note {
-    font-size: var(--text-sm);
-    color: var(--accent-mid);
-    margin-bottom: var(--space-sm);
-    font-style: italic;
-  }
-
-  .offgrid-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-  }
-
-  .offgrid-table th,
-  .offgrid-table td {
-    padding: var(--space-sm);
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-  }
-
-  .offgrid-table thead th {
-    background: var(--bg-secondary);
-    font-weight: 600;
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .offgrid-table td.highlight {
-    background: var(--accent-light);
-    font-weight: 600;
-    color: var(--deep-forest);
-  }
-
-  .offgrid-table .total-row {
-    background: var(--deep-forest);
-  }
-
-  .offgrid-table .total-row td {
-    color: var(--text-on-dark);
-    font-weight: 600;
-    border-bottom: none;
-  }
-
-  .offgrid-table .total-row td.highlight {
-    background: var(--coral);
-    color: #fff;
-  }
-
-  .post-desc {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-weight: normal;
-    margin-top: 0.25rem;
   }
 
   .offgrid-summary {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--space-md);
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-md);
   }
 
   .summary-card {
@@ -1251,214 +566,103 @@ const timbank = {
     color: rgba(255, 255, 255, 0.7);
   }
 
-  .permit-warning {
-    background: rgba(212, 96, 58, 0.2);
-    border-left: 4px solid var(--coral);
-    border-radius: var(--radius-md);
-    padding: var(--space-md);
-  }
-
-  .permit-warning h4 {
-    font-size: var(--text-base);
-    color: var(--coral-light);
-    margin: 0 0 var(--space-xs);
-  }
-
-  .permit-warning p {
+  .labor-note {
     font-size: var(--text-sm);
     color: var(--accent-mid);
-    margin: 0 0 var(--space-xs);
-    line-height: 1.6;
-  }
-
-  .permit-warning p:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Labor Info */
-  .labor-info {
     background: rgba(255, 255, 255, 0.1);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+  }
+
+  /* Plan B section */
+  .model-section--planb {
+    background: var(--linen-cream);
+    border-color: var(--coral);
+    border-style: dashed;
+  }
+
+  .model-section--planb h2 {
+    color: var(--coral);
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    background: var(--linen-cream);
     border-radius: var(--radius-lg);
     padding: var(--space-md);
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-md);
   }
 
-  .labor-info h3 {
-    color: var(--text-on-dark);
-    font-size: var(--text-lg);
-    margin: 0 0 var(--space-sm);
-  }
-
-  .labor-info > p {
-    color: var(--accent-mid);
-    font-size: var(--text-sm);
-    margin: 0 0 var(--space-sm);
-  }
-
-  .labor-stats {
+  .highlight-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--space-sm);
-    margin-bottom: var(--space-sm);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
   }
 
-  .labor-stat {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm);
+  .highlight-item {
     text-align: center;
   }
 
-  .labor-stat-value {
+  .highlight-label {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-xs);
+  }
+
+  .highlight-value {
     display: block;
     font-family: var(--font-display);
     font-size: var(--text-xl);
     font-weight: 700;
-    color: var(--text-on-dark);
-  }
-
-  .labor-stat-label {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--accent-mid);
-    margin-top: var(--space-xs);
-  }
-
-  .labor-note {
-    font-size: var(--text-sm);
-    color: var(--accent-mid);
-    margin: 0;
-  }
-
-  /* Comparison Table */
-  .comparison-table-wrapper {
-    overflow-x: auto;
-    margin-bottom: var(--space-sm);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-  }
-
-  .comparison-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-    background: var(--bg-white);
-  }
-
-  .comparison-table th,
-  .comparison-table td {
-    padding: var(--space-sm);
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-  }
-
-  .comparison-table thead th {
-    background: var(--bg-secondary);
-    font-weight: 600;
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .comparison-table .highlight-row {
-    background: linear-gradient(135deg, var(--accent-light) 0%, var(--linen-cream) 100%);
-  }
-
-  .comparison-table .highlight-row td {
     color: var(--deep-forest);
   }
 
-  .comparison-note {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: var(--space-sm) 0 0;
-  }
-
-  /* Comparison Section */
-  .comparison-section {
-    background: var(--linen-cream);
-    border: 2px dashed var(--border);
-  }
-
-  .comparison-header {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
+  .monthly-cost {
+    background: var(--deep-forest);
+    color: var(--text-on-dark);
     border-radius: var(--radius-md);
-    padding: var(--space-sm) var(--space-md);
-    margin-bottom: var(--space-md);
+    padding: var(--space-md);
+    text-align: center;
   }
 
-  .comparison-label {
+  .monthly-label {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--accent-mid);
+    margin-bottom: var(--space-xs);
+  }
+
+  .monthly-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
     font-weight: 700;
-    color: var(--coral);
+    margin-bottom: var(--space-xs);
+  }
+
+  .monthly-note {
+    display: block;
     font-size: var(--text-sm);
-  }
-
-  .comparison-header p {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: var(--space-xs) 0 0;
-  }
-
-  .va-tag--fallback {
-    background: var(--accent);
-    color: #fff;
-  }
-
-  /* Scenario comparison styling */
-  .scenario-box--offgrid {
-    background: linear-gradient(135deg, var(--deep-forest) 0%, #2a4a46 100%);
-    border: 2px solid var(--accent-mid);
-  }
-
-  .scenario-box--offgrid .scenario-label,
-  .scenario-box--offgrid .scenario-note {
     color: var(--accent-mid);
   }
 
-  .scenario-box--offgrid .scenario-value {
-    color: var(--text-on-dark);
-  }
-
-  .regen-card--offgrid {
-    border-color: var(--deep-forest);
-    border-width: 2px;
-    background: linear-gradient(135deg, var(--bg-white) 0%, var(--accent-light) 100%);
-  }
-
-  .regen-info {
-    background: var(--accent-light);
-    border-left: 4px solid var(--accent-mid);
-    border-radius: var(--radius-md);
-    padding: var(--space-md);
+  /* Slider */
+  .slider-section {
     margin-top: var(--space-md);
   }
 
-  .regen-info h4 {
-    font-size: var(--text-base);
+  .slider-section h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-sm);
     color: var(--deep-forest);
-    margin: 0 0 var(--space-xs);
-  }
-
-  .regen-info p {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: 0;
-    line-height: 1.6;
-  }
-
-  /* Slider Calculator */
-  .slider-section {
-    background: var(--linen-cream);
-    border-radius: var(--radius-xl);
-    padding: var(--space-lg);
-    margin-bottom: var(--space-xl);
   }
 
   .slider-calculator {
-    margin-top: var(--space-md);
+    background: var(--surface-low);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
   }
 
   .slider-input-group {
@@ -1525,31 +729,17 @@ const timbank = {
     margin-top: var(--space-xs);
   }
 
-  .slider-help {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin-top: var(--space-xs);
-    font-style: italic;
-  }
-
   .slider-results {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: var(--space-sm);
-    margin-bottom: var(--space-md);
+    display: flex;
+    justify-content: center;
   }
 
   .result-card {
     background: var(--bg-white);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    padding: var(--space-sm);
+    padding: var(--space-sm) var(--space-lg);
     text-align: center;
-  }
-
-  .result-card--highlight {
-    background: var(--deep-forest);
-    border-color: var(--deep-forest);
   }
 
   .result-label {
@@ -1561,10 +751,6 @@ const timbank = {
     margin-bottom: var(--space-xs);
   }
 
-  .result-card--highlight .result-label {
-    color: var(--accent-mid);
-  }
-
   .result-value {
     display: block;
     font-family: var(--font-display);
@@ -1573,768 +759,144 @@ const timbank = {
     color: var(--deep-forest);
   }
 
-  .result-card--highlight .result-value {
-    color: var(--text-on-dark);
-  }
-
-  .slider-assumptions {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm);
-    margin-bottom: var(--space-md);
-  }
-
-  .slider-assumptions h4 {
-    font-size: var(--text-sm);
-    margin: 0 0 var(--space-xs);
-    color: var(--deep-forest);
-  }
-
-  .assumption-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: var(--space-sm);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-  }
-
-  .slider-disclaimer {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    font-style: italic;
-    margin: 0;
-  }
-
-  /* VA Section */
-  .va-section {
+  /* Insats breakdown */
+  .insats-breakdown {
     background: var(--surface-low);
-    border-radius: var(--radius-xl);
-    padding: var(--space-lg);
-  }
-
-  .va-category {
-    margin-bottom: var(--space-lg);
-  }
-
-  .va-category:last-child {
-    margin-bottom: 0;
-  }
-
-  .va-category h3 {
-    font-size: var(--text-lg);
-    margin: 0 0 var(--space-sm);
-    color: var(--deep-forest);
-  }
-
-  .va-items {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  .va-item {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm) var(--space-md);
-  }
-
-  .va-item--warning {
-    border-color: var(--coral);
-    background: var(--coral-light);
-  }
-
-  .va-item--recommended {
-    border-color: var(--accent-mid);
-    border-width: 2px;
-  }
-
-  .va-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-    margin-bottom: var(--space-xs);
-  }
-
-  .va-item-name {
-    font-weight: 600;
-    color: var(--deep-forest);
-  }
-
-  .va-item-cost {
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--coral);
-    white-space: nowrap;
-  }
-
-  .va-item-desc {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  .va-item-service {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    font-style: italic;
-    margin: var(--space-xs) 0 0;
-  }
-
-  .va-tag {
-    display: inline-block;
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
-    text-transform: uppercase;
-    margin-top: var(--space-xs);
-  }
-
-  .va-tag--warning {
-    background: #7a3d20;
-    color: #fff;
-  }
-
-  .va-tag--recommended {
-    background: var(--deep-forest);
-    color: #fff;
-  }
-
-  .va-tag--blackbo {
-    background: #5a4a3a;
-    color: #fff;
-  }
-
-  .va-item--ambitious {
-    border-color: var(--coral);
-    background: linear-gradient(135deg, var(--bg-white) 0%, var(--coral-light) 100%);
-  }
-
-  .va-item-note {
-    font-size: var(--text-sm);
-    color: #7a3d20;
-    font-style: italic;
-    margin: var(--space-xs) 0 0;
-  }
-
-  .va-category-desc {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin-bottom: var(--space-sm);
-  }
-
-  /* Sparsamt regenerativt */
-  .regen-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .regen-card {
-    background: var(--bg-white);
-    border: 1px solid var(--accent-mid);
     border-radius: var(--radius-lg);
     padding: var(--space-md);
+    margin-bottom: var(--space-md);
   }
 
-  .regen-card--ambitious {
-    border-color: var(--coral);
-    border-width: 2px;
-    background: linear-gradient(135deg, var(--bg-white) 0%, var(--coral-light) 100%);
+  .insats-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  .regen-card h3 {
-    font-size: var(--text-base);
-    font-weight: 600;
-    margin: 0 0 var(--space-sm);
+  .insats-row:last-child {
+    border-bottom: none;
+  }
+
+  .insats-row--total {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 2px solid var(--deep-forest);
+    border-bottom: none;
+  }
+
+  .insats-label {
+    color: var(--text-muted);
+  }
+
+  .insats-row--total .insats-label {
+    font-weight: 700;
     color: var(--deep-forest);
   }
 
-  .regen-card p {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: 0 0 var(--space-sm);
+  .insats-value {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--deep-forest);
   }
 
-  .regen-cost {
-    display: inline-block;
-    font-size: var(--text-sm);
-    font-weight: 600;
+  .insats-row--total .insats-value {
+    font-size: var(--text-xl);
     color: var(--coral);
   }
 
-  .regen-warning {
+  .financing-note {
     background: var(--coral-light);
     border-left: 4px solid var(--coral);
     border-radius: var(--radius-md);
-    padding: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .regen-warning h4 {
-    font-size: var(--text-base);
-    color: #7a3d20;
-    margin: 0 0 var(--space-xs);
-  }
-
-  .regen-warning p {
-    font-size: var(--text-sm);
-    color: #7a3d20;
-    margin: 0;
-  }
-
-  .scenario-summary {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-  }
-
-  .scenario-summary h4 {
-    font-size: var(--text-base);
-    margin: 0 0 var(--space-sm);
-    color: var(--deep-forest);
-  }
-
-  .scenario-compare {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: var(--space-md);
-  }
-
-  .scenario-box {
-    background: var(--surface-low);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm);
-    text-align: center;
-  }
-
-  .scenario-box--ambitious {
-    background: var(--coral-light);
-    border: 1px solid var(--coral);
-  }
-
-  .scenario-box--base {
-    background: var(--accent-light);
-    border: 2px solid var(--accent-mid);
-  }
-
-  .scenario-box--high {
-    background: #f5efe5;
-    border: 1px solid #c1a88a;
-  }
-
-  .scenario-label {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--deep-forest);
-    margin-bottom: var(--space-xs);
-  }
-
-  .scenario-value {
-    display: block;
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--coral);
-  }
-
-  .scenario-box--base .scenario-value {
-    color: var(--deep-forest);
-  }
-
-  .scenario-note {
-    display: block;
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    font-style: italic;
-  }
-
-  /* Loan table */
-  .loan-assumptions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-    padding: var(--space-sm);
-    background: var(--surface-low);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-  }
-
-  .table-wrapper {
-    overflow-x: auto;
-    margin-bottom: var(--space-md);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-  }
-
-  .loan-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-  }
-
-  .loan-table th,
-  .loan-table td {
     padding: var(--space-sm) var(--space-md);
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .loan-table thead th {
-    background: var(--bg-secondary);
-    font-weight: 600;
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .loan-table .highlight-row {
-    background: var(--accent-light);
-  }
-
-  .loan-table .highlight-row td {
-    font-weight: 600;
-  }
-
-  .loan-scenarios {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .loan-scenario {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-  }
-
-  .loan-scenario--stress {
-    background: var(--coral-light);
-    border-color: var(--coral);
-  }
-
-  .loan-scenario h4 {
-    font-size: var(--text-lg);
-    margin: 0 0 var(--space-xs);
-    color: var(--deep-forest);
-  }
-
-  .loan-scenario--stress h4 {
+    font-size: var(--text-sm);
     color: #7a3d20;
   }
 
-  .loan-params {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-    margin-bottom: var(--space-sm);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-  }
-
-  .loan-params span {
-    background: var(--surface-low);
-    padding: 0.2rem 0.5rem;
-    border-radius: var(--radius-sm);
-  }
-
-  .loan-scenario--stress .loan-params span {
-    background: rgba(255, 255, 255, 0.5);
-  }
-
-  .loan-results {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-  }
-
-  .loan-result {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--space-xs) var(--space-sm);
-    background: var(--surface-low);
-    border-radius: var(--radius-sm);
-  }
-
-  .loan-scenario--stress .loan-result {
-    background: rgba(255, 255, 255, 0.5);
-  }
-
-  .loan-price {
-    font-weight: 600;
-    color: var(--deep-forest);
-  }
-
-  .loan-monthly {
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--coral);
-  }
-
-  .cash-gap-box {
-    background: var(--linen-cream);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .cash-gap-box h4 {
-    font-size: var(--text-base);
-    margin: 0 0 var(--space-xs);
-    color: var(--deep-forest);
-  }
-
-  .cash-gap-box p {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: 0 0 var(--space-sm);
-  }
-
-  .cash-gap-result {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
-  }
-
-  .cash-gap-value {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--coral);
-  }
-
-  .cash-gap-note {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-  }
-
-  .loan-note {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    font-style: italic;
-  }
-
-  /* Timbank */
-  .timbank-example {
-    background: var(--linen-cream);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .timbank-example h3 {
-    font-size: var(--text-lg);
-    margin: 0 0 var(--space-sm);
-    color: var(--deep-forest);
-  }
-
-  .timbank-calc {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-    margin-bottom: var(--space-sm);
-  }
-
-  .timbank-row {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--space-xs) var(--space-sm);
-    background: var(--bg-white);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-sm);
-  }
-
-  .timbank-row--result {
-    background: var(--deep-forest);
-    color: var(--text-on-dark);
-    font-weight: 600;
-  }
-
-  .timbank-row--result .timbank-value {
-    color: var(--coral-light);
-  }
-
-  .timbank-detail {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  .timbank-rates {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .timbank-rates h4 {
-    font-size: var(--text-base);
-    margin: 0 0 var(--space-sm);
-    color: var(--deep-forest);
-  }
-
-  .rate-list {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  .rate-item {
+  /* Income grid */
+  .income-grid {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--space-xs);
-    padding: var(--space-sm);
-    background: var(--surface-low);
-    border-radius: var(--radius-md);
-  }
-
-  .rate-item dt {
-    font-weight: 600;
-    color: var(--deep-forest);
-  }
-
-  .rate-item dd {
-    margin: 0;
-    text-align: right;
-  }
-
-  .rate-item dd:first-of-type {
-    font-weight: 700;
-    color: var(--coral);
-  }
-
-  .rate-desc {
-    grid-column: 1 / -1;
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-  }
-
-  .timbank-table-wrapper {
-    overflow-x: auto;
-    margin-bottom: var(--space-md);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-  }
-
-  .timbank-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-  }
-
-  .timbank-table th,
-  .timbank-table td {
-    padding: var(--space-sm) var(--space-md);
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .timbank-table thead th {
-    background: var(--bg-secondary);
-    font-weight: 600;
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .timbank-table .highlight-row {
-    background: var(--accent-light);
-  }
-
-  .timbank-table .highlight-row td {
-    font-weight: 600;
-  }
-
-  .timbank-calc-box {
-    background: var(--linen-cream);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
     margin-bottom: var(--space-md);
   }
 
-  .timbank-formula {
+  .income-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--space-xs);
-  }
-
-  .timbank-formula-label {
-    font-weight: 600;
-    color: var(--deep-forest);
-  }
-
-  .timbank-formula-value {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--coral);
-  }
-
-  .timbank-formula-example {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  .timbank-recommendation {
-    background: var(--accent-light);
-    border-left: 4px solid var(--accent-mid);
-    border-radius: var(--radius-md);
-    padding: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .timbank-recommendation h4 {
-    font-size: var(--text-base);
-    color: var(--deep-forest);
-    margin: 0 0 var(--space-xs);
-  }
-
-  .timbank-recommendation p {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  .timbank-disclaimer {
-    background: var(--coral-light);
-    border-left: 4px solid var(--coral);
-    border-radius: var(--radius-md);
-    padding: var(--space-md);
-    font-size: var(--text-sm);
-    color: #7a3d20;
-  }
-
-  .timbank-disclaimer strong {
-    color: var(--coral);
-  }
-
-  /* Factor cards */
-  .factor-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .factor-card {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-  }
-
-  .factor-card h3 {
-    font-size: var(--text-lg);
-    margin: 0 0 var(--space-xs);
-  }
-
-  .factor-range {
-    display: inline-block;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--coral);
-    margin-bottom: var(--space-sm);
-  }
-
-  .factor-card p {
-    margin: 0;
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-  }
-
-  /* Model cards */
-  .model-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-
-  .model-card {
-    background: var(--linen-cream);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-  }
-
-  .model-card h3 {
-    font-size: var(--text-lg);
-    margin: 0 0 var(--space-sm);
-  }
-
-  .model-card p {
-    margin: 0;
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-  }
-
-  /* Income table */
-  .income-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: var(--space-sm);
-    font-size: var(--text-sm);
-  }
-
-  .income-table th,
-  .income-table td {
     padding: var(--space-sm);
-    text-align: left;
-    border-bottom: 1px solid var(--border);
+    background: var(--surface-low);
+    border-radius: var(--radius-md);
   }
 
-  .income-table th {
+  .income-name {
     font-weight: 600;
+    color: var(--deep-forest);
+  }
+
+  .income-year {
+    font-size: var(--text-sm);
     color: var(--text-muted);
-    font-size: 0.75rem;
+  }
+
+  .income-link {
+    margin: 0;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  .timeline-marker {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    border-radius: 50%;
+  }
+
+  .timeline-content {
+    flex: 1;
+  }
+
+  .timeline-fas {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--accent);
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
   }
 
-  .income-table tbody tr:hover {
-    background: var(--surface-low);
-  }
-
-  .risk {
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.2rem 0.5rem;
-    border-radius: var(--radius-sm);
-    text-transform: capitalize;
-  }
-
-  .risk--låg {
-    background: var(--accent-light);
+  .timeline-rubrik {
+    display: block;
+    font-size: var(--text-lg);
     color: var(--deep-forest);
+    margin-bottom: 0.25rem;
   }
 
-  .risk--medel {
-    background: var(--coral-light);
-    color: #7a3d20;
-  }
-
-  .income-note {
+  .timeline-desc {
     font-size: var(--text-sm);
     color: var(--text-muted);
+    margin: 0;
   }
 
   /* Disclaimer */
@@ -2358,22 +920,6 @@ const timbank = {
     color: var(--text-muted);
   }
 
-  /* Sections */
-  .doc-section {
-    margin-bottom: var(--space-xl);
-  }
-
-  .doc-section h2 {
-    font-size: var(--text-2xl);
-    color: var(--accent);
-    margin-bottom: var(--space-sm);
-  }
-
-  .doc-section p {
-    color: var(--text);
-    margin-bottom: var(--space-sm);
-  }
-
   .doc-nav {
     margin-top: var(--space-xl);
     padding-top: var(--space-lg);
@@ -2391,47 +937,35 @@ const timbank = {
       font-size: var(--text-3xl);
     }
 
-    .planning-summary {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .factor-cards,
-    .model-cards,
-    .regen-cards {
+    .highlight-grid {
       grid-template-columns: 1fr;
-    }
-
-    .slider-results {
-      grid-template-columns: 1fr;
-    }
-
-    .rate-item {
-      grid-template-columns: 1fr;
-    }
-
-    .rate-item dd:first-of-type {
-      text-align: left;
-    }
-
-    .offgrid-hero {
-      padding: var(--space-md);
     }
 
     .offgrid-summary {
       grid-template-columns: 1fr;
     }
 
-    .offgrid-table {
+    .income-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .model-section {
+      padding: var(--space-md);
+    }
+
+    .model-section h2 {
+      padding-left: 2rem;
+      font-size: var(--text-xl);
+    }
+
+    .section-number {
+      width: 1.5rem;
+      height: 1.5rem;
       font-size: 0.75rem;
     }
 
-    .offgrid-table th,
-    .offgrid-table td {
-      padding: var(--space-xs);
-    }
-
-    .scenario-compare {
-      grid-template-columns: 1fr 1fr;
+    .offgrid-badge {
+      margin-left: 2rem;
     }
   }
 </style>
