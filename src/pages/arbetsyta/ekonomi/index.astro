@@ -30,7 +30,7 @@ const lanekostnader = {
   },
 };
 
-const offgridD = {
+const offgrid = {
   vaOnly: { lag: 27, mid: 62, hog: 130 },
   total: { lag: 45, mid: 142, hog: 325 },
   arbeteTimmar: 800,
@@ -92,9 +92,8 @@ const intaktsmojligheter = [
       </p>
     </header>
 
-    <!-- 1. MARKKÖP + GEMENSAMT LÅN -->
+    <!-- MARKKÖP + GEMENSAMT LÅN -->
     <section class="model-section" aria-labelledby="markkop">
-      <span class="section-number">1</span>
       <h2 id="markkop">Markköp via gemensamt föreningslån</h2>
       <p>
         Föreningen tar ett gemensamt lån för markköpet. Varje hushåll betalar sin 
@@ -156,9 +155,8 @@ const intaktsmojligheter = [
       </div>
     </section>
 
-    <!-- 2. GRUNDINSATS -->
+    <!-- GRUNDINSATS -->
     <section class="model-section" aria-labelledby="grundinsats">
-      <span class="section-number">2</span>
       <h2 id="grundinsats">Grundinsats ~{grundinsats.illustrativ} tkr per hushåll</h2>
       <p>
         Varje hushåll bidrar med en grundinsats som täcker markköpets eget kapital 
@@ -171,7 +169,7 @@ const intaktsmojligheter = [
           <span class="insats-value">~{grundinsats.mark.min}–{grundinsats.mark.max} tkr</span>
         </div>
         <div class="insats-row">
-          <span class="insats-label">Bygg/VA (scenario D)</span>
+          <span class="insats-label">Bygg/VA (off-grid)</span>
           <span class="insats-value">~{grundinsats.byggVa.mid} tkr</span>
         </div>
         <div class="insats-row insats-row--total">
@@ -187,10 +185,8 @@ const intaktsmojligheter = [
       </aside>
     </section>
 
-    <!-- 3. VÅR BYGGMODELL: OFF-GRID D -->
+    <!-- VÅR BYGGMODELL -->
     <section class="model-section model-section--highlight" aria-labelledby="offgrid">
-      <span class="section-number">3</span>
-      <div class="offgrid-badge">Huvudspår</div>
       <h2 id="offgrid">Off-grid – material från marken</h2>
       <p>
         Föreningens planeringsgrund utgår från att <strong>timmer, lera och arbete kommer 
@@ -209,30 +205,29 @@ const intaktsmojligheter = [
       <div class="offgrid-summary">
         <div class="summary-card summary-card--primary">
           <span class="summary-card-label">Kontant per hushåll</span>
-          <span class="summary-card-value">~{offgridD.total.mid} tkr</span>
-          <span class="summary-card-note">mittscenario, VA + stomme</span>
+          <span class="summary-card-value">~{offgrid.total.mid} tkr</span>
+          <span class="summary-card-note">mittuppskattning, VA + stomme</span>
         </div>
         <div class="summary-card">
           <span class="summary-card-label">Spann</span>
-          <span class="summary-card-value">{offgridD.total.lag}–{offgridD.total.hog} tkr</span>
+          <span class="summary-card-value">{offgrid.total.lag}–{offgrid.total.hog} tkr</span>
           <span class="summary-card-note">beroende på ambitionsnivå</span>
         </div>
         <div class="summary-card">
           <span class="summary-card-label">Varav VA/vatten</span>
-          <span class="summary-card-value">~{offgridD.vaOnly.mid} tkr</span>
+          <span class="summary-card-value">~{offgrid.vaOnly.mid} tkr</span>
           <span class="summary-card-note">torrtoalett, gråvatten, brunn</span>
         </div>
       </div>
 
       <div class="labor-note">
-        <strong>Arbetsinsats:</strong> ~{offgridD.arbeteTimmar} timmar per hushåll via timbanken. 
+        <strong>Arbetsinsats:</strong> ~{offgrid.arbeteTimmar} timmar per hushåll via timbanken. 
         Arbete värderas vid ~200 kr/tim, men räknas inte som kontant.
       </div>
     </section>
 
-    <!-- 4. INTJÄNING -->
+    <!-- INTJÄNING -->
     <section class="model-section" aria-labelledby="intjaning">
-      <span class="section-number">4</span>
       <h2 id="intjaning">Intjäning – marken bär sig själv</h2>
       <p>
         Redan från år 1 kan enklare verksamheter skapa intäkter som täcker drift 
@@ -254,9 +249,8 @@ const intaktsmojligheter = [
       </p>
     </section>
 
-    <!-- 5. TIDSLINJE -->
+    <!-- TIDSLINJE -->
     <section class="model-section" aria-labelledby="tidslinje">
-      <span class="section-number">5</span>
       <h2 id="tidslinje">Tidslinje – steg för steg</h2>
       <p>
         Kostnaden kan sjunka över tid om bidrag, intäkter eller fler hushåll tillkommer.
@@ -276,9 +270,8 @@ const intaktsmojligheter = [
       </div>
     </section>
 
-    <!-- 6. PLAN B -->
+    <!-- PLAN B -->
     <section class="model-section model-section--planb" aria-labelledby="planb">
-      <span class="section-number">6</span>
       <h2 id="planb">Om konventionellt VA krävs</h2>
       <p>
         Om kommunen kräver WC med markbädd eller minireningsverk istället för 
@@ -423,30 +416,12 @@ const intaktsmojligheter = [
     font-size: var(--text-2xl);
     color: var(--deep-forest);
     margin-bottom: var(--space-sm);
-    padding-left: 2.5rem;
   }
 
   .model-section > p {
     color: var(--text-muted);
     margin-bottom: var(--space-md);
     line-height: 1.6;
-  }
-
-  .section-number {
-    position: absolute;
-    top: var(--space-lg);
-    left: var(--space-lg);
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--deep-forest);
-    color: var(--text-on-dark);
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: var(--text-sm);
-    border-radius: 50%;
   }
 
   /* Highlighted section (off-grid) */
@@ -462,24 +437,6 @@ const intaktsmojligheter = [
 
   .model-section--highlight > p {
     color: var(--accent-mid);
-  }
-
-  .model-section--highlight .section-number {
-    background: var(--coral);
-  }
-
-  .offgrid-badge {
-    display: inline-block;
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: var(--coral);
-    color: #fff;
-    padding: 0.3rem 0.8rem;
-    border-radius: 999px;
-    margin-bottom: var(--space-sm);
-    margin-left: 2.5rem;
   }
 
   .offgrid-principles {
@@ -954,18 +911,7 @@ const intaktsmojligheter = [
     }
 
     .model-section h2 {
-      padding-left: 2rem;
       font-size: var(--text-xl);
-    }
-
-    .section-number {
-      width: 1.5rem;
-      height: 1.5rem;
-      font-size: 0.75rem;
-    }
-
-    .offgrid-badge {
-      margin-left: 2rem;
     }
   }
 </style>
