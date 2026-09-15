@@ -40,9 +40,11 @@ src/
   pages/index.astro
   pages/stadgar.astro
   pages/projekt/olof-larsson.astro
+  pages/projekt/ekoby.astro
+  pages/arbetsyta/           ← öppen arbetsyta, länkad från nav/footer/ekoby
   components/InterestForm.astro
   styles/tokens.css
-public/images/          ← äkta gårdsfoton, använd med respekt
+public/images/               ← äkta gårdsfoton, använd med respekt
 ```
 
 ## Designsystem

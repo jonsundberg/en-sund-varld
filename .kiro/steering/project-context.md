@@ -60,6 +60,12 @@ oloflarsson/
       stadgar.astro              # Stadgar §1–13
       projekt/
         olof-larsson.astro       # Projektsida med bilder från gården
+        ekoby.astro              # Ekoby & boendegemenskap
+      arbetsyta/                 # Öppen arbetsyta – länkad från nav, footer, ekoby
+        index.astro
+        mark/                    # Markspaning
+        ekonomi/                 # Kapitalkalkyler
+        ideer/                   # Idébank
     components/
       InterestForm.astro         # Formspree-formulär (ID: xbgjrqlz)
     styles/
@@ -97,7 +103,9 @@ oloflarsson/
 |---|---|---|
 | Startsida | `/` | ✅ Klar |
 | Olof Larssons Gård | `/projekt/olof-larsson` | ✅ Klar |
+| Ekoby & Boendegemenskap | `/projekt/ekoby` | ✅ Klar |
 | Stadgar | `/stadgar` | ✅ Klar |
+| Arbetsyta | `/arbetsyta/` | ✅ Klar (länkad från nav, footer, ekoby) |
 | Intresseanmälan | `/#anmalan` | ✅ Klar (komponent) |
 
 ## 9. Vad projektet INTE är
