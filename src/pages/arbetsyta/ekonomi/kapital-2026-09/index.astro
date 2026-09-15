@@ -2,238 +2,105 @@
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 
 const metadata = {
-  titel: 'Kapitalkalkyl – september 2026',
-  datum: '2026-09-14',
-  status: 'utkast',
+  titel: 'Kapitalkalkyl – detaljer',
+  datum: '2026-09-15',
+  status: 'komplement',
 };
 
 const kalkyler = [
-  { hh: 8, sparsamt: 246, bas: 254, hogt: 261 },
-  { hh: 10, sparsamt: 197, bas: 203, hogt: 209 },
-  { hh: 12, sparsamt: 164, bas: 169, hogt: 174 },
+  { hh: 8, insats: 246 },
+  { hh: 10, insats: 197 },
+  { hh: 12, insats: 164 },
 ];
 
 const antaganden = {
-  kopeskilling: '3,0–3,5 Mkr',
-  lagfart: '4,25 % av köpeskilling',
-  pantbrev: 'Antaget 2 % på nyinteckning',
-  belaningsgrad: '60 % av köpeskilling (LTV)',
-  ranteantagande: '3,2 % ränta + 2 % amortering (bas)',
-  stresstest: '4,5 % ränta, 75 % LTV',
+  kopeskilling: '3,0 Mkr',
+  lagfart: '4,25 %',
+  ltv: '60 %',
+  ranteBas: '3,2 %',
+  amortering: '2,0 %',
 };
-
-const alternativKopes = [
-  { pris: '3,0 Mkr', hh10bas: '~197 tkr', manadBas: '~780 kr', manadStress: '~1 220 kr' },
-  { pris: '3,5 Mkr', hh10bas: '~209 tkr', manadBas: '~910 kr', manadStress: '~1 420 kr' },
-];
-
-const lanekostnader = {
-  basRanta: 3.2,
-  basAmortering: 2.0,
-  stressRanta: 4.5,
-  stressLtv: 75,
-};
-
-const manadskostnaderPerHh = [
-  { kopeskilling: '3,0 Mkr', bas: 780, stress: 1220 },
-  { kopeskilling: '3,5 Mkr', bas: 910, stress: 1420 },
-];
 ---
 
 <BaseLayout
-  title="Kapitalkalkyl sep 2026 – Styrelsens arbetsyta"
-  description="Fullständig kapitalkalkyl för ekobyprojektet med scenariomatris."
+  title="Kapitalkalkyl – detalj"
+  description="Detaljerade kalkyler för markinsats vid olika hushållsantal."
 >
   <article class="arbetsyta-doc container">
     <header class="doc-header">
       <p class="breadcrumb">
         <a href="/arbetsyta/">Arbetsyta</a> / 
-        <a href="/arbetsyta/ekonomi/">Ekonomi</a> / Kapital sep 2026
+        <a href="/arbetsyta/ekonomi/">Ekonomi</a> / Kapitaldetalj
       </p>
       <div class="doc-meta">
-        <span class="doc-status doc-status--utkast">Utkast</span>
-        <span class="doc-date">14 sep 2026</span>
+        <span class="doc-status">Komplement</span>
+        <span class="doc-date">15 sep 2026</span>
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
-        Detaljerad scenariomatris för ekobyns kapitalstruktur. Alla belopp i tkr 
-        per hushåll om inget annat anges. Baserat på köpeskilling 3 Mkr.
+        Kompletterande siffror för markinsats vid olika antal hushåll. 
+        Se <a href="/arbetsyta/ekonomi/">huvudsidan</a> för hela finansieringsmodellen.
       </p>
-      <aside class="note-box">
-        <strong>Obs:</strong> Denna sida avser <em>markköp</em> – den stora investeringen. 
-        VA och byggkostnad tillkommer, men är blygsam vid off-grid-huvudspåret 
-        (~140 tkr/hh för material, arbete via timbank). 
-        <a href="/arbetsyta/ekonomi/">Se full ekonomiöversikt med off-grid-kalkyler →</a>
-      </aside>
     </header>
 
-    <!-- Huvudtabell -->
     <section class="doc-section" aria-labelledby="matris">
-      <h2 id="matris">Scenariomatris – 3 Mkr köpeskilling (mark)</h2>
+      <h2 id="matris">Markinsats vid olika antal hushåll</h2>
       <p>
-        Kontantinsats per hushåll vid 60 % belåning. Lagfart och pantbrev inräknade. 
-        <strong>Avser endast markförvärv</strong> – VA/bygg läggs till separat.
+        Kontantinsats per hushåll för markköpet (eget kapital + lagfart). 
+        Baserat på köpeskilling {antaganden.kopeskilling} och {antaganden.ltv} belåning.
       </p>
       
       <div class="table-wrapper">
-        <table class="matrix-table">
+        <table class="simple-table">
           <thead>
             <tr>
-              <th scope="col">Hushåll</th>
-              <th scope="col">Sparsamt</th>
-              <th scope="col">Bas</th>
-              <th scope="col">Högt</th>
+              <th scope="col">Antal hushåll</th>
+              <th scope="col">Markinsats per hh</th>
             </tr>
           </thead>
           <tbody>
             {kalkyler.map((k) => (
-              <tr>
-                <th scope="row">{k.hh} hh</th>
-                <td>{k.sparsamt} tkr</td>
-                <td class="highlight">{k.bas} tkr</td>
-                <td>{k.hogt} tkr</td>
+              <tr class={k.hh === 10 ? 'highlight-row' : ''}>
+                <td>{k.hh} hh</td>
+                <td>~{k.insats} tkr</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <ul class="scenario-legend">
-        <li><strong>Sparsamt:</strong> Minimal underhållsreserv (200 tkr), god befintlig infrastruktur på marken.</li>
-        <li><strong>Bas:</strong> Måttlig underhållsreserv (500 tkr), viss upprustning behövs.</li>
-        <li><strong>Högt:</strong> Omfattande underhåll (2 Mkr), gammal byggnad eller skadad infrastruktur.</li>
-      </ul>
-      <p class="scenario-note">
-        <em>Scenarierna ovan avser markköp och underhåll av befintlig infrastruktur. 
-        För VA/bygg-kostnad, se <a href="/arbetsyta/ekonomi/">ekonomiöversikten</a> – 
-        off-grid-huvudspåret (D) ger ~140 tkr/hh i materialkostnad.</em>
+      <p class="table-note">
+        Vid 10 hushåll och 3 Mkr köpeskilling blir markinsatsen ~197 tkr per hushåll. 
+        Bygg/VA tillkommer enligt off-grid-modellen (~140 tkr).
       </p>
     </section>
 
-    <!-- Antaganden -->
     <section class="doc-section" aria-labelledby="antaganden">
-      <h2 id="antaganden">Synliga antaganden</h2>
+      <h2 id="antaganden">Antaganden</h2>
       <dl class="assumptions-list">
         <div class="assumption-item">
           <dt>Köpeskilling</dt>
           <dd>{antaganden.kopeskilling}</dd>
         </div>
         <div class="assumption-item">
-          <dt>Lagfartsavgift</dt>
+          <dt>Lagfart</dt>
           <dd>{antaganden.lagfart}</dd>
         </div>
         <div class="assumption-item">
-          <dt>Pantbrev</dt>
-          <dd>{antaganden.pantbrev}</dd>
-        </div>
-        <div class="assumption-item">
           <dt>Belåningsgrad</dt>
-          <dd>{antaganden.belaningsgrad}</dd>
+          <dd>{antaganden.ltv}</dd>
         </div>
         <div class="assumption-item">
-          <dt>Ränteantagande (bas)</dt>
-          <dd>{antaganden.ranteantagande}</dd>
-        </div>
-        <div class="assumption-item">
-          <dt>Stresstest</dt>
-          <dd>{antaganden.stresstest}</dd>
+          <dt>Ränta + amortering</dt>
+          <dd>{antaganden.ranteBas} + {antaganden.amortering}</dd>
         </div>
       </dl>
     </section>
 
-    <!-- Känslighet -->
-    <section class="doc-section" aria-labelledby="kanslighet">
-      <h2 id="kanslighet">Känslighetsanalys – köpeskilling och lånekostnad</h2>
+    <aside class="back-link-box">
       <p>
-        Hur köpfas och månadskostnad (10 hh) förändras vid olika köpeskillingar:
-      </p>
-      
-      <div class="table-wrapper">
-        <table class="sensitivity-table">
-          <thead>
-            <tr>
-              <th scope="col">Köpeskilling</th>
-              <th scope="col">Köpfas/hh</th>
-              <th scope="col">Månadsbetalning (bas)</th>
-              <th scope="col">Månadsbetalning (stress)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {alternativKopes.map((a) => (
-              <tr class={a.pris === '3,0 Mkr' ? 'highlight-row' : ''}>
-                <td>{a.pris}</td>
-                <td>{a.hh10bas}</td>
-                <td>{a.manadBas}</td>
-                <td>{a.manadStress}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Formel -->
-    <section class="doc-section" aria-labelledby="formel">
-      <h2 id="formel">Beräkningsformel</h2>
-      <div class="formula-box">
-        <p><strong>Kontant per hushåll =</strong></p>
-        <p class="formula">
-          (Köpeskilling × (1 − belåning) + lagfart + pantbrev + underhåll) ÷ antal hushåll
-        </p>
-      </div>
-      <p>
-        Alla kostnader för förvärvstransaktionen inkluderas innan fördelning. 
-        Löpande ränta och amortering tillkommer utöver kontantinsatsen.
-      </p>
-    </section>
-
-    <!-- Månadskostnad vid lån -->
-    <section class="doc-section" aria-labelledby="manadskostnad">
-      <h2 id="manadskostnad">Månadskostnad – ränta och amortering</h2>
-      <p>
-        Föreningens gemensamma lån fördelas på hushållen. Nedan visas månadskostnad 
-        (ränta + amortering) per hushåll vid olika köpeskillingar.
-      </p>
-
-      <div class="loan-assumptions">
-        <span><strong>Bas:</strong> {lanekostnader.basRanta} % ränta + {lanekostnader.basAmortering} % am</span>
-        <span><strong>Stress:</strong> {lanekostnader.stressRanta} % ränta, {lanekostnader.stressLtv} % LTV</span>
-      </div>
-
-      <div class="table-wrapper">
-        <table class="matrix-table">
-          <thead>
-            <tr>
-              <th scope="col">Köpeskilling</th>
-              <th scope="col">Månadsbetalning (bas)</th>
-              <th scope="col">Månadsbetalning (stress)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {manadskostnaderPerHh.map((m) => (
-              <tr>
-                <td>{m.kopeskilling}</td>
-                <td>~{m.bas.toLocaleString('sv-SE')} kr/hh</td>
-                <td>~{m.stress.toLocaleString('sv-SE')} kr/hh</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <p class="loan-note">
-        Månadsbetalning avser endast ränta + amortering på föreningens lån, fördelat 
-        på 10 hushåll. Driftskostnader (el, värme, underhåll, GA-avgifter) tillkommer.
-      </p>
-    </section>
-
-    <!-- Disclaimer -->
-    <aside class="disclaimer" aria-labelledby="disclaimer-heading">
-      <h2 id="disclaimer-heading">Obs – planeringsunderlag</h2>
-      <p>
-        Siffrorna på denna sida är uppskattningar för planering och inte 
-        juridisk eller ekonomisk rådgivning. Föreningen bekräftar alla 
-        uppgifter med bank och revisor innan beslut.
+        Detta är ett komplement. <strong>Hela finansieringsmodellen</strong> finns på 
+        <a href="/arbetsyta/ekonomi/">ekonomisidan</a>.
       </p>
     </aside>
 
@@ -285,12 +152,9 @@ const manadskostnaderPerHh = [
     padding: 0.2rem 0.6rem;
     border-radius: 999px;
     text-transform: uppercase;
-  }
-
-  .doc-status--utkast {
-    background: var(--coral-light);
-    color: #7a3d20;
-    border: 1px solid var(--coral);
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
   }
 
   .doc-date {
@@ -299,32 +163,14 @@ const manadskostnaderPerHh = [
   }
 
   h1 {
-    font-size: var(--text-4xl);
+    font-size: var(--text-3xl);
     margin-bottom: var(--space-sm);
   }
 
   .doc-lead {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     color: var(--text-muted);
     line-height: 1.6;
-  }
-
-  .note-box {
-    background: var(--accent-light);
-    border-left: 4px solid var(--accent-mid);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm) var(--space-md);
-    margin-top: var(--space-md);
-    font-size: var(--text-sm);
-    color: var(--text);
-  }
-
-  .note-box strong {
-    color: var(--deep-forest);
-  }
-
-  .note-box a {
-    color: var(--accent);
   }
 
   .doc-section {
@@ -332,7 +178,7 @@ const manadskostnaderPerHh = [
   }
 
   .doc-section h2 {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     color: var(--accent);
     margin-bottom: var(--space-sm);
   }
@@ -342,7 +188,6 @@ const manadskostnaderPerHh = [
     margin-bottom: var(--space-sm);
   }
 
-  /* Tables */
   .table-wrapper {
     overflow-x: auto;
     margin-bottom: var(--space-md);
@@ -350,24 +195,20 @@ const manadskostnaderPerHh = [
     border: 1px solid var(--border);
   }
 
-  .matrix-table,
-  .sensitivity-table {
+  .simple-table {
     width: 100%;
     border-collapse: collapse;
     font-size: var(--text-sm);
   }
 
-  .matrix-table th,
-  .matrix-table td,
-  .sensitivity-table th,
-  .sensitivity-table td {
+  .simple-table th,
+  .simple-table td {
     padding: var(--space-sm) var(--space-md);
     text-align: left;
     border-bottom: 1px solid var(--border);
   }
 
-  .matrix-table thead th,
-  .sensitivity-table thead th {
+  .simple-table thead th {
     background: var(--bg-secondary);
     font-weight: 600;
     color: var(--text-muted);
@@ -376,131 +217,58 @@ const manadskostnaderPerHh = [
     letter-spacing: 0.05em;
   }
 
-  .matrix-table tbody th {
-    font-weight: 600;
-    background: var(--surface-low);
+  .simple-table .highlight-row {
+    background: var(--accent-light);
   }
 
-  .matrix-table .highlight {
-    background: var(--accent-light);
+  .simple-table .highlight-row td {
     font-weight: 600;
     color: var(--deep-forest);
   }
 
-  .sensitivity-table .highlight-row,
-  .matrix-table .highlight-row {
-    background: var(--accent-light);
-  }
-
-  .sensitivity-table .highlight-row td,
-  .matrix-table .highlight-row td {
-    font-weight: 600;
-  }
-
-  .loan-assumptions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-    padding: var(--space-sm);
-    background: var(--surface-low);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-  }
-
-  .loan-note {
+  .table-note {
     font-size: var(--text-sm);
     color: var(--text-muted);
     font-style: italic;
   }
 
-  .scenario-legend {
-    padding-left: 1.5rem;
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-  }
-
-  .scenario-legend li {
-    margin-bottom: 0.5rem;
-  }
-
-  .scenario-note {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    background: var(--surface-low);
-    padding: var(--space-sm);
-    border-radius: var(--radius-md);
-    margin-top: var(--space-sm);
-  }
-
-  /* Assumptions */
   .assumptions-list {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-sm);
     margin: 0;
   }
 
   .assumption-item {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
     padding: var(--space-sm);
     background: var(--linen-cream);
     border-radius: var(--radius-md);
   }
 
   .assumption-item dt {
-    font-weight: 600;
-    color: var(--deep-forest);
-    min-width: 150px;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
   }
 
   .assumption-item dd {
     margin: 0;
-    color: var(--text-muted);
-  }
-
-  /* Formula */
-  .formula-box {
-    background: var(--bg-secondary);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-    margin-bottom: var(--space-sm);
-  }
-
-  .formula-box p {
-    margin: 0;
-  }
-
-  .formula {
-    font-family: monospace;
-    font-size: var(--text-sm);
+    font-weight: 600;
     color: var(--deep-forest);
-    padding: var(--space-sm);
-    background: var(--bg-white);
-    border-radius: var(--radius-sm);
-    margin-top: var(--space-xs);
   }
 
-  /* Disclaimer */
-  .disclaimer {
-    background: var(--bg-secondary);
-    border-left: 4px solid var(--coral);
+  .back-link-box {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent-mid);
     border-radius: var(--radius-md);
     padding: var(--space-md);
     margin-bottom: var(--space-xl);
   }
 
-  .disclaimer h2 {
-    font-size: var(--text-lg);
-    color: var(--coral);
-    margin-bottom: var(--space-xs);
-  }
-
-  .disclaimer p {
+  .back-link-box p {
     margin: 0;
     font-size: var(--text-sm);
-    color: var(--text-muted);
+    color: var(--text);
   }
 
   .doc-nav {
@@ -517,12 +285,11 @@ const manadskostnaderPerHh = [
 
   @media (max-width: 600px) {
     h1 {
-      font-size: var(--text-3xl);
+      font-size: var(--text-2xl);
     }
 
-    .assumption-item {
-      flex-direction: column;
-      gap: var(--space-xs);
+    .assumptions-list {
+      grid-template-columns: 1fr;
     }
   }
 </style>
