@@ -38,6 +38,12 @@ oloflarsson/
       stadgar.astro              # Stadgar §1–13
       projekt/
         olof-larsson.astro       # Projektsida med gårdsbilder
+        ekoby.astro              # Ekoby & boendegemenskap
+      arbetsyta/
+        index.astro              # Arbetsyta – öppet styrelsearbete
+        mark/                    # Markspaning och prospekt
+        ekonomi/                 # Kapitalkalkyler
+        ideer/                   # Idébank
     components/
       InterestForm.astro         # Formspree-formulär (ID: xbgjrqlz)
     styles/
@@ -91,13 +97,13 @@ Kurser i ekologisk odling, frösparande och naturbyggande.
 7. **Tillgänglighet** – alt-texter, heading-hierarki, aria-attribut är obligatoriska
 8. **Verifiera alltid** med `npm run build` efter ändringar
 
-## Intern arbetsyta (`/arbetsyta/`)
+## Arbetsyta (`/arbetsyta/`)
 
-Sidan `/arbetsyta/` är en intern arbetsyta för styrelsen att dela idéer, markspaning, kalkyler och anteckningar. Den är **inte** länkad från huvudmenyn, footern eller startsidan – men är publikt tillgänglig för den som känner till URL:en (ingen autentisering).
+Sidan `/arbetsyta/` är styrelsens öppna arbetsyta där pågående arbete med markspaning, kalkyler och idéer delas transparent. Den är **länkad från huvudmenyn, footern och ekobysidan** – och framas som "Styrelsen arbetar öppet".
 
-- **Syfte:** Låta styrelsemedlemmar bidra via GitHub-commits/PRs utan att behöva ett CMS
-- **Struktur:** Index + undersidor för mark, ekonomi och idéer
-- **Underhåll:** Behandla som internt arbetsmaterial – inte marknadsföring
+- **Syfte:** Transparens kring föreningens pågående arbete; styrelsemedlemmar bidrar via GitHub-commits/PRs utan CMS
+- **Struktur:** Index + undersidor för mark (inkl. off-market), ekonomi och idéer
+- **Innehållsregler:** Allt som publiceras är publikt. Lägg aldrig in hemliga off-market-kontakter, pitchmaterial eller känsliga utåtriktade detaljer i repot – använd privata kanaler för sådant
 
 ## Vad projektet INTE är
 
