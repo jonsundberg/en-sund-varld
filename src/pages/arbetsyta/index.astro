@@ -1,45 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-const dokumentation = [
-  {
-    href: '/arbetsyta/mark/',
-    titel: 'Markspaning',
-    beskrivning: 'Prospekt och utvärderingar av markområden för ekobyprojektet.',
-    status: 'aktiv',
-    uppdaterad: '2026-09-14',
-  },
-  {
-    href: '/arbetsyta/mark/offmarket/',
-    titel: 'Långsiktiga markägare',
-    beskrivning: 'Dialog med gods, stiftelser och kyrka om vård och nyttjanderätt.',
-    status: 'aktiv',
-    uppdaterad: '2026-09-14',
-  },
-  {
-    href: '/arbetsyta/ekonomi/',
-    titel: 'Ekonomi & kalkyler',
-    beskrivning: 'Kapitalkalkyler, finansieringsmodeller och budget för ekobyns förvärv.',
-    status: 'aktiv',
-    uppdaterad: '2026-09-13',
-  },
-  {
-    href: '/arbetsyta/ideer/',
-    titel: 'Idébank',
-    beskrivning: 'Intäktsidéer, verksamhetsplaner och resiliensstrategi för ekobymarken.',
-    status: 'aktiv',
-    uppdaterad: '2026-09-13',
-  },
-];
-
-function statusLabel(status: string) {
-  const labels: Record<string, string> = {
-    utkast: 'Utkast',
-    aktiv: 'Aktiv',
-    arkiv: 'Arkiverad',
-  };
-  return labels[status] || status;
-}
+import { arbetsytaSektioner, statusLabel, formatDatumSvenska } from '../../data/arbetsyta-metadata';
 ---
 
 <BaseLayout
@@ -97,14 +58,14 @@ function statusLabel(status: string) {
     <section class="dokumentation" aria-labelledby="dok-heading">
       <h2 id="dok-heading">Dokumentation</h2>
       <ul class="doc-list" role="list">
-        {dokumentation.map((doc) => (
+        {arbetsytaSektioner.map((doc) => (
           <li class="doc-card">
             <a href={doc.href} class="doc-link">
               <span class="doc-meta">
                 <span class={`doc-status doc-status--${doc.status}`}>
                   {statusLabel(doc.status)}
                 </span>
-                <span class="doc-date">Uppdaterad {doc.uppdaterad}</span>
+                <span class="doc-date">Uppdaterad {formatDatumSvenska(doc.senastAndrad)}</span>
               </span>
               <h3>{doc.titel}</h3>
               <p>{doc.beskrivning}</p>

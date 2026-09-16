@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { OFFMARKET_SENAST_ANDRAD, formatDatumSvenska } from '../../../../data/arbetsyta-metadata';
 
 const metadata = {
   titel: 'Till långsiktiga markägare',
-  datum: '2026-09-14',
+  datum: OFFMARKET_SENAST_ANDRAD,
   status: 'pågående',
 };
 ---
@@ -19,7 +20,7 @@ const metadata = {
       </p>
       <div class="doc-meta">
         <span class="doc-status doc-status--pagaende">Pågående</span>
-        <span class="doc-date">Uppdaterad {metadata.datum}</span>
+        <span class="doc-date">Uppdaterad {formatDatumSvenska(metadata.datum)}</span>
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
