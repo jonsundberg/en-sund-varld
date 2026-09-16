@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { EKONOMI_SENAST_ANDRAD, formatDatumSvenska } from '../../../data/arbetsyta-metadata';
 
 const metadata = {
   titel: 'Ekonomi – vår modell',
-  datum: '2026-09-15',
+  datum: EKONOMI_SENAST_ANDRAD,
   status: 'utkast',
 };
 
@@ -83,7 +84,7 @@ const intaktsmojligheter = [
       </p>
       <div class="doc-meta">
         <span class="doc-status doc-status--utkast">Utkast</span>
-        <span class="doc-date">15 sep 2026</span>
+        <span class="doc-date">Uppdaterad {formatDatumSvenska(metadata.datum)}</span>
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">

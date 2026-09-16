@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { IDEER_SENAST_ANDRAD, formatDatumSvenska } from '../../../data/arbetsyta-metadata';
 
 const metadata = {
   titel: 'Idébank',
-  datum: '2026-09-16',
+  datum: IDEER_SENAST_ANDRAD,
   status: 'aktiv',
 };
 
@@ -80,7 +81,7 @@ function riskClass(risk: string) {
       </p>
       <div class="doc-meta">
         <span class="doc-status doc-status--aktiv">Aktiv</span>
-        <span class="doc-date">Uppdaterad {metadata.datum}</span>
+        <span class="doc-date">Uppdaterad {formatDatumSvenska(metadata.datum)}</span>
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">

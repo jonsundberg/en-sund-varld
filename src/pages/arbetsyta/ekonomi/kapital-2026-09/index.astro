@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { KAPITAL_DETALJ_SENAST_ANDRAD, formatDatumSvenska } from '../../../../data/arbetsyta-metadata';
 
 const metadata = {
   titel: 'Kapitalkalkyl – detaljer',
-  datum: '2026-09-15',
+  datum: KAPITAL_DETALJ_SENAST_ANDRAD,
   status: 'komplement',
 };
 
@@ -34,7 +35,7 @@ const antaganden = {
       </p>
       <div class="doc-meta">
         <span class="doc-status">Komplement</span>
-        <span class="doc-date">15 sep 2026</span>
+        <span class="doc-date">Uppdaterad {formatDatumSvenska(metadata.datum)}</span>
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
