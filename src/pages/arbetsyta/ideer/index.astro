@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 const metadata = {
   titel: 'Idébank',
-  datum: '2026-09-13',
+  datum: '2026-09-16',
   status: 'aktiv',
 };
 
@@ -16,11 +16,11 @@ const ideer = [
     beskrivning: 'Arrendera betesmark till lokala djurhållare. Stabil inkomst med minimal insats.',
   },
   {
-    titel: 'Kurser i naturbyggande',
+    titel: 'Workshops i naturbyggande',
     kategori: 'Intäkt & utbildning',
-    ar: '1',
+    ar: '0–1',
     risk: 'medel',
-    beskrivning: 'Helgkurser i lera, halm och timring. Kan dra deltagare från hela landet.',
+    beskrivning: 'Helgkurser i samma block som intern lärling: lera, timmer, VA/jordhus, odling, design. Illustrativt bas ~70 tkr omsättning år 0 (3 helger) / ~145 tkr år 1 (6 helger). Börja sparsamt, skala när boende och försäkring sitter. Flaskhals: handledartid, sedan gästboende/VA. Inte YH/CSN — föreningsintyg + portfolio.',
   },
   {
     titel: 'CSA-andelar (andelsodling)',
@@ -100,6 +100,26 @@ function riskClass(risk: string) {
       </ul>
     </section>
 
+    <section class="doc-section" aria-labelledby="utbildning">
+      <h2 id="utbildning">Utbildning & workshops</h2>
+      <p>
+        Föreningen planerar ett utbildningsspår med två delar: <strong>intern lärling</strong> 
+        (längre praktik för medlemmar) och <strong>öppna workshops</strong> (helgkurser för 
+        allmänheten). Båda följer samma block: lera, timmer, VA/jordhus, odling och design.
+      </p>
+      <ul>
+        <li><strong>Illustrativa siffror:</strong> Bas ~70 tkr omsättning år 0 (3 helger), ~145 tkr år 1 (6 helger). Bidragsmarginal typiskt 65–75 % före handledarlön.</li>
+        <li><strong>Flaskhalsar:</strong> Handledartid är begränsande — sedan gästboende, mat/kök och VA.</li>
+        <li><strong>Partnerskap:</strong> Längre fram kan samarbete med folkhögskola eller PDC bli aktuellt, men inte i första steget.</li>
+        <li><strong>Biljettförsäljning:</strong> Styrelsen beslutar om moms, försäkring och tillstånd innan kurser erbjuds externt.</li>
+      </ul>
+      <p>
+        Utbildning är inte YH- eller CSN-godkänd — deltagare får istället föreningsintyg och 
+        bygger på egen portfolio. Se <a href="/arbetsyta/ekonomi/">Ekonomi-sidan</a> för 
+        detaljerade kalkyler.
+      </p>
+    </section>
+
     <section class="doc-section" aria-labelledby="ide-lista">
       <h2 id="ide-lista">Intäktsidéer för ekobymarken</h2>
       <p>
@@ -136,19 +156,20 @@ function riskClass(risk: string) {
       <h2 id="fasning">Fasning</h2>
       <div class="phase-cards">
         <article class="phase-card">
-          <span class="phase-label">År 1</span>
+          <span class="phase-label">År 0–1</span>
           <h3>Etablering</h3>
           <p>
             Fokus på lågriskaktiviteter: bete, ved, odlingslotter. 
-            Minimal investering, snabb igångstart.
+            Workshops i naturbyggande kan starta sparsamt redan år 0 
+            om handledare och försäkring finns på plats.
           </p>
         </article>
         <article class="phase-card">
           <span class="phase-label">År 2–3</span>
           <h3>Expansion</h3>
           <p>
-            Kurser, gårdsbutik och eventuellt retreat när gruppen hittat 
-            sin form och marken är känd.
+            Fler kurser, gårdsbutik och eventuellt retreat när gruppen 
+            hittat sin form och marken är känd.
           </p>
         </article>
       </div>
