@@ -30,8 +30,8 @@ export function formatDatumSvenska(isoDate: string): string {
 
 export const MARK_SENAST_ANDRAD = '2026-09-14';
 export const OFFMARKET_SENAST_ANDRAD = '2026-09-14';
-export const EKONOMI_SENAST_ANDRAD = '2026-09-15';
-export const IDEER_SENAST_ANDRAD = '2026-09-16';
+export const EKONOMI_SENAST_ANDRAD = '2026-09-18';
+export const IDEER_SENAST_ANDRAD = '2026-09-18';
 export const KAPITAL_DETALJ_SENAST_ANDRAD = '2026-09-15';
 
 export const arbetsytaSektioner: ArbetsytaSektion[] = [

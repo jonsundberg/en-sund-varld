@@ -10,6 +10,13 @@ const metadata = {
 
 const ideer = [
   {
+    titel: 'Ägarmodeller – tre alternativ',
+    kategori: 'Organisation',
+    ar: '0',
+    risk: 'låg',
+    beskrivning: 'Vi utforskar olika sätt att organisera ägande: klassisk EF, delat medlemskap (Grobund-inspiration), eller stiftelse. Se ekonomisidan för jämförelse.',
+  },
+  {
     titel: 'Bete & arrende',
     kategori: 'Intäkt',
     ar: '1',
@@ -59,6 +66,14 @@ const ideer = [
     beskrivning: 'Erbjud odlingslotter till grannar mot årsavgift. Skapar inkomst och lokal förankring.',
   },
 ];
+
+interface Ide {
+  titel: string;
+  kategori: string;
+  ar: string;
+  risk: string;
+  beskrivning: string;
+}
 
 function riskClass(risk: string) {
   const classes: Record<string, string> = {
@@ -138,7 +153,7 @@ function riskClass(risk: string) {
             </tr>
           </thead>
           <tbody>
-            {ideer.map((ide) => (
+            {ideer.map((ide: Ide) => (
               <tr>
                 <td>
                   <strong>{ide.titel}</strong>
