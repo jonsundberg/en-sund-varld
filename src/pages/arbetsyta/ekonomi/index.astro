@@ -152,7 +152,7 @@ const intaktsmojligheter = [
           </div>
           <div class="highlight-item">
             <span class="highlight-label">Hushåll</span>
-            <span class="highlight-value">10 st</span>
+            <span class="highlight-value" id="highlight-hh">10 st</span>
           </div>
           <div class="highlight-item">
             <span class="highlight-label">Belåning (LTV)</span>
@@ -168,7 +168,7 @@ const intaktsmojligheter = [
       </div>
 
       <div class="slider-section">
-        <h3>Utforska olika köpeskillingar</h3>
+        <h3>Utforska olika scenarion</h3>
         <div class="slider-calculator" id="kapital-kalkylator">
           <div class="slider-input-group">
             <label for="kopes-slider" class="slider-label">
@@ -178,14 +178,33 @@ const intaktsmojligheter = [
               type="range" 
               id="kopes-slider" 
               min="2500" 
-              max="4500" 
+              max="7000" 
               step="100" 
               value="3000"
-              aria-describedby="slider-help"
+              aria-describedby="slider-help-kopes"
             />
             <div class="slider-range-labels">
               <span>2,5 Mkr</span>
-              <span>4,5 Mkr</span>
+              <span>7,0 Mkr</span>
+            </div>
+          </div>
+
+          <div class="slider-input-group">
+            <label for="hh-slider" class="slider-label">
+              Antal hushåll: <output id="hh-output" class="slider-output">10 st</output>
+            </label>
+            <input 
+              type="range" 
+              id="hh-slider" 
+              min="6" 
+              max="24" 
+              step="1" 
+              value="10"
+              aria-describedby="slider-help-hh"
+            />
+            <div class="slider-range-labels">
+              <span>6 st</span>
+              <span>24 st</span>
             </div>
           </div>
 
@@ -346,11 +365,13 @@ const intaktsmojligheter = [
   </article>
 
   <script>
-    const slider = document.getElementById('kopes-slider') as HTMLInputElement;
+    const kopesSlider = document.getElementById('kopes-slider') as HTMLInputElement;
+    const hhSlider = document.getElementById('hh-slider') as HTMLInputElement;
     const kopesOutput = document.getElementById('kopes-output');
+    const hhOutput = document.getElementById('hh-output');
+    const highlightHh = document.getElementById('highlight-hh');
     const resultMonthly = document.getElementById('result-monthly');
 
-    const ANTAL_HH = 10;
     const LTV = 0.60;
     const RANTA = 0.032;
     const AMORTERING = 0.02;
@@ -363,23 +384,31 @@ const intaktsmojligheter = [
       return '~' + Math.round(value / 10) * 10 + ' kr';
     }
 
-    function beraknaManadskostnad(kopeskillingTkr: number): number {
+    function formatHushall(value: number): string {
+      return value + ' st';
+    }
+
+    function beraknaManadskostnad(kopeskillingTkr: number, antalHh: number): number {
       const kopeskillingSek = kopeskillingTkr * 1000;
       const lanSek = kopeskillingSek * LTV;
       const arligKostnad = lanSek * (RANTA + AMORTERING);
-      return arligKostnad / 12 / ANTAL_HH;
+      return arligKostnad / 12 / antalHh;
     }
 
     function uppdatera() {
-      const kopeskillingTkr = parseInt(slider.value, 10);
-      const manad = beraknaManadskostnad(kopeskillingTkr);
+      const kopeskillingTkr = parseInt(kopesSlider.value, 10);
+      const antalHh = parseInt(hhSlider.value, 10);
+      const manad = beraknaManadskostnad(kopeskillingTkr, antalHh);
 
       if (kopesOutput) kopesOutput.textContent = formatTkr(kopeskillingTkr);
+      if (hhOutput) hhOutput.textContent = formatHushall(antalHh);
+      if (highlightHh) highlightHh.textContent = formatHushall(antalHh);
       if (resultMonthly) resultMonthly.textContent = formatKr(manad);
     }
 
-    if (slider) {
-      slider.addEventListener('input', uppdatera);
+    if (kopesSlider && hhSlider) {
+      kopesSlider.addEventListener('input', uppdatera);
+      hhSlider.addEventListener('input', uppdatera);
       uppdatera();
     }
   </script>
@@ -792,7 +821,8 @@ const intaktsmojligheter = [
     color: var(--coral);
   }
 
-  #kopes-slider {
+  #kopes-slider,
+  #hh-slider {
     width: 100%;
     height: 8px;
     border-radius: 4px;
@@ -801,7 +831,8 @@ const intaktsmojligheter = [
     cursor: pointer;
   }
 
-  #kopes-slider::-webkit-slider-thumb {
+  #kopes-slider::-webkit-slider-thumb,
+  #hh-slider::-webkit-slider-thumb {
     appearance: none;
     width: 24px;
     height: 24px;
@@ -812,7 +843,8 @@ const intaktsmojligheter = [
     box-shadow: var(--shadow-md);
   }
 
-  #kopes-slider::-moz-range-thumb {
+  #kopes-slider::-moz-range-thumb,
+  #hh-slider::-moz-range-thumb {
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -822,11 +854,13 @@ const intaktsmojligheter = [
     box-shadow: var(--shadow-md);
   }
 
-  #kopes-slider:focus {
+  #kopes-slider:focus,
+  #hh-slider:focus {
     outline: none;
   }
 
-  #kopes-slider:focus-visible {
+  #kopes-slider:focus-visible,
+  #hh-slider:focus-visible {
     outline: 3px solid var(--deep-forest);
     outline-offset: 2px;
   }
