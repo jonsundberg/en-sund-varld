@@ -93,35 +93,42 @@ const intaktsmojligheter = [
       </p>
     </header>
 
-    <!-- STRUKTURBESLUT A+C -->
-    <section class="struktur-card" aria-labelledby="struktur-beslut">
-      <div class="struktur-badge">Styrelsebeslut 2026-09-18</div>
-      <h2 id="struktur-beslut">Struktur: A+C</h2>
+    <!-- ÄGARMODELL – ALTERNATIV -->
+    <section class="struktur-card" aria-labelledby="agarmodell">
+      <div class="struktur-badge">Under utforskning</div>
+      <h2 id="agarmodell">Möjliga sätt att organisera ägande och boende</h2>
       <p class="struktur-lead">
-        Föreningen har valt strukturprincip <strong>A+C</strong> – inspirerad av 
-        den danska Grobund-modellen men anpassad som svensk systermodell.
+        Vi tittar på olika modeller för hur föreningen kan äga mark och hur 
+        medlemskap och boende hänger ihop. Här är alternativen vi utforskar.
       </p>
       
       <div class="struktur-grid">
         <div class="struktur-item">
-          <span class="struktur-letter">A</span>
+          <span class="struktur-number" aria-hidden="true">1</span>
           <div class="struktur-content">
-            <strong>Ekonomisk förening äger marken</strong>
-            <p>En juridisk person – EF köper och förvaltar marken. Enklare start, passar föreningslån och bidrag.</p>
+            <strong>Klassisk föreningsmodell</strong>
+            <p>Föreningen äger marken. Medlemskap och boplats hänger ihop — den som blir medlem får också en plats att bo på.</p>
           </div>
         </div>
         <div class="struktur-item">
-          <span class="struktur-letter">C</span>
+          <span class="struktur-number" aria-hidden="true">2</span>
           <div class="struktur-content">
-            <strong>Kapitalinsats separerad från bo-lod</strong>
-            <p>Två tydliga delar: <em>kapitalinsats</em> (finansierar mark/lån) och <em>bo-lod/bruksrätt</em> (lägre tröskel för att komma in). Total kring ~400 tkr men bo-lod kan vara lägre kontanttröskel.</p>
+            <strong>Kapitalinsats och bo-rätt var för sig</strong>
+            <p>Föreningen äger marken, men medlemskapet har två delar: <em>kapitalinsats</em> (hjälper finansiera marken) och <em>bo-rätt</em> (plats att bo på). Man kan vara med utan att boplats följer automatiskt. Inspirerat av danska Grobund.</p>
+          </div>
+        </div>
+        <div class="struktur-item">
+          <span class="struktur-number" aria-hidden="true">3</span>
+          <div class="struktur-content">
+            <strong>Stiftelse äger marken</strong>
+            <p>En stiftelse äger marken permanent — starkt skydd mot spekulation. Medlemmarna har bruksrätt. Mer komplext att starta, något att ha i bakhuvudet för framtiden.</p>
           </div>
         </div>
       </div>
 
       <div class="struktur-note">
-        <strong>Stiftelse (B) skjuts på framtiden</strong> – kan bli aktuellt år 3+ om kapital 
-        och förvaltning mognar, men EF är rätt ram för etablering.
+        I alla varianter bygger och äger den boende oftast sitt eget hus — marken ägs gemensamt, 
+        men byggnaden är din.
       </div>
 
       <p class="struktur-disclaimer">
@@ -494,19 +501,19 @@ const intaktsmojligheter = [
     padding: var(--space-md);
   }
 
-  .struktur-letter {
+  .struktur-number {
     flex-shrink: 0;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--coral);
-    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--text-on-dark);
     font-family: var(--font-display);
-    font-size: var(--text-xl);
+    font-size: var(--text-base);
     font-weight: 700;
-    border-radius: var(--radius-md);
+    border-radius: 50%;
   }
 
   .struktur-content strong {
