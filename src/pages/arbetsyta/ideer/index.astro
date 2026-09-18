@@ -10,6 +10,14 @@ const metadata = {
 
 const ideer = [
   {
+    titel: 'Grobund-inspirerad struktur (A+C)',
+    kategori: 'Ägarmodell',
+    ar: '0',
+    risk: 'låg',
+    beskrivning: 'Systermodell till danska Grobund: EF äger mark, tydlig uppdelning kapitalinsats/bo-lod. Styrelsebeslut 2026-09-18: A+C är vald riktning.',
+    beslut: true,
+  },
+  {
     titel: 'Bete & arrende',
     kategori: 'Intäkt',
     ar: '1',
@@ -59,6 +67,15 @@ const ideer = [
     beskrivning: 'Erbjud odlingslotter till grannar mot årsavgift. Skapar inkomst och lokal förankring.',
   },
 ];
+
+interface Ide {
+  titel: string;
+  kategori: string;
+  ar: string;
+  risk: string;
+  beskrivning: string;
+  beslut?: boolean;
+}
 
 function riskClass(risk: string) {
   const classes: Record<string, string> = {
@@ -138,10 +155,13 @@ function riskClass(risk: string) {
             </tr>
           </thead>
           <tbody>
-            {ideer.map((ide) => (
-              <tr>
+            {ideer.map((ide: Ide) => (
+              <tr class={ide.beslut ? 'beslut-row' : ''}>
                 <td>
-                  <strong>{ide.titel}</strong>
+                  <strong>
+                    {ide.titel}
+                    {ide.beslut && <span class="beslut-badge">Beslut</span>}
+                  </strong>
                   <span class="ide-desc">{ide.beskrivning}</span>
                 </td>
                 <td>{ide.ar}</td>
@@ -329,6 +349,28 @@ function riskClass(risk: string) {
 
   .ide-table tbody tr:hover {
     background: var(--surface-low);
+  }
+
+  .ide-table tbody tr.beslut-row {
+    background: var(--accent-light);
+  }
+
+  .ide-table tbody tr.beslut-row:hover {
+    background: rgba(173, 205, 200, 0.35);
+  }
+
+  .beslut-badge {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--deep-forest);
+    color: #fff;
+    padding: 0.15rem 0.4rem;
+    border-radius: var(--radius-sm);
+    margin-left: 0.5rem;
+    vertical-align: middle;
   }
 
   .ide-table td:first-child {

@@ -93,6 +93,42 @@ const intaktsmojligheter = [
       </p>
     </header>
 
+    <!-- STRUKTURBESLUT A+C -->
+    <section class="struktur-card" aria-labelledby="struktur-beslut">
+      <div class="struktur-badge">Styrelsebeslut 2026-09-18</div>
+      <h2 id="struktur-beslut">Struktur: A+C</h2>
+      <p class="struktur-lead">
+        Föreningen har valt strukturprincip <strong>A+C</strong> – inspirerad av 
+        den danska Grobund-modellen men anpassad som svensk systermodell.
+      </p>
+      
+      <div class="struktur-grid">
+        <div class="struktur-item">
+          <span class="struktur-letter">A</span>
+          <div class="struktur-content">
+            <strong>Ekonomisk förening äger marken</strong>
+            <p>En juridisk person – EF köper och förvaltar marken. Enklare start, passar föreningslån och bidrag.</p>
+          </div>
+        </div>
+        <div class="struktur-item">
+          <span class="struktur-letter">C</span>
+          <div class="struktur-content">
+            <strong>Kapitalinsats separerad från bo-lod</strong>
+            <p>Två tydliga delar: <em>kapitalinsats</em> (finansierar mark/lån) och <em>bo-lod/bruksrätt</em> (lägre tröskel för att komma in). Total kring ~400 tkr men bo-lod kan vara lägre kontanttröskel.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="struktur-note">
+        <strong>Stiftelse (B) skjuts på framtiden</strong> – kan bli aktuellt år 3+ om kapital 
+        och förvaltning mognar, men EF är rätt ram för etablering.
+      </div>
+
+      <p class="struktur-disclaimer">
+        <em>Illustrativt planeringsunderlag — ej juridisk rådgivning.</em>
+      </p>
+    </section>
+
     <!-- MARKKÖP + GEMENSAMT LÅN -->
     <section class="model-section" aria-labelledby="markkop">
       <h2 id="markkop">Markköp via gemensamt föreningslån</h2>
@@ -401,6 +437,115 @@ const intaktsmojligheter = [
     font-size: var(--text-lg);
     color: var(--text-muted);
     line-height: 1.6;
+  }
+
+  /* Struktur-beslut card */
+  .struktur-card {
+    background: linear-gradient(135deg, var(--deep-forest) 0%, #2a4a46 100%);
+    color: var(--text-on-dark);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .struktur-badge {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--coral);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .struktur-card h2 {
+    color: var(--text-on-dark);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .struktur-lead {
+    color: var(--accent-mid);
+    font-size: var(--text-base);
+    max-width: 40rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .struktur-lead strong {
+    color: var(--text-on-dark);
+  }
+
+  .struktur-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .struktur-item {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .struktur-letter {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--coral);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    border-radius: var(--radius-md);
+  }
+
+  .struktur-content strong {
+    display: block;
+    color: var(--text-on-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .struktur-content p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--accent-mid);
+    line-height: 1.5;
+  }
+
+  .struktur-content em {
+    color: var(--text-on-dark);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .struktur-note {
+    font-size: var(--text-sm);
+    color: var(--accent-mid);
+    background: rgba(255, 255, 255, 0.08);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .struktur-note strong {
+    color: var(--text-on-dark);
+  }
+
+  .struktur-disclaimer {
+    font-size: var(--text-sm);
+    color: var(--accent-mid);
+    margin: 0;
+    opacity: 0.8;
   }
 
   /* Model sections */
