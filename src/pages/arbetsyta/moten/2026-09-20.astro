@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { formatDatumSvenska } from '../../../data/arbetsyta-metadata';
+
+const metadata = {
+  datum: '2026-09-20',
+  status: 'aktiv',
+};
+
+const punkter = [
+  {
+    titel: 'Hjälpa Olle tillsammans',
+    beskrivning: 'Lära känna varandra genom att göra något konkret och nyttigt – till exempel fixa vatten på gården.',
+  },
+  {
+    titel: 'Hemläxa: stadgar',
+    beskrivning: 'Alla går igenom stadgarna och färdigställer dem till nästa möte.',
+  },
+  {
+    titel: 'Kolla föreningskrav',
+    beskrivning: 'Ta reda på exakt vad som krävs för att formellt starta föreningen.',
+  },
+  {
+    titel: 'Besöka Ängsgärdet',
+    beskrivning: 'Planera ett besök till Ängsgärdet för att se hur deras bygemenskap fungerar.',
+  },
+  {
+    titel: 'Samla intressanta platser',
+    beskrivning: 'Börja en lista med ställen som kan vara intressanta att besöka – andra gemenskaper, gårdar och projekt.',
+  },
+  {
+    titel: 'Ordna en live-träff',
+    beskrivning: 'Fysisk träff söndag 27 september. Tid och plats meddelas till dem som kommer.',
+  },
+];
+---
+
+<BaseLayout
+  title={`Möte ${formatDatumSvenska(metadata.datum)} – Styrelsens arbetsyta`}
+  description="Punkter från styrelsemötet den 20 september 2026."
+>
+  <article class="arbetsyta-doc container">
+    <header class="doc-header">
+      <p class="breadcrumb">
+        <a href="/arbetsyta/">Arbetsyta</a> / <a href="/arbetsyta/moten/">Mötesanteckningar</a> / {formatDatumSvenska(metadata.datum)}
+      </p>
+      <div class="doc-meta">
+        <span class="doc-status doc-status--aktiv">Aktiv</span>
+      </div>
+      <h1>Möte {formatDatumSvenska(metadata.datum)}</h1>
+      <p class="doc-lead">
+        Punkter från veckans möte – vad vi pratade om och vad som ska göras framåt.
+      </p>
+    </header>
+
+    <section class="doc-section" aria-labelledby="punkter">
+      <h2 id="punkter">Punkter från mötet</h2>
+      <ol class="punkter-list">
+        {punkter.map((punkt) => (
+          <li class="punkt-item">
+            <strong>{punkt.titel}</strong>
+            <p>{punkt.beskrivning}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <nav class="doc-nav" aria-label="Navigering">
+      <a href="/arbetsyta/moten/" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Alla möten
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .arbetsyta-doc {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .doc-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-status {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .doc-status--aktiv {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .doc-section h2 {
+    font-size: var(--text-2xl);
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .punkter-list {
+    padding-left: 1.5rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .punkt-item {
+    padding-left: var(--space-xs);
+  }
+
+  .punkt-item strong {
+    display: block;
+    font-size: var(--text-lg);
+    color: var(--deep-forest);
+    margin-bottom: var(--space-xs);
+  }
+
+  .punkt-item p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-nav {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .doc-nav .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
