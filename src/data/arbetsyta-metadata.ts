@@ -33,8 +33,16 @@ export const OFFMARKET_SENAST_ANDRAD = '2026-09-14';
 export const EKONOMI_SENAST_ANDRAD = '2026-09-18';
 export const IDEER_SENAST_ANDRAD = '2026-09-18';
 export const KAPITAL_DETALJ_SENAST_ANDRAD = '2026-09-15';
+export const MOTEN_SENAST_ANDRAD = '2026-09-20';
 
 export const arbetsytaSektioner: ArbetsytaSektion[] = [
+  {
+    href: '/arbetsyta/moten/',
+    titel: 'Mötesanteckningar',
+    beskrivning: 'Punkter från styrelsens veckomöten – vad vi pratat om och vad vi ska göra.',
+    status: 'aktiv',
+    senastAndrad: MOTEN_SENAST_ANDRAD,
+  },
   {
     href: '/arbetsyta/mark/',
     titel: 'Markspaning',
