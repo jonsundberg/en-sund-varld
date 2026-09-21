@@ -28,7 +28,7 @@ export function formatDatumSvenska(isoDate: string): string {
   return `${dayNum} ${months[monthIndex]} ${year}`;
 }
 
-export const MARK_SENAST_ANDRAD = '2026-09-14';
+export const MARK_SENAST_ANDRAD = '2026-09-21';
 export const OFFMARKET_SENAST_ANDRAD = '2026-09-14';
 export const EKONOMI_SENAST_ANDRAD = '2026-09-18';
 export const IDEER_SENAST_ANDRAD = '2026-09-18';

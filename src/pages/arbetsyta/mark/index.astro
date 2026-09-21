@@ -4,6 +4,7 @@ import {
   getPrimaryProspects,
   getSecondaryProspects,
   getParkedProspects,
+  getGrobundProspects,
   statusLabels,
   type Prospekt,
 } from '../../../data/prospects';
@@ -22,6 +23,7 @@ const metadata = {
 
 const primära = getPrimaryProspects();
 const sekundära = getSecondaryProspects();
+const grobund = getGrobundProspects();
 ---
 
 <BaseLayout
@@ -202,6 +204,60 @@ const sekundära = getSecondaryProspects();
           </article>
         ))}
       </div>
+
+      {grobund.length > 0 && (
+        <>
+          <h3 class="kategori-heading">Grobund-spår</h3>
+          <p class="kategori-desc">Industri- och lagerfastigheter ≤5 Mkr – för verksamhet eller förädling</p>
+          <div class="shortlist-grid">
+            {grobund.map((p) => (
+              <article class="mark-card mark-card--grobund">
+                <a href={`/arbetsyta/mark/${p.slug}/`} class="mark-card-link">
+                  <div class="mark-card-body">
+                    <div class="mark-card-header">
+                      <h4>{p.namn}</h4>
+                      <span class="status-badge status-badge--grobund">
+                        Grobund
+                      </span>
+                    </div>
+                    <dl class="mark-details">
+                      <div class="mark-detail">
+                        <dt>Kommun</dt>
+                        <dd>{p.kommun}</dd>
+                      </div>
+                      <div class="mark-detail">
+                        <dt>Areal</dt>
+                        <dd>{p.ha} ha</dd>
+                      </div>
+                      <div class="mark-detail">
+                        <dt>Pris</dt>
+                        <dd>{p.pris}</dd>
+                      </div>
+                      <div class="mark-detail">
+                        <dt>Byggnader</dt>
+                        <dd>{p.byggnader}</dd>
+                      </div>
+                    </dl>
+                    <div class="mark-card-actions">
+                      <span class="detail-link">
+                        Visa detaljer →
+                      </span>
+                      <a href={p.url} target="_blank" rel="noopener noreferrer" class="mark-link" onclick="event.stopPropagation();">
+                        Öppna annons
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                          <polyline points="15 3 21 3 21 9"/>
+                          <line x1="10" y1="14" x2="21" y2="3"/>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        </>
+      )}
 
       {parkeradInfo && (
         <p class="parkerad-note">
@@ -432,6 +488,21 @@ const sekundära = getSecondaryProspects();
 
   .mark-card--secondary:hover {
     border-color: var(--accent-mid);
+  }
+
+  .mark-card--grobund {
+    border-color: #8b7355;
+    background: linear-gradient(135deg, var(--bg-white) 0%, #f5f0e8 100%);
+  }
+
+  .mark-card--grobund:hover {
+    border-color: #6b5a45;
+  }
+
+  .status-badge--grobund {
+    background: #f5efe5;
+    color: #5a4a3a;
+    border: 1px solid #8b7355;
   }
 
   .mark-card-link {
