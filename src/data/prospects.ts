@@ -1,5 +1,5 @@
 export type Status = 'ny' | 'djupdyk' | 'andrahand' | 'parkerad';
-export type Kategori = 'primär' | 'sekundär';
+export type Kategori = 'primär' | 'sekundär' | 'grobund';
 export type VANiva = 'sparsamt' | 'bas' | 'övre';
 export type TillstandsRisk = 'låg' | 'medel' | 'medel–hög' | 'hög';
 
@@ -94,6 +94,8 @@ const prospects: Prospekt[] = [
     kategori: 'primär',
     url: 'https://ludvig.se/fastigheter/gsz-aoc-skogsfastighet-om-78-ha-med-fina-jakt-och-fiskemojligheter-invid-siggeforasjon/',
     flaggor: [
+      { text: 'Anbud', typ: 'info' },
+      { text: 'Utanför detaljplan', typ: 'positiv' },
       { text: 'Utvidgat strandskydd 300m (södra skiftet)', typ: 'varning' },
       { text: 'Natura 2000-koppling', typ: 'varning' },
       { text: 'Två skiften', typ: 'info' },
@@ -131,6 +133,41 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     ],
   },
   {
+    slug: 'risby-4-3',
+    namn: 'Risby 4:3 (del)',
+    kommun: 'Uppsala (Viksta)',
+    lan: 'Uppsala län',
+    ha: '55',
+    haNum: 55,
+    pris: '4,25 Mkr',
+    prisNum: 4250000,
+    byggnader: 'Nej',
+    status: 'ny',
+    kategori: 'primär',
+    url: 'https://www.skogsfastigheter.se/uppsala/uppsala/del-av-risby-43-1074',
+    flaggor: [
+      { text: 'Delförsäljning', typ: 'info' },
+      { text: '~6 300 m³sk virkesförråd', typ: 'positiv' },
+      { text: 'Bra areal (55 ha)', typ: 'positiv' },
+      { text: 'Ingen befintlig bebyggelse', typ: 'info' },
+    ],
+    kalkyl: {
+      kopfasPerHh: beraknaKopfas(4250000),
+      rekommenderadVA: 'bas',
+      vaKostnadPerHh: { sparsamt: 168, bas: 218, ovre: 293 },
+      manadskostnadBas: beraknaManadskostnadBas(4250000),
+      manadskostnadStress: beraknaManadskostnadStress(4250000),
+      noter: 'Bygg från scratch – ingen befintlig bebyggelse.',
+    },
+    djupdyk: undefined,
+    nastaSteg: [
+      { id: 'ri1', text: 'Begär skogsbruksplan', done: false },
+      { id: 'ri2', text: 'Undersök bygglovsförutsättningar', done: false },
+      { id: 'ri3', text: 'Verifiera vägtillgång och servitut', done: false },
+      { id: 'ri4', text: 'Kontrollera vattentillgång', done: false },
+    ],
+  },
+  {
     slug: 'slada-335',
     namn: 'Slada 335',
     kommun: 'Tierp',
@@ -140,10 +177,11 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '3,0 Mkr',
     prisNum: 3000000,
     byggnader: 'Bostadshus + ladugård',
-    status: 'ny',
+    status: 'parkerad',
     kategori: 'primär',
     url: 'https://www.boneo.se/bostad/id-3642941-gard-skog-6rum-hallnas-slada-335',
     flaggor: [
+      { text: 'Såld (sep 2026)', typ: 'varning' },
       { text: 'Befintligt bostadshus (6 rum)', typ: 'positiv' },
       { text: 'Ladugård för konvertering', typ: 'positiv' },
       { text: 'Hällnäs – norra Tierp', typ: 'info' },
@@ -204,14 +242,16 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     haNum: 14.3,
     pris: '2,9 Mkr',
     prisNum: 2900000,
-    byggnader: 'Bostadshus',
+    byggnader: 'Bostad + ekonomi',
     status: 'ny',
     kategori: 'primär',
     url: 'https://carlssonring.se/objekt/johanneslund-tarnsjo/',
     flaggor: [
       { text: 'Liten areal (14,3 ha) – under önskad nivå', typ: 'varning' },
+      { text: 'JP-kommun glesbygd', typ: 'info' },
       { text: 'Glesbygdsläge (Tärnsjö)', typ: 'info' },
       { text: 'Befintligt bostadshus', typ: 'positiv' },
+      { text: 'Ekonomibyggnader', typ: 'positiv' },
     ],
     kalkyl: {
       kopfasPerHh: beraknaKopfas(2900000),
@@ -236,13 +276,14 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     haNum: 17,
     pris: '4,495 Mkr',
     prisNum: 4495000,
-    byggnader: 'Bostadshus',
+    byggnader: 'Bostad + ekonomi',
     status: 'ny',
     kategori: 'primär',
     url: 'https://www.maklarhuset.se/bostad/sverige/sodermanland/vingaker/hallerad-lindgarden/618848',
     flaggor: [
       { text: 'Högre pris (4,5 Mkr) – påverkar kapitalkrav', typ: 'varning' },
       { text: 'Befintligt bostadshus', typ: 'positiv' },
+      { text: 'Ekonomibyggnader', typ: 'positiv' },
       { text: 'Vingåker – Sörmland', typ: 'info' },
     ],
     kalkyl: {
@@ -264,8 +305,8 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     namn: 'Isätra 3:4',
     kommun: 'Sala',
     lan: 'Västmanlands län',
-    ha: '~34–38',
-    haNum: 36,
+    ha: '38',
+    haNum: 38,
     pris: '4,45 Mkr',
     prisNum: 4450000,
     byggnader: 'Nej',
@@ -273,10 +314,10 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     kategori: 'primär',
     url: 'https://www.skogsfastigheter.se/vastmanland/sala/sala-isatra-34-1032',
     flaggor: [
+      { text: 'Acceptpris', typ: 'info' },
       { text: 'Ingen befintlig bebyggelse', typ: 'info' },
-      { text: 'Fysisk person som säljare', typ: 'info' },
       { text: 'Ren skogsfastighet', typ: 'info' },
-      { text: 'Bra areal (34–38 ha)', typ: 'positiv' },
+      { text: 'Bra areal (38 ha)', typ: 'positiv' },
     ],
     kalkyl: {
       kopfasPerHh: beraknaKopfas(4450000),
@@ -493,6 +534,95 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
       { id: 'ol2', text: 'Kontrollera skick på befintliga byggnader', done: false },
     ],
   },
+  {
+    slug: 'valnasvagen-3-skarplinge',
+    namn: 'Valnäsvägen 3',
+    kommun: 'Tierp (Skärplinge)',
+    lan: 'Uppsala län',
+    ha: '0,9',
+    haNum: 0.9,
+    pris: '2,3 Mkr',
+    prisNum: 2300000,
+    byggnader: '~1 490 m² industri/lager',
+    status: 'ny',
+    kategori: 'grobund',
+    url: 'https://www.svenskfast.se/kommersiellt/uppsala/tierp/skarplinge/valnasvagen-3/443157/',
+    flaggor: [
+      { text: 'Industrilokal ~1 490 m²', typ: 'positiv' },
+      { text: 'Grobund-kandidat', typ: 'info' },
+      { text: '≤5 Mkr', typ: 'positiv' },
+    ],
+    kalkyl: {
+      kopfasPerHh: beraknaKopfas(2300000),
+      rekommenderadVA: 'bas',
+      vaKostnadPerHh: { sparsamt: 168, bas: 218, ovre: 293 },
+      manadskostnadBas: beraknaManadskostnadBas(2300000),
+      manadskostnadStress: beraknaManadskostnadStress(2300000),
+    },
+    djupdyk: undefined,
+    nastaSteg: [
+      { id: 'vn1', text: 'Utvärdera för industriändamål', done: false },
+    ],
+  },
+  {
+    slug: 'gransta-208-knutby',
+    namn: 'Gränsta 208',
+    kommun: 'Uppsala (Knutby)',
+    lan: 'Uppsala län',
+    ha: '~1',
+    haNum: 1,
+    pris: '3,7 Mkr',
+    prisNum: 3700000,
+    byggnader: '~507 m² industri/lager',
+    status: 'ny',
+    kategori: 'grobund',
+    url: 'https://www.svenskfast.se/kommersiellt/uppsala/uppsala/knutby/gransta-208/409728/',
+    flaggor: [
+      { text: 'Industrilokal ~507 m²', typ: 'positiv' },
+      { text: 'Grobund-kandidat', typ: 'info' },
+      { text: '≤5 Mkr', typ: 'positiv' },
+    ],
+    kalkyl: {
+      kopfasPerHh: beraknaKopfas(3700000),
+      rekommenderadVA: 'bas',
+      vaKostnadPerHh: { sparsamt: 168, bas: 218, ovre: 293 },
+      manadskostnadBas: beraknaManadskostnadBas(3700000),
+      manadskostnadStress: beraknaManadskostnadStress(3700000),
+    },
+    djupdyk: undefined,
+    nastaSteg: [
+      { id: 'gr1', text: 'Utvärdera för industriändamål', done: false },
+    ],
+  },
+  {
+    slug: 'tegelsmoravagen-16b-orbyhus',
+    namn: 'Tegelsmoravägen 16B',
+    kommun: 'Tierp (Örbyhus)',
+    lan: 'Uppsala län',
+    ha: '~0,9',
+    haNum: 0.9,
+    pris: '2,975 Mkr',
+    prisNum: 2975000,
+    byggnader: 'Industrifastighet',
+    status: 'ny',
+    kategori: 'grobund',
+    url: 'https://www.svenskfast.se/kommersiellt/uppsala/tierp/orbyhus/tegelsmoravagen-16b/407213/',
+    flaggor: [
+      { text: 'Grobund-kandidat', typ: 'info' },
+      { text: '≤5 Mkr', typ: 'positiv' },
+    ],
+    kalkyl: {
+      kopfasPerHh: beraknaKopfas(2975000),
+      rekommenderadVA: 'bas',
+      vaKostnadPerHh: { sparsamt: 168, bas: 218, ovre: 293 },
+      manadskostnadBas: beraknaManadskostnadBas(2975000),
+      manadskostnadStress: beraknaManadskostnadStress(2975000),
+    },
+    djupdyk: undefined,
+    nastaSteg: [
+      { id: 'te1', text: 'Utvärdera för industriändamål', done: false },
+    ],
+  },
 ];
 
 export const statusLabels: Record<Status, string> = {
@@ -520,6 +650,10 @@ export function getSecondaryProspects(): Prospekt[] {
 
 export function getParkedProspects(): Prospekt[] {
   return prospects.filter((p) => p.status === 'parkerad');
+}
+
+export function getGrobundProspects(): Prospekt[] {
+  return prospects.filter((p) => p.kategori === 'grobund' && p.status !== 'parkerad');
 }
 
 export default prospects;
