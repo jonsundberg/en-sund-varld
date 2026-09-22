@@ -1,3 +1,14 @@
+/**
+ * DEPRECATED: This webhook endpoint was intended for Formspree Pro webhooks.
+ * 
+ * Formspree webhooks require a paid Pro plan (~$20/mo) which we chose not to use.
+ * The interest form now submits directly to /api/interest which handles Brevo
+ * contact creation without needing Formspree as an intermediary.
+ * 
+ * This file is kept for reference but is not actively used.
+ * See: /api/interest.ts and /lib/brevo.ts for the current implementation.
+ */
+
 import type { APIRoute } from 'astro';
 
 export const prerender = false;

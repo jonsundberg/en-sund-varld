@@ -157,17 +157,12 @@ const interestOptions = [
 </section>
 
 <script>
-  window.formspree = window.formspree || function () {
-    (window.formspree.q = window.formspree.q || []).push(arguments);
-  };
-  window.formspree('initForm', {
-    formElement: '#interest-form',
-    formId: 'xbgjrqlz',
-  });
-
   const form = document.getElementById('interest-form') as HTMLFormElement | null;
   const interestError = document.getElementById('interest-error');
   const fieldset = document.getElementById('interest-fieldset');
+  const successEl = document.querySelector('[data-fs-success]') as HTMLElement | null;
+  const errorEl = document.querySelector('[data-fs-error]') as HTMLElement | null;
+  const submitBtn = document.querySelector('[data-fs-submit-btn]') as HTMLButtonElement | null;
 
   function hasInterest(): boolean {
     if (!form) return false;
@@ -180,6 +175,29 @@ const interestOptions = [
     fieldset.toggleAttribute('data-invalid', show);
   }
 
+  function showSuccess() {
+    if (successEl) successEl.style.display = 'block';
+    if (errorEl) {
+      errorEl.style.display = 'none';
+      errorEl.textContent = '';
+    }
+    if (form) form.style.display = 'none';
+  }
+
+  function showError(message: string) {
+    if (errorEl) {
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+    }
+    if (successEl) successEl.style.display = 'none';
+  }
+
+  function setSubmitting(submitting: boolean) {
+    if (!submitBtn) return;
+    submitBtn.disabled = submitting;
+    submitBtn.textContent = submitting ? 'Skickar...' : 'Skicka intresseanmälan';
+  }
+
   form?.addEventListener('change', (event) => {
     const target = event.target as HTMLElement;
     if (target instanceof HTMLInputElement && target.name === 'interest') {
@@ -187,17 +205,62 @@ const interestOptions = [
     }
   });
 
-  form?.addEventListener('submit', (event) => {
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    // Validate interests
     if (!hasInterest()) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
       showInterestError(true);
       const first = form.querySelector<HTMLInputElement>('input[name="interest"]');
       first?.focus();
+      return;
     }
-  }, true);
+
+    // Validate required fields
+    const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
+    const nameInput = form.querySelector<HTMLInputElement>('input[name="name"]');
+
+    if (!emailInput?.value.trim()) {
+      showError('Ange din e-postadress');
+      emailInput?.focus();
+      return;
+    }
+
+    if (!nameInput?.value.trim()) {
+      showError('Ange ditt namn');
+      nameInput?.focus();
+      return;
+    }
+
+    setSubmitting(true);
+    if (errorEl) errorEl.style.display = 'none';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('/api/interest', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.ok) {
+        showSuccess();
+        form.reset();
+      } else {
+        showError(data.error || 'Något gick fel. Försök igen.');
+      }
+    } catch {
+      showError('Kunde inte skicka anmälan. Kontrollera din internetanslutning och försök igen.');
+    } finally {
+      setSubmitting(false);
+    }
+  });
+
+  // Hide success/error messages initially
+  if (successEl) successEl.style.display = 'none';
+  if (errorEl) errorEl.style.display = 'none';
 </script>
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 <style>
   .form-section {
