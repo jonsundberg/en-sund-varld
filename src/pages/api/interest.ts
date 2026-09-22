@@ -84,8 +84,8 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  // Get Brevo API key from environment
-  const brevoApiKey = import.meta.env.BREVO_API_KEY;
+  // Get Brevo API key from environment (process.env for Vercel serverless)
+  const brevoApiKey = process.env.BREVO_API_KEY ?? import.meta.env.BREVO_API_KEY;
   if (!brevoApiKey) {
     console.error('BREVO_API_KEY environment variable is not set');
     return new Response(

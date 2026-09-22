@@ -42,20 +42,13 @@ function normalizeInterests(interest: string | string[] | undefined): string {
 }
 
 export function buildBrevoContact(data: ContactFormData): BrevoContact {
+  // Only use FIRSTNAME and LASTNAME - these are default Brevo attributes.
+  // Custom attributes (INTERESTS, SMS, NOTES) cause 400 errors if not defined in the account.
   const attributes: Record<string, string> = {};
 
   if (data.name && typeof data.name === 'string') {
     attributes.FIRSTNAME = extractFirstName(data.name);
     attributes.LASTNAME = extractLastName(data.name);
-  }
-
-  if (data.phone && typeof data.phone === 'string') {
-    attributes.SMS = data.phone.replace(/\s+/g, '');
-  }
-
-  const interests = normalizeInterests(data.interest);
-  if (interests) {
-    attributes.INTERESTS = interests;
   }
 
   const contact: BrevoContact = {
@@ -77,6 +70,14 @@ export async function createOrUpdateBrevoContact(
 ): Promise<BrevoResult> {
   const contact = buildBrevoContact(data);
 
+  // Log full signup data server-side (interests, phone, message not sent to Brevo)
+  const interests = normalizeInterests(data.interest);
+  console.log(
+    `[Brevo] Signup: email=${data.email}, name=${data.name || '(none)'}, ` +
+    `phone=${data.phone || '(none)'}, interests=${interests || '(none)'}, ` +
+    `message=${data.message ? 'yes' : 'no'}`
+  );
+
   try {
     const response = await fetch(BREVO_API_URL, {
       method: 'POST',
@@ -88,12 +89,12 @@ export async function createOrUpdateBrevoContact(
       body: JSON.stringify(contact),
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Brevo API error:', response.status, errorText);
+    const responseText = await response.text();
+    console.log(`[Brevo] Response: status=${response.status}, body=${responseText}`);
 
+    if (!response.ok) {
       // Brevo returns 400 when contact exists but updateEnabled handles it
-      if (response.status === 400 && errorText.includes('Contact already exist')) {
+      if (response.status === 400 && responseText.includes('Contact already exist')) {
         return { success: true, message: 'Contact updated', status: 200 };
       }
 
@@ -102,7 +103,7 @@ export async function createOrUpdateBrevoContact(
 
     return { success: true, message: 'Contact created', status: 200 };
   } catch (error) {
-    console.error('Error calling Brevo API:', error);
+    console.error('[Brevo] Network error:', error);
     return { success: false, message: 'Failed to reach email service', status: 502 };
   }
 }
