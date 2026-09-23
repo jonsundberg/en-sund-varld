@@ -106,8 +106,20 @@ export const POST: APIRoute = async ({ request }) => {
   const result = await createOrUpdateBrevoContact(contactData, brevoApiKey);
 
   if (!result.success) {
+    // Provide user-friendly error messages based on failure type
+    let userMessage = 'Kunde inte spara din anmälan – försök igen';
+    
+    if (result.status === 429) {
+      userMessage = 'För många förfrågningar just nu – vänta en stund och försök igen';
+    } else if (result.status === 500) {
+      // Auth/config issues - don't tell user to retry
+      userMessage = 'Serverfel – vi undersöker problemet';
+    }
+
+    console.error(`[Interest API] Brevo failed: ${result.message} (status ${result.status})`);
+    
     return new Response(
-      JSON.stringify({ ok: false, error: 'Kunde inte spara din anmälan – försök igen' }),
+      JSON.stringify({ ok: false, error: userMessage }),
       { status: result.status, headers: { 'Content-Type': 'application/json' } }
     );
   }
