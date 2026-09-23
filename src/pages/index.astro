@@ -60,9 +60,9 @@ import LineIcon from '../components/LineIcon.astro';
             tillsammans.
           </p>
           <p>
-            Som ekonomisk förening äger vi mark och tillgångar kollektivt och
-            erbjuder medlemmar <strong>nyttjanderätt</strong> – ett tryggt
-            och hållbart alternativ till privat markägande.
+            Föreningen är under bildande och ska äga mark och tillgångar 
+            kollektivt. Medlemmar får <strong>nyttjanderätt</strong> — ett 
+            tryggt och hållbart alternativ till privat markägande.
           </p>
           <a href="/stadgar" class="text-link">
             Läs våra stadgar
@@ -159,6 +159,18 @@ import LineIcon from '../components/LineIcon.astro';
           <a href="#anmalan" class="btn btn-outline btn-block">Bidra med kunskap</a>
         </article>
 
+      </div>
+
+      <!-- Landowner CTA -->
+      <div class="landowner-cta">
+        <p>
+          <strong>Äger du eller förvaltar mark?</strong> Vi söker dialog med markägare 
+          som vill se mark vårdas långsiktigt.
+          <a href="/for-markagare" class="text-link">
+            Läs mer för markägare
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </p>
       </div>
     </div>
   </section>
@@ -408,6 +420,29 @@ import LineIcon from '../components/LineIcon.astro';
     .about-inner { grid-template-columns: 1fr; }
     .projects-grid { grid-template-columns: 1fr; }
   }
+  /* ── Landowner CTA ─────────────────────────────────────── */
+  .landowner-cta {
+    margin-top: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--accent-light);
+    border: 1px solid var(--accent-mid);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+  .landowner-cta p {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .landowner-cta strong {
+    color: var(--deep-forest);
+  }
+  .landowner-cta .text-link {
+    display: inline-flex;
+    margin-left: var(--space-xs);
+  }
+
   @media (max-width: 600px) {
     .values-grid { grid-template-columns: 1fr; }
     .hero-actions { flex-direction: column; align-items: stretch; }

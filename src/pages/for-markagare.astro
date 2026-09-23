@@ -1,0 +1,395 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InterestForm from '../components/InterestForm.astro';
+import LineIcon from '../components/LineIcon.astro';
+---
+
+<BaseLayout
+  title="För dig som äger eller förvaltar mark – En sund värld"
+  description="En sund värld bygger en ekonomisk förening för gemensamt markägande, permakultur och ekoby. Vi söker dialog med markägare som vill se mark vårdas långsiktigt."
+>
+
+  <article class="markagare-page">
+
+    <header class="markagare-header">
+      <div class="container">
+        <p class="breadcrumb">
+          <a href="/">Hem</a> /
+          För markägare
+        </p>
+        <h1>För dig som äger eller förvaltar mark</h1>
+        <p class="markagare-ingress">
+          En sund värld bygger upp en ekonomisk förening för gemensamt 
+          markägande, permakultur och en ekoby med ungefär tio hushåll 
+          eller fler. Vi söker dialog med dig som vill se mark vårdas 
+          långsiktigt — inte styckas och spekuleras bort.
+        </p>
+      </div>
+    </header>
+
+    <!-- Status notice -->
+    <section class="status-notice" aria-labelledby="status-heading">
+      <div class="container">
+        <div class="status-card">
+          <LineIcon name="info" size="md" />
+          <div>
+            <h2 id="status-heading" class="visually-hidden">Status</h2>
+            <p>
+              <strong>Status:</strong> Föreningen är under bildande. Vi arbetar 
+              öppet med stadgar, medlemmar och markspaning. Vi har ingen registrerad 
+              förening med organisationsnummer än, och äger ingen mark i dag. Vi tar 
+              kontakt tidigt för att hitta rätt plats och rätt dialog.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vad vi söker -->
+    <section class="content-section" aria-labelledby="soker-heading">
+      <div class="container">
+        <div class="prose-section">
+          <h2 id="soker-heading">Vad vi söker</h2>
+          <ul class="criteria-list">
+            <li>
+              <LineIcon name="leaf" />
+              <span>Landsbygdsmark, gärna utanför detaljplan</span>
+            </li>
+            <li>
+              <LineIcon name="wheat" />
+              <span>Ungefär 20 hektar eller mer (odling, skog och vatten på samma plats är en fördel)</span>
+            </li>
+            <li>
+              <LineIcon name="people" />
+              <span>Plats där flera hushåll kan bo och bruka marken över tid</span>
+            </li>
+            <li>
+              <LineIcon name="house" />
+              <span>Geografi: rimlig pendling till Uppsala/Stockholm (Mälardalen och närliggande län)</span>
+            </li>
+          </ul>
+          <p class="note">
+            Vi är öppna för köp, långt arrende eller annan nyttjanderätt — formen 
+            får växa fram i samtal.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vad som händer med marken -->
+    <section class="content-section content-section--tinted" aria-labelledby="vard-heading">
+      <div class="container">
+        <div class="prose-section">
+          <h2 id="vard-heading">Vad som händer med marken</h2>
+          <p>
+            Marken ska ägas eller förvaltas gemensamt via den ekonomiska föreningen 
+            när den är bildad. Medlemmar får nyttjanderätt på gemensamma villkor. 
+            Syftet är boende, odling och långsiktig vård — inte vidareförsäljning 
+            eller lyxexploatering.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hur vi tänker kring ekonomi -->
+    <section class="content-section" aria-labelledby="ekonomi-heading">
+      <div class="container">
+        <div class="prose-section">
+          <h2 id="ekonomi-heading">Hur vi tänker kring ekonomi</h2>
+          <p>
+            När rätt plats finns planerar vi finansiering via medlemsinsatser och 
+            föreningslån, eventuellt kompletterat med bidrag. Det är ett tidigt 
+            skede: vi lovar inte en färdig köpeskilling i mejl. Vi vill först 
+            förstå platsen och era förutsättningar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vad vi ber om -->
+    <section class="content-section content-section--tinted" aria-labelledby="ber-om-heading">
+      <div class="container">
+        <div class="prose-section">
+          <h2 id="ber-om-heading">Vad vi ber om</h2>
+          <p>
+            Ett samtal utan förpliktelser. Tipsa gärna om läge, storlek och hur 
+            ni helst vill gå vidare (försäljning, arrende, annat).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-section" aria-labelledby="kontakt-heading">
+      <div class="container">
+        <div class="contact-card">
+          <h2 id="kontakt-heading">Kontakt</h2>
+          <p>
+            Har du mark som passar vår vision, eller vill du bara ställa en fråga? 
+            Hör av dig via formuläret nedan. Välj "Tips om mark" eller "Markägare" 
+            om det stämmer in på dig.
+          </p>
+          <a href="#anmalan" class="btn btn-primary">
+            Skicka meddelande →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Links to more info -->
+    <section class="links-section" aria-labelledby="las-mer-heading">
+      <div class="container">
+        <h2 id="las-mer-heading">Läs mer</h2>
+        <div class="links-grid">
+          <a href="/projekt/ekoby" class="link-card">
+            <LineIcon name="wheat" size="lg" />
+            <h3>Ekoby & Boendegemenskap</h3>
+            <p>Vår vision för hur en ekoby kan se ut och fungera.</p>
+          </a>
+          <a href="/stadgar" class="link-card">
+            <LineIcon name="scroll" size="lg" />
+            <h3>Föreningens stadgar</h3>
+            <p>Det formella ramverket för hur föreningen styrs.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </article>
+
+  <InterestForm
+    heading="Kontakta oss"
+    intro="Har du tips om mark, är markägare själv eller vill bara veta mer? Fyll i formuläret så hör vi av oss."
+    defaultInterests={['markagare']}
+  />
+
+</BaseLayout>
+
+<style>
+  .markagare-page {
+    padding-top: var(--header-height);
+  }
+
+  .markagare-header {
+    background: var(--bg-dark);
+    color: var(--text-on-dark);
+    padding-block: var(--space-2xl);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: var(--space-md);
+  }
+
+  .breadcrumb a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: underline;
+  }
+
+  .breadcrumb a:hover {
+    color: #fff;
+  }
+
+  .markagare-header h1 {
+    font-size: clamp(2rem, 5vw, var(--text-4xl));
+    color: #fff;
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
+    max-width: 48rem;
+  }
+
+  .markagare-ingress {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 52ch;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Status notice */
+  .status-notice {
+    padding-block: var(--space-lg);
+    background: var(--bg);
+  }
+
+  .status-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    background: var(--accent-light);
+    border: 1.5px solid var(--accent-mid);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .status-card :global(.line-icon) {
+    flex-shrink: 0;
+    color: var(--accent);
+    margin-top: 0.15rem;
+  }
+
+  .status-card p {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .status-card strong {
+    color: var(--deep-forest);
+  }
+
+  /* Content sections */
+  .content-section {
+    padding-block: var(--space-xl);
+  }
+
+  .content-section--tinted {
+    background: var(--bg-secondary);
+  }
+
+  .prose-section {
+    max-width: 52rem;
+  }
+
+  .prose-section h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .prose-section p {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-sm);
+  }
+
+  .prose-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Criteria list */
+  .criteria-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .criteria-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    font-size: var(--text-lg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .criteria-list :global(.line-icon) {
+    flex-shrink: 0;
+    color: var(--accent);
+    margin-top: 0.2rem;
+  }
+
+  .note {
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: var(--space-md);
+  }
+
+  /* Contact section */
+  .contact-section {
+    padding-block: var(--space-xl);
+  }
+
+  .contact-card {
+    background: linear-gradient(135deg, var(--deep-forest) 0%, #2a4a46 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .contact-card h2 {
+    color: var(--text-on-dark);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact-card p {
+    color: var(--accent-mid);
+    font-size: var(--text-base);
+    margin-bottom: var(--space-md);
+    max-width: 40rem;
+    margin-inline: auto;
+    line-height: 1.6;
+  }
+
+  /* Links section */
+  .links-section {
+    padding-block: var(--space-xl);
+    background: var(--bg-secondary);
+  }
+
+  .links-section h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+  }
+
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-md);
+    max-width: 48rem;
+    margin-inline: auto;
+  }
+
+  .link-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+
+  .link-card:hover {
+    border-color: var(--coral);
+    box-shadow: var(--shadow-md);
+  }
+
+  .link-card :global(.line-icon) {
+    color: var(--accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .link-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-xs);
+    color: var(--deep-forest);
+  }
+
+  .link-card p {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .markagare-header {
+      padding-block: var(--space-xl);
+    }
+
+    .status-card {
+      flex-direction: column;
+    }
+
+    .links-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
