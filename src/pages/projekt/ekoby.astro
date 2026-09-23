@@ -247,7 +247,27 @@ import LineIcon from '../../components/LineIcon.astro';
       </div>
     </section>
 
-    <section class="content-section content-section--tinted" aria-labelledby="arbetsyta-heading">
+    <section class="content-section content-section--tinted" aria-labelledby="markagare-heading">
+      <div class="container">
+        <div class="markagare-card">
+          <h2 id="markagare-heading">Äger du mark?</h2>
+          <p>
+            Vi söker dialog med markägare som vill se mark vårdas långsiktigt. 
+            Köp, arrende eller annan nyttjanderätt — formen får växa fram i samtal.
+          </p>
+          <div class="markagare-actions">
+            <a href="mailto:hej@en-sund-varld.se" class="btn btn-primary">
+              hej@en-sund-varld.se
+            </a>
+            <a href="/for-markagare" class="btn btn-outline">
+              Läs mer →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="arbetsyta-heading">
       <div class="container">
         <div class="arbetsyta-card">
           <div class="arbetsyta-card-content">
@@ -471,6 +491,34 @@ import LineIcon from '../../components/LineIcon.astro';
   .arbetsyta-card .btn-outline:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--text-on-dark);
+  }
+
+  .markagare-card {
+    background: var(--accent-light);
+    border: 1.5px solid var(--accent-mid);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+  .markagare-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--deep-forest);
+    margin-bottom: var(--space-sm);
+  }
+  .markagare-card p {
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    margin-bottom: var(--space-md);
+    max-width: 40rem;
+    margin-inline: auto;
+    line-height: 1.6;
+  }
+
+  .markagare-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
   }
 
 </style>
