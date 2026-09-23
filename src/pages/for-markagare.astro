@@ -53,7 +53,7 @@ import LineIcon from '../components/LineIcon.astro';
           <ul class="criteria-list">
             <li>
               <LineIcon name="leaf" />
-              <span>Landsbygdsmark, gärna utanför detaljplan</span>
+              <span>Landsbygdsmark i Sverige, gärna utanför detaljplan</span>
             </li>
             <li>
               <LineIcon name="wheat" />
@@ -65,7 +65,7 @@ import LineIcon from '../components/LineIcon.astro';
             </li>
             <li>
               <LineIcon name="house" />
-              <span>Geografi: rimlig pendling till Uppsala/Stockholm (Mälardalen och närliggande län)</span>
+              <span>En plats som passar för långsiktig ekoby och permakultur</span>
             </li>
           </ul>
           <p class="note">
@@ -126,12 +126,14 @@ import LineIcon from '../components/LineIcon.astro';
           <h2 id="kontakt-heading">Kontakt</h2>
           <p>
             Har du mark som passar vår vision, eller vill du bara ställa en fråga? 
-            Hör av dig via formuläret nedan. Välj "Tips om mark" eller "Markägare" 
-            om det stämmer in på dig.
+            Mejla oss direkt — vi svarar personligen.
           </p>
-          <a href="#anmalan" class="btn btn-primary">
-            Skicka meddelande →
+          <a href="mailto:ensundvarld@gmail.com" class="btn btn-primary">
+            ensundvarld@gmail.com
           </a>
+          <p class="contact-alt">
+            Du kan också använda <a href="#anmalan">formuläret nedan</a> om du föredrar det.
+          </p>
         </div>
       </div>
     </section>
@@ -158,8 +160,8 @@ import LineIcon from '../components/LineIcon.astro';
   </article>
 
   <InterestForm
-    heading="Kontakta oss"
-    intro="Har du tips om mark, är markägare själv eller vill bara veta mer? Fyll i formuläret så hör vi av oss."
+    heading="Eller använd formuläret"
+    intro="Föredrar du formulär framför mejl? Fyll i nedan så hör vi av oss. Du kan också mejla direkt till ensundvarld@gmail.com."
     defaultInterests={['markagare']}
   />
 
@@ -326,6 +328,21 @@ import LineIcon from '../components/LineIcon.astro';
     max-width: 40rem;
     margin-inline: auto;
     line-height: 1.6;
+  }
+
+  .contact-card .contact-alt {
+    font-size: var(--text-sm);
+    margin-top: var(--space-sm);
+    margin-bottom: 0;
+  }
+
+  .contact-card .contact-alt a {
+    color: var(--accent-mid);
+    text-decoration: underline;
+  }
+
+  .contact-card .contact-alt a:hover {
+    color: var(--text-on-dark);
   }
 
   /* Links section */
