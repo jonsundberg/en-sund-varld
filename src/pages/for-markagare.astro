@@ -119,6 +119,49 @@ import LineIcon from '../components/LineIcon.astro';
       </div>
     </section>
 
+    <!-- Vad vi vill bidra med lokalt -->
+    <section class="content-section" aria-labelledby="bidra-heading">
+      <div class="container">
+        <div class="prose-section">
+          <h2 id="bidra-heading">Vad vi vill bidra med lokalt</h2>
+          <p>
+            En sund värld är under bildande. Ambitionen är att förvalta mark 
+            långsiktigt och samtidigt berika bygden — inte exploatera den.
+          </p>
+          <ul class="contribution-list">
+            <li>
+              <strong>Hälsosam mat</strong> — odling och matproduktion som kan 
+              stärka lokal självförsörjning
+            </li>
+            <li>
+              <strong>Skogsträdgårdar</strong> — flerskiktad odling som ger mat 
+              och samtidigt gynnar biologisk mångfald
+            </li>
+            <li>
+              <strong>Djur</strong> — djurhållning i liten skala, anpassad till 
+              platsen och det ekologiska kretsloppet
+            </li>
+            <li>
+              <strong>Kunskap och workshops</strong> — öppna tillfällen kring 
+              permakultur, naturbygg och off-grid
+            </li>
+            <li>
+              <strong>Mötesplatser</strong> — enkla, öppna träffar för grannar 
+              och intresserade
+            </li>
+            <li>
+              <strong>Långsiktig förvaltning</strong> — bevara natur- och 
+              kulturvärden, undvika kortsiktig spekulation
+            </li>
+          </ul>
+          <p class="note">
+            Vi lovar inte färdig verksamhet från dag ett. Det här är riktningen 
+            vi arbetar mot tillsammans med medlemmarna.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact CTA -->
     <section class="contact-section" aria-labelledby="kontakt-heading">
       <div class="container">
@@ -301,6 +344,37 @@ import LineIcon from '../components/LineIcon.astro';
     font-style: italic;
     color: var(--text-muted);
     margin-top: var(--space-md);
+  }
+
+  /* Contribution list */
+  .contribution-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-md) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .contribution-list li {
+    font-size: var(--text-base);
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .contribution-list li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .contribution-list li strong {
+    color: var(--text);
+    font-weight: 600;
   }
 
   /* Contact section */
