@@ -123,17 +123,15 @@ import LineIcon from '../components/LineIcon.astro';
     <section class="contact-section" aria-labelledby="kontakt-heading">
       <div class="container">
         <div class="contact-card">
-          <h2 id="kontakt-heading">Kontakt</h2>
+          <h2 id="kontakt-heading">Kontakta oss</h2>
           <p>
             Har du mark som passar vår vision, eller vill du bara ställa en fråga? 
             Mejla oss direkt — vi svarar personligen.
           </p>
-          <a href="mailto:hej@en-sund-varld.se" class="btn btn-primary">
-            hej@en-sund-varld.se
+          <a href="mailto:hej@en-sund-varld.se" class="email-cta">
+            <LineIcon name="mail" size="lg" />
+            <span class="email-address">hej@en-sund-varld.se</span>
           </a>
-          <p class="contact-alt">
-            Du kan också använda <a href="#anmalan">formuläret nedan</a> om du föredrar det.
-          </p>
         </div>
       </div>
     </section>
@@ -159,9 +157,18 @@ import LineIcon from '../components/LineIcon.astro';
 
   </article>
 
+  <!-- Form section - secondary option -->
+  <section class="form-section" aria-labelledby="form-heading">
+    <div class="container">
+      <p class="form-intro">
+        Föredrar du formulär? Du kan även nå oss via formuläret nedan.
+      </p>
+    </div>
+  </section>
+
   <InterestForm
-    heading="Eller använd formuläret"
-    intro="Föredrar du formulär framför mejl? Fyll i nedan så hör vi av oss. Du kan också mejla direkt till hej@en-sund-varld.se."
+    heading="Kontaktformulär"
+    intro=""
     defaultInterests={['markagare']}
   />
 
@@ -330,19 +337,44 @@ import LineIcon from '../components/LineIcon.astro';
     line-height: 1.6;
   }
 
-  .contact-card .contact-alt {
-    font-size: var(--text-sm);
-    margin-top: var(--space-sm);
-    margin-bottom: 0;
+  .email-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--coral);
+    border-radius: var(--radius-lg);
+    transition: background var(--transition), transform var(--transition);
   }
 
-  .contact-card .contact-alt a {
-    color: var(--accent-mid);
-    text-decoration: underline;
+  .email-cta:hover {
+    background: var(--coral-hover);
+    transform: translateY(-2px);
   }
 
-  .contact-card .contact-alt a:hover {
+  .email-cta :global(.line-icon) {
     color: var(--text-on-dark);
+  }
+
+  .email-address {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--text-on-dark);
+    letter-spacing: -0.01em;
+  }
+
+  /* Form section - secondary option */
+  .form-section {
+    padding-block: var(--space-lg) 0;
+    background: var(--bg);
+  }
+
+  .form-intro {
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
   }
 
   /* Links section */
