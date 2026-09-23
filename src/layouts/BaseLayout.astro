@@ -195,9 +195,12 @@ function isNavActive(href: string): boolean {
       </nav>
 
       <div class="footer-contact">
+        <p class="footer-email">
+          <a href="mailto:hej@en-sund-varld.se" class="footer-email-link">hej@en-sund-varld.se</a>
+        </p>
         <p>
-          Frågor eller funderingar? Kontakta oss via
-          <a href="/#anmalan">intresseanmälan</a>.
+          Frågor eller funderingar? Mejla oss direkt. 
+          Du kan också använda <a href="/#anmalan">formuläret</a>.
         </p>
         <p class="footer-copy">&copy; {new Date().getFullYear()} En sund värld Ekonomisk Förening</p>
       </div>
@@ -537,6 +540,24 @@ function isNavActive(href: string): boolean {
     text-decoration: underline;
   }
   .footer-contact a:hover { color: var(--text-on-dark); }
+  .footer-email {
+    margin-bottom: var(--space-sm) !important;
+  }
+  .footer-email-link {
+    display: inline-block;
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--text-on-dark) !important;
+    text-decoration: none;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1.5px solid var(--accent-mid);
+    border-radius: var(--radius-md);
+    transition: background var(--transition), border-color var(--transition);
+  }
+  .footer-email-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-on-dark);
+  }
   .footer-copy {
     font-size: var(--text-sm);
     opacity: 0.6;
