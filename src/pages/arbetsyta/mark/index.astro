@@ -339,7 +339,8 @@ const grobund = getGrobundProspects();
         <h3>Om shortlistan</h3>
         <p>
           Listan uppdateras efter styrelsemöten. Status visar var i processen 
-          varje objekt befinner sig: <strong>Ny</strong> = nyligen tillagd, 
+          varje objekt befinner sig: <strong>Ny</strong> = tillkommen sedan förra 
+          shortlisten, <strong>Aktiv</strong> = kvar på listan, 
           <strong>Djupdyk</strong> = under utredning, <strong>Andrahand</strong> = 
           intressant men inte prioriterat, <strong>Parkerad</strong> = pausad.
         </p>
@@ -681,6 +682,12 @@ const grobund = getGrobundProspects();
     background: var(--accent-light);
     color: var(--deep-forest);
     border: 1px solid var(--accent-mid);
+  }
+
+  .status-badge--aktiv {
+    background: var(--bg-secondary);
+    color: var(--text);
+    border: 1px solid var(--border);
   }
 
   .status-badge--djupdyk {

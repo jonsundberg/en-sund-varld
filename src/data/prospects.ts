@@ -1,4 +1,4 @@
-export type Status = 'ny' | 'djupdyk' | 'andrahand' | 'parkerad';
+export type Status = 'ny' | 'aktiv' | 'djupdyk' | 'andrahand' | 'parkerad';
 export type Kategori = 'primär' | 'nara-primar' | 'sekundär' | 'grobund';
 export type VANiva = 'sparsamt' | 'bas' | 'övre';
 export type TillstandsRisk = 'låg' | 'medel' | 'medel–hög' | 'hög';
@@ -142,7 +142,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '3,45 Mkr',
     prisNum: 3450000,
     byggnader: 'Nej',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'primär',
     url: 'https://www.hemnet.se/bostad/gard-risby-uppsala-kommun-uppsala-risby-4-3,-del-av-21746306',
     flaggor: [
@@ -243,7 +243,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '2,9 Mkr',
     prisNum: 2900000,
     byggnader: 'Bostad + ekonomi',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'primär',
     url: 'https://carlssonring.se/objekt/johanneslund-tarnsjo/',
     flaggor: [
@@ -277,7 +277,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '4,495 Mkr',
     prisNum: 4495000,
     byggnader: 'Bostad + ekonomi',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'primär',
     url: 'https://www.maklarhuset.se/bostad/sverige/sodermanland/vingaker/hallerad-lindgarden/618848',
     flaggor: [
@@ -310,7 +310,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '4,45 Mkr',
     prisNum: 4450000,
     byggnader: 'Nej',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'primär',
     url: 'https://www.skogsfastigheter.se/vastmanland/sala/sala-isatra-34-1032',
     flaggor: [
@@ -345,7 +345,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '1,3 Mkr',
     prisNum: 1300000,
     byggnader: 'Nej (förhandsbesked 1 hus)',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'primär',
     url: 'https://ludvig.se/fastigheter/gzr-ftk-skogsmark-med-forhandsbesked-15-ha-mellan-hallstavik-och-almsta/',
     buddatum: '5 okt 2026 kl 12',
@@ -379,7 +379,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '4,5 Mkr',
     prisNum: 4500000,
     byggnader: '2 bostäder + ekonomi',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'primär',
     url: 'https://carlssonring.se/objekt/nordanberg-104-moklinta/',
     flaggor: [
@@ -511,7 +511,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '3,75 Mkr',
     prisNum: 3750000,
     byggnader: 'Tre bostäder + ekonomi',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'sekundär',
     url: 'https://ludvig.se/fastigheter/gdy-ccw-lantligt-gardsboende-med-tre-bostader-ekonomibyggnader-och-stort-utvecklingsmojligheter/',
     flaggor: [
@@ -542,7 +542,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '2,7 Mkr',
     prisNum: 2700000,
     byggnader: 'Ja',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'sekundär',
     url: 'https://areal.se/fastighet/trivsam-gard-med-bra-lage-varmland-eda/',
     buddatum: '6 okt 2026',
@@ -1154,7 +1154,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '2,3 Mkr',
     prisNum: 2300000,
     byggnader: '~1 490 m² industri/lager',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'grobund',
     url: 'https://www.svenskfast.se/kommersiellt/uppsala/tierp/skarplinge/valnasvagen-3/443157/',
     flaggor: [
@@ -1185,7 +1185,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '3,7 Mkr',
     prisNum: 3700000,
     byggnader: '~507 m² industri/lager',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'grobund',
     url: 'https://www.svenskfast.se/kommersiellt/uppsala/uppsala/knutby/gransta-208/409728/',
     flaggor: [
@@ -1215,7 +1215,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     pris: '2,975 Mkr',
     prisNum: 2975000,
     byggnader: 'Industrifastighet',
-    status: 'ny',
+    status: 'aktiv',
     kategori: 'grobund',
     url: 'https://www.svenskfast.se/kommersiellt/uppsala/tierp/orbyhus/tegelsmoravagen-16b/407213/',
     flaggor: [
@@ -1321,6 +1321,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
 
 export const statusLabels: Record<Status, string> = {
   ny: 'Ny',
+  aktiv: 'Aktiv',
   djupdyk: 'Djupdyk',
   andrahand: 'Andra hand',
   parkerad: 'Parkerad',
