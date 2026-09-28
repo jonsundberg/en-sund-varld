@@ -33,7 +33,7 @@ export const OFFMARKET_SENAST_ANDRAD = '2026-09-14';
 export const EKONOMI_SENAST_ANDRAD = '2026-09-18';
 export const IDEER_SENAST_ANDRAD = '2026-09-18';
 export const KAPITAL_DETALJ_SENAST_ANDRAD = '2026-09-15';
-export const MOTEN_SENAST_ANDRAD = '2026-09-20';
+export const MOTEN_SENAST_ANDRAD = '2026-09-27';
 
 export const arbetsytaSektioner: ArbetsytaSektion[] = [
   {
