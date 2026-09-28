@@ -482,7 +482,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'parkerad',
     kategori: 'primär',
-    url: '',
+    url: 'https://ludvig.se/fastigheter/g8y-ayx-egen-insjo-44-hektar-mark/',
     flaggor: [
       { text: 'PARKERAD — styrelsebeslut krävs', typ: 'varning' },
       { text: 'Bud var 28 sep kl 12 (historiskt)', typ: 'info' },
@@ -674,7 +674,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'ny',
     kategori: 'nara-primar',
-    url: '',
+    url: 'https://skovi.se/object-description.html?id=OBJ5NT9Z243CC7HNQT7G5',
     flaggor: [
       { text: 'Medel areal (19 ha)', typ: 'info' },
     ],
@@ -702,7 +702,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'ny',
     kategori: 'nara-primar',
-    url: '',
+    url: 'https://www.hemnet.se/bostad/gard-sodermanland-eskilstuna-kommun-bjalketorp-21752976',
     flaggor: [
       { text: 'Stor areal (45 ha)', typ: 'positiv' },
       { text: 'Högre pris (~5 Mkr)', typ: 'varning' },
@@ -763,6 +763,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     kategori: 'nara-primar',
     url: '',
     flaggor: [
+      { text: 'Off-market — ingen aktiv publik annons (ägarskifte mars 2025)', typ: 'info' },
       { text: 'Medel areal (22 ha)', typ: 'info' },
       { text: 'Högre pris (4,8 Mkr)', typ: 'varning' },
     ],
@@ -791,7 +792,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     status: 'ny',
     kategori: 'sekundär',
     buddatum: '7 okt 2026 kl 14',
-    url: '',
+    url: 'https://ludvig.se/fastigheter/ges-mz6-produktiv-skogsfastighet-om-ca-50-ha-i-dala-floda/',
     flaggor: [
       { text: 'Anbud 7 okt kl 14:00', typ: 'varning' },
       { text: 'Stor areal (50 ha)', typ: 'positiv' },
@@ -822,7 +823,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'ny',
     kategori: 'sekundär',
-    url: '',
+    url: 'https://ludvig.se/fastigheter/gmc-nks-valbevarad-halsingegard-med-produktiv-skogsmark-och-naturskont-lage/',
     flaggor: [
       { text: 'Stor areal (62 ha)', typ: 'positiv' },
       { text: 'Gävleborg – sekundärt geografiskt läge', typ: 'info' },
@@ -851,7 +852,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'ny',
     kategori: 'sekundär',
-    url: '',
+    url: 'https://ludvig.se/fastigheter/gx7-hau-skog-i-arvika-60-ha/',
     flaggor: [
       { text: 'Stor areal (60 ha)', typ: 'positiv' },
       { text: 'Attraktivt pris (3,5 Mkr)', typ: 'positiv' },
@@ -881,7 +882,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'ny',
     kategori: 'sekundär',
-    url: '',
+    url: 'https://www.boneo.se/bostad/id-3655946-gard-skog-5rum-odeshog-sjogetorps-gard-1',
     flaggor: [
       { text: 'Bra areal (37 ha)', typ: 'positiv' },
       { text: 'Prisgräns (5,0 Mkr)', typ: 'varning' },
@@ -912,7 +913,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     status: 'ny',
     kategori: 'sekundär',
     buddatum: 'Visning 3 okt 2026',
-    url: '',
+    url: 'https://www.svenskfast.se/gard/dalarna/leksand/leksand/berg-ronnasvagen/467397/',
     flaggor: [
       { text: 'Visning 3 okt', typ: 'info' },
       { text: 'Medel areal (25 ha)', typ: 'info' },
@@ -943,7 +944,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     status: 'ny',
     kategori: 'sekundär',
     buddatum: '28 sep 2026 kl 14 (historiskt)',
-    url: '',
+    url: 'https://ludvig.se/fastigheter/g8c-ywe-skog-och-stuga-i-overtanger/',
     flaggor: [
       { text: 'NY / akut – anbud var 28 sep kl 14', typ: 'varning' },
       { text: 'Stor areal (52 ha)', typ: 'positiv' },
@@ -974,7 +975,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'ny',
     kategori: 'sekundär',
-    url: '',
+    url: 'https://ludvig.se/fastigheter/g5x-86y-charmig-gard-i-aberga-med-timmerhus-skog-och-vidstrackt-utsikt/',
     flaggor: [
       { text: 'NY', typ: 'info' },
       { text: 'Bra areal (37 ha)', typ: 'positiv' },
@@ -1006,7 +1007,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     status: 'ny',
     kategori: 'sekundär',
     buddatum: '23 okt 2026',
-    url: '',
+    url: 'https://areal.se/fastighet/skog-vid-sjon-over-saljen-gavleborg-ockelbo/',
     flaggor: [
       { text: 'Kant ny (andra hand)', typ: 'info' },
       { text: 'Anbud 23 okt', typ: 'info' },
@@ -1037,7 +1038,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'ny',
     kategori: 'sekundär',
-    url: '',
+    url: 'https://www.varhulta.com/objekt/limmingen-14/',
     flaggor: [
       { text: 'Kant ny (andra hand)', typ: 'info' },
       { text: 'Stor areal (56 ha)', typ: 'positiv' },
@@ -1067,7 +1068,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'ny',
     kategori: 'sekundär',
-    url: '',
+    url: 'https://www.fastighetsbyran.com/sv/sverige/till-salu/orebro-lan/nora-kommun/objekt/?objektID=3523750',
     flaggor: [
       { text: 'Kant ny (andra hand)', typ: 'info' },
       { text: 'Bra areal (38 ha)', typ: 'positiv' },
@@ -1097,7 +1098,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'ny',
     kategori: 'sekundär',
-    url: '',
+    url: 'https://www.varhulta.com/objekt/stimmerkulla-801/',
     flaggor: [
       { text: 'Kant ny (andra hand)', typ: 'info' },
       { text: 'Medel areal (21 ha)', typ: 'info' },
@@ -1126,7 +1127,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'ny',
     kategori: 'sekundär',
-    url: '',
+    url: 'https://ludvig.se/fastigheter/gvw-85v-hogbron-isefall-17-skogsgard-med-stor-andel-avverkningsmogen-skog/',
     flaggor: [
       { text: 'Kant ny (andra hand)', typ: 'info' },
       { text: 'Bra areal (33 ha)', typ: 'positiv' },
@@ -1247,7 +1248,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'parkerad',
     kategori: 'grobund',
-    url: '',
+    url: 'https://hemsida.maklare.vitec.net/Beskrivning/OBJ18823_1807655852',
     flaggor: [
       { text: 'Strategi >5 Mkr (ej aktiv shortlist)', typ: 'varning' },
       { text: 'Grobund-kandidat', typ: 'info' },
@@ -1274,7 +1275,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'parkerad',
     kategori: 'grobund',
-    url: '',
+    url: 'https://www.maklarhuset.se/kommersiella/sverige/uppsala/vattholma/hammarsmedsvagen/664302',
     flaggor: [
       { text: 'Strategi >5 Mkr (ej aktiv shortlist)', typ: 'varning' },
       { text: 'Grobund-kandidat', typ: 'info' },
@@ -1301,7 +1302,7 @@ Boendekostnad börjar från noll – byggnader kräver renovering. Möjlighet at
     byggnader: 'Okänt',
     status: 'parkerad',
     kategori: 'grobund',
-    url: '',
+    url: 'https://www.fastighetsbyran.com/sv/sverige/till-salu/uppsala-lan/tierps-kommun/objekt/?objektID=3410530',
     flaggor: [
       { text: 'Strategi >5 Mkr (ej aktiv shortlist)', typ: 'varning' },
       { text: 'Svag tomt', typ: 'varning' },
@@ -1353,6 +1354,12 @@ export function getParkedProspects(): Prospekt[] {
 
 export function getGrobundProspects(): Prospekt[] {
   return prospects.filter((p) => p.kategori === 'grobund' && p.status !== 'parkerad');
+}
+
+export function isValidExternalUrl(url: string | undefined | null): boolean {
+  if (!url || typeof url !== 'string') return false;
+  const trimmed = url.trim();
+  return trimmed.startsWith('http://') || trimmed.startsWith('https://');
 }
 
 export default prospects;
