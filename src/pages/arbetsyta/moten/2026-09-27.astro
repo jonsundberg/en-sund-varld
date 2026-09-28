@@ -1,0 +1,297 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { formatDatumSvenska } from '../../../data/arbetsyta-metadata';
+
+const metadata = {
+  datum: '2026-09-27',
+  status: 'aktiv',
+};
+---
+
+<BaseLayout
+  title={`Möte ${formatDatumSvenska(metadata.datum)} – Styrelsens arbetsyta`}
+  description="Sammanfattning från mötet 27 september 2026. Gemensam vision, ägandemodeller och nästa steg."
+>
+  <article class="arbetsyta-doc container">
+    <header class="doc-header">
+      <p class="breadcrumb">
+        <a href="/arbetsyta/">Arbetsyta</a> / <a href="/arbetsyta/moten/">Mötesanteckningar</a> / {formatDatumSvenska(metadata.datum)}
+      </p>
+      <div class="doc-meta">
+        <span class="doc-status doc-status--aktiv">Aktiv</span>
+      </div>
+      <h1>Möte {formatDatumSvenska(metadata.datum)}</h1>
+      <p class="doc-lead">
+        Sammanfattning efter mötet. Nästa möte hos Anders i Blackeberg. 
+        Kommunikation via WhatsApp tills vidare.
+      </p>
+    </header>
+
+    <section class="doc-section" aria-labelledby="kom-fram-till">
+      <h2 id="kom-fram-till">Vad vi kom fram till</h2>
+      <ul class="doc-list">
+        <li>Vi är fortfarande i ett tidigt skede – behöver en gemensam vision innan vi låser juridisk och ekonomisk form.</li>
+        <li>Tittade på <strong>Friland</strong> och <strong>Änggärdet</strong> som exempel på olika modeller för ägande, boende och gemenskap. Det finns många fler modeller – vi utforskar vidare innan vi bestämmer oss.</li>
+        <li>Juridik och ekonomi ska möjliggöra det liv och den gemenskap vi vill ha.</li>
+        <li>Gemensamt mål: relativt billigt boende på lång sikt – inte ett spekulationsobjekt.</li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="mojlig-riktning">
+      <h2 id="mojlig-riktning">En möjlig riktning</h2>
+      <p>En modell som diskuterades:</p>
+      <ul class="doc-list">
+        <li>Föreningen äger mark, till exempel 10–30 hektar.</li>
+        <li>Varje hushåll äger sitt eget hus.</li>
+        <li>Hushållen äger inte tomten utan har långsiktig nyttjanderätt.</li>
+        <li>Föreningen äger gemensamma byggnader och resurser.</li>
+        <li>Hushållen betalar boendekostnad och medlemsavgift.</li>
+      </ul>
+      <p>Vi behöver också tänka igenom och skilja på:</p>
+      <ul class="doc-list">
+        <li>Juridisk organisation</li>
+        <li>Ägande</li>
+        <li>Social gemenskap</li>
+        <li>Odling och verksamheter</li>
+        <li>Beslutsfattande</li>
+        <li>Hur nya hushåll kommer in</li>
+        <li>Hur hushåll kan lämna</li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="fragor">
+      <h2 id="fragor">Frågor vi behöver lösa</h2>
+      
+      <h3>Ägande och ekonomi</h3>
+      <ul class="doc-list">
+        <li>Vem äger marken?</li>
+        <li>Vem äger husen?</li>
+        <li>Hur hanteras lån?</li>
+        <li>Hur gör vi gemensamma investeringar?</li>
+        <li>Hur hanteras utlösen om någon vill lämna?</li>
+        <li>Hur kommer nya hushåll in?</li>
+        <li>Hur undviker vi spekulation?</li>
+      </ul>
+
+      <h3>Juridik och myndigheter</h3>
+      <ul class="doc-list">
+        <li>Vilken juridisk form passar bäst?</li>
+        <li>Fungerar ekonomisk förening?</li>
+        <li>Behövs flera strukturer?</li>
+        <li>Hur fungerar bygglov?</li>
+        <li>Vad gäller för skog och avverkning?</li>
+        <li>Mark, byggnation, vatten, avlopp, energi – vad krävs?</li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="vision">
+      <h2 id="vision">Visionen – vad vill vi skapa?</h2>
+      <p>Till nästa steg behöver vi konkretisera vår gemensamma vision kring:</p>
+      
+      <h3>Plats</h3>
+      <ul class="doc-list">
+        <li>Var i landet?</li>
+        <li>Avstånd till Stockholm?</li>
+        <li>Storlek på marken?</li>
+        <li>Känsla och karaktär?</li>
+      </ul>
+
+      <h3>Boende</h3>
+      <ul class="doc-list">
+        <li>Balans mellan privatliv och gemenskap?</li>
+        <li>Låg boendekostnad som mål?</li>
+      </ul>
+
+      <h3>Gemenskap och verksamhet</h3>
+      <ul class="doc-list">
+        <li>Odling</li>
+        <li>Kurser</li>
+        <li>Bageri, pizzaugn</li>
+        <li>Gemensamma lokaler</li>
+        <li>Fiske, jakt</li>
+      </ul>
+
+      <h3>Resiliens</h3>
+      <ul class="doc-list">
+        <li>Energi</li>
+        <li>Mat</li>
+        <li>Lokal självförsörjning</li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="inspiration">
+      <h2 id="inspiration">Inspiration och omvärldsbevakning</h2>
+      <ul class="doc-list">
+        <li>Bjuda in <strong>David Roxendahl</strong> för att prata om ägande, finansiering, bygglov, myndigheter och lärdomar.</li>
+        <li>Undersöka möjlighet till träff med <strong>Drömma tillsammans</strong> / <strong>Hela jorden</strong>.</li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="uppgifter">
+      <h2 id="uppgifter">Uppgifter till nästa möte</h2>
+      <ul class="doc-list uppgifter">
+        <li>
+          <strong>Alla:</strong> Fundera på och skriv drömläge – hur ser det ut om En sund värld lyckas? 
+          Tänk på plats, boende, gemenskap, verksamheter, natur, odling, ekonomi, självförsörjning.
+        </li>
+        <li>
+          <strong>Anders:</strong> Undersöka juridiska och organisatoriska modeller. 
+          Undersöka om avverkningsplan krävs vid skogsägande.
+        </li>
+        <li>
+          <strong>Jon:</strong> Kontakta Martin och be honom kolla med Olle vad vi skulle kunna göra för insats där.
+        </li>
+        <li>
+          <strong>Anders + Jon:</strong> Ta fram förslag på kommunikationsplan.
+        </li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="nasta-steg">
+      <h2 id="nasta-steg">Nästa steg</h2>
+      <p>
+        På nästa möte samlar vi ihop allas individuella idéer och ser vad som är gemensamt, 
+        vad som skiljer sig, vilka frågor vi behöver undersöka vidare, och vilka spår vi 
+        ska gå vidare med. Sedan utser vi ansvariga per område.
+      </p>
+      <ul class="doc-list">
+        <li><strong>Nästa möte:</strong> Hos Anders i Blackeberg</li>
+        <li><strong>Kommunikation:</strong> WhatsApp tills vidare</li>
+      </ul>
+    </section>
+
+    <nav class="doc-nav" aria-label="Navigering">
+      <a href="/arbetsyta/moten/" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Alla möten
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .arbetsyta-doc {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .doc-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-status {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .doc-status--aktiv {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .doc-section h2 {
+    font-size: var(--text-2xl);
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .doc-section h3 {
+    font-size: var(--text-lg);
+    color: var(--deep-forest);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-section p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .doc-list {
+    padding-left: 1.5rem;
+    margin: 0 0 var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .doc-list li {
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-list strong {
+    color: var(--deep-forest);
+  }
+
+  .uppgifter li {
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .uppgifter li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .doc-nav {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .doc-nav .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
