@@ -1355,4 +1355,10 @@ export function getGrobundProspects(): Prospekt[] {
   return prospects.filter((p) => p.kategori === 'grobund' && p.status !== 'parkerad');
 }
 
+export function isValidExternalUrl(url: string | undefined | null): boolean {
+  if (!url || typeof url !== 'string') return false;
+  const trimmed = url.trim();
+  return trimmed.startsWith('http://') || trimmed.startsWith('https://');
+}
+
 export default prospects;
