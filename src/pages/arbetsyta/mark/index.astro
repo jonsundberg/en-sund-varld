@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import {
   getPrimaryProspects,
+  getNaraPrimarProspects,
   getSecondaryProspects,
   getParkedProspects,
   getGrobundProspects,
@@ -22,6 +23,7 @@ const metadata = {
 };
 
 const primära = getPrimaryProspects();
+const naraPrimar = getNaraPrimarProspects();
 const sekundära = getSecondaryProspects();
 const grobund = getGrobundProspects();
 ---
@@ -105,6 +107,18 @@ const grobund = getGrobundProspects();
         länkas från mäklarsajter och kan försvinna när annonsen tas bort.
       </p>
 
+      <aside class="akuta-datum" aria-labelledby="akuta-datum-heading">
+        <h3 id="akuta-datum-heading">Akuta datum</h3>
+        <ul>
+          <li><strong>Trästa / Häverö-Bergby:</strong> anbud ca 5 okt</li>
+          <li><strong>Älven (Eda):</strong> anbud 6 okt</li>
+          <li><strong>Syrholen (Gagnef):</strong> anbud 7 okt kl 14:00</li>
+        </ul>
+        <p class="akuta-note">
+          <em>Historiska deadlines (28 sep): Uppveda kl 12 (parkerad), Övertänger kl 14.</em>
+        </p>
+      </aside>
+
       <h3 class="kategori-heading">Primära objekt</h3>
       <p class="kategori-desc">Stockholmsregionen och Mälardalen</p>
       <div class="shortlist-grid">
@@ -154,6 +168,62 @@ const grobund = getGrobundProspects();
           </article>
         ))}
       </div>
+
+      {naraPrimar.length > 0 && (
+        <>
+          <h3 class="kategori-heading">Nära-primär</h3>
+          <p class="kategori-desc">Live-objekt nära toppnivån, bevakas aktivt</p>
+          <div class="shortlist-grid">
+            {naraPrimar.map((p) => (
+              <article class="mark-card mark-card--nara-primar">
+                <a href={`/arbetsyta/mark/${p.slug}/`} class="mark-card-link">
+                  <div class="mark-card-body">
+                    <div class="mark-card-header">
+                      <h4>{p.namn}</h4>
+                      <span class={`status-badge status-badge--${p.status}`}>
+                        {statusLabels[p.status]}
+                      </span>
+                    </div>
+                    <dl class="mark-details">
+                      <div class="mark-detail">
+                        <dt>Kommun</dt>
+                        <dd>{p.kommun}</dd>
+                      </div>
+                      <div class="mark-detail">
+                        <dt>Areal</dt>
+                        <dd>{p.ha} ha</dd>
+                      </div>
+                      <div class="mark-detail">
+                        <dt>Pris</dt>
+                        <dd>{p.pris}</dd>
+                      </div>
+                      <div class="mark-detail">
+                        <dt>Byggnader</dt>
+                        <dd>{p.byggnader}</dd>
+                      </div>
+                    </dl>
+                    <div class="mark-card-actions">
+                      <span class="detail-link">
+                        Visa detaljer →
+                      </span>
+                      {p.url && (
+                        <a href={p.url} target="_blank" rel="noopener noreferrer" class="mark-link" onclick="event.stopPropagation();">
+                          Öppna annons
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            <polyline points="15 3 21 3 21 9"/>
+                            <line x1="10" y1="14" x2="21" y2="3"/>
+                          </svg>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        </>
+      )}
 
       <h3 class="kategori-heading">Sekundära objekt</h3>
       <p class="kategori-desc">Mellansverige inkl. Värmland, Gävleborg</p>
@@ -448,6 +518,39 @@ const grobund = getGrobundProspects();
     margin-bottom: var(--space-sm);
   }
 
+  /* Akuta datum */
+  .akuta-datum {
+    background: var(--coral-light);
+    border: 1px solid var(--coral);
+    border-left: 4px solid var(--coral);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .akuta-datum h3 {
+    font-size: var(--text-lg);
+    color: #7a3d20;
+    margin: 0 0 var(--space-sm);
+  }
+
+  .akuta-datum ul {
+    margin: 0 0 var(--space-sm);
+    padding-left: 1.2rem;
+  }
+
+  .akuta-datum li {
+    font-size: var(--text-sm);
+    color: #7a3d20;
+    margin-bottom: 0.3rem;
+  }
+
+  .akuta-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
+  }
+
   .kategori-heading {
     font-size: var(--text-xl);
     color: var(--deep-forest);
@@ -488,6 +591,15 @@ const grobund = getGrobundProspects();
 
   .mark-card--secondary:hover {
     border-color: var(--accent-mid);
+  }
+
+  .mark-card--nara-primar {
+    border-color: #c1a88a;
+    background: linear-gradient(135deg, var(--bg-white) 0%, #faf8f5 100%);
+  }
+
+  .mark-card--nara-primar:hover {
+    border-color: #9a8570;
   }
 
   .mark-card--grobund {

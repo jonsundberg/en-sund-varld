@@ -61,7 +61,7 @@ function formatTkr(value: number): string {
           {statusLabels[prospekt.status]}
         </span>
         <span class={`kategori-badge kategori-badge--${prospekt.kategori}`}>
-          {prospekt.kategori === 'primär' ? 'Primär' : 'Sekundär'}
+          {prospekt.kategori === 'primär' ? 'Primär' : prospekt.kategori === 'nara-primar' ? 'Nära-primär' : prospekt.kategori === 'grobund' ? 'Grobund' : 'Sekundär'}
         </span>
       </div>
       <h1>{prospekt.namn}</h1>
@@ -357,6 +357,12 @@ function formatTkr(value: number): string {
     background: var(--bg-secondary);
     color: var(--text-muted);
     border: 1px solid var(--border);
+  }
+
+  .kategori-badge--nara-primar {
+    background: #faf8f5;
+    color: #6b5a45;
+    border: 1px solid #c1a88a;
   }
 
   .kategori-badge--grobund {
