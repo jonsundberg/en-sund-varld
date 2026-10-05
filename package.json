@@ -4,11 +4,12 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run postbuild",
+    "postbuild": "node scripts/patch-vercel-runtime.js",
     "preview": "astro preview"
   },
   "dependencies": {
