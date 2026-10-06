@@ -44,59 +44,11 @@ const grobund = getGrobundProspects();
       </div>
       <h1>{metadata.titel}</h1>
       <p class="doc-lead">
-        Här samlar vi prospekt på mark som kan passa för föreningens gemensamma 
-        ekoby. Vi söker plats för 10+ hushåll med utrymme för odling, 
-        djurhållning och gemenskap.
+        Här samlar vi prospekt på mark som kan passa för föreningens gemensamma
+        ekoby. Föreningen är under bildande. Vi söker plats för 10+ hushåll med
+        utrymme för odling, djurhållning och gemenskap.
       </p>
     </header>
-
-    <!-- Off-market link card -->
-    <section class="offmarket-card" aria-labelledby="offmarket-heading">
-      <div class="offmarket-badge">Pågående</div>
-      <h2 id="offmarket-heading">Långsiktiga markägare</h2>
-      <p>
-        Föreningen utforskar dialog med markägare som förvaltar med 
-        generationsperspektiv — gods, stiftelser och kyrka. Är du en sådan 
-        markägare? Vi vill gärna höra från dig.
-      </p>
-      <div class="offmarket-links">
-        <a href="/arbetsyta/mark/offmarket/" class="btn btn-outline btn-sm">
-          Läs mer och kontakta oss →
-        </a>
-      </div>
-    </section>
-
-    <section class="doc-section" aria-labelledby="kriterier">
-      <h2 id="kriterier">Urvalskriterier för ekobymark</h2>
-      <p>
-        Vid markspaning prioriterar vi lämplighet för ekoby. Det är okej att börja 
-        från scratch – obebyggd mark eller skog utan bostadshus fungerar. Befintliga 
-        byggnader är en <strong>bonus</strong>, inte ett krav.
-      </p>
-      <ul>
-        <li><strong>Areal:</strong> Utrymme för 10+ hushåll, minst 10 hektar, gärna 20+ för bete och skog.</li>
-        <li><strong>Utvecklingspotential:</strong> Odlings- och bebyggelsemöjligheter för långsiktig ekoby.</li>
-        <li><strong>Vatten:</strong> Naturlig vattentillgång eller goda brunnsförutsättningar.</li>
-        <li><strong>Tillgänglighet:</strong> Fungerande väg året runt, rimligt avstånd till samhälle (max 30 min till service).</li>
-        <li><strong>Pris:</strong> Upp till ~5 Mkr, så att kapitalkravet hålls rimligt per hushåll.</li>
-        <li><strong>Planstatus:</strong> Utanför detaljplan – möjlighet till flexibel markanvändning.</li>
-        <li><strong>Befintliga byggnader:</strong> <em>Bonus</em> – underlättar etablering men är inte avgörande.</li>
-        <li><strong>Potential:</strong> Varierad natur – åker, bete, skog – för resiliens och intjäning.</li>
-      </ul>
-    </section>
-
-    <section class="doc-section" aria-labelledby="geografi">
-      <h2 id="geografi">Prioriterade områden</h2>
-      <p>
-        <strong>Primärt fokus:</strong> Stockholmsregionen med omnejd – Mälardalen, 
-        Uppland och Sörmland. Rimligt pendlingsavstånd till Uppsala eller Stockholm.
-      </p>
-      <p>
-        <strong>Sekundärt:</strong> Övriga Mellansverige – styrelsen ser 
-        <strong>Värmland</strong> som välkommet i mixen, liksom Dalarna, Gävleborg, 
-        Östergötland eller norra Småland.
-      </p>
-    </section>
 
     <section class="doc-section" aria-labelledby="shortlist">
       <h2 id="shortlist">Aktuell shortlist</h2>
@@ -104,8 +56,10 @@ const grobund = getGrobundProspects();
         <strong>Uppdaterad:</strong> {formatDatumSvenska(metadata.datum)}
       </p>
       <p>
-        Dessa är de objekt styrelsen för närvarande utvärderar. Bilderna 
+        Dessa är de objekt styrelsen för närvarande utvärderar. Bilderna
         länkas från mäklarsajter och kan försvinna när annonsen tas bort.
+        Vi publicerar inga säljaruppgifter här — kontakta mäklare via annonsen
+        vid behov.
       </p>
 
       <aside class="akuta-datum" aria-labelledby="akuta-datum-heading">
@@ -121,7 +75,7 @@ const grobund = getGrobundProspects();
       </aside>
 
       <h3 class="kategori-heading">Primära objekt</h3>
-      <p class="kategori-desc">Stockholmsregionen och Mälardalen</p>
+      <p class="kategori-desc">Stockholm, Uppsala och Mälardalen</p>
       <div class="shortlist-grid">
         {primära.map((p) => (
           <article class="mark-card">
@@ -229,7 +183,7 @@ const grobund = getGrobundProspects();
       )}
 
       <h3 class="kategori-heading">Sekundära objekt</h3>
-      <p class="kategori-desc">Mellansverige inkl. Värmland, Gävleborg</p>
+      <p class="kategori-desc">Utökad sökning: Östergötland, Västergötland, Småland, Skåne</p>
       <div class="shortlist-grid">
         {sekundära.map((p) => (
           <article class="mark-card mark-card--secondary">
@@ -345,17 +299,48 @@ const grobund = getGrobundProspects();
       <div class="add-prospekt">
         <h3>Om shortlistan</h3>
         <p>
-          Listan uppdateras efter styrelsemöten. Status visar var i processen 
-          varje objekt befinner sig: <strong>Ny</strong> = tillkommen sedan förra 
-          shortlisten, <strong>Aktiv</strong> = kvar på listan, 
-          <strong>Djupdyk</strong> = under utredning, <strong>Andrahand</strong> = 
+          Listan uppdateras efter styrelsemöten. Status visar var i processen
+          varje objekt befinner sig: <strong>Ny</strong> = tillkommen sedan förra
+          shortlisten, <strong>Aktiv</strong> = kvar på listan,
+          <strong>Djupdyk</strong> = under utredning, <strong>Andrahand</strong> =
           intressant men inte prioriterat, <strong>Parkerad</strong> = pausad.
         </p>
         <p>
-          Har du tips om mark som passar föreningen? 
+          Har du tips om mark som passar föreningen?
           <a href="/#anmalan">Skicka en intresseanmälan</a> med ditt tips.
         </p>
       </div>
+    </section>
+
+    <section class="doc-section" aria-labelledby="geografi">
+      <h2 id="geografi">Sökgeografi</h2>
+      <p>
+        <strong>Primärt fokus:</strong> Stockholm, Uppsala och Mälardalen.
+        Rimligt pendlingsavstånd till Stockholm eller Uppsala.
+      </p>
+      <p>
+        <strong>Utökad sökning (sekundärt):</strong> Östergötland,
+        Västergötland, Småland och Skåne.
+      </p>
+    </section>
+
+    <section class="doc-section" aria-labelledby="kriterier">
+      <h2 id="kriterier">Urvalskriterier för ekobymark</h2>
+      <p>
+        Vid markspaning prioriterar vi lämplighet för ekoby. Det är okej att börja
+        från scratch – obebyggd mark eller skog utan bostadshus fungerar. Befintliga
+        byggnader är en <strong>bonus</strong>, inte ett krav.
+      </p>
+      <ul>
+        <li><strong>Areal:</strong> Utrymme för 10+ hushåll, minst 10 hektar, gärna 20+ för bete och skog.</li>
+        <li><strong>Utvecklingspotential:</strong> Odlings- och bebyggelsemöjligheter för långsiktig ekoby.</li>
+        <li><strong>Vatten:</strong> Naturlig vattentillgång eller goda brunnsförutsättningar.</li>
+        <li><strong>Tillgänglighet:</strong> Fungerande väg året runt, rimligt avstånd till samhälle (max 30 min till service).</li>
+        <li><strong>Pris:</strong> Upp till ~5 Mkr, så att kapitalkravet hålls rimligt per hushåll.</li>
+        <li><strong>Planstatus:</strong> Utanför detaljplan – möjlighet till flexibel markanvändning.</li>
+        <li><strong>Befintliga byggnader:</strong> <em>Bonus</em> – underlättar etablering men är inte avgörande.</li>
+        <li><strong>Potential:</strong> Varierad natur – åker, bete, skog – för resiliens och intjäning.</li>
+      </ul>
     </section>
 
     <nav class="doc-nav" aria-label="Navigering arbetsyta">
@@ -446,58 +431,6 @@ const grobund = getGrobundProspects();
     margin-bottom: var(--space-xl);
   }
 
-  /* Off-market card */
-  .offmarket-card {
-    background: var(--linen-cream);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-lg);
-    margin-bottom: var(--space-xl);
-    position: relative;
-  }
-
-  .offmarket-badge {
-    display: inline-block;
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: var(--coral);
-    color: #fff;
-    padding: 0.3rem 0.8rem;
-    border-radius: 999px;
-    margin-bottom: var(--space-sm);
-  }
-
-  .offmarket-badge--internal {
-    background: var(--accent-light);
-    color: var(--deep-forest);
-    border: 1px solid var(--accent-mid);
-  }
-
-  .offmarket-card h2 {
-    font-size: var(--text-2xl);
-    color: var(--deep-forest);
-    margin-bottom: var(--space-sm);
-  }
-
-  .offmarket-card > p {
-    color: var(--text-muted);
-    font-size: var(--text-base);
-    max-width: 40rem;
-    margin-bottom: var(--space-md);
-  }
-
-  .offmarket-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-  }
-
-  .btn-sm {
-    padding: 0.6rem 1.2rem;
-    font-size: var(--text-sm);
-  }
 
   .doc-section h2 {
     font-size: var(--text-2xl);
