@@ -15,7 +15,6 @@ const boendegemenskaper = [
     hushall: '17 hushåll',
     mark: '12 ha',
     url: 'https://www.utsikten-ekoby.se/',
-    modell: true,
   },
   {
     namn: 'Ekoby Växhuset',
@@ -23,7 +22,6 @@ const boendegemenskaper = [
     hushall: '4 hushåll',
     mark: null,
     url: 'https://växhuset.se/',
-    modell: true,
   },
   {
     namn: 'Toarps Ekoby',
@@ -31,7 +29,6 @@ const boendegemenskaper = [
     hushall: '37 hushåll',
     mark: null,
     url: 'https://toarpsekoby.se/om-ekobyn/',
-    modell: false,
   },
   {
     namn: 'Tuggelite',
@@ -39,7 +36,6 @@ const boendegemenskaper = [
     hushall: '16 hushåll',
     mark: null,
     url: 'http://www.tuggelite.se/',
-    modell: false,
   },
   {
     namn: 'BRF Ekobyn',
@@ -47,7 +43,6 @@ const boendegemenskaper = [
     hushall: '18 hushåll',
     mark: null,
     url: 'https://sites.google.com/site/brfekobyn',
-    modell: false,
   },
   {
     namn: 'Understenshöjden',
@@ -55,7 +50,6 @@ const boendegemenskaper = [
     hushall: '44 hushåll',
     mark: null,
     url: 'https://understenshojden.se/om-understenshojden/',
-    modell: false,
   },
   {
     namn: 'Solbyn',
@@ -63,7 +57,6 @@ const boendegemenskaper = [
     hushall: '50 lägenheter',
     mark: null,
     url: 'https://solbyn.org/about',
-    modell: false,
   },
   {
     namn: 'BRF Hållén',
@@ -71,7 +64,6 @@ const boendegemenskaper = [
     hushall: '22 bostadsrätter',
     mark: null,
     url: 'https://www.brf-hallen.se/',
-    modell: false,
   },
   {
     namn: 'Suderbyn',
@@ -79,7 +71,6 @@ const boendegemenskaper = [
     hushall: null,
     mark: null,
     url: 'https://suderbyn.se/ecovillage/',
-    modell: false,
   },
   {
     namn: 'Charlottendal',
@@ -87,7 +78,6 @@ const boendegemenskaper = [
     hushall: null,
     mark: null,
     url: 'https://charlottendal.se/about-charlottendal/',
-    modell: false,
   },
   {
     namn: 'Hastekåsen',
@@ -95,7 +85,6 @@ const boendegemenskaper = [
     hushall: null,
     mark: null,
     url: 'https://hastekasen.se/om-oss/',
-    modell: false,
   },
 ];
 
@@ -192,25 +181,6 @@ const natverk = [
       </p>
     </header>
 
-    <section class="doc-section highlight-box" aria-labelledby="modeller">
-      <h2 id="modeller">Starkast modellikhet</h2>
-      <p>
-        Följande projekt har ägarmodeller och skala som ligger närmast vår vision:
-      </p>
-      <ul class="model-list">
-        <li>
-          <a href="https://www.utsikten-ekoby.se/" target="_blank" rel="noopener">
-            <strong>Utsikten Ekoby</strong>
-          </a> (Orust) – 17 hushåll, 12 ha, tydlig gemensam mark
-        </li>
-        <li>
-          <a href="https://växhuset.se/" target="_blank" rel="noopener">
-            <strong>Ekoby Växhuset</strong>
-          </a> (Söderhamn) – 4 hushåll, nyare projekt
-        </li>
-      </ul>
-    </section>
-
     <section class="doc-section" aria-labelledby="boendegemenskaper">
       <h2 id="boendegemenskaper">Boendegemenskaper</h2>
       <p>
@@ -229,12 +199,11 @@ const natverk = [
           </thead>
           <tbody>
             {boendegemenskaper.map((bg) => (
-              <tr class={bg.modell ? 'highlight-row' : ''}>
+              <tr>
                 <td>
                   <a href={bg.url} target="_blank" rel="noopener">
                     {bg.namn}
                   </a>
-                  {bg.modell && <span class="model-badge">Modell</span>}
                 </td>
                 <td>{bg.ort}</td>
                 <td>
@@ -402,34 +371,6 @@ const natverk = [
     margin-bottom: var(--space-md);
   }
 
-  /* Highlight box for model matches */
-  .highlight-box {
-    background: var(--accent-light);
-    border-radius: var(--radius-lg);
-    padding: var(--space-lg);
-    border: 1px solid var(--accent-mid);
-  }
-
-  .highlight-box h2 {
-    color: var(--deep-forest);
-  }
-
-  .model-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .model-list li {
-    padding: var(--space-sm) 0;
-    border-bottom: 1px solid var(--accent-mid);
-  }
-
-  .model-list li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
   /* Table styles */
   .table-wrapper {
     overflow-x: auto;
@@ -463,28 +404,6 @@ const natverk = [
 
   .ref-table tbody tr:hover {
     background: var(--surface-low);
-  }
-
-  .highlight-row {
-    background: var(--accent-light);
-  }
-
-  .highlight-row:hover {
-    background: rgba(173, 205, 200, 0.35);
-  }
-
-  .model-badge {
-    display: inline-block;
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    background: var(--deep-forest);
-    color: #fff;
-    padding: 0.15rem 0.5rem;
-    border-radius: 999px;
-    margin-left: var(--space-xs);
-    vertical-align: middle;
   }
 
   .missing {
@@ -574,10 +493,6 @@ const natverk = [
   @media (max-width: 600px) {
     h1 {
       font-size: var(--text-3xl);
-    }
-
-    .highlight-box {
-      padding: var(--space-md);
     }
 
     .ref-table th,
