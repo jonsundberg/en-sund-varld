@@ -34,6 +34,7 @@ export const EKONOMI_SENAST_ANDRAD = '2026-09-18';
 export const IDEER_SENAST_ANDRAD = '2026-09-18';
 export const KAPITAL_DETALJ_SENAST_ANDRAD = '2026-09-15';
 export const MOTEN_SENAST_ANDRAD = '2026-09-27';
+export const EKOBYAR_SENAST_ANDRAD = '2026-10-07';
 
 export const arbetsytaSektioner: ArbetsytaSektion[] = [
   {
@@ -70,6 +71,13 @@ export const arbetsytaSektioner: ArbetsytaSektion[] = [
     beskrivning: 'Intäktsidéer, verksamhetsplaner och resiliensstrategi för ekobymarken.',
     status: 'aktiv',
     senastAndrad: IDEER_SENAST_ANDRAD,
+  },
+  {
+    href: '/arbetsyta/inspiration/ekobyar/',
+    titel: 'Svenska ekobyar',
+    beskrivning: 'Referenslista över svenska ekobyar och boendegemenskaper för inspiration.',
+    status: 'aktiv',
+    senastAndrad: EKOBYAR_SENAST_ANDRAD,
   },
 ];
 
