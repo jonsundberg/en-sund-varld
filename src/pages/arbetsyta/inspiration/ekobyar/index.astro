@@ -1,0 +1,503 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { EKOBYAR_SENAST_ANDRAD, formatDatumSvenska } from '../../../../data/arbetsyta-metadata';
+
+const metadata = {
+  titel: 'Svenska ekobyar',
+  datum: EKOBYAR_SENAST_ANDRAD,
+  status: 'aktiv',
+};
+
+const boendegemenskaper = [
+  {
+    namn: 'Utsikten Ekoby',
+    ort: 'Orust',
+    hushall: '17 hushåll',
+    mark: '12 ha',
+    url: 'https://www.utsikten-ekoby.se/',
+  },
+  {
+    namn: 'Ekoby Växhuset',
+    ort: 'Söderhamn',
+    hushall: '4 hushåll',
+    mark: null,
+    url: 'https://växhuset.se/',
+  },
+  {
+    namn: 'Toarps Ekoby',
+    ort: 'Malmö',
+    hushall: '37 hushåll',
+    mark: null,
+    url: 'https://toarpsekoby.se/om-ekobyn/',
+  },
+  {
+    namn: 'Tuggelite',
+    ort: 'Karlstad',
+    hushall: '16 hushåll',
+    mark: null,
+    url: 'http://www.tuggelite.se/',
+  },
+  {
+    namn: 'BRF Ekobyn',
+    ort: 'Karlstad',
+    hushall: '18 hushåll',
+    mark: null,
+    url: 'https://sites.google.com/site/brfekobyn',
+  },
+  {
+    namn: 'Understenshöjden',
+    ort: 'Stockholm',
+    hushall: '44 hushåll',
+    mark: null,
+    url: 'https://understenshojden.se/om-understenshojden/',
+  },
+  {
+    namn: 'Solbyn',
+    ort: 'Dalby',
+    hushall: '50 lägenheter',
+    mark: null,
+    url: 'https://solbyn.org/about',
+  },
+  {
+    namn: 'BRF Hållén',
+    ort: 'Uppsala',
+    hushall: '22 bostadsrätter',
+    mark: null,
+    url: 'https://www.brf-hallen.se/',
+  },
+  {
+    namn: 'Suderbyn',
+    ort: 'Gotland',
+    hushall: null,
+    mark: null,
+    url: 'https://suderbyn.se/ecovillage/',
+  },
+  {
+    namn: 'Charlottendal',
+    ort: 'Järna/Gnesta',
+    hushall: null,
+    mark: null,
+    url: 'https://charlottendal.se/about-charlottendal/',
+  },
+  {
+    namn: 'Hastekåsen',
+    ort: 'Bohuslän',
+    hushall: null,
+    mark: null,
+    url: 'https://hastekasen.se/om-oss/',
+  },
+];
+
+const underUppbyggnad = [
+  {
+    namn: 'Grönbo',
+    ort: 'Göteborg',
+    status: 'under uppbyggnad',
+  },
+  {
+    namn: 'Sävstaås',
+    ort: 'Bollnäs',
+    status: 'under uppbyggnad',
+  },
+  {
+    namn: 'Bysjöstrand',
+    ort: 'Ludvika',
+    status: 'nedlagt 2024',
+  },
+];
+
+const utbildning = [
+  {
+    namn: 'Ridgedale Permaculture',
+    beskrivning: 'Kurser i regenerativt jordbruk, market garden och agroforestry.',
+    url: 'https://www.ridgedalepermaculture.com/',
+  },
+  {
+    namn: 'Stjärnsund',
+    beskrivning: 'Folkhögskola med kurser i ekologiskt byggande och permakultur.',
+    url: 'https://www.stjarnsufolkhogskola.se/',
+  },
+  {
+    namn: 'Holma Folkhögskola',
+    beskrivning: 'Kursverksamhet med fokus på hållbart liv och permakultur.',
+    url: 'https://www.holma.nu/',
+  },
+  {
+    namn: 'Ecotopia Österlen',
+    beskrivning: 'Permakulturdesignkurser (PDC) och praktisk hållbarhet.',
+    url: 'https://ecotopia.se/',
+  },
+  {
+    namn: 'Skillebyholm',
+    beskrivning: 'Biodynamisk och ekologisk utbildning i Järna.',
+    url: 'https://www.skillebyholm.com/',
+  },
+];
+
+const natverk = [
+  {
+    namn: 'ERO (Ecovillage Roots)',
+    beskrivning: 'Nordiskt nätverk för ekobyar inom GEN Europe.',
+    url: 'https://gen-europe.org/',
+  },
+  {
+    namn: 'LAND',
+    beskrivning: 'Nätverk för markanskaffning och lantbruksprojekt.',
+    url: 'https://landorganisation.se/',
+  },
+  {
+    namn: 'Kollektivhus NU',
+    beskrivning: 'Riksorganisation för kollektivboende i Sverige.',
+    url: 'https://www.kollektivhus.nu/',
+  },
+  {
+    namn: 'Omställningsnätverket',
+    beskrivning: 'Transition Network Sverige – lokal resiliens och samhällsomställning.',
+    url: 'https://omstallning.net/',
+  },
+];
+---
+
+<BaseLayout
+  title="Svenska ekobyar – Styrelsens arbetsyta"
+  description="Referenslista över svenska ekobyar och boendegemenskaper för inspiration till föreningens ekobyprojekt."
+>
+  <article class="arbetsyta-doc container">
+    <header class="doc-header">
+      <p class="breadcrumb">
+        <a href="/arbetsyta/">Arbetsyta</a> / Inspiration / Svenska ekobyar
+      </p>
+      <div class="doc-meta">
+        <span class="doc-status doc-status--aktiv">Aktiv</span>
+        <span class="doc-date">Uppdaterad {formatDatumSvenska(metadata.datum)}</span>
+      </div>
+      <h1>{metadata.titel}</h1>
+      <p class="doc-lead">
+        Referenslista för inspiration till föreningens ekobyprojekt. De flesta 
+        boendegemenskaper nedan har ägarmodeller där <strong>hushållen äger sina 
+        egna hus</strong> medan <strong>marken ägs gemensamt</strong> – men 
+        variationer finns. Där uppgifter är osäkra eller ofullständiga har vi 
+        markerat detta.
+      </p>
+    </header>
+
+    <section class="doc-section" aria-labelledby="boendegemenskaper">
+      <h2 id="boendegemenskaper">Boendegemenskaper</h2>
+      <p>
+        Etablerade ekobyar och boendegemenskaper i Sverige. Storlek och 
+        organisationsform varierar.
+      </p>
+      
+      <div class="table-wrapper">
+        <table class="ref-table">
+          <thead>
+            <tr>
+              <th scope="col">Namn</th>
+              <th scope="col">Ort</th>
+              <th scope="col">Storlek</th>
+            </tr>
+          </thead>
+          <tbody>
+            {boendegemenskaper.map((bg) => (
+              <tr>
+                <td>
+                  <a href={bg.url} target="_blank" rel="noopener">
+                    {bg.namn}
+                  </a>
+                </td>
+                <td>{bg.ort}</td>
+                <td>
+                  {bg.hushall || <span class="missing">uppgift saknas</span>}
+                  {bg.mark && `, ${bg.mark}`}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="doc-section" aria-labelledby="under-uppbyggnad">
+      <h2 id="under-uppbyggnad">Under uppbyggnad / lärdomar</h2>
+      <p>
+        Projekt i uppstartsfas eller med lärdomar att dra.
+      </p>
+      
+      <ul class="simple-list">
+        {underUppbyggnad.map((proj) => (
+          <li>
+            <strong>{proj.namn}</strong> ({proj.ort}) – 
+            <span class={proj.status === 'nedlagt 2024' ? 'status-nedlagt' : 'status-uppbyggnad'}>
+              {proj.status}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="utbildning">
+      <h2 id="utbildning">Utbildning</h2>
+      <p>
+        Kursverksamhet och folkhögskolor med fokus på permakultur, ekologiskt 
+        byggande och hållbart liv.
+      </p>
+      
+      <ul class="resource-list">
+        {utbildning.map((u) => (
+          <li>
+            <a href={u.url} target="_blank" rel="noopener">
+              <strong>{u.namn}</strong>
+            </a>
+            <span class="resource-desc">{u.beskrivning}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="natverk">
+      <h2 id="natverk">Nätverk</h2>
+      <p>
+        Organisationer och nätverk för ekobyar, kollektivboende och 
+        samhällsomställning.
+      </p>
+      
+      <ul class="resource-list">
+        {natverk.map((n) => (
+          <li>
+            <a href={n.url} target="_blank" rel="noopener">
+              <strong>{n.namn}</strong>
+            </a>
+            <span class="resource-desc">{n.beskrivning}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="doc-section notice-box" aria-labelledby="ansvarsfriskrivning">
+      <h2 id="ansvarsfriskrivning">Om listan</h2>
+      <p>
+        Denna referenslista är sammanställd av <em>En sund värld Ekonomisk 
+        Förening (under bildande)</em> för internt bruk och inspiration. Vi har 
+        inte verifierat alla uppgifter – besök respektive projekts hemsida för 
+        aktuell information. Har du rättelser eller tillägg? 
+        <a href="/#anmalan">Hör av dig via intresseanmälan</a>.
+      </p>
+    </section>
+
+    <nav class="doc-nav" aria-label="Navigering arbetsyta">
+      <a href="/arbetsyta/" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Tillbaka till arbetsytan
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .arbetsyta-doc {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .doc-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-status {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .doc-status--aktiv {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
+  }
+
+  .doc-date {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .doc-section h2 {
+    font-size: var(--text-2xl);
+    color: var(--accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-section p {
+    color: var(--text);
+    margin-bottom: var(--space-md);
+  }
+
+  /* Table styles */
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    margin-bottom: var(--space-md);
+  }
+
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .ref-table th,
+  .ref-table td {
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .ref-table thead th {
+    background: var(--bg-secondary);
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .ref-table tbody tr:hover {
+    background: var(--surface-low);
+  }
+
+  .missing {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.8125rem;
+  }
+
+  /* Simple list */
+  .simple-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .simple-list li {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .simple-list li:last-child {
+    border-bottom: none;
+  }
+
+  .status-uppbyggnad {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .status-nedlagt {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* Resource list */
+  .resource-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .resource-list li {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .resource-list li:last-child {
+    border-bottom: none;
+  }
+
+  .resource-desc {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  /* Notice box */
+  .notice-box {
+    background: var(--linen-cream);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .notice-box h2 {
+    font-size: var(--text-xl);
+    color: var(--deep-forest);
+  }
+
+  .notice-box p {
+    margin-bottom: 0;
+  }
+
+  .doc-nav {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .doc-nav .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: var(--text-3xl);
+    }
+
+    .ref-table th,
+    .ref-table td {
+      padding: var(--space-xs) var(--space-sm);
+    }
+  }
+</style>
