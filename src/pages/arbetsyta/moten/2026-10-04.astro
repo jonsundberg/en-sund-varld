@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { formatDatumSvenska } from '../../../data/arbetsyta-metadata';
+
+const metadata = {
+  datum: '2026-10-04',
+  status: 'aktiv',
+};
+---
+
+<BaseLayout
+  title={`Möte ${formatDatumSvenska(metadata.datum)} – Styrelsens arbetsyta`}
+  description="Sammanfattning från mötet 4 oktober 2026. Besök från Drömma tillsammans, delad vision och kommande träff."
+>
+  <article class="arbetsyta-doc container">
+    <header class="doc-header">
+      <p class="breadcrumb">
+        <a href="/arbetsyta/">Arbetsyta</a> / <a href="/arbetsyta/moten/">Mötesanteckningar</a> / {formatDatumSvenska(metadata.datum)}
+      </p>
+      <div class="doc-meta">
+        <span class="doc-status doc-status--aktiv">Aktiv</span>
+      </div>
+      <h1>Möte {formatDatumSvenska(metadata.datum)}</h1>
+      <p class="doc-lead">
+        Vi hade besök av initiativet <strong>Drömma tillsammans</strong> och delade 
+        våra visioner med varandra – ett samtal och utbyte snarare än ett beslutsmöte.
+      </p>
+    </header>
+
+    <section class="doc-section" aria-labelledby="om-motet">
+      <h2 id="om-motet">Om mötet</h2>
+      <p>
+        Det här mötet var framför allt ett tillfälle att lära känna varandra och utbyta tankar. 
+        Inga formella beslut fattades.
+      </p>
+    </section>
+
+    <section class="doc-section" aria-labelledby="nasta-mote">
+      <h2 id="nasta-mote">Nästa möte</h2>
+      <ul class="doc-list">
+        <li><strong>Datum:</strong> Söndag 18 oktober 2026</li>
+        <li><strong>Plats:</strong> Online eller hos Anders – bestäms senare</li>
+      </ul>
+    </section>
+
+    <nav class="doc-nav" aria-label="Navigering">
+      <a href="/arbetsyta/moten/" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Alla möten
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .arbetsyta-doc {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .doc-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-status {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .doc-status--aktiv {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .doc-section h2 {
+    font-size: var(--text-2xl);
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .doc-section p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .doc-list {
+    padding-left: 1.5rem;
+    margin: 0 0 var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .doc-list li {
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-list strong {
+    color: var(--deep-forest);
+  }
+
+  .doc-nav {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .doc-nav .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
