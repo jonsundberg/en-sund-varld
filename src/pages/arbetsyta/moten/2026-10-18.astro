@@ -1,0 +1,318 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { formatDatumSvenska } from '../../../data/arbetsyta-metadata';
+
+const metadata = {
+  datum: '2026-10-18',
+  status: 'aktiv',
+};
+---
+
+<BaseLayout
+  title={`Möte ${formatDatumSvenska(metadata.datum)} – Styrelsens arbetsyta`}
+  description="Sammanfattning från mötet 18 oktober 2026. Gemensam vision, plats och ekonomi, ägande och nästa steg."
+>
+  <article class="arbetsyta-doc container">
+    <header class="doc-header">
+      <p class="breadcrumb">
+        <a href="/arbetsyta/">Arbetsyta</a> / <a href="/arbetsyta/moten/">Mötesanteckningar</a> / {formatDatumSvenska(metadata.datum)}
+      </p>
+      <div class="doc-meta">
+        <span class="doc-status doc-status--aktiv">Aktiv</span>
+      </div>
+      <h1>Möte {formatDatumSvenska(metadata.datum)}</h1>
+      <p class="doc-lead">
+        Den gemensamma visionen lästes upp och diskuterades. Nästa steg är att
+        konkretisera den i praktiken. Nästa möte söndag 1 november 2026.
+      </p>
+    </header>
+
+    <section class="doc-section" aria-labelledby="vision">
+      <h2 id="vision">Gemensam vision och fortsatt konkretisering</h2>
+      <p>
+        Den gemensamma visionen lästes upp och diskuterades. Gruppen uppskattar
+        riktningen, men ser ett behov av att konkretisera hur visionen ska
+        fungera i praktiken.
+      </p>
+      <p>Frågor som lyftes:</p>
+      <ul class="doc-list">
+        <li>Vad menar vi konkret med exempelvis vackert och resurser?</li>
+        <li>Hur smalnar vi av visionen till något konkret som hjälper oss att fatta beslut?</li>
+        <li>Hur kommer vi framåt utan att fastna i att diskutera visionen på nytt varje gång nya personer tillkommer?</li>
+      </ul>
+      <p>
+        Gruppen ser ett behov av att börja omsätta visionen i praktiska lösningar
+        och lära sig längs vägen.
+      </p>
+    </section>
+
+    <section class="doc-section" aria-labelledby="plats-ekonomi">
+      <h2 id="plats-ekonomi">Plats och ekonomi</h2>
+      <p>
+        Gruppen enades om att sökområdet ska vara högst två timmar från Stockholm.
+      </p>
+      <p>Följande behöver undersökas:</p>
+      <ul class="doc-list">
+        <li>Hur stor investering gruppen kan göra vid köp av mark respektive en fastighet med befintliga byggnader.</li>
+        <li>Vilken kontantinsats som krävs och vilka månatliga kostnader varje hushåll skulle få.</li>
+        <li>Hur ekonomin skulle se ut vid exempelvis fem respektive tio hushåll.</li>
+        <li>Om det är fördelaktigt att börja med en befintlig byggnad där gruppen kan bo och laga mat, för att sedan bygga fler hus successivt.</li>
+      </ul>
+      <p>
+        Uddebo i Svenljunga nämndes som ett exempel på en plats där tomter har
+        sålts för omkring 60 000 kronor.
+      </p>
+    </section>
+
+    <section class="doc-section" aria-labelledby="boende-agande">
+      <h2 id="boende-agande">Boende, ägande och ekonomisk trygghet</h2>
+      <p>
+        En tydlig gemensam riktning är att skapa förutsättningar för billigt
+        boende, långsiktig ekonomisk hållbarhet och individuellt självbestämmande,
+        kombinerat med gemensamt ansvar.
+      </p>
+      <p>
+        Gruppen diskuterade olika juridiska modeller för ägande och förvaltning.
+        En central fråga är vad som händer om en minoritet vill sälja, lämna
+        gemenskapen eller förändra sitt ägande.
+      </p>
+      <p>
+        Det finns också en gemensam ambition att kunna välkomna människor på
+        olika premisser, exempelvis genom ekonomiskt bidrag eller arbetsinsats.
+        Volontärer ska kunna tas emot.
+      </p>
+      <p>
+        Möjligheten att skapa intäkter till föreningen genom exempelvis uthyrning
+        av tiny houses diskuterades.
+      </p>
+    </section>
+
+    <section class="doc-section" aria-labelledby="sjalvforsorjning">
+      <h2 id="sjalvforsorjning">Självförsörjning</h2>
+      <p>
+        Gruppen är enig om att tillgång till mat av god kvalitet till en rimlig
+        kostnad är viktig.
+      </p>
+      <p>
+        Hur stor del av maten som ska produceras gemensamt och hur detta ska
+        organiseras behöver konkretiseras vidare.
+      </p>
+    </section>
+
+    <section class="doc-section" aria-labelledby="gemenskap">
+      <h2 id="gemenskap">Gemenskap och beslutsfattande</h2>
+      <p>Gruppen ställde sig särskilt positiv till följande princip:</p>
+      <blockquote>
+        Alla ska inte behöva leva likadant eller delta i allt. Vi vill skapa en
+        struktur där människor kan bidra på olika sätt och i olika omfattning.
+      </blockquote>
+      <p>
+        Sociokrati diskuterades som möjlig styrningsform. Gruppen är positiv till
+        att utforska detta vidare.
+      </p>
+    </section>
+
+    <section class="doc-section" aria-labelledby="organisation">
+      <h2 id="organisation">Organisation och värdegrund</h2>
+      <p>
+        Gruppen ser ett behov av att formulera en gemensam värdegrund och ett
+        antal vägledande principer. Stadgar och juridisk organisationsform
+        behöver därefter utformas så att de stödjer visionen och kan utvecklas
+        över tid.
+      </p>
+      <p>
+        Det finns ännu frågor att lösa kring ägande, beslutsfattande samt hur
+        medlemmar kan gå med i eller lämna gemenskapen.
+      </p>
+    </section>
+
+    <section class="doc-section" aria-labelledby="riktning">
+      <h2 id="riktning">Riktning framåt</h2>
+      <p>
+        Nästa steg är att konkretisera visionen genom ekonomiska räkneexempel,
+        rådgivning om organisationsformer och studiebesök hos befintliga
+        gemenskaper.
+      </p>
+      <p>
+        Vid studiebesöken ska gruppen särskilt undersöka ägande, beslutsfattande,
+        organisation, in- och utträde samt erfarenheter av vad som fungerat bra
+        och vilka fallgropar som finns.
+      </p>
+    </section>
+
+    <section class="doc-section" aria-labelledby="uppgifter">
+      <h2 id="uppgifter">Uppgifter till nästa möte</h2>
+      <ul class="doc-list uppgifter">
+        <li>
+          <strong>Anders:</strong> Sammanfatta och konkretisera visionen.
+        </li>
+        <li>
+          <strong>Anders:</strong> Ta fram ett frågebatteri för studiebesöken,
+          med fokus på ägande, beslutsfattande, organisation, in- och utträde,
+          fallgropar och lärdomar.
+        </li>
+        <li>
+          <strong>Anders:</strong> Ta fram ekonomiska räkneexempel för fem
+          respektive tio hushåll, inklusive kontantinsats, investering,
+          finansiering och löpande kostnader.
+        </li>
+        <li>
+          <strong>Jon:</strong> Kontakta Coompanion för rådgivning kring lämpliga
+          organisations- och ägandeformer.
+        </li>
+        <li>
+          <strong>Jon:</strong> Studiebesök på Änggärdet 29–30 oktober.
+        </li>
+        <li>
+          <strong>Ines:</strong> Besök hos Matvärn i Norrköping lördag 24 oktober.
+        </li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="nasta-mote">
+      <h2 id="nasta-mote">Nästa möte</h2>
+      <ul class="doc-list">
+        <li><strong>Datum:</strong> Söndag 1 november 2026</li>
+      </ul>
+    </section>
+
+    <nav class="doc-nav" aria-label="Navigering">
+      <a href="/arbetsyta/moten/" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Alla möten
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .arbetsyta-doc {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .doc-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-status {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .doc-status--aktiv {
+    background: var(--accent-light);
+    color: var(--deep-forest);
+    border: 1px solid var(--accent-mid);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .doc-section h2 {
+    font-size: var(--text-2xl);
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .doc-section p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .doc-section blockquote {
+    margin: 0 0 var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-lg);
+    color: var(--deep-forest);
+    line-height: 1.5;
+    border-left: 3px solid var(--earth);
+    background: var(--bg-white);
+  }
+
+  .doc-list {
+    padding-left: 1.5rem;
+    margin: 0 0 var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .doc-list li {
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-list strong {
+    color: var(--deep-forest);
+  }
+
+  .uppgifter li {
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .uppgifter li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .doc-nav {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .doc-nav .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
