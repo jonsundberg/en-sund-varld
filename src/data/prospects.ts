@@ -3100,4 +3100,34 @@ export function isValidExternalUrl(url: string | undefined | null): boolean {
   return trimmed.startsWith('http://') || trimmed.startsWith('https://');
 }
 
+/** List view: drop parenthetical notes such as "(ej verifierat)". */
+export function listPris(pris: string): string {
+  return pris.replace(/\s*\([^)]*\)/g, '').replace(/\s{2,}/g, ' ').trim();
+}
+
+/** List view: drop land-mix parentheticals, keep the short areal. */
+export function listAreal(ha: string): string {
+  const kort = ha.split('(')[0].trim();
+  return kort || ha;
+}
+
+/** List view: only a short market status, not flags or process labels. */
+export function listKortStatus(p: Prospekt): string | undefined {
+  const hay = [p.buddatum, p.pris, ...p.flaggor.map((f) => f.text)]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+  if (
+    hay.includes('budgivning') ||
+    hay.includes('högstbjudande') ||
+    hay.includes('högsta bud')
+  ) {
+    return 'Budgivning';
+  }
+  if (hay.includes('auktion')) {
+    return 'Auktion';
+  }
+  return undefined;
+}
+
 export default prospects;
