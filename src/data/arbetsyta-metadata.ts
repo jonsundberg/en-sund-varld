@@ -48,7 +48,7 @@ export const arbetsytaSektioner: ArbetsytaSektion[] = [
   {
     href: '/arbetsyta/studiebesok/',
     titel: 'Frågor vid studiebesök',
-    beskrivning: 'Frågor att ta med vid studiebesök hos befintliga gemenskaper, till exempel Änggärdet.',
+    beskrivning: 'Frågor att ta med vid studiebesök hos befintliga gemenskaper.',
     status: 'aktiv',
     senastAndrad: STUDIEBESOK_SENAST_ANDRAD,
   },
