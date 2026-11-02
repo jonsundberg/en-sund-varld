@@ -2,19 +2,16 @@ import type { APIRoute } from 'astro';
 import {
   createOrUpdateBrevoContact,
   isValidEmail,
-  type ContactFormData,
+  sendInterestNotification,
 } from '../../lib/brevo';
+import {
+  describeSignup,
+  parseFormPayload,
+  sanitizeFormPayload,
+  type FormPayload,
+} from '../../lib/interest-payload';
 
 export const prerender = false;
-
-interface FormPayload {
-  email?: string;
-  name?: string;
-  phone?: string;
-  interest?: string | string[];
-  message?: string;
-  _gotcha?: string; // Honeypot field
-}
 
 async function parseFormBody(request: Request): Promise<FormPayload> {
   const contentType = request.headers.get('content-type') || '';
@@ -23,23 +20,14 @@ async function parseFormBody(request: Request): Promise<FormPayload> {
     return (await request.json()) as FormPayload;
   }
 
-  // Handle form-urlencoded (standard form POST)
-  const formData = await request.formData();
-  const payload: FormPayload = {};
+  return parseFormPayload(await request.formData());
+}
 
-  for (const [key, value] of formData.entries()) {
-    if (key === 'interest') {
-      // Collect all interest checkboxes into an array
-      if (!payload.interest) {
-        payload.interest = [];
-      }
-      (payload.interest as string[]).push(value.toString());
-    } else {
-      (payload as Record<string, string>)[key] = value.toString();
-    }
-  }
-
-  return payload;
+function json(body: unknown, status: number): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -48,89 +36,77 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     payload = await parseFormBody(request);
   } catch {
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Ogiltigt formulärdata' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
-    );
+    return json({ ok: false, error: 'Ogiltigt formulärdata' }, 400);
   }
 
   // Honeypot check – bots often fill hidden fields
   if (payload._gotcha) {
-    // Silently accept to not reveal honeypot to bots
-    return new Response(
-      JSON.stringify({ ok: true }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
+    return json({ ok: true }, 200);
   }
 
-  // Validate required email field
-  if (!payload.email || !isValidEmail(payload.email)) {
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Ogiltig e-postadress' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
-    );
+  const contactData = sanitizeFormPayload(payload, request.headers.get('referer'));
+
+  if (!contactData.email || !isValidEmail(contactData.email)) {
+    return json({ ok: false, error: 'Ogiltig e-postadress' }, 400);
   }
 
-  // Validate at least one interest is selected
-  const interests = payload.interest;
-  const hasInterest =
-    (Array.isArray(interests) && interests.length > 0) ||
-    (typeof interests === 'string' && interests.trim().length > 0);
+  const interests = contactData.interest;
+  const hasInterest = Array.isArray(interests) && interests.length > 0;
 
   if (!hasInterest) {
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Välj minst ett intresseområde' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
-    );
+    return json({ ok: false, error: 'Välj minst ett intresseområde' }, 400);
   }
 
-  // Get Brevo API key from environment (process.env for Vercel serverless)
   const brevoApiKey = process.env.BREVO_API_KEY ?? import.meta.env.BREVO_API_KEY;
   if (!brevoApiKey) {
     console.error('BREVO_API_KEY environment variable is not set');
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Serverfel – försök igen senare' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return json({ ok: false, error: 'Serverfel – försök igen senare' }, 500);
   }
-
-  // Build contact data and send to Brevo
-  const contactData: ContactFormData = {
-    email: payload.email,
-    name: payload.name,
-    phone: payload.phone,
-    interest: payload.interest,
-    message: payload.message,
-  };
 
   const result = await createOrUpdateBrevoContact(contactData, brevoApiKey);
 
   if (!result.success) {
-    // Provide user-friendly error messages based on failure type
     let userMessage = 'Kunde inte spara din anmälan – försök igen';
-    
+
     if (result.status === 429) {
       userMessage = 'För många förfrågningar just nu – vänta en stund och försök igen';
     } else if (result.status === 500) {
-      // Auth/config issues - don't tell user to retry
       userMessage = 'Serverfel – vi undersöker problemet';
     }
 
     console.error(`[Interest API] Brevo failed: ${result.message} (status ${result.status})`);
-    
-    return new Response(
-      JSON.stringify({ ok: false, error: userMessage }),
-      { status: result.status, headers: { 'Content-Type': 'application/json' } }
-    );
+
+    return json({ ok: false, error: userMessage }, result.status);
   }
 
-  return new Response(
-    JSON.stringify({ ok: true, message: result.message }),
-    { status: 200, headers: { 'Content-Type': 'application/json' } }
-  );
+  const { interests: interestLabels, source } = describeSignup(contactData);
+  const notifyEmail = process.env.NOTIFY_EMAIL ?? import.meta.env.NOTIFY_EMAIL;
+
+  try {
+    const notifyResult = await sendInterestNotification(
+      {
+        email: contactData.email,
+        name: contactData.name || '',
+        phone: contactData.phone || '',
+        interests: interestLabels,
+        message: contactData.message || '',
+        source,
+        submittedAt: new Date(),
+      },
+      brevoApiKey,
+      notifyEmail
+    );
+
+    if (!notifyResult.success) {
+      console.error(`[Interest API] Notification failed: ${notifyResult.message}`);
+    }
+  } catch (error) {
+    console.error('[Interest API] Notification threw:', error);
+  }
+
+  return json({ ok: true, message: result.message }, 200);
 };
 
-// Reject other HTTP methods
 export const ALL: APIRoute = () => {
   return new Response(
     JSON.stringify({ ok: false, error: 'Metoden stöds ej' }),
