@@ -81,6 +81,19 @@ const sektioner = [
     ],
   },
 ];
+
+function fragorTillText(avsnitt: { titel: string; fragor: string[] }[]): string {
+  return avsnitt
+    .map((sektion) => {
+      const numbered = sektion.fragor
+        .map((fraga, index) => `${index + 1}. ${fraga}`)
+        .join('\n');
+      return `${sektion.titel}\n${numbered}`;
+    })
+    .join('\n\n');
+}
+
+const fragorText = fragorTillText(sektioner);
 ---
 
 <BaseLayout
@@ -101,6 +114,23 @@ const sektioner = [
         Sammanställt av Anders, med några följdfrågor tillagda.
       </p>
     </header>
+
+    <div class="fragor-export">
+      <button type="button" class="btn btn-outline" data-copy-fragor>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+        <span data-copy-label>Kopiera frågorna som text</span>
+      </button>
+      <p class="visually-hidden" aria-live="polite" data-copy-status></p>
+
+      <details class="fragor-text-fallback">
+        <summary>Visa som text</summary>
+        <label class="visually-hidden" for="fragor-text">Frågorna som vanlig text, redo att kopiera</label>
+        <textarea id="fragor-text" readonly rows="18" spellcheck="false">{fragorText}</textarea>
+      </details>
+    </div>
 
     <nav class="toc" aria-label="Frågeområden">
       <p class="toc-heading" id="innehall">Områden</p>
@@ -198,6 +228,64 @@ const sektioner = [
     font-size: var(--text-lg);
     color: var(--text-muted);
     line-height: 1.6;
+  }
+
+  .fragor-export {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+  }
+
+  .fragor-export .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .fragor-text-fallback {
+    width: 100%;
+  }
+
+  .fragor-text-fallback summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--deep-forest);
+    padding: 0.45rem 0.15rem;
+    min-height: 2.75rem;
+    line-height: 1.4;
+    border-radius: var(--radius-sm);
+  }
+
+  .fragor-text-fallback summary:hover {
+    text-decoration: underline;
+  }
+
+  .fragor-text-fallback summary:focus-visible {
+    outline: 2px solid var(--deep-forest);
+    outline-offset: 2px;
+  }
+
+  .fragor-text-fallback textarea {
+    display: block;
+    width: 100%;
+    margin-top: var(--space-sm);
+    padding: var(--space-sm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-white);
+    color: var(--text);
+    font-family: var(--font-base);
+    font-size: var(--text-base);
+    line-height: 1.55;
+    resize: vertical;
+    min-height: 12rem;
+  }
+
+  .fragor-text-fallback textarea:focus-visible {
+    outline: 2px solid var(--deep-forest);
+    outline-offset: 2px;
   }
 
   .toc {
@@ -314,3 +402,65 @@ const sektioner = [
     }
   }
 </style>
+
+<script>
+  const copyButton = document.querySelector<HTMLButtonElement>('[data-copy-fragor]');
+  const copyLabel = document.querySelector<HTMLElement>('[data-copy-label]');
+  const status = document.querySelector<HTMLElement>('[data-copy-status]');
+  const textarea = document.querySelector<HTMLTextAreaElement>('#fragor-text');
+  const fallback = document.querySelector<HTMLDetailsElement>('.fragor-text-fallback');
+
+  if (copyButton && copyLabel && textarea) {
+    const originalLabel = copyLabel.textContent ?? 'Kopiera frågorna som text';
+    let resetTimer: number | undefined;
+
+    function visaBekraftelse() {
+      copyLabel!.textContent = 'Kopierat!';
+      if (status) status.textContent = 'Kopierat!';
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        copyLabel!.textContent = originalLabel;
+        if (status) status.textContent = '';
+      }, 2000);
+    }
+
+    function visaFallback() {
+      if (fallback) fallback.open = true;
+      textarea!.focus();
+      textarea!.select();
+      textarea!.scrollIntoView({ block: 'nearest' });
+      if (status) {
+        status.textContent = 'Kopiera texten i rutan Visa som text.';
+      }
+    }
+
+    async function kopieraTillUrklipp(text: string): Promise<boolean> {
+      if (!navigator.clipboard?.writeText) return false;
+
+      try {
+        await Promise.race([
+          navigator.clipboard.writeText(text),
+          new Promise<never>((_, reject) => {
+            window.setTimeout(() => reject(new Error('timeout')), 1500);
+          }),
+        ]);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    copyButton.addEventListener('click', async () => {
+      const copied = await kopieraTillUrklipp(textarea.value);
+      if (copied) {
+        visaBekraftelse();
+      } else {
+        visaFallback();
+      }
+    });
+
+    textarea.addEventListener('focus', () => {
+      textarea.select();
+    });
+  }
+</script>
