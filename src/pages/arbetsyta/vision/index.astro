@@ -1,0 +1,291 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { VISION_SENAST_ANDRAD, formatDatumSvenska } from '../../../data/arbetsyta-metadata';
+
+const metadata = {
+  titel: 'Vision och principer',
+  datum: VISION_SENAST_ANDRAD,
+  status: 'utkast',
+};
+---
+
+<BaseLayout
+  title="Vision och principer – Styrelsens arbetsyta"
+  description="Utkast till gemensam vision och åtta principer för byn, sammanställt på mötet 1 november 2026."
+>
+  <article class="arbetsyta-doc container">
+    <header class="doc-header">
+      <p class="breadcrumb">
+        <a href="/arbetsyta/">Arbetsyta</a> / Vision och principer
+      </p>
+      <div class="doc-meta">
+        <span class="doc-status doc-status--utkast">Utkast</span>
+        <span class="doc-date">Uppdaterad {formatDatumSvenska(metadata.datum)}</span>
+      </div>
+      <h1>{metadata.titel}</h1>
+      <p class="doc-lead">
+        Utkast sammanställt på
+        <a href="/arbetsyta/moten/2026-11-01">mötet 1 november 2026</a>.
+        Det ska konkretiseras.
+      </p>
+    </header>
+
+    <section class="doc-section" aria-labelledby="vision">
+      <h2 id="vision">En by för ett friare liv tillsammans</h2>
+      <p>
+        Vi vill skapa en småskalig by där människor kan leva nära naturen, i gemenskap med andra och med större frihet att forma sina egna liv.
+      </p>
+      <p>
+        Vi vill bygga en plats som förenar social, ekologisk och ekonomisk hållbarhet. En plats där vi tar hand om naturen och de resurser vi delar, utvecklar odling och lokal produktion och skapar förutsättningar för ett gott och meningsfullt liv.
+      </p>
+      <p>
+        En livskraftig ekonomi är en förutsättning för vår vision. Vi vill skapa en plats som kan bära sina egna kostnader, generera överskott och återinvestera i sin framtid. Genom verksamheter, företagande och gemensamma projekt vill vi skapa arbetstillfällen, möjligheter till försörjning och resurser för att utveckla byn över tid. Vi vill ge utrymme åt människors idéer och initiativ, så att platsen kan växa, förnyas och skapa värde både för dem som bor där och för omvärlden.
+      </p>
+      <p>
+        Gemenskapen ska bygga på både självständighet och samarbete. Här ska finnas plats för egna hem och privatliv, liksom gemensamma ytor, aktiviteter och resurser. Vi vill göra det enkelt att hjälpas åt, dela kunskap och utveckla sådant som är svårt att åstadkomma på egen hand.
+      </p>
+      <p>
+        Vi vill värna varje människas frihet att leva på sitt eget sätt, med hänsyn till andra och till det vi har gemensamt. I det privata ska det finnas stor frihet, medan gemensamma utrymmen, resurser och överenskommelser kräver hänsyn och ansvarstagande. Alla behöver inte leva likadant, bidra på samma sätt eller delta i allt, men det gemensamma ska tas om hand och våra överenskommelser respekteras.
+      </p>
+      <p>
+        Vi vill skapa en öppen och tillitsfull gemenskap där det är tydligt hur platsen styrs, hur beslut fattas och hur gemensamma resurser förvaltas. De som berörs ska ha möjlighet att förstå, påverka och komma till tals. Genom transparens, delaktighet och tydliga överenskommelser vill vi bygga en gemenskap där ansvar, inflytande och befogenheter är begripliga och rättvisa.
+      </p>
+      <p>
+        Vår ambition är att skapa mer än ett boende. Vi vill bygga en livskraftig plats där människor kan bo, arbeta, odla, skapa, lära och utveckla verksamheter tillsammans. En plats där ekonomisk styrka ger utrymme för mänsklig utveckling, ekologiskt ansvar och individuell frihet, och där vi tillsammans skapar förutsättningar för en hållbar framtid.
+      </p>
+    </section>
+
+    <section class="doc-section" aria-labelledby="principer">
+      <h2 id="principer">Gemensamma principer för vår by</h2>
+
+      <section class="princip" aria-labelledby="princip-1">
+        <h3 id="princip-1">1. Individuell frihet med hänsyn till andra</h3>
+        <p>
+          Var och en ska ha stor frihet att forma sitt eget liv, sitt hem och sin vardag. Vi vill ge utrymme för olika livsstilar, behov och önskemål utan krav på att alla ska leva eller tänka likadant.
+        </p>
+        <p>
+          Friheten innebär samtidigt ett ansvar att visa hänsyn till andra, respektera gemensamma överenskommelser och inte oskäligt begränsa andras frihet eller trygghet.
+        </p>
+      </section>
+
+      <section class="princip" aria-labelledby="princip-2">
+        <h3 id="princip-2">2. Gemensamt ansvar och ömsesidighet</h3>
+        <p>
+          Vi har ett gemensamt ansvar för att ta hand om platsen, våra gemensamma resurser och de strukturer som gör byn möjlig.
+        </p>
+        <p>
+          Alla behöver inte bidra på samma sätt eller i samma omfattning, men ansvar och förväntningar ska vara tydliga och rimliga. Den som inte kan eller vill bidra på ett visst sätt ska, där det är möjligt, kunna hitta andra former för sitt bidrag.
+        </p>
+        <p>
+          Vi strävar efter en gemenskap där människor hjälper varandra och där det gemensamma ansvaret inte systematiskt faller på några få.
+        </p>
+      </section>
+
+      <section class="princip" aria-labelledby="princip-3">
+        <h3 id="princip-3">3. Social, ekologisk och ekonomisk hållbarhet</h3>
+        <p>
+          Våra beslut ska sträva efter att förena sociala, ekologiska och ekonomiska hänsyn.
+        </p>
+        <p>
+          Vi vill skapa en trygg och inkluderande livsmiljö, leva med respekt för naturen och använda mark, energi och andra resurser varsamt. Samtidigt behöver byn ha en ekonomi som fungerar långsiktigt och kan bära sina kostnader.
+        </p>
+        <p>
+          När olika mål står i konflikt ska vi synliggöra avvägningarna och fatta medvetna beslut, snarare än att låta en enda aspekt automatiskt styra allt.
+        </p>
+      </section>
+
+      <section class="princip" aria-labelledby="princip-4">
+        <h3 id="princip-4">4. Ekonomisk livskraft och utveckling</h3>
+        <p>
+          Vi ser ekonomin som ett verktyg för att förverkliga och vidareutveckla vår gemensamma vision.
+        </p>
+        <p>
+          Byn ska sträva efter att skapa intäkter, generera överskott och bygga upp resurser för framtida investeringar. Genom företagande, arbetstillfällen och gemensamma projekt vill vi skapa möjligheter för människor att försörja sig och utveckla idéer på platsen.
+        </p>
+        <p>
+          Ekonomiska beslut ska vara långsiktiga, ansvarsfulla och transparenta. Det ska vara tydligt hur överskott används, hur risker fördelas och vilka villkor som gäller för dem som investerar, arbetar eller bor på platsen.
+        </p>
+      </section>
+
+      <section class="princip" aria-labelledby="princip-5">
+        <h3 id="princip-5">5. Öppenhet och transparens</h3>
+        <p>
+          Det ska vara tydligt hur byn styrs, hur beslut fattas, hur ekonomin ser ut och hur gemensamma resurser förvaltas.
+        </p>
+        <p>
+          Relevant information ska vara tillgänglig för dem som berörs, och beslut ska kunna förstås och följas upp. Vi vill skapa en kultur där frågor, invändningar och olika perspektiv välkomnas.
+        </p>
+        <p>
+          Transparens innebär inte att all personlig information ska vara offentlig. Människors integritet ska respekteras även i en öppen gemenskap.
+        </p>
+      </section>
+
+      <section class="princip" aria-labelledby="princip-6">
+        <h3 id="princip-6">6. Delaktighet och rättvist inflytande</h3>
+        <p>
+          Människor som berörs av beslut ska ha rimliga möjligheter att förstå, påverka och komma till tals.
+        </p>
+        <p>
+          Inflytande, ansvar och befogenheter ska vara tydliga. Vi ska inte utgå från att den som bidrar med mest pengar automatiskt ska bestämma mest i alla frågor, eller att alla ska ha samma beslutsrätt oavsett roll och ansvar.
+        </p>
+        <p>
+          Vi vill utveckla beslutsformer som bygger på dialog, tydliga mandat och strävan efter lösningar som gruppen kan ställa sig bakom. Oenighet ska kunna hanteras konstruktivt.
+        </p>
+      </section>
+
+      <section class="princip" aria-labelledby="princip-7">
+        <h3 id="princip-7">7. Olika sätt att delta och höra till</h3>
+        <p>
+          Byn ska kunna rymma människor med olika ekonomiska förutsättningar, livssituationer och ambitionsnivåer.
+        </p>
+        <p>
+          Det ska kunna finnas olika sätt att bo, hyra, investera, arbeta, driva verksamhet eller delta under kortare perioder. Alla behöver inte vilja samma sak eller vara lika engagerade i alla delar av byn.
+        </p>
+        <p>
+          Samtidigt ska det vara tydligt vilka rättigheter, skyldigheter, kostnader och möjligheter till inflytande som följer med olika former av deltagande.
+        </p>
+      </section>
+
+      <section class="princip" aria-labelledby="princip-8">
+        <h3 id="princip-8">8. Långsiktighet, lärande och utveckling</h3>
+        <p>
+          Vi vill bygga en plats som kan utvecklas över tid utan att tappa riktningen eller bli beroende av att enskilda personer bär hela projektet.
+        </p>
+        <p>
+          Vi ska våga prova idéer, lära av erfarenheter och ompröva lösningar som inte fungerar. Förändringar ska ske med respekt för gemensamma åtaganden, ekonomisk stabilitet och de människor som berörs.
+        </p>
+        <p>
+          Vi behöver inte ha alla svar från början, men vi ska vara tydliga med våra principer, lära tillsammans och ta ansvar för konsekvenserna av våra beslut.
+        </p>
+      </section>
+    </section>
+
+    <nav class="doc-nav" aria-label="Navigering arbetsyta">
+      <a href="/arbetsyta/" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Tillbaka till arbetsytan
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .arbetsyta-doc {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .doc-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-status {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .doc-status--utkast {
+    background: var(--coral-light);
+    color: #7a3d20;
+    border: 1px solid var(--coral);
+  }
+
+  .doc-date {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-lead {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .doc-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .doc-section h2 {
+    font-size: var(--text-2xl);
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .doc-section h3 {
+    font-size: var(--text-lg);
+    color: var(--deep-forest);
+    margin-top: 0;
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-section p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .princip {
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .princip:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .princip p:last-child {
+    margin-bottom: 0;
+  }
+
+  .doc-nav {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .doc-nav .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
