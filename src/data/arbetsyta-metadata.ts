@@ -33,11 +33,19 @@ export const OFFMARKET_SENAST_ANDRAD = '2026-09-14';
 export const EKONOMI_SENAST_ANDRAD = '2026-09-18';
 export const IDEER_SENAST_ANDRAD = '2026-09-18';
 export const KAPITAL_DETALJ_SENAST_ANDRAD = '2026-09-15';
-export const MOTEN_SENAST_ANDRAD = '2026-10-18';
+export const MOTEN_SENAST_ANDRAD = '2026-11-01';
+export const VISION_SENAST_ANDRAD = '2026-11-01';
 export const EKOBYAR_SENAST_ANDRAD = '2026-10-07';
 export const STUDIEBESOK_SENAST_ANDRAD = '2026-10-27';
 
 export const arbetsytaSektioner: ArbetsytaSektion[] = [
+  {
+    href: '/arbetsyta/vision/',
+    titel: 'Vision och principer',
+    beskrivning: 'Utkast till gemensam vision och åtta principer, sammanställt 1 november 2026.',
+    status: 'utkast',
+    senastAndrad: VISION_SENAST_ANDRAD,
+  },
   {
     href: '/arbetsyta/moten/',
     titel: 'Mötesanteckningar',
